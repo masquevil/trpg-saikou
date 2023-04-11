@@ -17,7 +17,7 @@ const stories: Story[] = [
   [StoryNames.大幕山, '2003', '中国', [4, 6]],
   [StoryNames.死亡铭刻, '2010s', '日本', [4, 6]],
   [StoryNames.普罗维登斯的阴霾, '1920s', '美国', [4, 5]],
-  [StoryNames.不夜城的苍白之巅, '2010s', '日本', [4, 6]],
+  [StoryNames.不夜城的苍白之颜, '2010s', '日本', [4, 6]],
   [StoryNames.不息的渴望, '1920s', '英国', [4, 6]],
   [StoryNames.海月之下, '1923', '中国-天津', [4, 6]],
   [StoryNames.飞越疯人院, '1920s', '美国-阿卡姆', [4, 6], { inactive: true }],
