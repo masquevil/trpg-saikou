@@ -29,4 +29,6 @@ coverage
 
 # local modification
 
+src/local
+src/local/
 src/local/*
