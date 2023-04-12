@@ -31,17 +31,22 @@ function parseDecade(decadeString: string) {
   const decadeInt = parseInt(decadeString);
   let decade, decadeYear, decadeText;
   if (Number.isNaN(decadeInt)) {
-    // 现代
+    // 文本
     decadeText = decadeString;
-  } else if (`${decadeInt}` === decadeString) {
+    if (decadeString === '现代') {
+      // 粗略的按照 2020 计算
+      decadeYear = 2020;
+      decade = '2020s';
+    }
+  } else if (`${decadeInt}` !== decadeString) {
     // 1920s, NNNNs
-    decade = `${decadeString.slice(0, -1)}0s`;
+    decade = `${decadeString.slice(0, -2)}0s`;
     decadeText = decade;
   } else {
     // 具体年份，如 2003
-    decade = `${Math.floor(decadeInt / 10) * 10}s`;
+    decade = `${decadeString.slice(0, -1)}0s`;
     decadeYear = decadeInt;
-    decadeText = decade;
+    decadeText = `${decadeInt}`;
   }
   return { decade, decadeYear, decadeText };
 }

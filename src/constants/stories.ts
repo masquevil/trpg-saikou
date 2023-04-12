@@ -48,7 +48,7 @@ const stories: Story[] = [
   [StoryNames.挖掘死去之神, '1939', '非洲', [4, 6], { secret: true }],
   [StoryNames.我的妹妹想让你受点苦, '未知', '未知', [5, 6], { special: true }],
   // 其它店铺
-  [StoryNames.夏日怪谈, '1980', '美国', [3, 6], { welcome: true, store: '沉世-上海' }]
+  [StoryNames.夏日怪谈, '1980s', '美国', [3, 6], { welcome: true, store: '沉世-上海' }]
 ];
 
 export default stories;
