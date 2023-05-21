@@ -5,6 +5,7 @@ import type StoryNames from './name';
  * @field secret 是否秘密团
  * @field special 是否特殊规则
  * @field inactive 是否暂时下架
+ * @field removed 是否永久下架
  * @field store 来自哪个店铺，默认听枫馆
  */
 export interface StoryOptions {
@@ -12,6 +13,7 @@ export interface StoryOptions {
   secret?: boolean;
   special?: boolean;
   inactive?: boolean;
+  removed?: boolean;
   store?: string;
 }
 /** [模组名, 年代, 国家-城市/..., 时长, 属性] */
@@ -32,13 +34,4 @@ export interface FormattedStory {
   period: Period,
   periodText: string;
   options?: StoryOptions,
-}
-
-/**
- * [模组名, 想玩程度 1-5 (越大越想玩), 是否玩过]
- */
-export type StoryUserData = [StoryNames, number?, boolean?];
-export interface FormattedStoryUserData {
-  prefer?: number; // 我想玩的 1 - 5，越大越想玩
-  isPlayed?: boolean; // 是否玩过
 }

@@ -1,7 +1,7 @@
 import StoryNames from '../types/name';
-import type { StoryUserData } from '../types/story';
+import type { Record } from '../types/record';
 
-const myUserData: StoryUserData[] = [
+const myUserData: Record[] = [
   // [StoryNames.湖之仆从, 1, true],
   // ……
 ];

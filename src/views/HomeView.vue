@@ -1,132 +1,43 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
+import PeriodLabel from '@/components/PeriodLabel.vue';
 
 // types & constants
-import type StoryNames from '../types/name';
-import type { Story, Period, FormattedStory, StoryUserData, FormattedStoryUserData } from '../types/story';
-import type { Experience, FormattedExperience } from '../types/userData';
-import stories from '../constants/stories';
-import myUserData from '../local/userData';
-import myExperiences from '../local/experiences';
+import type { Period, FormattedStory } from '../types/story';
+import type { FormattedRecord } from '../types/record';
+import type { FormattedExperience } from '../types/experience';
+import stories, { periodTexts } from '../models/story';
+import records from '../models/record';
+import experiences from '../models/experience';
 
 interface listItem {
   story: FormattedStory,
-  myUserData?: FormattedStoryUserData,
+  record?: FormattedRecord,
   experience?: FormattedExperience,
 }
 
-/* story handlers */
-const periodTexts = {
-  short: '短篇',
-  medium: '中篇',
-  long: '长篇',
-  battle: '战役',
-};
-const periodOrder: Period[] = ['short', 'medium', 'long', 'battle'];
-function periodLabelClass(period: Period, isWelcome?: boolean) {
-  return `period-label-${isWelcome ? 'welcome' : period}`;
-}
-
-function parseDecade(decadeString: string) {
-  const decadeInt = parseInt(decadeString);
-  let decade, decadeYear, decadeText;
-  if (Number.isNaN(decadeInt)) {
-    // 文本
-    decadeText = decadeString;
-    if (decadeString === '现代') {
-      // 粗略的按照 2020 计算
-      decadeYear = 2020;
-      decade = '2020s';
-    }
-  } else if (`${decadeInt}` !== decadeString) {
-    // 1920s, NNNNs
-    decade = `${decadeString.slice(0, -2)}0s`;
-    decadeText = decade;
-  } else {
-    // 具体年份，如 2003
-    decade = `${decadeString.slice(0, -1)}0s`;
-    decadeYear = decadeInt;
-    decadeText = `${decadeInt}`;
-  }
-  return { decade, decadeYear, decadeText };
-}
-
-function parseArea(areaString: string) {
-  return areaString.split('/').map(area => ({
-    country: area.split('-')[0],
-    city: area.split('-')[1],
-  }))
-}
-
-function formatStory(story: Story): FormattedStory {
-  const [name, decadeString, areaString, playTime, options] = story;
-
-  const max = playTime[1];
-  const period: Period = max <= 6 ? 'short' : max <= 10 ? 'medium' : max <= 50 ? 'long' : 'battle';
-  const periodText = periodTexts[period];
-
-  return {
-    name,
-    decade: parseDecade(decadeString),
-    area: parseArea(areaString),
-    playTime,
-    period,
-    periodText: options?.welcome ? '入门' : periodText,
-    options,
-  };
-}
-
-/* story user data handlers */
-function formatStoryUserData(data: StoryUserData): [StoryNames, FormattedStoryUserData] {
-  const [name, prefer, isPlayed] = data;
-
-  return [
-    name,
-    {
-      prefer,
-      isPlayed,
-    }
-  ];
-}
-const myFormattedDataMap = new Map(myUserData.map(formatStoryUserData));
-
-/* experience handlers */
-function formatExperienceEntry(experience: Experience): [StoryNames, FormattedExperience] {
-  const [name, experienceScore, storyScore, comments] = experience;
-
-  return [
-    name,
-    {
-      experienceScore,
-      storyScore,
-      comments,
-    }
-  ];
-}
-const myFormattedExperiencesMap = new Map(myExperiences.map(formatExperienceEntry));
-
 /* list handlers */
 function getListMapper() {
-  return (story: Story): listItem => {
-    const formattedStory = formatStory(story);
-    const { name } = formattedStory;
-    const experience = myFormattedExperiencesMap.get(name);
-    const myUserData = myFormattedDataMap.get(name);
+  return (story: FormattedStory): listItem => {
+    const { name } = story;
+    const experience = experiences.get(name);
+    const record = records.get(name);
     return {
-      story: formattedStory,
+      story,
       experience,
-      myUserData,
+      record,
     };
   };
 }
 
+const periodOrder: Period[] = ['short', 'medium', 'long', 'battle'];
 // 排序逻辑: 玩过 - 倾向 - 时长 - 年代 - 年份 - 国家
 function sortList(list: listItem[]) {
   const sorters: ((a: listItem, b: listItem) => number)[] = [
     // 玩过的，靠前
-    (a, b) => Number(b.myUserData?.isPlayed || false) - Number(a.myUserData?.isPlayed || false),
+    (a, b) => Number(b.record?.isPlayed || false) - Number(a.record?.isPlayed || false),
     // 更想玩的，靠前
-    (a, b) => (b.myUserData?.prefer || 0) - (a.myUserData?.prefer || 0),
+    (a, b) => (b.record?.prefer || 0) - (a.record?.prefer || 0),
     // 时间短的，靠前
     (a, b) => periodOrder.indexOf(a.story.period) - periodOrder.indexOf(b.story.period),
     // 年代早的，靠前；同年代，按具体时间排序，没有具体时间的靠后
@@ -150,7 +61,9 @@ function sortList(list: listItem[]) {
       return (a.story.area[0].city || '') > (b.story.area[0].city || '') ? -1 : 1;
     },
   ];
-  const sorttedList = [...list].filter((item: listItem) => !item.story.options?.inactive);
+  const sorttedList = [...list]
+    .filter((item: listItem) => !item.story.options?.inactive)
+    .filter((item: listItem) => !item.story.options?.removed);
   sorters.reverse().forEach(sorter => sorttedList.sort(sorter));
   return sorttedList;
 }
@@ -185,9 +98,9 @@ function onPeriodChange(newPeriod: Period | '') {
 }
 
 const computedList = computed(() => {
-  return list.filter(({ story, myUserData }) => {
+  return list.filter(({ story, record }) => {
     const { showPlayed, showWelcome, period, decade, country } = filters.value;
-    if (!showPlayed && myUserData?.isPlayed) return false;
+    if (!showPlayed && record?.isPlayed) return false;
     if (!showWelcome && story.options?.welcome) return false;
     if (period.size > 0 && !period.has(story.period)) return false;
     if (decade && !story.decade.decade?.startsWith(decade)) return false;
@@ -199,7 +112,10 @@ const computedList = computed(() => {
 
 <template>
   <main class="page">
-    <h1 class="title">听枫馆打卡记录</h1>
+    <div class="header">
+      <h1 class="title">听枫馆打卡记录</h1>
+      <RouterLink to="/self">我的记录</RouterLink>
+    </div>
     <div class="filter-section">
       <select v-model="filters.showPlayed" class="filter-control">
         <option :value="1">显示玩过的</option>
@@ -216,15 +132,13 @@ const computedList = computed(() => {
           <option v-for="option in periodOptions" :key="option[0]" :value="option[0]">{{ option[1] }}</option>
         </select>
         <div class="filter-multi-values">
-          <div
+          <PeriodLabel 
             v-for="selectedPeriod in periodOrder.filter(p => filters.period.has(p))"
             :key="selectedPeriod"
-            class="period-label period-label-filter-value"
-            :class="periodLabelClass(selectedPeriod)"
+            class="period-label-filter-value"
+            :period="selectedPeriod" 
             @click="filters.period.delete(selectedPeriod)"
-          >
-            {{ periodTexts[selectedPeriod] }}
-          </div>
+          />
         </div>
       </div>
       <select v-model="filters.decade" class="filter-control">
@@ -244,20 +158,15 @@ const computedList = computed(() => {
       </select>
     </div>
     <div class="list">
-      <div class="item" v-for="{ story, myUserData, experience } in computedList" :key="story.name">
+      <div class="item" v-for="{ story, record, experience } in computedList" :key="story.name">
         <div class="item-mark">
-          <input type="checkbox" :checked="myUserData?.isPlayed">
+          <input type="checkbox" :checked="record?.isPlayed">
         </div>
         <div class="item-name">
-          <div
-            class="period-label"
-            :class="periodLabelClass(story.period, story.options?.welcome)"
-          >
-            {{ story.periodText }}
-          </div>
+          <PeriodLabel :period="story.period" :welcome="story.options?.welcome" />
           <span>{{ story.name }}{{ story.options?.store ? ` (${story.options.store})` : '' }}</span>
-          <span class="prefer-label" v-if="myUserData?.prefer">
-            <span v-for="(_, i) in Array.from({ length: myUserData.prefer })" :key="i">♡</span>
+          <span class="prefer-label" v-if="record?.prefer">
+            <span v-for="(_, i) in Array.from({ length: record.prefer })" :key="i">♡</span>
           </span>
           <div class="item-comments-container" v-if="experience">
             <div class="item-comments-icon">📝</div>
@@ -284,34 +193,16 @@ const computedList = computed(() => {
   width: 960px;
   font-size: 16px;
 }
+.header { 
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 24px;
+}
 .title {
   font-size: 22px;
   color: var(--color-heading);
-  margin-bottom: 24px;
-}
-.period-label {
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 14px;
-  line-height: 14px;
-  color: var(--period-text-color, #eee);
-  background-color: var(--period-label-color, #666);
-
-  &-welcome {
-    --period-label-color: #468;
-  }
-  &-short {
-    --period-label-color: #486;
-  }
-  &-medium {
-    --period-label-color: #873;
-  }
-  &-long {
-    --period-label-color: #855;
-  }
-  &-battle {
-    --period-label-color: #733;
-  }
+  margin: 0;
 }
 .period-label-filter-value {
   cursor: pointer;
@@ -365,17 +256,13 @@ const computedList = computed(() => {
   flex: 1 0 auto;
   display: flex;
   align-items: center;
-}
-.item-name .period-label {
-  margin-right: 8px;
+  gap: 8px;
 }
 .prefer-label {
-  margin-left: 4px;
   font-size: 12px;
 }
 .item-comments-container {
   position: relative;
-  margin-left: 8px;
 }
 .item-comments-panel {
   position: absolute;
