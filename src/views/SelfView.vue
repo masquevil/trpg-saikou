@@ -3,12 +3,11 @@ import { ref, computed } from 'vue';
 import PeriodLabel from '@/components/PeriodLabel.vue';
 
 // types & constants
-import type { Period, FormattedStory } from '../types/story';
-import type { FormattedRecord } from '../types/record';
-import type { FormattedExperience } from '../types/experience';
 import stories, { periodTexts } from '../models/story';
 import records from '../models/record';
 import experiences from '../models/experience';
+
+const privateMode = ref(false);
 
 const list = stories.map((story) => ({
   story,
@@ -50,6 +49,10 @@ const playedList = list
       <div class="section section-played">
         <div class="section-header">
           <h1 class="section-title">我玩过的</h1>
+          <label>
+            <input type="checkbox" v-model="privateMode">
+            隐藏主观评价
+          </label>
         </div>
         <div>
           <div 
@@ -60,10 +63,10 @@ const playedList = list
             <div class="played-card-header">
               <PeriodLabel :period="story.period" :welcome="story.options?.welcome" />
               <span class="played-card-name">{{ story.name }}</span>
-              <span>体验评分: {{ experience?.experienceScore }}</span>
+              <span>体验评分: {{ !privateMode ? experience?.experienceScore : '*' }}</span>
               <span>模组评分: {{ experience?.storyScore }}</span>
             </div>
-            <div>{{ experience?.comments }}</div>
+            <div>{{ !privateMode ? experience?.comments : Array.from({ length: experience?.comments.length || 0 }).map(() => "*").join('') }}</div>
           </div>
         </div>
       </div>
