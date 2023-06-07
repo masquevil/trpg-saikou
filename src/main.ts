@@ -4,11 +4,13 @@ import ElementPlus from 'element-plus';
 import 'element-plus/dist/index.css';
 
 import router from './router';
+import lean from './plugins/lean';
 import './assets/main.css';
 
 const app = createApp(App);
 
 app.use(ElementPlus);
 app.use(router);
+app.use(lean);
 
 app.mount('#app');

@@ -14,6 +14,7 @@
   "dependencies": {
     "element-plus": "^2.3.1",
     "element-ui": "^2.15.13",
+    "leancloud-storage": "^4.15.0",
     "sass": "^1.59.2",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6"
