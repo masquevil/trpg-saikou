@@ -1,5 +1,5 @@
-import type { Story, Period, FormattedStory } from '../types/story';
-import stories from '../constants/stories';
+import type { Story, Period, FormattedStory } from '@/types/story';
+import stories from '@/constants/stories';
 
 /* story handlers */
 export const periodTexts: Record<Period, string> = {
@@ -34,17 +34,18 @@ function parseDecade(decadeString: string) {
 }
 
 function parseArea(areaString: string) {
-  return areaString.split('/').map(area => ({
+  return areaString.split('/').map((area) => ({
     country: area.split('-')[0],
     city: area.split('-')[1],
-  }))
+  }));
 }
 
 function formatStory(story: Story): FormattedStory {
   const [name, decadeString, areaString, playTime, options] = story;
 
   const max = playTime[1];
-  const period: Period = max <= 6 ? 'short' : max <= 10 ? 'medium' : max <= 50 ? 'long' : 'battle';
+  const period: Period =
+    max <= 6 ? 'short' : max <= 10 ? 'medium' : max <= 50 ? 'long' : 'battle';
   const periodText = periodTexts[period];
 
   return {

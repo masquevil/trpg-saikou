@@ -1,6 +1,6 @@
-import type StoryNames from '../types/name';
-import type { Record, FormattedRecord } from '../types/record';
-import myUserData from '../local/record';
+import type StoryNames from '@/types/name';
+import type { Record, FormattedRecord } from '@/types/record';
+import myUserData from '@/local/record';
 
 /* story user data handlers */
 function formatStoryUserData(data: Record): [StoryNames, FormattedRecord] {
@@ -11,7 +11,7 @@ function formatStoryUserData(data: Record): [StoryNames, FormattedRecord] {
     {
       prefer,
       isPlayed,
-    }
+    },
   ];
 }
 
