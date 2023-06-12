@@ -1,18 +1,27 @@
 <script setup lang="ts">
-import { ref, reactive } from 'vue';
+import { ref } from 'vue';
 
 interface Props {
   label: string;
   hint?: string;
   placeholder?: string;
   char?: number;
+  modelValue?: string;
 }
 const props = withDefaults(defineProps<Props>(), {
   char: 5,
+  modelValue: '',
 });
-const { label, hint, placeholder, char } = reactive(props);
+
+interface Emits {
+  (event: 'update:modelValue', modelValue: string): void;
+  (event: 'focus', modelValue: string): void;
+  (event: 'blur', modelValue: string): void;
+}
+defineEmits<Emits>();
+
 const inputStyle = ref({
-  width: `${char}em`,
+  width: `${props.char}em`,
 });
 </script>
 
@@ -21,7 +30,18 @@ const inputStyle = ref({
     <div class="label">
       {{ label }}
     </div>
-    <input type="text" class="input" :style="inputStyle" :placeholder="placeholder" />
+    <input
+      type="text"
+      class="input"
+      :style="inputStyle"
+      :placeholder="placeholder"
+      :value="modelValue"
+      @input="
+        $emit('update:modelValue', ($event.target as HTMLInputElement).value)
+      "
+      @focus="$emit('focus')"
+      @blur="$emit('blur')"
+    />
   </div>
 </template>
 
@@ -44,9 +64,11 @@ const inputStyle = ref({
   border-bottom: 1px solid var(--color-line);
   padding: 0.2em;
   font-size: 1em;
+}
 
-  &::placeholder {
-    color: #bbb;
+@media print {
+  .input {
+    text-align: center;
   }
 }
 </style>

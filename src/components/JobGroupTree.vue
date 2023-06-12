@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
 
-interface Props {
+export interface Props {
   tree: {
     label: string;
     key?: string;
@@ -11,17 +11,24 @@ interface Props {
     }[];
   }[];
 }
-const props = defineProps<Props>();
-const { tree } = reactive(props);
+defineProps<Props>();
 </script>
 
 <template>
   <div class="flatten-tree">
-    <div class="group" v-for="group in tree" :key="group.key || group.label">
+    <div
+      class="group"
+      v-for="group in tree"
+      :key="group.key || group.label"
+    >
       <div class="group-label">{{ group.label }}</div>
       <div class="options">
-        <a class="option" v-for="child in group.children" :key="child.key || child.label">
-          <div>{{ child.label }}</div>
+        <a
+          class="option"
+          v-for="child in group.children"
+          :key="child.key || child.label"
+        >
+          {{ child.label }}
         </a>
       </div>
     </div>
@@ -50,7 +57,7 @@ const { tree } = reactive(props);
 }
 
 .group-label {
-  flex: 0 0 5em;
+  flex: 0 0 4.8em;
   color: var(--color-group-label);
   font-size: 0.8em;
   line-height: 2.25em;

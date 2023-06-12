@@ -1,0 +1,12 @@
+.slide-up-enter-active,
+.slide-up-leave-active {
+  opacity: 1;
+  overflow: hidden;
+  transition: all .5s ease;
+}
+.slide-up-enter-from,
+.slide-up-leave-to {
+  transform: translateY(100vh);
+  opacity: 0;
+}
+

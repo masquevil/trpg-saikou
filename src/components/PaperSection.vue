@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import { reactive } from 'vue';
-
 interface Props {
-  title: string;
+  title?: string;
   subTitle?: string;
   centered?: boolean;
 }
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   centered: true,
 });
-const { title, subTitle, centered } = reactive(props);
 </script>
 
 <template>
   <div class="paper-section">
-    <div class="header" :class="{
-      'header-centered': centered,
-    }">
+    <div
+      class="header"
+      :class="{
+        'header-centered': centered,
+      }"
+    >
       <slot name="header">
         <h1 class="heading">
           <span class="title">{{ title }}</span>
@@ -36,7 +36,6 @@ const { title, subTitle, centered } = reactive(props);
 }
 
 .header {
-  padding: 0.4em 0.8em;
   display: flex;
   color: white;
   background-color: var(--color-black);
@@ -45,19 +44,21 @@ const { title, subTitle, centered } = reactive(props);
     justify-content: center;
   }
 }
-
 .heading {
+  padding: 0.4em 0.8em;
   line-height: 1;
   display: flex;
   gap: 0.4em;
   align-items: baseline;
 }
-
 .title {
   font-size: 1.15em;
 }
-
 .subtitle {
   font-size: 0.9em;
+}
+
+.body {
+  flex: 1;
 }
 </style>

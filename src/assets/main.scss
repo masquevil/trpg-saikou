@@ -1,4 +1,9 @@
 @import './base.scss';
+@import './animate.scss';
+
+::placeholder {
+  color: #bbb;
+}
 
 body {
   min-height: 100vh;
@@ -14,7 +19,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-input {
+input, button {
   appearance: none;
   outline: none;
   border: none;
@@ -35,3 +40,13 @@ a {
   }
 }
 
+.rel {
+  position: relative;
+}
+
+.row {
+  display: flex;
+}
+.col-0 {
+  flex: 1;
+}
