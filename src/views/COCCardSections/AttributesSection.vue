@@ -25,48 +25,61 @@ function generate() {
   >
     <div class="info-section">
       <div class="attributes-group">
-        <div>🎲 3D6×5</div>
+        <div class="dice-hint">🎲 3D6×5</div>
         <WritableRow
           label="力量"
+          hint="STR"
           :modelValue="`${pc.attributes.str ?? ''}`"
           @update:modelValue="(newValue) => (pc!.attributes.str = +newValue)"
         />
         <WritableRow
           label="体质"
+          hint="CON"
           :modelValue="`${pc.attributes.con ?? ''}`"
           @update:modelValue="(newValue) => (pc!.attributes.con = +newValue)"
         />
         <WritableRow
           label="敏捷"
+          hint="DEX"
           :modelValue="`${pc.attributes.dex ?? ''}`"
           @update:modelValue="(newValue) => (pc!.attributes.dex = +newValue)"
         />
         <WritableRow
           label="外貌"
+          hint="APP"
           :modelValue="`${pc.attributes.app ?? ''}`"
           @update:modelValue="(newValue) => (pc!.attributes.app = +newValue)"
         />
         <WritableRow
           label="意志"
+          hint="POW"
           :modelValue="`${pc.attributes.pow ?? ''}`"
           @update:modelValue="(newValue) => (pc!.attributes.pow = +newValue)"
         />
       </div>
       <div class="divider"></div>
       <div class="attributes-group">
-        <div>🎲 (2D6+6)×5</div>
+        <div
+          class="dice-hint"
+          style="margin-left: 1em"
+        >
+          🎲 (2D6+6)×5
+        </div>
         <WritableRow
           label="体型"
+          hint="SIZ"
           :modelValue="`${pc.attributes.siz ?? ''}`"
           @update:modelValue="(newValue) => (pc!.attributes.siz = +newValue)"
         />
         <WritableRow
           label="教育"
+          hint="知识 EDU"
           :modelValue="`${pc.attributes.edu ?? ''}`"
           @update:modelValue="(newValue) => (pc!.attributes.edu = +newValue)"
         />
         <WritableRow
           label="智力"
+          hint="灵感 INT"
           :modelValue="`${pc.attributes.int ?? ''}`"
           @update:modelValue="(newValue) => (pc!.attributes.int = +newValue)"
         />
@@ -86,7 +99,7 @@ function generate() {
 <style scoped lang="scss">
 .info-section {
   display: flex;
-  padding: 0.4em 0.6em 0.6em;
+  padding: 0.4em 0.6em 0.3em;
   gap: 0.8em;
 }
 .divider {
@@ -96,6 +109,14 @@ function generate() {
   display: flex;
   flex-direction: column;
   gap: 0.2em;
+
+  & :deep(.label) {
+    flex: 1 1 2.8em;
+  }
+}
+.dice-hint {
+  font-size: 0.8em;
+  margin: 0 0 0.1em 0.6em;
 }
 .attributes-actions {
   flex: 1;

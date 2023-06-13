@@ -112,25 +112,21 @@ const jobTree = computed(() => {
       <div class="row">
         <WritableRow
           label="年龄"
-          :char="6"
           v-model="pc.age"
           @focus="closeJobSelector"
         />
         <WritableRow
           label="性别"
-          :char="6"
           v-model="pc.gender"
         />
       </div>
       <div class="row">
         <WritableRow
           label="住地"
-          :char="6"
           v-model="pc.location"
         />
         <WritableRow
           label="故乡"
-          :char="6"
           v-model="pc.hometown"
         />
       </div>
@@ -145,8 +141,10 @@ const jobTree = computed(() => {
 }
 
 .info-section {
+  flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 0.2em;
   padding: 0.4em 0.6em 0.6em;
 }

@@ -26,9 +26,18 @@ const inputStyle = ref({
 </script>
 
 <template>
-  <div class="writable-row">
+  <div
+    class="writable-row"
+    :class="{ 'writable-row-with-hint': !!hint }"
+  >
     <div class="label">
-      {{ label }}
+      <div class="label-title">{{ label }}</div>
+      <div
+        v-if="hint"
+        class="label-hint"
+      >
+        {{ hint }}
+      </div>
     </div>
     <input
       type="text"
@@ -54,9 +63,22 @@ const inputStyle = ref({
 
   --color-line: #b2b2b2;
 }
+.writable-row-with-hint {
+  & .input {
+    margin-bottom: 0.24em;
+  }
+}
 
 .label {
-  padding-bottom: 0.2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.label-title {
+  padding-bottom: 0.1em;
+}
+.label-hint {
+  font-size: 0.6em;
 }
 
 .input {

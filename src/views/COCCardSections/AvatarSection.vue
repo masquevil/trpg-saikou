@@ -11,8 +11,8 @@ import { getImageSize } from '@/utils/image';
 // models
 import type { COCPlayerCharacter } from '@/models/coc/character';
 
-const WIDTH = 128 * 2;
-const HEIGHT = 168 * 2;
+const WIDTH = 132 * 2;
+const HEIGHT = 176 * 2;
 
 const pc = inject<COCPlayerCharacter>('pc');
 
@@ -64,7 +64,7 @@ async function handleUpload(event: Event) {
 <style scoped lang="scss">
 .avatar-section {
   position: relative;
-  width: 10.6em;
+  width: 10.94em;
   border: 1px solid var(--color-black);
   padding: 1em;
   cursor: pointer;

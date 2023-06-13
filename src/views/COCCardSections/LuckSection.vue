@@ -49,6 +49,7 @@ const pc = inject<COCPlayerCharacter>('pc');
 .qr-section {
   flex: 1;
   display: flex;
+  flex-direction: row;
 }
 .qr-section-header {
   word-break: break-all;
@@ -64,8 +65,8 @@ const pc = inject<COCPlayerCharacter>('pc');
   justify-content: center;
 }
 .qr-code {
-  width: 8.2em;
-  height: 8.2em;
+  width: 9em;
+  height: 9em;
   border: 1px solid var(--color-border);
 }
 </style>

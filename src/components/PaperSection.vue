@@ -32,6 +32,8 @@ withDefaults(defineProps<Props>(), {
 
 <style scoped lang="scss">
 .paper-section {
+  display: flex;
+  flex-direction: column;
   border: 1px solid var(--color-black);
 }
 
@@ -60,5 +62,7 @@ withDefaults(defineProps<Props>(), {
 
 .body {
   flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 </style>

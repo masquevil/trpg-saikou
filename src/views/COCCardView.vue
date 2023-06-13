@@ -10,6 +10,7 @@ import InvestigatorSection from './COCCardSections/InvestigatorSection.vue';
 import AttributesSection from './COCCardSections/AttributesSection.vue';
 import LuckSection from './COCCardSections/LuckSection.vue';
 import AvatarSection from './COCCardSections/AvatarSection.vue';
+import ComputedSections from './COCCardSections/ComputedSections.vue';
 
 const { jobs, jobGroups } = formattedJobs;
 const pc = reactive<COCPlayerCharacter>(createPC());
@@ -20,12 +21,13 @@ provide('pc', pc);
 <template>
   <main class="page theme-light">
     <div class="paper">
-      <div class="row section-row">
+      <div class="section-row">
         <InvestigatorSection />
         <AttributesSection />
         <LuckSection class="col-0" />
         <AvatarSection />
       </div>
+      <ComputedSections />
     </div>
   </main>
 </template>
@@ -48,6 +50,7 @@ provide('pc', pc);
 }
 
 .section-row {
+  display: flex;
   gap: 1em;
   align-items: stretch;
 }
