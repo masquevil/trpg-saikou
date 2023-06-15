@@ -14,20 +14,20 @@ import formattedJobs from '@/models/coc/job';
 
 const { jobs, jobGroups } = formattedJobs;
 
-const isJobInputFocus = ref(false);
+// const isJobInputFocus = ref(false);
 const isJobSeletorShowing = ref(false);
 const jobSearchInput = ref('');
 const pc = inject<COCPlayerCharacter>('pc');
 
 function openJobSelector() {
-  isJobInputFocus.value = true;
+  // isJobInputFocus.value = true;
   isJobSeletorShowing.value = true;
 }
 function closeJobSelector() {
   isJobSeletorShowing.value = false;
 }
 watch(
-  () => isJobInputFocus.value || isJobSeletorShowing.value,
+  () => isJobSeletorShowing.value,
   () => {
     jobSearchInput.value = '';
   }
@@ -79,7 +79,6 @@ const jobTree = computed(() => {
       <WritableRow
         label="时代"
         v-model="pc.time"
-        @focus="closeJobSelector"
       />
       <div
         class="rel"
@@ -90,11 +89,10 @@ const jobTree = computed(() => {
           v-model="pc.job"
           placeholder="自定义职业或选择预设职业"
           @focus="openJobSelector"
-          @blur="isJobInputFocus = false"
         />
         <Transition name="slide-up">
           <div
-            v-if="isJobInputFocus || isJobSeletorShowing"
+            v-if="isJobSeletorShowing"
             class="job-selector"
           >
             <div class="job-selector-header">
@@ -113,7 +111,6 @@ const jobTree = computed(() => {
         <WritableRow
           label="年龄"
           v-model="pc.age"
-          @focus="closeJobSelector"
         />
         <WritableRow
           label="性别"
@@ -151,8 +148,8 @@ const jobTree = computed(() => {
 
 .job-selector {
   position: absolute;
-  width: calc(210mm - 2em);
-  left: -2em;
+  width: calc(65.625em - 2em); // 210mm - 2em
+  left: -1.6em;
   margin-top: 1em;
   border: 1px solid #777;
   padding: 1em;

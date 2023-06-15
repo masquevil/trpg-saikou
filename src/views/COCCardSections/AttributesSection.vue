@@ -7,6 +7,7 @@ import WritableRow from '@/components/WritableRow.vue';
 
 // models
 import { generateRandomAttributes } from '@/models/coc/attribute';
+import type { COCAttributesKey } from '@/models/coc/attribute';
 import type { COCPlayerCharacter } from '@/models/coc/character';
 
 const pc = inject<COCPlayerCharacter>('pc');
@@ -14,6 +15,11 @@ const pc = inject<COCPlayerCharacter>('pc');
 function generate() {
   if (!pc) return;
   pc.attributes = generateRandomAttributes(Number(pc.age));
+}
+
+function updateAttr(key: COCAttributesKey, value: string) {
+  if (!pc) return;
+  pc.attributes[key] = value ? +value : undefined;
 }
 </script>
 
@@ -30,31 +36,31 @@ function generate() {
           label="力量"
           hint="STR"
           :modelValue="`${pc.attributes.str ?? ''}`"
-          @update:modelValue="(newValue) => (pc!.attributes.str = +newValue)"
+          @update:modelValue="(newValue) => updateAttr('str', newValue)"
         />
         <WritableRow
           label="体质"
           hint="CON"
           :modelValue="`${pc.attributes.con ?? ''}`"
-          @update:modelValue="(newValue) => (pc!.attributes.con = +newValue)"
+          @update:modelValue="(newValue) => updateAttr('con', newValue)"
         />
         <WritableRow
           label="敏捷"
           hint="DEX"
           :modelValue="`${pc.attributes.dex ?? ''}`"
-          @update:modelValue="(newValue) => (pc!.attributes.dex = +newValue)"
+          @update:modelValue="(newValue) => updateAttr('dex', newValue)"
         />
         <WritableRow
           label="外貌"
           hint="APP"
           :modelValue="`${pc.attributes.app ?? ''}`"
-          @update:modelValue="(newValue) => (pc!.attributes.app = +newValue)"
+          @update:modelValue="(newValue) => updateAttr('app', newValue)"
         />
         <WritableRow
           label="意志"
           hint="POW"
           :modelValue="`${pc.attributes.pow ?? ''}`"
-          @update:modelValue="(newValue) => (pc!.attributes.pow = +newValue)"
+          @update:modelValue="(newValue) => updateAttr('pow', newValue)"
         />
       </div>
       <div class="divider"></div>
@@ -69,19 +75,19 @@ function generate() {
           label="体型"
           hint="SIZ"
           :modelValue="`${pc.attributes.siz ?? ''}`"
-          @update:modelValue="(newValue) => (pc!.attributes.siz = +newValue)"
+          @update:modelValue="(newValue) => updateAttr('siz', newValue)"
         />
         <WritableRow
           label="教育"
           hint="知识 EDU"
           :modelValue="`${pc.attributes.edu ?? ''}`"
-          @update:modelValue="(newValue) => (pc!.attributes.edu = +newValue)"
+          @update:modelValue="(newValue) => updateAttr('edu', newValue)"
         />
         <WritableRow
           label="智力"
           hint="灵感 INT"
           :modelValue="`${pc.attributes.int ?? ''}`"
-          @update:modelValue="(newValue) => (pc!.attributes.int = +newValue)"
+          @update:modelValue="(newValue) => updateAttr('int', newValue)"
         />
         <div class="attributes-actions">
           <button

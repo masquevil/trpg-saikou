@@ -1,4 +1,4 @@
-import type { COCAttributes } from './attribute';
+import type { COCAttributes, COCDeriveAttributes } from './attribute';
 
 export interface COCPlayerCharacter {
   // basic infos
@@ -13,6 +13,8 @@ export interface COCPlayerCharacter {
   avatar?: string;
   // attributes
   attributes: Partial<COCAttributes>;
+  // deriveAttributes
+  deriveAttributes?: COCDeriveAttributes;
 }
 
 export function createPC(override?: Partial<COCPlayerCharacter>) {

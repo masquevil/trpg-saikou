@@ -1,11 +1,16 @@
 <script setup lang="ts">
 interface Props {
   label: string;
-  value?: string;
+  modelValue?: string;
 }
 withDefaults(defineProps<Props>(), {
-  value: '',
+  modelValue: '',
 });
+
+interface Emits {
+  (event: 'update:modelValue', modelValue: string): void;
+}
+defineEmits<Emits>();
 </script>
 
 <template>
@@ -14,8 +19,10 @@ withDefaults(defineProps<Props>(), {
     <input
       type="text"
       class="input"
-      :value="value"
-      readonly
+      :value="modelValue"
+      @input="
+        $emit('update:modelValue', ($event.target as HTMLInputElement).value)
+      "
     />
   </div>
 </template>

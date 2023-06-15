@@ -7,20 +7,18 @@ import WritableDivider from '@/components/WritableDivider.vue';
 import StatusCheckbox from '@/components/StatusCheckbox.vue';
 // models
 import type { COCPlayerCharacter } from '@/models/coc/character';
+import type { COCDeriveAttributes } from '@/models/coc/attribute';
 
 const pc = inject<COCPlayerCharacter>('pc');
 
-const sanInit = computed(() => pc?.attributes.pow);
-// TODO
-const sanMax = computed(() => (pc?.attributes.pow ? 99 : undefined));
-const HPMax = computed(() => {
-  const { con, siz } = reactive(pc?.attributes || {});
-  if (con && siz) return Math.floor((con + siz) / 10);
-  return undefined;
-});
-const MPMax = computed(() =>
-  pc?.attributes.pow ? pc?.attributes.pow / 5 : undefined
-);
+function updateAttr(
+  key: keyof COCDeriveAttributes,
+  cKey: 'now' | 'max' | 'start',
+  value: string
+): void {
+  if (!pc || !pc.deriveAttributes) return;
+  pc.deriveAttributes[key][cKey as 'now' | 'max'] = value ? value : undefined;
+}
 </script>
 
 <template>
@@ -33,16 +31,22 @@ const MPMax = computed(() =>
       subTitle="Sanity"
     >
       <div class="units-section">
-        <WritableUnit label="当前理智" />
+        <WritableUnit
+          label="当前理智"
+          :modelValue="`${pc.deriveAttributes?.sanity?.now ?? ''}`"
+          @update:modelValue="(val) => updateAttr('sanity', 'now', val)"
+        />
         <WritableDivider />
         <WritableUnit
           label="起始理智"
-          :value="`${sanInit ?? ''}`"
+          :modelValue="`${pc.deriveAttributes?.sanity?.start ?? ''}`"
+          @update:modelValue="(val) => updateAttr('sanity', 'start', val)"
         />
         <WritableDivider />
         <WritableUnit
           label="最大理智"
-          :value="`${sanMax ?? ''}`"
+          :modelValue="`${pc.deriveAttributes?.sanity?.max ?? ''}`"
+          @update:modelValue="(val) => updateAttr('sanity', 'max', val)"
         />
       </div>
     </PaperSection>
@@ -51,11 +55,16 @@ const MPMax = computed(() =>
       subTitle="HP"
     >
       <div class="units-section">
-        <WritableUnit label="当前生命" />
+        <WritableUnit
+          label="当前生命"
+          :modelValue="`${pc.deriveAttributes?.hp?.now ?? ''}`"
+          @update:modelValue="(val) => updateAttr('hp', 'now', val)"
+        />
         <WritableDivider />
         <WritableUnit
           label="最大生命"
-          :value="`${HPMax ?? ''}`"
+          :modelValue="`${pc.deriveAttributes?.hp?.max ?? ''}`"
+          @update:modelValue="(val) => updateAttr('hp', 'max', val)"
         />
       </div>
     </PaperSection>
@@ -64,11 +73,16 @@ const MPMax = computed(() =>
       subTitle="MP"
     >
       <div class="units-section">
-        <WritableUnit label="当前魔法" />
+        <WritableUnit
+          label="当前魔法"
+          :modelValue="`${pc.deriveAttributes?.mp?.now ?? ''}`"
+          @update:modelValue="(val) => updateAttr('mp', 'now', val)"
+        />
         <WritableDivider />
         <WritableUnit
           label="最大魔法"
-          :value="`${MPMax ?? ''}`"
+          :modelValue="`${pc.deriveAttributes?.mp?.max ?? ''}`"
+          @update:modelValue="(val) => updateAttr('mp', 'max', val)"
         />
       </div>
     </PaperSection>
@@ -95,7 +109,7 @@ const MPMax = computed(() =>
 
 <style scoped lang="scss">
 .computed-sections {
-  margin-top: 1em;
+  margin-top: 0.6em;
   display: flex;
   gap: 1em;
   align-items: stretch;
@@ -113,10 +127,10 @@ const MPMax = computed(() =>
   color: var(--color-black);
 
   & > .status-checkbox {
-    background-color: #f5f5f5;
+    background-color: hsl(0, 0%, 96%);
     &:nth-child(2),
     &:nth-child(3) {
-      background-color: #ddd;
+      background-color: hsl(0, 0%, 88%);
     }
   }
 }
@@ -134,11 +148,5 @@ const MPMax = computed(() =>
       background-color: #ddd;
     }
   }
-}
-
-@media print {
-  /* .avatar-placeholder {
-    display: none;
-  } */
 }
 </style>

@@ -12,6 +12,22 @@ export interface COCAttributes {
   luc: number;
 }
 
+export interface COCDeriveAttributes {
+  sanity: {
+    now?: string;
+    start?: string;
+    max?: string;
+  };
+  hp: {
+    now?: string;
+    max?: string;
+  };
+  mp: {
+    now?: string;
+    max?: string;
+  };
+}
+
 export type COCAttributesKey = keyof COCAttributes;
 
 const normalAttrs: COCAttributesKey[] = ['str', 'dex', 'con', 'app', 'pow'];

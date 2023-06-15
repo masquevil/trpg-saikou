@@ -19,7 +19,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-input, button {
+input, button, th, td {
   appearance: none;
   outline: none;
   border: none;
@@ -28,6 +28,10 @@ input, button {
 
 a {
   text-decoration: none;
+}
+
+table {
+  border-collapse: collapse;
 }
 
 .link {
