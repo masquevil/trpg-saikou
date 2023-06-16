@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, inject } from 'vue';
+import { reactive, computed, inject } from 'vue';
 import type { ChildSkill } from '@/types/coc-card/skill';
 import type { SkillGroup, SkillGroups } from '@/types/coc-card/formattedSkill';
 import type { COCCardViewData } from '@/types/coc-card/viewData';
@@ -79,7 +79,7 @@ function getTableData(data: SkillGroups) {
   return tableData;
 }
 
-const tableData = ref(getTableData(props.data));
+const tableData = computed(() => getTableData(props.data));
 const specialRowsJump = computed(() => {
   const count = tableData.value.filter((row) => row.isSpecialGroup).length;
   return count ? count + 1 : 0;
