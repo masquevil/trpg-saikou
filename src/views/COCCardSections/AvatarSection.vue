@@ -9,7 +9,7 @@ import {
 import { getImageSize } from '@/utils/image';
 
 // models
-import type { COCPlayerCharacter } from '@/models/coc-card/character';
+import type { COCPlayerCharacter } from '@/types/coc-card/character';
 
 const WIDTH = 132 * 2;
 const HEIGHT = 176 * 2;

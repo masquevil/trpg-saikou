@@ -9,7 +9,7 @@ import JobGroupTree from '@/components/coc-card/JobGroupTree.vue';
 import type { Props as JobGroupTreeProps } from '@/components/coc-card/JobGroupTree.vue';
 
 // models
-import type { COCPlayerCharacter } from '@/models/coc-card/character';
+import type { COCPlayerCharacter } from '@/types/coc-card/character';
 import formattedJobs from '@/models/coc-card/job';
 
 const { jobs, jobGroups } = formattedJobs;

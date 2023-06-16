@@ -1,21 +1,4 @@
-import type { COCAttributes, COCDeriveAttributes } from './attribute';
-
-export interface COCPlayerCharacter {
-  // basic infos
-  name: string;
-  playerName: string;
-  time: string;
-  job: string;
-  age: string;
-  gender: string;
-  location: string;
-  hometown: string;
-  avatar?: string;
-  // attributes
-  attributes: Partial<COCAttributes>;
-  // deriveAttributes
-  deriveAttributes?: COCDeriveAttributes;
-}
+import type { COCPlayerCharacter } from '@/types/coc-card/character';
 
 export function createPC(override?: Partial<COCPlayerCharacter>) {
   return {

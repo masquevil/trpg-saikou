@@ -6,8 +6,10 @@ import WritableUnit from '@/components/coc-card/WritableUnit.vue';
 import WritableDivider from '@/components/coc-card/WritableDivider.vue';
 import StatusCheckbox from '@/components/coc-card/StatusCheckbox.vue';
 // models
-import type { COCPlayerCharacter } from '@/models/coc-card/character';
-import type { COCDeriveAttributes } from '@/models/coc-card/attribute';
+import type {
+  COCPlayerCharacter,
+  COCDeriveAttributes,
+} from '@/types/coc-card/character';
 
 const pc = inject<COCPlayerCharacter>('pc');
 

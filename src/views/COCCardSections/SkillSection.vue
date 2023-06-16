@@ -4,7 +4,8 @@ import { inject, computed, reactive } from 'vue';
 import PaperSection from '@/components/coc-card/PaperSection.vue';
 import SkillTable from '@/components/coc-card/SkillTable.vue';
 // models
-import type { COCPlayerCharacter } from '@/models/coc-card/character';
+import type { COCPlayerCharacter } from '@/types/coc-card/character';
+
 import { skillGroups } from '@/models/coc-card/skill';
 
 const pc = inject<COCPlayerCharacter>('pc');

@@ -4,8 +4,10 @@ import { reactive, provide, watch } from 'vue';
 import formattedJobs from '@/models/coc-card/job';
 import { createPC } from '@/models/coc-card/character';
 
-import type { COCPlayerCharacter } from '@/models/coc-card/character';
-import type { COCDeriveAttributes } from '@/models/coc-card/attribute';
+import type {
+  COCPlayerCharacter,
+  COCDeriveAttributes,
+} from '@/types/coc-card/character';
 
 import InvestigatorSection from './COCCardSections/InvestigatorSection.vue';
 import AttributesSection from './COCCardSections/AttributesSection.vue';

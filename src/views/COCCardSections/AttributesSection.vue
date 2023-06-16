@@ -7,8 +7,10 @@ import WritableRow from '@/components/coc-card/WritableRow.vue';
 
 // models
 import { generateRandomAttributes } from '@/models/coc-card/attribute';
-import type { COCAttributesKey } from '@/models/coc-card/attribute';
-import type { COCPlayerCharacter } from '@/models/coc-card/character';
+import type {
+  COCPlayerCharacter,
+  COCAttributesKey,
+} from '@/types/coc-card/character';
 
 const pc = inject<COCPlayerCharacter>('pc');
 

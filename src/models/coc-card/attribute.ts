@@ -1,34 +1,9 @@
 import { throwDice, growPoint } from '@/utils/coc';
 
-export interface COCAttributes {
-  str: number;
-  dex: number;
-  con: number;
-  app: number;
-  pow: number;
-  siz: number;
-  edu: number;
-  int: number;
-  luc: number;
-}
-
-export interface COCDeriveAttributes {
-  sanity: {
-    now?: string;
-    start?: string;
-    max?: string;
-  };
-  hp: {
-    now?: string;
-    max?: string;
-  };
-  mp: {
-    now?: string;
-    max?: string;
-  };
-}
-
-export type COCAttributesKey = keyof COCAttributes;
+import type {
+  COCAttributes,
+  COCAttributesKey,
+} from '@/types/coc-card/character';
 
 const normalAttrs: COCAttributesKey[] = ['str', 'dex', 'con', 'app', 'pow'];
 const higherAttrs: COCAttributesKey[] = ['siz', 'edu', 'int'];

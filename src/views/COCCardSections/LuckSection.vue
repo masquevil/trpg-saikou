@@ -6,7 +6,7 @@ import PaperSection from '@/components/coc-card/PaperSection.vue';
 import WritableRow from '@/components/coc-card/WritableRow.vue';
 
 // models
-import type { COCPlayerCharacter } from '@/models/coc-card/character';
+import type { COCPlayerCharacter } from '@/types/coc-card/character';
 
 const pc = inject<COCPlayerCharacter>('pc');
 </script>
