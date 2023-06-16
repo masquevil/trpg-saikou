@@ -1,20 +1,22 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import type { ChildSkill } from '@/types/coc/skill';
+import { ref, inject } from 'vue';
 import vClickOutside from '@/directives/clickOutside';
+import type { ChildSkill } from '@/types/coc-card/skill';
+import type { COCCardViewData } from '@/types/coc-card/viewData';
 
 import SkillTdCheckbox from './SkillTdCheckbox.vue';
 
 interface Props {
   skillName: string;
-  isChildSkill?: boolean;
-  childSkillName?: string;
-  childSkillList?: ChildSkill[];
+  childSkillData?: {
+    name: string;
+    place: number;
+    list?: ChildSkill[];
+  };
 }
-const props = withDefaults(defineProps<Props>(), {
-  isChildSkill: false,
-  childSkillName: '',
-});
+const props = defineProps<Props>();
+
+const viewData = inject<COCCardViewData>('viewData');
 
 interface Emits {
   (event: 'selectChildSkill', childSkill: ChildSkill): void;
@@ -22,10 +24,14 @@ interface Emits {
 const emit = defineEmits<Emits>();
 
 const isOptionsShowing = ref(false);
-const localChildSkillName = ref(props.childSkillName);
+const currentData = viewData?.showingChildSkills.get(props.skillName);
 
+function updateCurrentData(value: string) {
+  if (!props.childSkillData || !currentData) return;
+  currentData[props.childSkillData.place] = value;
+}
 function selectChildSkill(childSkill: ChildSkill) {
-  localChildSkillName.value = childSkill.name;
+  updateCurrentData(childSkill.name);
   emit('selectChildSkill', childSkill);
   isOptionsShowing.value = false;
 }
@@ -36,7 +42,7 @@ function selectChildSkill(childSkill: ChildSkill) {
     <SkillTdCheckbox />
     <div>{{ skillName }}</div>
     <div
-      v-if="isChildSkill"
+      v-if="!!childSkillData"
       class="child-skill-display"
     >
       <div v-if="skillName">:</div>
@@ -46,18 +52,24 @@ function selectChildSkill(childSkill: ChildSkill) {
       >
         <input
           class="child-skill-input"
-          v-model="localChildSkillName"
+          :value="currentData?.[childSkillData.place]"
+          @input="updateCurrentData(($event.target as HTMLInputElement).value)"
           @focus="isOptionsShowing = true"
         />
         <div
           class="child-skill-options"
-          v-if="childSkillList?.length"
+          v-if="childSkillData.list?.length"
           v-show="isOptionsShowing"
         >
           <div
-            v-for="childSkill in childSkillList"
+            v-for="childSkill in childSkillData.list"
             :key="childSkill.name"
             class="child-skill-option"
+            :class="{
+              'child-skill-option-existed': currentData?.includes(
+                childSkill.name
+              ),
+            }"
             @click="selectChildSkill(childSkill)"
           >
             {{ childSkill.name }}
@@ -148,7 +160,13 @@ function selectChildSkill(childSkill: ChildSkill) {
   padding: 0 0.4em;
   cursor: pointer;
   &:hover {
+    opacity: 1;
     background-color: var(--color-background-mute);
   }
+}
+.child-skill-option-existed {
+  opacity: 0.8;
+  background-color: var(--color-background-mute);
+  color: var(--color-line);
 }
 </style>

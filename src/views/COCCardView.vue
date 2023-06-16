@@ -3,11 +3,10 @@ import { reactive, provide, watch } from 'vue';
 
 import formattedJobs from '@/models/coc-card/job';
 import { createPC } from '@/models/coc-card/character';
+import { skills } from '@/constants/coc-card/skill';
 
-import type {
-  COCPlayerCharacter,
-  COCDeriveAttributes,
-} from '@/types/coc-card/character';
+import type { COCPlayerCharacter } from '@/types/coc-card/character';
+import type { COCCardViewData } from '@/types/coc-card/viewData';
 
 import InvestigatorSection from './COCCardSections/InvestigatorSection.vue';
 import AttributesSection from './COCCardSections/AttributesSection.vue';
@@ -18,8 +17,14 @@ import SkillSection from './COCCardSections/SkillSection.vue';
 
 const { jobs, jobGroups } = formattedJobs;
 const pc = reactive<COCPlayerCharacter>(createPC());
+const viewData = reactive<COCCardViewData>({
+  showingChildSkills: new Map(),
+});
 
-provide('pc', pc);
+skills.forEach((skill) => {
+  if (!skill.group) return;
+  viewData.showingChildSkills.set(skill.name, [...skill.group.show]);
+});
 
 watch(
   () => pc.attributes,
@@ -46,6 +51,9 @@ watch(
   },
   { deep: true }
 );
+
+provide('pc', pc);
+provide('viewData', viewData);
 </script>
 
 <template>

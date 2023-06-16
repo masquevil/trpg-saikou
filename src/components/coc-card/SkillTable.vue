@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, ref, inject } from 'vue';
 import type { ChildSkill } from '@/types/coc-card/skill';
 import type { SkillGroup, SkillGroups } from '@/types/coc-card/formattedSkill';
+import type { COCCardViewData } from '@/types/coc-card/viewData';
 
 import SkillTdLabel from './SkillTdLabel.vue';
 
@@ -9,6 +10,8 @@ interface Props {
   data: SkillGroups;
 }
 const props = defineProps<Props>();
+
+const viewData = inject<COCCardViewData>('viewData');
 
 interface TableRowData {
   isGroupStart?: boolean;
@@ -18,9 +21,11 @@ interface TableRowData {
   groupIndex: number;
   skillName: string;
   init: number;
-  isChildSkill?: boolean;
-  childSkillName?: string;
-  childSkillList?: ChildSkill[];
+  childSkillData?: {
+    name: string;
+    place: number;
+    list?: ChildSkill[];
+  };
 }
 
 function getTableData(data: SkillGroups) {
@@ -46,15 +51,22 @@ function getTableData(data: SkillGroups) {
           const groupRow =
             resultRows.find((row) => row.isGroupStart) || rowData;
           groupRow.groupSize! += length - 1;
-          added = skill.group.show.map((childSkillIndex, childIndex) => {
-            const childSkill = skill.group?.skills[childSkillIndex];
+          added = skill.group.show.map((placeName, childIndex) => {
+            const childSkillName =
+              viewData?.showingChildSkills.get(skill.name)?.[childIndex] ??
+              placeName;
+            const childSkill = skill.group?.skills.find(
+              ({ name }) => name === childSkillName
+            );
             return {
               ...rowData,
               isGroupStart: childIndex ? false : rowData.isGroupStart,
-              isChildSkill: true,
-              childSkillName: childSkill?.name ?? '',
               init: childSkill?.init ?? rowData.init,
-              childSkillList: skill.group?.skills,
+              childSkillData: {
+                name: childSkillName,
+                place: childIndex,
+                list: skill.group?.skills,
+              },
             };
           });
         }
@@ -123,9 +135,7 @@ const specialRowsJump = computed(() => {
         >
           <SkillTdLabel
             :skillName="row.skillName"
-            :isChildSkill="row.isChildSkill"
-            :childSkillName="row.childSkillName"
-            :childSkillList="row.childSkillList"
+            :childSkillData="row.childSkillData"
           />
         </td>
         <td
