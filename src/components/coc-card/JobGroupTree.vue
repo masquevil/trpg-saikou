@@ -1,17 +1,22 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
 
+interface Item {
+  label: string;
+  key: string;
+}
+
 export interface Props {
-  tree: {
-    label: string;
-    key?: string;
-    children: {
-      label: string;
-      key?: string;
-    }[];
-  }[];
+  tree: (Item & {
+    children: Item[];
+  })[];
 }
 defineProps<Props>();
+
+interface Emits {
+  (event: 'select', item: Item, group: Item & { children: Item[] }): void;
+}
+defineEmits<Emits>();
 </script>
 
 <template>
@@ -19,14 +24,15 @@ defineProps<Props>();
     <div
       class="group"
       v-for="group in tree"
-      :key="group.key || group.label"
+      :key="group.key"
     >
       <div class="group-label">{{ group.label }}</div>
       <div class="options">
         <a
           class="option"
           v-for="child in group.children"
-          :key="child.key || child.label"
+          :key="child.key"
+          @click="$emit('select', child, group)"
         >
           {{ child.label }}
         </a>

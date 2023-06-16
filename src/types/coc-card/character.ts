@@ -11,8 +11,9 @@ export interface COCPlayerCharacter {
   avatar?: string;
   // attributes
   attributes: Partial<COCAttributes>;
-  // deriveAttributes
   deriveAttributes?: COCDeriveAttributes;
+  // 技能名 | 技能名, 子技能名, 子技能位置
+  proSkills: COCPCProSkill[];
 }
 
 export interface COCAttributes {
@@ -26,6 +27,8 @@ export interface COCAttributes {
   int: number;
   luc: number;
 }
+
+export type COCAttributesKey = keyof COCAttributes;
 
 export interface COCDeriveAttributes {
   sanity: {
@@ -43,4 +46,4 @@ export interface COCDeriveAttributes {
   };
 }
 
-export type COCAttributesKey = keyof COCAttributes;
+export type COCPCProSkill = string | [string, string, number];

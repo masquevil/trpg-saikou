@@ -45,13 +45,14 @@ const jobTree = computed(() => {
         job.name.includes(filterText) ||
         job.pinyin.includes(filterText)
       ) {
-        result.push({ label: job.name });
+        result.push({ label: job.name, key: job.name });
       }
       return result;
-    }, [] as { label: string }[]);
+    }, [] as { label: string; key: string }[]);
     if (filteredChildren.length) {
       result.push({
         label: groupName,
+        key: groupName,
         children: filteredChildren,
       });
     }
@@ -59,6 +60,12 @@ const jobTree = computed(() => {
   }, [] as JobGroupTreeProps['tree']);
   return filteredData;
 });
+
+function onSelectJob(jobName: string) {
+  if (!pc) return;
+  pc.job = jobName;
+  closeJobSelector();
+}
 </script>
 
 <template>
@@ -103,7 +110,10 @@ const jobTree = computed(() => {
                 v-model="jobSearchInput"
               />
             </div>
-            <JobGroupTree :tree="jobTree"></JobGroupTree>
+            <JobGroupTree
+              :tree="jobTree"
+              @select="(item) => onSelectJob(item.label)"
+            ></JobGroupTree>
           </div>
         </Transition>
       </div>

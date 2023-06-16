@@ -1,15 +1,23 @@
 <script setup lang="ts">
-interface Props {}
-// const props = withDefaults(defineProps<Props>(), {
-//   isChildSkill: false,
-//   childSkillName: '',
-// });
+interface Props {
+  checked?: boolean;
+}
+withDefaults(defineProps<Props>(), {
+  checked: false,
+});
+
+interface Emits {
+  (event: 'change', value: boolean): void;
+}
+defineEmits<Emits>();
 </script>
 
 <template>
   <input
     type="checkbox"
     class="skill-td-checkbox"
+    :checked="checked"
+    @change="$emit('change', ($event.target as HTMLInputElement).checked)"
   />
 </template>
 

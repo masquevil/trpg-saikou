@@ -21,18 +21,21 @@ const viewData = reactive<COCCardViewData>({
   showingChildSkills: new Map(),
 });
 
-skills.forEach((skill) => {
-  if (!skill.group) return;
-  viewData.showingChildSkills.set(skill.name, [...skill.group.show]);
-});
+function resetShowingChildSkills() {
+  skills.forEach((skill) => {
+    if (!skill.group) return;
+    viewData.showingChildSkills.set(skill.name, [...skill.group.show]);
+  });
+}
+resetShowingChildSkills();
 
+// calculate attributes
 watch(
   () => pc.attributes,
   () => {
     let HPMax = '';
     let MPMax = '';
     const { con, siz, pow } = pc?.attributes || {};
-    console.log('xxx 1');
     if (con && siz) HPMax = `${Math.floor((con + siz) / 10)}`;
     if (pow) MPMax = `${pow / 5}`;
     pc.deriveAttributes = {
@@ -52,8 +55,46 @@ watch(
   { deep: true }
 );
 
+// calculate pro skills
+watch(
+  () => pc.job,
+  () => {
+    const job = jobs.get(pc.job);
+    if (job?.skills) {
+      viewData.jobSkills = [...job.skills];
+      resetShowingChildSkills();
+      pc.proSkills = [];
+      job.skills.forEach((skillKey) => {
+        // 普通技能
+        if (typeof skillKey === 'string') {
+          pc.proSkills.push(skillKey);
+        } else if (Array.isArray(skillKey)) {
+          // 多选技能，暂时不管
+        } else {
+          // 二级技能
+          const [skillName, childSkillName] = Object.entries(skillKey)[0];
+          // set view data (suggested child skill names)
+          const currentData = viewData.showingChildSkills.get(skillName);
+          if (!currentData) return;
+          const cIndex = currentData.findIndex(
+            (cName) => cName === childSkillName || !cName
+          );
+          if (cIndex === -1) return;
+          currentData[cIndex] = childSkillName;
+          // set pc data
+          pc.proSkills.push([skillName, childSkillName, cIndex]);
+        }
+      });
+      delete viewData.jobSkills;
+    }
+  }
+);
+
 provide('pc', pc);
 provide('viewData', viewData);
+
+// @ts-expect-error
+window.xx = { pc, viewData };
 </script>
 
 <template>
@@ -80,6 +121,7 @@ provide('viewData', viewData);
 
 .paper {
   --base-size: 4.8mm; // 3.2mm * 1.5
+  /* --base-size: 3.2mm; // 3.2mm * 1.5 */
   font-size: var(--base-size);
   box-sizing: border-box;
   width: 65.625em; // 210mm * 1.5

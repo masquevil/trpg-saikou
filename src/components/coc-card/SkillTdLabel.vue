@@ -1,8 +1,12 @@
 <script setup lang="ts">
-import { ref, inject } from 'vue';
+import { ref, inject, computed } from 'vue';
 import vClickOutside from '@/directives/clickOutside';
 import type { ChildSkill } from '@/types/coc-card/skill';
 import type { COCCardViewData } from '@/types/coc-card/viewData';
+import type {
+  COCPlayerCharacter,
+  COCPCProSkill,
+} from '@/types/coc-card/character';
 
 import SkillTdCheckbox from './SkillTdCheckbox.vue';
 
@@ -16,6 +20,7 @@ interface Props {
 }
 const props = defineProps<Props>();
 
+const pc = inject<COCPlayerCharacter>('pc');
 const viewData = inject<COCCardViewData>('viewData');
 
 interface Emits {
@@ -24,22 +29,104 @@ interface Emits {
 const emit = defineEmits<Emits>();
 
 const isOptionsShowing = ref(false);
-const currentData = viewData?.showingChildSkills.get(props.skillName);
+const currentData = computed(() =>
+  viewData?.showingChildSkills.get(props.skillName)
+);
+// select skill as pro (checkbox)
+const proInfo = computed(() => {
+  const result = {
+    isProSkill: false,
+    proSkillIndex: -1,
+  };
+  if (!pc || !viewData) return result;
+
+  result.isProSkill = pc.proSkills.some((skillInfo) => {
+    // 二级技能
+    if (typeof skillInfo !== 'string') {
+      const [skillName, childSkillName] = skillInfo;
+      if (
+        skillName !== props.skillName ||
+        childSkillName !== props.childSkillData?.name
+      ) {
+        return false;
+      }
+      // 计算 proSkillIndex
+      const showingChildSkills = viewData.showingChildSkills.get(
+        props.skillName
+      )!;
+      let skip = showingChildSkills
+        .slice(0, props.childSkillData.place + 1)
+        .reduce((count, childSkillName) => {
+          return (
+            count + (childSkillName === props.childSkillData?.name ? 1 : 0)
+          );
+        }, 0);
+      result.proSkillIndex = pc.proSkills.findIndex((skillInfo) => {
+        if (typeof skillInfo === 'string') return false;
+        const [skillName, childSkillName] = skillInfo;
+        if (
+          skillName === props.skillName &&
+          childSkillName === props.childSkillData?.name
+        )
+          skip--;
+        return skip <= 0;
+      });
+      return result.proSkillIndex > -1;
+    }
+    // 基础技能
+    return skillInfo === props.skillName;
+  });
+
+  return result;
+});
 
 function updateCurrentData(value: string) {
-  if (!props.childSkillData || !currentData) return;
-  currentData[props.childSkillData.place] = value;
+  if (!props.childSkillData || !currentData.value) return;
+  // update pro data
+  if (proInfo.value.isProSkill && pc) {
+    const skillInfo = pc.proSkills[proInfo.value.proSkillIndex];
+    if (typeof skillInfo === 'string') return;
+    skillInfo[1] = value;
+  }
+  // update view data
+  currentData.value[props.childSkillData.place] = value;
 }
 function selectChildSkill(childSkill: ChildSkill) {
   updateCurrentData(childSkill.name);
   emit('selectChildSkill', childSkill);
   isOptionsShowing.value = false;
 }
+
+function changeProSkill(value: boolean) {
+  if (!pc) return;
+  if (value) {
+    let skillInfo: COCPCProSkill = props.skillName;
+    if (props.childSkillData)
+      skillInfo = [
+        props.skillName,
+        props.childSkillData.name,
+        props.childSkillData.place,
+      ];
+    pc.proSkills.push(skillInfo);
+  } else {
+    pc.proSkills = pc.proSkills.filter((skillInfo) => {
+      if (!props.childSkillData) return skillInfo !== props.skillName;
+      const [skillName, _, childSkillPlace] = skillInfo;
+      return (
+        skillName !== props.skillName ||
+        childSkillPlace !== props.childSkillData.place
+      );
+    });
+  }
+}
 </script>
 
 <template>
   <div class="skill-td-label">
-    <SkillTdCheckbox />
+    <SkillTdCheckbox
+      :checked="proInfo.isProSkill"
+      @change="changeProSkill"
+    />
     <div>{{ skillName }}</div>
     <div
       v-if="!!childSkillData"

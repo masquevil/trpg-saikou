@@ -115,13 +115,15 @@ const specialRowsJump = computed(() => {
           class="skill-td td-group-name"
           :class="{
             'td-group-name-visible': !row.isSpecialGroup,
-            'td-color-1':
-              (row.isSpecialGroup ? index : row.groupIndex + specialRowsJump) %
-              2,
-            'td-color-2':
-              ((row.isSpecialGroup ? index : row.groupIndex + specialRowsJump) +
-                1) %
-              2,
+            'td-color-1': row.isSpecialGroup && index % 2,
+            'td-color-2': row.isSpecialGroup && (index + 1) % 2,
+            // 'td-color-1':
+            //   (row.isSpecialGroup ? index : row.groupIndex + specialRowsJump) %
+            //   2,
+            // 'td-color-2':
+            //   ((row.isSpecialGroup ? index : row.groupIndex + specialRowsJump) +
+            //     1) %
+            //   2,
           }"
         >
           {{ row.isSpecialGroup ? '' : row.groupName }}

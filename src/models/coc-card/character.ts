@@ -1,6 +1,8 @@
 import type { COCPlayerCharacter } from '@/types/coc-card/character';
 
-export function createPC(override?: Partial<COCPlayerCharacter>) {
+export function createPC(
+  override?: Partial<COCPlayerCharacter>
+): COCPlayerCharacter {
   return {
     name: '',
     playerName: '',
@@ -11,6 +13,7 @@ export function createPC(override?: Partial<COCPlayerCharacter>) {
     location: '',
     hometown: '',
     attributes: {},
+    proSkills: [],
     ...override,
   };
 }
