@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import type { ChildSkill } from '@/types/COC/skill';
-import type { SkillGroup, SkillGroups } from '@/types/COC/formattedSkill';
+import type { ChildSkill } from '@/types/coc-card/skill';
+import type { SkillGroup, SkillGroups } from '@/types/coc-card/formattedSkill';
 
 import SkillTdLabel from './SkillTdLabel.vue';
 

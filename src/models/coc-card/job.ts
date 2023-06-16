@@ -1,8 +1,8 @@
-import type { JobGroup } from '@/types/COCMetaData/jobGroup';
-import type { Job } from '@/types/COC/job';
+import type { JobGroup } from '@/types/coc-card/jobGroup';
+import type { Job } from '@/types/coc-card/job';
 
-import { jobs } from '@/constants/COC/job';
-import { jobGroups } from '@/constants/COCMetaData/jobGroup';
+import { jobs } from '@/constants/coc-card/job';
+import { jobGroups } from '@/constants/coc-card/jobGroup';
 
 function formatJobs(jobs: Job[], jobGroups: JobGroup[]) {
   const jobsMap = new Map<string, Job>();

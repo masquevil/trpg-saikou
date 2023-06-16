@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { reactive, provide, watch } from 'vue';
 
-import formattedJobs from '@/models/coc/job';
-import { createPC } from '@/models/coc/character';
+import formattedJobs from '@/models/coc-card/job';
+import { createPC } from '@/models/coc-card/character';
 
-import type { COCPlayerCharacter } from '@/models/coc/character';
-import type { COCDeriveAttributes } from '@/models/coc/attribute';
+import type { COCPlayerCharacter } from '@/models/coc-card/character';
+import type { COCDeriveAttributes } from '@/models/coc-card/attribute';
 
 import InvestigatorSection from './COCCardSections/InvestigatorSection.vue';
 import AttributesSection from './COCCardSections/AttributesSection.vue';

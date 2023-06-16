@@ -1,12 +1,12 @@
-import type { SkillGroupName } from '@/types/COCMetaData/skillGroup';
-import type { Skill } from '@/types/COC/skill';
-import type { SkillGroups } from '@/types/COC/formattedSkill';
+import type { SkillGroupName } from '@/types/coc-card/skillGroup';
+import type { Skill } from '@/types/coc-card/skill';
+import type { SkillGroups } from '@/types/coc-card/formattedSkill';
 
-import { skills } from '@/constants/COC/skill';
+import { skills } from '@/constants/coc-card/skill';
 import {
   skillGroups as groups,
   skillGroupOrder,
-} from '@/constants/COCMetaData/skillGroup';
+} from '@/constants/coc-card/skillGroup';
 
 function getFormattedSkillGroups({
   skills,

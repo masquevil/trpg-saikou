@@ -2,11 +2,11 @@
 import { inject } from 'vue';
 
 // components
-import PaperSection from '@/components/PaperSection.vue';
-import WritableRow from '@/components/WritableRow.vue';
+import PaperSection from '@/components/coc-card/PaperSection.vue';
+import WritableRow from '@/components/coc-card/WritableRow.vue';
 
 // models
-import type { COCPlayerCharacter } from '@/models/coc/character';
+import type { COCPlayerCharacter } from '@/models/coc-card/character';
 
 const pc = inject<COCPlayerCharacter>('pc');
 </script>

@@ -1,4 +1,4 @@
-import type { Skill } from '../../types/COC/skill';
+import type { Skill } from '../../types/coc-card/skill';
 
 export const skills: Skill[] = [
   {

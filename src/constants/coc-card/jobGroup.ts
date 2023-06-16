@@ -1,4 +1,4 @@
-import type { JobGroup } from '@/types/COCMetaData/jobGroup';
+import type { JobGroup } from '@/types/coc-card/jobGroup';
 
 export const jobGroups: JobGroup[] = [
   [

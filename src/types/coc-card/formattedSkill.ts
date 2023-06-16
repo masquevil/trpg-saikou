@@ -1,5 +1,5 @@
 import type { Skill } from './skill';
-import type { SkillGroupName } from '../COCMetaData/skillGroup';
+import type { SkillGroupName } from './skillGroup';
 
 export interface SkillGroup {
   groupName: SkillGroupName;

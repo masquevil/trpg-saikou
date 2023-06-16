@@ -3,14 +3,14 @@ import { ref, computed, watch, inject } from 'vue';
 import vClickOutside from '@/directives/clickOutside';
 
 // components
-import PaperSection from '@/components/PaperSection.vue';
-import WritableRow from '@/components/WritableRow.vue';
-import JobGroupTree from '@/components/JobGroupTree.vue';
-import type { Props as JobGroupTreeProps } from '@/components/JobGroupTree.vue';
+import PaperSection from '@/components/coc-card/PaperSection.vue';
+import WritableRow from '@/components/coc-card/WritableRow.vue';
+import JobGroupTree from '@/components/coc-card/JobGroupTree.vue';
+import type { Props as JobGroupTreeProps } from '@/components/coc-card/JobGroupTree.vue';
 
 // models
-import type { COCPlayerCharacter } from '@/models/coc/character';
-import formattedJobs from '@/models/coc/job';
+import type { COCPlayerCharacter } from '@/models/coc-card/character';
+import formattedJobs from '@/models/coc-card/job';
 
 const { jobs, jobGroups } = formattedJobs;
 

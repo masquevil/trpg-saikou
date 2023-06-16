@@ -1,4 +1,4 @@
-import type { SkillGroupName } from '../../types/COCMetaData/skillGroup';
+import type { SkillGroupName } from '../../types/coc-card/skillGroup';
 
 export const skillGroups: Record<SkillGroupName, string[]> = {
   特殊: ['信用评级', '克苏鲁神话'],

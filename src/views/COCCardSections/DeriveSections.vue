@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { inject, computed, reactive } from 'vue';
 
-import PaperSection from '@/components/PaperSection.vue';
-import WritableUnit from '@/components/WritableUnit.vue';
-import WritableDivider from '@/components/WritableDivider.vue';
-import StatusCheckbox from '@/components/StatusCheckbox.vue';
+import PaperSection from '@/components/coc-card/PaperSection.vue';
+import WritableUnit from '@/components/coc-card/WritableUnit.vue';
+import WritableDivider from '@/components/coc-card/WritableDivider.vue';
+import StatusCheckbox from '@/components/coc-card/StatusCheckbox.vue';
 // models
-import type { COCPlayerCharacter } from '@/models/coc/character';
-import type { COCDeriveAttributes } from '@/models/coc/attribute';
+import type { COCPlayerCharacter } from '@/models/coc-card/character';
+import type { COCDeriveAttributes } from '@/models/coc-card/attribute';
 
 const pc = inject<COCPlayerCharacter>('pc');
 

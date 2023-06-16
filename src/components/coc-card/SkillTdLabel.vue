@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import type { ChildSkill } from '@/types/COC/skill';
+import type { ChildSkill } from '@/types/coc/skill';
 import vClickOutside from '@/directives/clickOutside';
 
 import SkillTdCheckbox from './SkillTdCheckbox.vue';

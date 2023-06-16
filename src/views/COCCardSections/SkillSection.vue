@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { inject, computed, reactive } from 'vue';
 
-import PaperSection from '@/components/PaperSection.vue';
-import SkillTable from '@/components/SkillTable.vue';
+import PaperSection from '@/components/coc-card/PaperSection.vue';
+import SkillTable from '@/components/coc-card/SkillTable.vue';
 // models
-import type { COCPlayerCharacter } from '@/models/coc/character';
-import { skillGroups } from '@/models/coc/skill';
+import type { COCPlayerCharacter } from '@/models/coc-card/character';
+import { skillGroups } from '@/models/coc-card/skill';
 
 const pc = inject<COCPlayerCharacter>('pc');
 </script>
