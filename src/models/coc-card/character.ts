@@ -14,7 +14,7 @@ export function createPC(
     hometown: '',
     attributes: {},
     proSkills: [],
-    // skillPoints: {},
+    skillPoints: [],
     ...override,
   };
 }

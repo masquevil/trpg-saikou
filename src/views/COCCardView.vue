@@ -64,6 +64,7 @@ watch(
       viewData.jobSkills = [...job.skills];
       resetShowingChildSkills();
       pc.proSkills = [];
+      const placedGroupSkill: Record<string, number> = {};
       job.skills.forEach((skillKey) => {
         // 普通技能
         if (typeof skillKey === 'string') {
@@ -76,11 +77,19 @@ watch(
           // set view data (suggested child skill names)
           const currentData = viewData.showingChildSkills.get(skillName);
           if (!currentData) return;
-          const cIndex = currentData.findIndex(
-            (cName) => cName === childSkillName || !cName
-          );
+          let cIndex = -1;
+          if (childSkillName) {
+            cIndex = currentData.findIndex((cName) => cName === childSkillName);
+          } else {
+            const count = placedGroupSkill[skillName] || 0;
+            let skip = count;
+            cIndex = currentData.findIndex((cName) => {
+              if (cName) return false;
+              return skip-- === 0;
+            });
+            placedGroupSkill[skillName] = count + 1;
+          }
           if (cIndex === -1) return;
-          currentData[cIndex] = childSkillName;
           // set pc data
           pc.proSkills.push([skillName, childSkillName, cIndex]);
         }

@@ -33,59 +33,34 @@ const currentData = computed(() =>
   viewData?.showingChildSkills.get(props.skillName)
 );
 // select skill as pro (checkbox)
-const proInfo = computed(() => {
-  const result = {
-    isProSkill: false,
-    proSkillIndex: -1,
-  };
-  if (!pc || !viewData) return result;
+const isProSkill = computed(() => {
+  if (!pc || !viewData) return false;
 
-  result.isProSkill = pc.proSkills.some((skillInfo) => {
-    // 二级技能
-    if (typeof skillInfo !== 'string') {
-      const [skillName, childSkillName] = skillInfo;
-      if (
-        skillName !== props.skillName ||
-        childSkillName !== props.childSkillData?.name
-      ) {
-        return false;
-      }
-      // 计算 proSkillIndex
-      const showingChildSkills = viewData.showingChildSkills.get(
-        props.skillName
-      )!;
-      let skip = showingChildSkills
-        .slice(0, props.childSkillData.place + 1)
-        .reduce((count, childSkillName) => {
-          return (
-            count + (childSkillName === props.childSkillData?.name ? 1 : 0)
-          );
-        }, 0);
-      result.proSkillIndex = pc.proSkills.findIndex((skillInfo) => {
-        if (typeof skillInfo === 'string') return false;
-        const [skillName, childSkillName] = skillInfo;
-        if (
-          skillName === props.skillName &&
-          childSkillName === props.childSkillData?.name
-        )
-          skip--;
-        return skip <= 0;
-      });
-      return result.proSkillIndex > -1;
-    }
+  return pc.proSkills.some((skillInfo) => {
     // 基础技能
-    return skillInfo === props.skillName;
+    if (typeof skillInfo === 'string') {
+      return skillInfo === props.skillName;
+    }
+    // 二级技能
+    const [skillName, _, childSkillPlace] = skillInfo;
+    return (
+      skillName === props.skillName &&
+      childSkillPlace === props.childSkillData?.place
+    );
   });
-
-  return result;
 });
 
 function updateCurrentData(value: string) {
   if (!props.childSkillData || !currentData.value) return;
   // update pro data
-  if (proInfo.value.isProSkill && pc) {
-    const skillInfo = pc.proSkills[proInfo.value.proSkillIndex];
-    if (typeof skillInfo === 'string') return;
+  if (isProSkill.value && pc) {
+    const skillInfo = pc.proSkills.find(([skillName, _, childSkillPlace]) => {
+      return (
+        skillName === props.skillName &&
+        childSkillPlace === props.childSkillData?.place
+      );
+    });
+    if (!skillInfo || typeof skillInfo === 'string') return;
     skillInfo[1] = value;
   }
   // update view data
@@ -124,7 +99,7 @@ function changeProSkill(value: boolean) {
 <template>
   <div class="skill-td-label">
     <SkillTdCheckbox
-      :checked="proInfo.isProSkill"
+      :checked="isProSkill"
       @change="changeProSkill"
     />
     <div>{{ skillName }}</div>

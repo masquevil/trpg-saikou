@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, reactive, ref } from 'vue';
+import { computed, inject } from 'vue';
 import type { ChildSkill } from '@/types/coc-card/skill';
 import type { SkillGroup, SkillGroups } from '@/types/coc-card/formattedSkill';
 import type { COCCardViewData } from '@/types/coc-card/viewData';
@@ -22,14 +22,20 @@ const pc = inject<COCPlayerCharacter>('pc');
 const viewData = inject<COCCardViewData>('viewData');
 
 interface TableRowData {
+  // group info (optional)
   isGroupStart?: boolean;
+  groupName?: string;
   groupSize?: number;
   isSpecialGroup?: boolean;
-  groupName?: string;
-  groupIndex: number;
+  // skill info
+  key: string;
   skillName: string;
+  skillKey: COCPCSkill;
   init: number;
   initPlaceholder?: string;
+  points: SkillPoint;
+  total: number;
+  // child skill info
   childSkillData?: {
     name: string;
     place: number;
@@ -39,7 +45,7 @@ interface TableRowData {
 
 function getTableData(data: SkillGroups) {
   const tableData = data.reduce<TableRowData[]>(
-    (result: any, skillGroup: SkillGroup, groupIndex: number) => {
+    (result: any, skillGroup: SkillGroup) => {
       const rows: TableRowData[] = skillGroup.groupSkills.reduce<
         TableRowData[]
       >((rows, skill, index) => {
@@ -48,22 +54,36 @@ function getTableData(data: SkillGroups) {
         if (pc && skill.name in dynamicInitFormulas) {
           init = dynamicInitFormulas[skill.name](pc);
         }
-        const rowData: TableRowData = {
-          isSpecialGroup,
-          isGroupStart: isSpecialGroup || index === 0,
-          groupSize: isSpecialGroup ? 1 : skillGroup.groupSkills.length,
-          groupName: skillGroup.groupName,
-          groupIndex,
+        const isGroupStart = isSpecialGroup || index === 0;
+        // simple skill row
+        const skillKey = skill.name;
+        const skillPoint = findSkillPoints(skillKey);
+        const points = skillPoint?.[1] || {};
+        let rowData: TableRowData = {
+          key: skill.name,
           skillName: skill.name,
+          skillKey: skill.name,
           init,
           initPlaceholder: skill.initPlaceholder,
+          points,
+          total: getTotal(points, init),
+          ...(isGroupStart
+            ? {
+                isGroupStart,
+                groupName: skillGroup.groupName,
+                groupSize: skillGroup.groupSkills.length,
+              }
+            : {}),
+          ...(isSpecialGroup ? { isSpecialGroup, groupSize: 1 } : {}),
         };
-        let resultRows = [...rows].reverse();
+        let resultRows: TableRowData[] = [...rows];
         let added = [rowData];
+        // multi skill rows
         if (skill.group) {
           const length = skill.group.show.length;
           const groupRow =
             resultRows.find((row) => row.isGroupStart) || rowData;
+          // increase groupSize
           groupRow.groupSize! += length - 1;
           added = skill.group.show.map((placeName, childIndex) => {
             const childSkillName =
@@ -72,10 +92,25 @@ function getTableData(data: SkillGroups) {
             const childSkill = skill.group?.skills.find(
               ({ name }) => name === childSkillName
             );
+            const init = childSkill?.init ?? rowData.init;
+            const skillKey: COCPCSkill = [
+              skill.name,
+              childSkillName,
+              childIndex,
+            ];
+            const skillPoint = findSkillPoints(skillKey);
+            const points = skillPoint?.[1] || {};
             return {
               ...rowData,
+              // group info
               isGroupStart: childIndex ? false : rowData.isGroupStart,
-              init: childSkill?.init ?? rowData.init,
+              // skill info
+              key: `${skill.name}:_:${childIndex}`,
+              skillKey,
+              init,
+              points,
+              total: getTotal(points, init),
+              // child skill info
               childSkillData: {
                 name: childSkillName,
                 place: childIndex,
@@ -84,7 +119,7 @@ function getTableData(data: SkillGroups) {
             };
           });
         }
-        return [...resultRows.reverse(), ...added];
+        return [...resultRows, ...added];
       }, []);
       return [...result, ...rows];
     },
@@ -94,48 +129,57 @@ function getTableData(data: SkillGroups) {
 }
 
 const tableData = computed(() => getTableData(props.data));
-
-interface PCSkillIndexesOfSimple {
-  index: number;
-}
-interface PCSkillIndexesOfGroup {
-  isGroupSkill: true;
-  indexes: number[];
-}
-type PCSkillIndexes = PCSkillIndexesOfSimple | PCSkillIndexesOfGroup;
-function getPCSkillIndexes() {
-  const result: Record<string, PCSkillIndexes> = {};
-  tableData.value.forEach((row, index) => {
-    let key = row.skillName;
-    if (!row.childSkillData) {
-      result[key] = {
-        index,
-      };
-    } else {
-      if (!result[key]) {
-        result[key] = {
-          isGroupSkill: true,
-          indexes: [],
-        };
-      }
-      (result[key] as PCSkillIndexesOfGroup).indexes[row.childSkillData.place] =
-        index;
-    }
-  });
-  return result;
-}
-
-const skillIndexes = reactive(getPCSkillIndexes());
 // @ts-expect-error
-window.skillIndexes = skillIndexes;
+window.tableData = tableData;
+
+function getSkillKey(row: TableRowData): COCPCSkill {
+  return !row.childSkillData
+    ? row.skillName
+    : [row.skillName, row.childSkillData.name, row.childSkillData.place];
+}
+
+function findSkillPoints(skillInfo: COCPCSkill) {
+  if (!pc) return;
+  return pc.skillPoints.find((skillPoint) => {
+    const [pointSkill] = skillPoint;
+    if (typeof skillInfo === 'string') {
+      return skillInfo === pointSkill;
+    }
+    const [name, _, place] = pointSkill;
+    const [skillName, __, skillPlace] = skillInfo;
+    return name === skillName && place === skillPlace;
+  });
+}
 
 function updateSkillPoint(
-  skillInfo: COCPCSkill,
+  skillKey: COCPCSkill,
   pointName: keyof SkillPoint,
-  value: string
+  value: string | boolean
 ) {
   if (!pc) return;
-  // pc.skillPoints.
+  let skillPoint = findSkillPoints(skillKey);
+  if (!skillPoint) {
+    const key =
+      typeof skillKey === 'string' ? skillKey : ([...skillKey] as COCPCSkill);
+    skillPoint = [key, {}];
+    pc.skillPoints.push(skillPoint);
+  }
+  const points = skillPoint[1];
+  if (typeof value === 'boolean') {
+    points.c = value;
+  } else {
+    const name = pointName as Exclude<keyof SkillPoint, 'c'>;
+    if (value) {
+      points[name] = Number(value);
+    } else {
+      delete points[name];
+    }
+  }
+}
+
+function getTotal(points: SkillPoint, init: number) {
+  const { p = 0, i = 0, g = 0 } = points;
+  return init + Number(p) + Number(i) + Number(g);
 }
 </script>
 
@@ -160,7 +204,7 @@ function updateSkillPoint(
     <tbody>
       <tr
         v-for="(row, index) in tableData"
-        :key="row.groupName"
+        :key="row.skillName"
       >
         <td
           v-if="row.isGroupStart"
@@ -208,7 +252,11 @@ function updateSkillPoint(
             'td-color-2': (index + 1) % 2,
           }"
         >
-          <SkillTdInput />
+          <!-- pro point -->
+          <SkillTdInput
+            :value="`${row.points.p ?? ''}`"
+            @input="(v) => updateSkillPoint(row.skillKey, 'p', v)"
+          />
         </td>
         <td
           class="skill-td"
@@ -217,7 +265,11 @@ function updateSkillPoint(
             'td-color-1': (index + 1) % 2,
           }"
         >
-          <SkillTdInput />
+          <!-- interests point -->
+          <SkillTdInput
+            :value="`${row.points.i ?? ''}`"
+            @input="(v) => updateSkillPoint(row.skillKey, 'i', v)"
+          />
         </td>
         <td
           class="skill-td"
@@ -226,7 +278,14 @@ function updateSkillPoint(
             'td-color-2': (index + 1) % 2,
           }"
         >
-          <SkillTdInput :checkable="true" />
+          <!-- grow point -->
+          <SkillTdInput
+            :checkable="true"
+            :checked="row.points.c"
+            :value="`${row.points.g ?? ''}`"
+            @input="(v) => updateSkillPoint(row.skillKey, 'g', v)"
+            @check="(v) => updateSkillPoint(row.skillKey, 'c', v)"
+          />
         </td>
         <td
           class="skill-td"
@@ -234,7 +293,9 @@ function updateSkillPoint(
             'td-color-0': index % 2,
             'td-color-1': (index + 1) % 2,
           }"
-        ></td>
+        >
+          <span v-if="row.total !== row.init">{{ row.total }}</span>
+        </td>
       </tr>
     </tbody>
   </table>

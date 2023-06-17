@@ -25,6 +25,7 @@ withDefaults(defineProps<Props>(), {
   display: flex;
   gap: 0.4em;
   line-height: 1;
+  cursor: pointer;
 }
 .label {
   font-size: var(--local-var-label-font-size);
@@ -37,9 +38,17 @@ withDefaults(defineProps<Props>(), {
   font-size: 1em;
   line-height: 1;
   background-color: var(--color-white);
+  cursor: pointer;
 
   &:checked::before {
     content: '✓';
+  }
+
+  .status-checkbox:hover & {
+    background-color: #efe8f8;
+  }
+  .status-checkbox:active & {
+    background-color: #e8dcf8;
   }
 }
 </style>
