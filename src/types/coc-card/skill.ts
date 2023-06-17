@@ -16,6 +16,9 @@ export interface Skill {
   intro: string;
   // 初始值
   init: number;
+  // 初始值的 placeholder，为 0 则显示
+  // 是为了 母语 = 教育 和 闪避 = 1/2敏捷
+  initPlaceholder?: string;
   // 如果是分组，则有这一项
   group?: {
     // 分组 key

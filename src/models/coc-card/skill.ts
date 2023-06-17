@@ -1,6 +1,7 @@
-import type { SkillGroupName } from '@/types/coc-card/skillGroup';
 import type { Skill } from '@/types/coc-card/skill';
+import type { SkillGroupName } from '@/types/coc-card/skillGroup';
 import type { SkillGroups } from '@/types/coc-card/formattedSkill';
+import type { COCPlayerCharacter } from '@/types/coc-card/character';
 
 import { skills } from '@/constants/coc-card/skill';
 import {
@@ -40,3 +41,11 @@ export const skillGroups = getFormattedSkillGroups({
   groups: groups,
   groupOrder: skillGroupOrder,
 });
+
+export const dynamicInitFormulas: Record<
+  string,
+  (pc: COCPlayerCharacter) => number
+> = {
+  母语: (pc) => pc.attributes.edu || 0,
+  闪避: (pc) => Math.floor((pc.attributes.dex || 0) / 2),
+};

@@ -1,16 +1,24 @@
 <script setup lang="ts">
-import { reactive, computed, inject } from 'vue';
+import { computed, inject, reactive, ref } from 'vue';
 import type { ChildSkill } from '@/types/coc-card/skill';
 import type { SkillGroup, SkillGroups } from '@/types/coc-card/formattedSkill';
 import type { COCCardViewData } from '@/types/coc-card/viewData';
+import type {
+  COCPlayerCharacter,
+  COCPCSkill,
+  SkillPoint,
+} from '@/types/coc-card/character';
+import { dynamicInitFormulas } from '@/models/coc-card/skill';
 
 import SkillTdLabel from './SkillTdLabel.vue';
+import SkillTdInput from './SkillTdInput.vue';
 
 interface Props {
   data: SkillGroups;
 }
 const props = defineProps<Props>();
 
+const pc = inject<COCPlayerCharacter>('pc');
 const viewData = inject<COCCardViewData>('viewData');
 
 interface TableRowData {
@@ -21,6 +29,7 @@ interface TableRowData {
   groupIndex: number;
   skillName: string;
   init: number;
+  initPlaceholder?: string;
   childSkillData?: {
     name: string;
     place: number;
@@ -35,6 +44,10 @@ function getTableData(data: SkillGroups) {
         TableRowData[]
       >((rows, skill, index) => {
         const isSpecialGroup = skillGroup.groupName === '特殊';
+        let init = skill.init;
+        if (pc && skill.name in dynamicInitFormulas) {
+          init = dynamicInitFormulas[skill.name](pc);
+        }
         const rowData: TableRowData = {
           isSpecialGroup,
           isGroupStart: isSpecialGroup || index === 0,
@@ -42,7 +55,8 @@ function getTableData(data: SkillGroups) {
           groupName: skillGroup.groupName,
           groupIndex,
           skillName: skill.name,
-          init: skill.init,
+          init,
+          initPlaceholder: skill.initPlaceholder,
         };
         let resultRows = [...rows].reverse();
         let added = [rowData];
@@ -80,10 +94,49 @@ function getTableData(data: SkillGroups) {
 }
 
 const tableData = computed(() => getTableData(props.data));
-const specialRowsJump = computed(() => {
-  const count = tableData.value.filter((row) => row.isSpecialGroup).length;
-  return count ? count + 1 : 0;
-});
+
+interface PCSkillIndexesOfSimple {
+  index: number;
+}
+interface PCSkillIndexesOfGroup {
+  isGroupSkill: true;
+  indexes: number[];
+}
+type PCSkillIndexes = PCSkillIndexesOfSimple | PCSkillIndexesOfGroup;
+function getPCSkillIndexes() {
+  const result: Record<string, PCSkillIndexes> = {};
+  tableData.value.forEach((row, index) => {
+    let key = row.skillName;
+    if (!row.childSkillData) {
+      result[key] = {
+        index,
+      };
+    } else {
+      if (!result[key]) {
+        result[key] = {
+          isGroupSkill: true,
+          indexes: [],
+        };
+      }
+      (result[key] as PCSkillIndexesOfGroup).indexes[row.childSkillData.place] =
+        index;
+    }
+  });
+  return result;
+}
+
+const skillIndexes = reactive(getPCSkillIndexes());
+// @ts-expect-error
+window.skillIndexes = skillIndexes;
+
+function updateSkillPoint(
+  skillInfo: COCPCSkill,
+  pointName: keyof SkillPoint,
+  value: string
+) {
+  if (!pc) return;
+  // pc.skillPoints.
+}
 </script>
 
 <template>
@@ -117,13 +170,6 @@ const specialRowsJump = computed(() => {
             'td-group-name-visible': !row.isSpecialGroup,
             'td-color-1': row.isSpecialGroup && index % 2,
             'td-color-2': row.isSpecialGroup && (index + 1) % 2,
-            // 'td-color-1':
-            //   (row.isSpecialGroup ? index : row.groupIndex + specialRowsJump) %
-            //   2,
-            // 'td-color-2':
-            //   ((row.isSpecialGroup ? index : row.groupIndex + specialRowsJump) +
-            //     1) %
-            //   2,
           }"
         >
           {{ row.isSpecialGroup ? '' : row.groupName }}
@@ -131,6 +177,7 @@ const specialRowsJump = computed(() => {
         <td
           class="skill-td td-skill-name"
           :class="{
+            'td-skill-name-special': row.isSpecialGroup,
             'td-color-1': index % 2,
             'td-color-2': (index + 1) % 2,
           }"
@@ -147,7 +194,12 @@ const specialRowsJump = computed(() => {
             'td-color-1': (index + 1) % 2,
           }"
         >
-          {{ row.init }}
+          <span
+            v-if="!row.init && row.initPlaceholder"
+            class="init-placeholder"
+            >{{ row.initPlaceholder }}</span
+          >
+          <span v-else>{{ row.init }}</span>
         </td>
         <td
           class="skill-td"
@@ -155,21 +207,27 @@ const specialRowsJump = computed(() => {
             'td-color-1': index % 2,
             'td-color-2': (index + 1) % 2,
           }"
-        ></td>
+        >
+          <SkillTdInput />
+        </td>
         <td
           class="skill-td"
           :class="{
             'td-color-0': index % 2,
             'td-color-1': (index + 1) % 2,
           }"
-        ></td>
+        >
+          <SkillTdInput />
+        </td>
         <td
           class="skill-td"
           :class="{
             'td-color-1': index % 2,
             'td-color-2': (index + 1) % 2,
           }"
-        ></td>
+        >
+          <SkillTdInput :checkable="true" />
+        </td>
         <td
           class="skill-td"
           :class="{
@@ -248,5 +306,14 @@ const specialRowsJump = computed(() => {
 .td-skill-name {
   text-align: left;
   width: 7.5em;
+}
+.td-skill-name-special :deep(.skill-td-checkbox) {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.init-placeholder {
+  color: var(--color-placeholder);
+  font-size: 0.86em;
 }
 </style>

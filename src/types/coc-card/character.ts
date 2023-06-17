@@ -12,8 +12,9 @@ export interface COCPlayerCharacter {
   // attributes
   attributes: Partial<COCAttributes>;
   deriveAttributes?: COCDeriveAttributes;
-  // 技能名 | 技能名, 子技能名, 子技能位置
-  proSkills: COCPCProSkill[];
+  // 技能与点数
+  proSkills: COCPCSkill[];
+  // skillPoints: Record<string, SkillPoint>;
 }
 
 export interface COCAttributes {
@@ -46,4 +47,12 @@ export interface COCDeriveAttributes {
   };
 }
 
-export type COCPCProSkill = string | [string, string, number];
+// 技能名 | 技能名, 子技能名, 子技能位置
+export type COCPCSkill = string | [string, string, number];
+
+export interface SkillPoint {
+  p?: number;
+  i?: number;
+  g?: number;
+  c?: boolean;
+}

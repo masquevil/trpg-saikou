@@ -2,7 +2,7 @@
 @import './animate.scss';
 
 ::placeholder {
-  color: #bbb;
+  color: var(--color-placeholder);
 }
 
 body {

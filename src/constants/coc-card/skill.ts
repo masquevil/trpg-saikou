@@ -58,6 +58,7 @@ export const skills: Skill[] = [
   {
     name: '母语',
     init: 0,
+    initPlaceholder: '教育',
     intro:
       '当选择这项技能时，必须明确一门具体的语言并且写在技能的后面。在婴儿期或者童年早期，大多数人使用一门语言。',
     group: {
@@ -456,6 +457,7 @@ export const skills: Skill[] = [
   {
     name: '闪避',
     init: 0,
+    initPlaceholder: '1/2敏捷',
     intro:
       '允许调查员本能地闪避攻击，投掷过来的投射物以及诸如此类的。闪避可以通过经验来提升，就像其他的技能一样。如果一次攻击可以被看见，调查员可以尝试闪避开它。无法躲避子弹。',
   },

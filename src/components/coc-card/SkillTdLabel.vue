@@ -5,7 +5,7 @@ import type { ChildSkill } from '@/types/coc-card/skill';
 import type { COCCardViewData } from '@/types/coc-card/viewData';
 import type {
   COCPlayerCharacter,
-  COCPCProSkill,
+  COCPCSkill,
 } from '@/types/coc-card/character';
 
 import SkillTdCheckbox from './SkillTdCheckbox.vue';
@@ -100,7 +100,7 @@ function selectChildSkill(childSkill: ChildSkill) {
 function changeProSkill(value: boolean) {
   if (!pc) return;
   if (value) {
-    let skillInfo: COCPCProSkill = props.skillName;
+    let skillInfo: COCPCSkill = props.skillName;
     if (props.childSkillData)
       skillInfo = [
         props.skillName,

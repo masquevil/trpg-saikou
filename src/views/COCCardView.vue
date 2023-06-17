@@ -120,12 +120,12 @@ window.xx = { pc, viewData };
 }
 
 .paper {
-  --base-size: 4.8mm; // 3.2mm * 1.5
-  /* --base-size: 3.2mm; // 3.2mm * 1.5 */
+  --base-size: 4.2mm; // 3.2mm * n
+  /* --base-size: 3.2mm; */
   font-size: var(--base-size);
   box-sizing: border-box;
-  width: 65.625em; // 210mm * 1.5
-  height: 92.8125em; // 297mm * 1.5
+  width: 65.625em; // 210mm / 3.2mm
+  height: 92.8125em; // 297mm / 3.2mm
   padding: 1.5em 1.8em;
   margin: auto;
   background-color: var(--color-white);
