@@ -1,109 +1,36 @@
 <script setup lang="ts">
-import { reactive, provide, watch } from 'vue';
+import { reactive, provide } from 'vue';
 
-import formattedJobs from '@/models/coc-card/job';
 import { createPC } from '@/models/coc-card/character';
-import { skills } from '@/constants/coc-card/skill';
 
 import type { COCPlayerCharacter } from '@/types/coc-card/character';
 import type { COCCardViewData } from '@/types/coc-card/viewData';
+
+import useDerives from '@/hooks/useDerives';
+import useSuggestion from '@/hooks/useSuggestion';
 
 import InvestigatorSection from './COCCardSections/InvestigatorSection.vue';
 import AttributesSection from './COCCardSections/AttributesSection.vue';
 import LuckSection from './COCCardSections/LuckSection.vue';
 import AvatarSection from './COCCardSections/AvatarSection.vue';
 import DeriveSections from './COCCardSections/DeriveSections.vue';
+import HintSection from './COCCardSections/HintSection.vue';
 import SkillSection from './COCCardSections/SkillSection.vue';
 
-const { jobs, jobGroups } = formattedJobs;
 const pc = reactive<COCPlayerCharacter>(createPC());
 const viewData = reactive<COCCardViewData>({
   showingChildSkills: new Map(),
 });
 
-function resetShowingChildSkills() {
-  skills.forEach((skill) => {
-    if (!skill.group) return;
-    viewData.showingChildSkills.set(skill.name, [...skill.group.show]);
-  });
-}
-resetShowingChildSkills();
-
-// calculate attributes
-watch(
-  () => pc.attributes,
-  () => {
-    let HPMax = '';
-    let MPMax = '';
-    const { con, siz, pow } = pc?.attributes || {};
-    if (con && siz) HPMax = `${Math.floor((con + siz) / 10)}`;
-    if (pow) MPMax = `${pow / 5}`;
-    pc.deriveAttributes = {
-      sanity: {
-        start: `${pow || ''}`,
-        // TODO
-        max: `${pow ? 99 : ''}`,
-      },
-      hp: {
-        max: HPMax,
-      },
-      mp: {
-        max: MPMax,
-      },
-    };
-  },
-  { deep: true }
-);
-
-// calculate pro skills
-watch(
-  () => pc.job,
-  () => {
-    const job = jobs.get(pc.job);
-    if (job?.skills) {
-      viewData.jobSkills = [...job.skills];
-      resetShowingChildSkills();
-      pc.proSkills = [];
-      const placedGroupSkill: Record<string, number> = {};
-      job.skills.forEach((skillKey) => {
-        // 普通技能
-        if (typeof skillKey === 'string') {
-          pc.proSkills.push(skillKey);
-        } else if (Array.isArray(skillKey)) {
-          // 多选技能，暂时不管
-        } else {
-          // 二级技能
-          const [skillName, childSkillName] = Object.entries(skillKey)[0];
-          // set view data (suggested child skill names)
-          const currentData = viewData.showingChildSkills.get(skillName);
-          if (!currentData) return;
-          let cIndex = -1;
-          if (childSkillName) {
-            cIndex = currentData.findIndex((cName) => cName === childSkillName);
-          } else {
-            const count = placedGroupSkill[skillName] || 0;
-            let skip = count;
-            cIndex = currentData.findIndex((cName) => {
-              if (cName) return false;
-              return skip-- === 0;
-            });
-            placedGroupSkill[skillName] = count + 1;
-          }
-          if (cIndex === -1) return;
-          // set pc data
-          pc.proSkills.push([skillName, childSkillName, cIndex]);
-        }
-      });
-      delete viewData.jobSkills;
-    }
-  }
-);
+useDerives(pc);
+const suggestion = useSuggestion(pc, viewData);
 
 provide('pc', pc);
 provide('viewData', viewData);
+provide('suggestion', suggestion);
 
 // @ts-expect-error
-window.xx = { pc, viewData };
+window.xx = { pc, viewData, suggestion };
 </script>
 
 <template>
@@ -116,6 +43,7 @@ window.xx = { pc, viewData };
         <AvatarSection />
       </div>
       <DeriveSections />
+      <HintSection />
       <SkillSection />
     </div>
   </main>
@@ -138,6 +66,10 @@ window.xx = { pc, viewData };
   padding: 1.5em 1.8em;
   margin: auto;
   background-color: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.6em;
 }
 
 .section-row {

@@ -111,7 +111,6 @@ function updateAttr(
 
 <style scoped lang="scss">
 .computed-sections {
-  margin-top: 0.6em;
   display: flex;
   gap: 1em;
   align-items: stretch;

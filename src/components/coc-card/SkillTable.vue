@@ -129,14 +129,6 @@ function getTableData(data: SkillGroups) {
 }
 
 const tableData = computed(() => getTableData(props.data));
-// @ts-expect-error
-window.tableData = tableData;
-
-function getSkillKey(row: TableRowData): COCPCSkill {
-  return !row.childSkillData
-    ? row.skillName
-    : [row.skillName, row.childSkillData.name, row.childSkillData.place];
-}
 
 function findSkillPoints(skillInfo: COCPCSkill) {
   if (!pc) return;
