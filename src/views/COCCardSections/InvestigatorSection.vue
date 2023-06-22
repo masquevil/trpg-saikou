@@ -12,15 +12,14 @@ import type { Props as JobGroupTreeProps } from '@/components/coc-card/JobGroupT
 import type { COCPlayerCharacter } from '@/types/coc-card/character';
 import formattedJobs from '@/models/coc-card/job';
 
-const { jobs, jobGroups } = formattedJobs;
+const { jobGroups } = formattedJobs;
 
-// const isJobInputFocus = ref(false);
 const isJobSeletorShowing = ref(false);
 const jobSearchInput = ref('');
 const pc = inject<COCPlayerCharacter>('pc');
+const pageData = inject<{ printing: boolean }>('pageData');
 
 function openJobSelector() {
-  // isJobInputFocus.value = true;
   isJobSeletorShowing.value = true;
 }
 function closeJobSelector() {
@@ -94,7 +93,7 @@ function onSelectJob(jobName: string) {
         <WritableRow
           label="职业"
           v-model="pc.job"
-          placeholder="自定义职业或选择预设职业"
+          :placeholder="pageData?.printing ? '' : '自定义职业或选择预设职业'"
           @focus="openJobSelector"
         />
         <Transition name="slide-up">
@@ -181,9 +180,6 @@ function onSelectJob(jobName: string) {
 @media print {
   .job-selector {
     display: none;
-  }
-  .info-section ::placeholder {
-    color: transparent;
   }
 }
 </style>

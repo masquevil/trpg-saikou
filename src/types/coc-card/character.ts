@@ -12,6 +12,7 @@ export interface COCPlayerCharacter {
   // attributes
   attributes: Partial<COCAttributes>;
   deriveAttributes?: COCDeriveAttributes;
+  battleAttributes: COCBattleAttributes;
   // 技能与点数
   proSkills: COCPCSkill[];
   skillPoints: [COCPCSkill, SkillPoint][];
@@ -45,6 +46,13 @@ export interface COCDeriveAttributes {
     now?: string;
     max?: string;
   };
+}
+
+export interface COCBattleAttributes {
+  db?: string;
+  size?: string;
+  armor?: string;
+  mov?: string;
 }
 
 // 技能名 | 技能名, 子技能名, 子技能位置

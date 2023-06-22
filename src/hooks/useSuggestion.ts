@@ -1,4 +1,4 @@
-import { computed } from 'vue';
+import { computed, watch } from 'vue';
 import type { ComputedRef } from 'vue';
 
 import formattedJobs from '@/models/coc-card/job';
@@ -32,15 +32,10 @@ export default function useSuggestion(
       );
       return sum + Math.max(...values);
     }, 0);
-    // pick skills and handle suggest skills
-    viewData.jobSkills = [...job.skills];
-    resetShowingChildSkills(viewData);
-    pc.proSkills = [];
-    const placedGroupSkill: Record<string, number> = {};
+    // handle suggest skills
     job.skills.forEach((skillKey) => {
       // 普通技能
       if (typeof skillKey === 'string') {
-        pc.proSkills.push(skillKey);
         sugMap.set(skillKey, 0);
       } else if (Array.isArray(skillKey)) {
         // 多选技能
@@ -59,30 +54,6 @@ export default function useSuggestion(
         if (isDescribedName) {
           skillName = skillName.split('(')[0];
         }
-        // set view data (suggested child skill names)
-        const currentData = viewData.showingChildSkills.get(skillName);
-        if (!currentData) return;
-        let cIndex = -1;
-        if (childSkillName) {
-          // 技能 - Name:ChildName
-          cIndex = currentData.findIndex((cName) => cName === childSkillName);
-          if (cIndex === -1) {
-            cIndex = currentData.findIndex((cName) => !cName);
-            currentData[cIndex] = childSkillName;
-          }
-        } else {
-          // 技能 - Name:any
-          const count = placedGroupSkill[skillName] || 0;
-          let skip = count;
-          cIndex = currentData.findIndex((cName) => {
-            if (cName) return false;
-            return skip-- === 0;
-          });
-          placedGroupSkill[skillName] = count + 1;
-        }
-        if (cIndex === -1) return;
-        // set pc data
-        pc.proSkills.push([skillName, childSkillName, cIndex]);
         // set suggestion item
         let sugKey = skillName;
         if (childSkillName) sugKey = `${skillName}(${childSkillName})`;
@@ -93,7 +64,6 @@ export default function useSuggestion(
         );
       }
     });
-    delete viewData.jobSkills;
     // set suggestion
     const restCount = 8 - job.skills.length;
     suggestion.text = [
@@ -107,6 +77,58 @@ export default function useSuggestion(
       .join('、');
     return suggestion;
   });
+
+  watch(
+    () => pc.job,
+    () => {
+      const job = jobs.get(pc.job);
+      if (!job) return;
+      // pick skills
+      viewData.jobSkills = [...job.skills];
+      resetShowingChildSkills(viewData);
+      pc.proSkills = [];
+      const placedGroupSkill: Record<string, number> = {};
+      job.skills.forEach((skillKey) => {
+        // 普通技能
+        if (typeof skillKey === 'string') {
+          pc.proSkills.push(skillKey);
+        } else if (!Array.isArray(skillKey)) {
+          // 二级技能
+          const [skillNameDesc, childSkillName] = Object.entries(skillKey)[0];
+          let skillName = skillNameDesc;
+          const isDescribedName = skillNameDesc.includes('(');
+          if (isDescribedName) {
+            skillName = skillName.split('(')[0];
+          }
+          // set view data (suggested child skill names)
+          const currentData = viewData.showingChildSkills.get(skillName);
+          if (!currentData) return;
+          let cIndex = -1;
+          if (childSkillName) {
+            // 技能 - Name:ChildName
+            cIndex = currentData.findIndex((cName) => cName === childSkillName);
+            if (cIndex === -1) {
+              cIndex = currentData.findIndex((cName) => !cName);
+              currentData[cIndex] = childSkillName;
+            }
+          } else {
+            // 技能 - Name:any
+            const count = placedGroupSkill[skillName] || 0;
+            let skip = count;
+            cIndex = currentData.findIndex((cName) => {
+              if (cName) return false;
+              return skip-- === 0;
+            });
+            placedGroupSkill[skillName] = count + 1;
+          }
+          if (cIndex === -1) return;
+          // set pc data
+          pc.proSkills.push([skillName, childSkillName, cIndex]);
+        }
+      });
+      delete viewData.jobSkills;
+    }
+  );
 
   return suggestion;
 }

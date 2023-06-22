@@ -13,6 +13,7 @@ export function createPC(
     location: '',
     hometown: '',
     attributes: {},
+    battleAttributes: {},
     proSkills: [],
     skillPoints: [],
     ...override,

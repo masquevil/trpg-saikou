@@ -34,7 +34,7 @@ withDefaults(defineProps<Props>(), {
 .paper-section {
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--color-black);
+  outline: 1pt solid var(--color-black);
 }
 
 .header {

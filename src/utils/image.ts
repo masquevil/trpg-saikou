@@ -11,3 +11,10 @@ export function getImageSize(url: string) {
     img.src = url;
   });
 }
+
+export function downloadImage(url: string, title: string = 'image') {
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = title;
+  a.click();
+}

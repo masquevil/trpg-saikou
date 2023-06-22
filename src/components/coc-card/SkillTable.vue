@@ -179,18 +179,20 @@ function getTotal(points: SkillPoint, init: number) {
   <table class="skill-table">
     <thead>
       <tr>
-        <th class="th-deep"></th>
-        <th class="th-deep th-skill">
+        <th class="skill-th th-deep"></th>
+        <th class="skill-th th-deep th-skill">
           <div class="th-skill-label">
             <div class="th-skill-label-pro">本职技能</div>
             技能
           </div>
         </th>
-        <th class="th-light">基础%</th>
-        <th class="th-deep">职业%</th>
-        <th class="th-light">兴趣%</th>
-        <th class="th-deep">成长%</th>
-        <th class="th-light">成功率%</th>
+        <th class="skill-th th-light">基础%</th>
+        <th class="skill-th th-deep">职业%</th>
+        <th class="skill-th th-light">兴趣%</th>
+        <th class="skill-th th-deep">
+          <div class="th-grow">成长%</div>
+        </th>
+        <th class="skill-th th-light">成功率%</th>
       </tr>
     </thead>
     <tbody>
@@ -302,9 +304,13 @@ function getTotal(points: SkillPoint, init: number) {
   --td-color-1: hsl(0, 0%, 92%);
   --td-color-2: hsl(0, 0%, 84%);
   --td-color-3: hsl(0, 0%, 76%);
-  --td-line-height: 1.5em;
+  --td-line-height: 1.56em;
+  --th-line-height: 1.66em;
 }
 
+.skill-th {
+  line-height: var(--th-line-height);
+}
 .th-deep {
   background-color: var(--td-color-3);
 }
@@ -322,13 +328,27 @@ function getTotal(points: SkillPoint, init: number) {
   gap: 0.3em;
 }
 .th-skill-label-pro {
-  font-size: 0.6em;
-  width: calc(1.5em / 0.6);
-  height: calc(1.5em / 0.6);
-  line-height: 1;
-  padding: calc(0.15em / 0.6);
+  --pro-font-base: 0.66;
+  font-size: calc(var(--pro-font-base) * 1em);
+  width: calc(var(--th-line-height) / var(--pro-font-base));
+  height: calc(var(--th-line-height) / var(--pro-font-base));
+  line-height: 1.12em;
+  --padding-h: calc(
+    (var(--th-line-height) / 2 - var(--pro-font-base) * 1em) /
+      var(--pro-font-base)
+  );
+  --padding-v: calc(var(--padding-h) - 0.12em / var(--pro-font-base));
+  padding: calc(
+    (var(--th-line-height) / 2 - var(--pro-font-base) * 1em) /
+      var(--pro-font-base)
+  );
+  padding-left: var(--padding-h);
+  padding-top: var(--padding-v);
   margin-top: 1px;
   background-color: var(--color-white);
+}
+.th-grow {
+  padding: 0 0.24em;
 }
 
 .td-color-0 {
@@ -360,7 +380,7 @@ function getTotal(points: SkillPoint, init: number) {
   text-align: left;
   width: 7.5em;
 }
-.td-skill-name-special :deep(.skill-td-checkbox) {
+.td-skill-name-special :deep(.skill-td-checkbox-label) {
   visibility: hidden;
   pointer-events: none;
 }

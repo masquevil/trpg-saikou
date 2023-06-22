@@ -28,11 +28,10 @@ defineEmits<Emits>();
   flex: 0 0 auto;
   width: 0.9em;
   height: 0.9em;
-  font-size: 0.9em;
+  font-size: 1.12em;
   line-height: 1;
   border: 1px solid var(--color-line);
   background-color: var(--color-white);
-  margin-right: 0.3em;
   cursor: pointer;
 
   &:hover,

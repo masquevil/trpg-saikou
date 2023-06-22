@@ -32,6 +32,15 @@ const isOptionsShowing = ref(false);
 const currentData = computed(() =>
   viewData?.showingChildSkills.get(props.skillName)
 );
+const existedData = computed(() => {
+  if (['母语', '外语'].includes(props.skillName)) {
+    return [
+      ...(viewData?.showingChildSkills.get('母语') || []),
+      ...(viewData?.showingChildSkills.get('外语') || []),
+    ];
+  }
+  return currentData.value;
+});
 // select skill as pro (checkbox)
 const isProSkill = computed(() => {
   if (!pc || !viewData) return false;
@@ -60,8 +69,9 @@ function updateCurrentData(value: string) {
         childSkillPlace === props.childSkillData?.place
       );
     });
-    if (!skillInfo || typeof skillInfo === 'string') return;
-    skillInfo[1] = value;
+    if (skillInfo && typeof skillInfo !== 'string') {
+      skillInfo[1] = value;
+    }
   }
   // update view data
   currentData.value[props.childSkillData.place] = value;
@@ -98,10 +108,12 @@ function changeProSkill(value: boolean) {
 
 <template>
   <div class="skill-td-label">
-    <SkillTdCheckbox
-      :checked="isProSkill"
-      @change="changeProSkill"
-    />
+    <label class="skill-td-checkbox-label">
+      <SkillTdCheckbox
+        :checked="isProSkill"
+        @change="changeProSkill"
+      />
+    </label>
     <div>{{ skillName }}</div>
     <div
       v-if="!!childSkillData"
@@ -128,7 +140,7 @@ function changeProSkill(value: boolean) {
             :key="childSkill.name"
             class="child-skill-option"
             :class="{
-              'child-skill-option-existed': currentData?.includes(
+              'child-skill-option-existed': existedData?.includes(
                 childSkill.name
               ),
             }"
@@ -146,34 +158,19 @@ function changeProSkill(value: boolean) {
 .skill-td-label {
   display: flex;
   align-items: center;
-  margin-left: 0.3em;
   margin-right: 0.6em;
   white-space: nowrap;
 
   --color-line: #8a8a8a;
 }
-.checkbox {
-  flex: 0 0 auto;
-  width: 0.9em;
-  height: 0.9em;
-  font-size: 0.9em;
-  line-height: 1;
-  border: 1px solid var(--color-line);
-  background-color: var(--color-white);
-  margin-right: 0.3em;
+.skill-td-checkbox-label {
+  width: var(--th-line-height);
+  height: var(--td-line-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-
-  &:hover,
-  &:focus {
-    border-color: var(--color-black);
-  }
-  &:active {
-    background-color: var(--color-background-mute);
-  }
-
-  &:checked::before {
-    content: '✓';
-  }
+  margin-right: 0.12em;
 }
 .child-skill-display {
   flex: 1 0 auto;
