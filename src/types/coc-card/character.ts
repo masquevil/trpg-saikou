@@ -1,3 +1,5 @@
+import type { Weapon } from './weapon';
+
 export interface COCPlayerCharacter {
   // basic infos
   name: string;
@@ -16,6 +18,8 @@ export interface COCPlayerCharacter {
   // 技能与点数
   proSkills: COCPCSkill[];
   skillPoints: [COCPCSkill, SkillPoint][];
+  // weapons
+  weapons: Weapon[];
 }
 
 export interface COCAttributes {

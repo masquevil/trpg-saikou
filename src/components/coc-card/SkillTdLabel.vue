@@ -8,7 +8,7 @@ import type {
   COCPCSkill,
 } from '@/types/coc-card/character';
 
-import SkillTdCheckbox from './SkillTdCheckbox.vue';
+import SoxCheckbox from './SoxCheckbox.vue';
 
 interface Props {
   skillName: string;
@@ -109,9 +109,9 @@ function changeProSkill(value: boolean) {
 <template>
   <div class="skill-td-label">
     <label class="skill-td-checkbox-label">
-      <SkillTdCheckbox
+      <SoxCheckbox
         :checked="isProSkill"
-        @change="changeProSkill"
+        @check="changeProSkill"
       />
     </label>
     <div>{{ skillName }}</div>
@@ -172,6 +172,7 @@ function changeProSkill(value: boolean) {
   cursor: pointer;
   margin-right: 0.12em;
 }
+
 .child-skill-display {
   flex: 1 0 auto;
   display: inline-flex;

@@ -440,7 +440,7 @@ export const skills: Skill[] = [
           init: 15,
         },
         {
-          name: '弓/弩',
+          name: '弓弩',
           init: 15,
         },
         {

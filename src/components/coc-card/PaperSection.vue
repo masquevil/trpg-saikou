@@ -48,6 +48,7 @@ withDefaults(defineProps<Props>(), {
 }
 .heading {
   padding: 0.4em 0.8em;
+  font-size: 1em;
   line-height: 1;
   display: flex;
   gap: 0.4em;

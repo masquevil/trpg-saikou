@@ -1,5 +1,7 @@
 import type { COCPlayerCharacter } from '@/types/coc-card/character';
 
+import { createWeapon } from './weapon';
+
 export function createPC(
   override?: Partial<COCPlayerCharacter>
 ): COCPlayerCharacter {
@@ -16,6 +18,17 @@ export function createPC(
     battleAttributes: {},
     proSkills: [],
     skillPoints: [],
+    weapons: [
+      createWeapon({
+        name: '徒手格斗',
+        skill: '格斗(斗殴)',
+        dam: '1D3 + DB',
+        range: '/',
+        round: '/',
+        num: '/',
+        err: '/',
+      }),
+    ],
     ...override,
   };
 }

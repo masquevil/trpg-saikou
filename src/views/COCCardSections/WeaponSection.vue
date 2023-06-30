@@ -1,17 +1,19 @@
 <script setup lang="ts">
-import { inject, computed, reactive } from 'vue';
+import { computed, inject } from 'vue';
+
+import type { COCPlayerCharacter } from '@/types/coc-card/character';
+import type { Weapon } from '@/types/coc-card/weapon';
 
 import PaperSection from '@/components/coc-card/PaperSection.vue';
-// models
-import type { COCPlayerCharacter } from '@/types/coc-card/character';
+import WeaponSectionRow from '@/components/coc-card/WeaponSectionRow.vue';
 
 const pc = inject<COCPlayerCharacter>('pc');
 
-function getTDClass(row: number, col: number) {
-  const rowBase = row % 2 ? 1 : 0;
-  const colBase = col % 2 ? 0 : 1;
-  return `td-color-${rowBase + colBase}`;
-}
+const localWeapons = computed<(Weapon | undefined)[]>(() => {
+  return Array.from({ length: 5 }).map((_, index) => {
+    return pc?.weapons[index] || undefined;
+  });
+});
 </script>
 
 <template>
@@ -31,66 +33,13 @@ function getTDClass(row: number, col: number) {
         <div class="wp-th th-light">装弹量</div>
         <div class="wp-th th-deep">故障值</div>
       </div>
-      <div
+      <WeaponSectionRow
         class="weapon-section-row"
-        v-for="i in 5"
-        :key="i"
-      >
-        <div
-          class="wp-td"
-          :class="{
-            [getTDClass(i, 0)]: true,
-          }"
-        ></div>
-        <div
-          class="wp-td"
-          :class="{
-            [getTDClass(i, 1)]: true,
-          }"
-        ></div>
-        <div
-          class="wp-td"
-          :class="{
-            [getTDClass(i, 2)]: true,
-          }"
-        ></div>
-        <div
-          class="wp-td"
-          :class="{
-            [getTDClass(i, 3)]: true,
-          }"
-        ></div>
-        <div
-          class="wp-td"
-          :class="{
-            [getTDClass(i, 4)]: true,
-          }"
-        ></div>
-        <div
-          class="wp-td"
-          :class="{
-            [getTDClass(i, 5)]: true,
-          }"
-        ></div>
-        <div
-          class="wp-td"
-          :class="{
-            [getTDClass(i, 6)]: true,
-          }"
-        ></div>
-        <div
-          class="wp-td"
-          :class="{
-            [getTDClass(i, 7)]: true,
-          }"
-        ></div>
-        <div
-          class="wp-td"
-          :class="{
-            [getTDClass(i, 8)]: true,
-          }"
-        ></div>
-      </div>
+        v-for="(weapon, index) in localWeapons"
+        :key="index"
+        :index="index"
+        :weapon="weapon"
+      />
     </div>
   </PaperSection>
 </template>
@@ -105,7 +54,7 @@ function getTDClass(row: number, col: number) {
 }
 .weapon-section-row {
   display: grid;
-  grid-template-columns: 6fr 5fr 4fr 5fr 3fr 2fr 3fr 3fr 3fr;
+  grid-template-columns: 12fr 5fr 4fr 4fr 2fr 2fr 5fr 3fr 3fr;
   text-align: center;
 }
 
@@ -117,21 +66,6 @@ function getTDClass(row: number, col: number) {
   background-color: var(--wp-color-3);
 }
 .th-light {
-  background-color: var(--wp-color-2);
-}
-
-.wp-td {
-  line-height: 1;
-  padding: 0.36em 0.4em;
-  height: 1.72em;
-}
-.td-color-0 {
-  background-color: var(--wp-color-0);
-}
-.td-color-1 {
-  background-color: var(--wp-color-1);
-}
-.td-color-2 {
   background-color: var(--wp-color-2);
 }
 </style>

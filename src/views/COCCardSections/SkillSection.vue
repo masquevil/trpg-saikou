@@ -161,6 +161,7 @@ function updatePointValue(
   display: flex;
   gap: 0.4em;
   align-items: baseline;
+  font-size: 1em;
 }
 .title {
   font-size: 1.15em;

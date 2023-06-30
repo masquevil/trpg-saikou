@@ -63,7 +63,7 @@ defineEmits<Emits>();
 }
 
 .group-label {
-  flex: 0 0 4.8em;
+  flex: 0 0 5.2em;
   color: var(--color-group-label);
   font-size: 0.8em;
   line-height: 2.25em;

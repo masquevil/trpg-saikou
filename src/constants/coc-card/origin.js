@@ -3744,7 +3744,7 @@ export const data = {
       },
       {
         name: '弓箭',
-        skill: '射击(弓)',
+        skill: '射击(弓弩)',
         dam: '1D6+半DB',
         tho: '0',
         range: '27m',
@@ -3840,7 +3840,7 @@ export const data = {
       },
       {
         name: '弩',
-        skill: '射击(弓)',
+        skill: '射击(弓弩)',
         dam: '1D8+2',
         tho: '1',
         range: '46m',

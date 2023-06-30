@@ -92,12 +92,11 @@ window.xx = { pc, viewData, suggestion, printPaper };
 <style scoped lang="scss">
 .page {
   padding: 32px;
-  background-color: var(--color-black);
   color: var(--color-text);
 }
 
 .paper {
-  --base-size: 4.2mm; // 3.2mm * n
+  --base-size: 15px; // 3.2mm * n
   /* --base-size: 3.2mm; */
   font-size: var(--base-size);
   width: 65.625em; // 210mm / 3.2mm
@@ -128,5 +127,14 @@ window.xx = { pc, viewData, suggestion, printPaper };
     width: auto;
     padding: 0;
   }
+  .paper {
+    --base-size: 3.6mm;
+  }
+}
+</style>
+
+<style lang="scss">
+body {
+  --color-background: var(--color-black);
 }
 </style>

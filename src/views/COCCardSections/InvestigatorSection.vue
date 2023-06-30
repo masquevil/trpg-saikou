@@ -5,8 +5,8 @@ import vClickOutside from '@/directives/clickOutside';
 // components
 import PaperSection from '@/components/coc-card/PaperSection.vue';
 import WritableRow from '@/components/coc-card/WritableRow.vue';
-import JobGroupTree from '@/components/coc-card/JobGroupTree.vue';
-import type { Props as JobGroupTreeProps } from '@/components/coc-card/JobGroupTree.vue';
+import FlattenTree from '@/components/coc-card/FlattenTree.vue';
+import type { Props as FlattenTreeProps } from '@/components/coc-card/FlattenTree.vue';
 
 // models
 import type { COCPlayerCharacter } from '@/types/coc-card/character';
@@ -56,7 +56,7 @@ const jobTree = computed(() => {
       });
     }
     return result;
-  }, [] as JobGroupTreeProps['tree']);
+  }, [] as FlattenTreeProps['tree']);
   return filteredData;
 });
 
@@ -109,10 +109,10 @@ function onSelectJob(jobName: string) {
                 v-model="jobSearchInput"
               />
             </div>
-            <JobGroupTree
+            <FlattenTree
               :tree="jobTree"
               @select="(item) => onSelectJob(item.label)"
-            ></JobGroupTree>
+            />
           </div>
         </Transition>
       </div>
