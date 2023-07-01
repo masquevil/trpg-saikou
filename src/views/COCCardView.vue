@@ -173,6 +173,15 @@ window.xx = { pc: pcRef, viewData, suggestion, printPaper };
   align-items: stretch;
 }
 
+@media screen and (max-width: 960px) {
+  .page {
+    min-width: 1440px;
+  }
+  .paper {
+    --base-size: 16px;
+  }
+}
+
 @media print {
   .page:not(.page[print-ignore]) {
     width: auto;
