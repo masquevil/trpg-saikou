@@ -12,6 +12,7 @@ import useSuggestion from '@/hooks/useSuggestion';
 import { downloadImage } from '@/utils/image';
 import { applyPrintStyles, resetPrintStyles } from '@/utils/print';
 
+import ControlSection from './COCCardSections/ControlSection.vue';
 import InvestigatorSection from './COCCardSections/InvestigatorSection.vue';
 import AttributesSection from './COCCardSections/AttributesSection.vue';
 import LuckSection from './COCCardSections/LuckSection.vue';
@@ -23,17 +24,19 @@ import WeaponSection from './COCCardSections/WeaponSection.vue';
 import BattleSection from './COCCardSections/BattleSection.vue';
 
 const pc = reactive<COCPlayerCharacter>(createPC());
+const pcRef = ref(pc);
 const viewData = reactive<COCCardViewData>({
   showingChildSkills: new Map(),
 });
 const pageData = reactive({
   printing: false,
 });
+const paperInFront = ref(true);
 
-useDerives(pc);
-const suggestion = useSuggestion(pc, viewData);
+useDerives(pcRef);
+const suggestion = useSuggestion(pcRef, viewData);
 
-provide('pc', pc);
+provide('pc', pcRef);
 provide('viewData', viewData);
 provide('pageData', pageData);
 provide('suggestion', suggestion);
@@ -60,48 +63,96 @@ async function printPaper() {
   return href;
 }
 
+function resetCard() {
+  pcRef.value = reactive(createPC());
+}
+
 // @ts-expect-error
-window.xx = { pc, viewData, suggestion, printPaper };
+window.xx = { pc: pcRef, viewData, suggestion, printPaper };
 </script>
 
 <template>
-  <main class="page">
-    <div class="paper theme-light">
-      <div
-        class="paper-content"
-        ref="paper"
-      >
-        <div class="section-row">
-          <InvestigatorSection />
-          <AttributesSection />
-          <LuckSection class="col-0" />
-          <AvatarSection />
-        </div>
-        <DeriveSections />
-        <HintSection />
-        <SkillSection />
-        <div class="section-row">
-          <WeaponSection class="col-0" />
-          <BattleSection />
-        </div>
-      </div>
+  <main
+    class="page"
+    :print-ignore="pageData.printing ? true : undefined"
+  >
+    <div
+      class="left-bar web-only"
+      :print-ignore="pageData.printing ? true : undefined"
+    >
+      <ControlSection
+        :paperInFront="paperInFront"
+        @switch-paper="(v) => (paperInFront = v)"
+        @print-paper="printPaper"
+        @reset-card="resetCard"
+      />
     </div>
+    <div
+      class="paper-container"
+      :print-ignore="pageData.printing ? true : undefined"
+    >
+      <Transition name="swipe-paper">
+        <div
+          class="paper theme-light"
+          v-if="paperInFront"
+        >
+          <div
+            class="paper-content"
+            ref="paper"
+          >
+            <div class="section-row">
+              <InvestigatorSection />
+              <AttributesSection />
+              <LuckSection class="col-0" />
+              <AvatarSection />
+            </div>
+            <DeriveSections />
+            <HintSection />
+            <SkillSection />
+            <div class="section-row">
+              <WeaponSection class="col-0" />
+              <BattleSection />
+            </div>
+          </div>
+        </div>
+        <div
+          class="paper theme-light"
+          v-else
+        >
+          <div class="paper-content">TODO</div>
+        </div>
+      </Transition>
+    </div>
+    <div class="web-only"></div>
   </main>
 </template>
 
 <style scoped lang="scss">
 .page {
-  padding: 32px;
   color: var(--color-text);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
 }
 
+.left-bar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.paper-container {
+  margin: 32px 0;
+  perspective: 900em;
+}
 .paper {
   --base-size: 15px; // 3.2mm * n
   /* --base-size: 3.2mm; */
   font-size: var(--base-size);
   width: 65.625em; // 210mm / 3.2mm
   height: 92.8125em; // 297mm / 3.2mm
-  margin: auto;
+  /* margin: auto; */
 }
 .paper-content {
   box-sizing: border-box;
@@ -123,12 +174,18 @@ window.xx = { pc, viewData, suggestion, printPaper };
 }
 
 @media print {
-  .page {
+  .page:not(.page[print-ignore]) {
     width: auto;
-    padding: 0;
+    display: block;
+  }
+  .paper-container:not(.paper-container[print-ignore]) {
+    margin: auto;
   }
   .paper {
     --base-size: 3.6mm;
+  }
+  .web-only:not(.web-only[print-ignore]) {
+    display: none;
   }
 }
 </style>
@@ -136,5 +193,17 @@ window.xx = { pc, viewData, suggestion, printPaper };
 <style lang="scss">
 body {
   --color-background: var(--color-black);
+}
+.el-message--error {
+  --el-message-border-color: hsl(350, 60%, 80%);
+  --el-message-text-color: hsl(350, 100%, 35%);
+}
+.el-message--success {
+  --el-message-border-color: hsl(150, 60%, 30%);
+  --el-message-text-color: hsl(150, 100%, 20%);
+}
+.el-message--info {
+  --el-message-border-color: hsl(190, 60%, 30%);
+  --el-message-text-color: hsl(190, 100%, 20%);
 }
 </style>

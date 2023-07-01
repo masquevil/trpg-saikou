@@ -19,7 +19,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-input, button, th, td {
+input[type=text], input[type=checkbox], button, th, td {
   appearance: none;
   outline: none;
   border: none;

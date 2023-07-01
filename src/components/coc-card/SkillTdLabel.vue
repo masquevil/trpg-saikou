@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, inject, computed } from 'vue';
 import vClickOutside from '@/directives/clickOutside';
+import usePC from '@/hooks/usePC';
 import type { ChildSkill } from '@/types/coc-card/skill';
 import type { COCCardViewData } from '@/types/coc-card/viewData';
 import type {
@@ -20,7 +21,7 @@ interface Props {
 }
 const props = defineProps<Props>();
 
-const pc = inject<COCPlayerCharacter>('pc');
+const pc = usePC();
 const viewData = inject<COCCardViewData>('viewData');
 
 interface Emits {
@@ -45,7 +46,7 @@ const existedData = computed(() => {
 const isProSkill = computed(() => {
   if (!pc || !viewData) return false;
 
-  return pc.proSkills.some((skillInfo) => {
+  return pc.value.proSkills.some((skillInfo) => {
     // 基础技能
     if (typeof skillInfo === 'string') {
       return skillInfo === props.skillName;
@@ -63,12 +64,14 @@ function updateCurrentData(value: string) {
   if (!props.childSkillData || !currentData.value) return;
   // update pro data
   if (isProSkill.value && pc) {
-    const skillInfo = pc.proSkills.find(([skillName, _, childSkillPlace]) => {
-      return (
-        skillName === props.skillName &&
-        childSkillPlace === props.childSkillData?.place
-      );
-    });
+    const skillInfo = pc.value.proSkills.find(
+      ([skillName, _, childSkillPlace]) => {
+        return (
+          skillName === props.skillName &&
+          childSkillPlace === props.childSkillData?.place
+        );
+      }
+    );
     if (skillInfo && typeof skillInfo !== 'string') {
       skillInfo[1] = value;
     }
@@ -92,9 +95,9 @@ function changeProSkill(value: boolean) {
         props.childSkillData.name,
         props.childSkillData.place,
       ];
-    pc.proSkills.push(skillInfo);
+    pc.value.proSkills.push(skillInfo);
   } else {
-    pc.proSkills = pc.proSkills.filter((skillInfo) => {
+    pc.value.proSkills = pc.value.proSkills.filter((skillInfo) => {
       if (!props.childSkillData) return skillInfo !== props.skillName;
       const [skillName, _, childSkillPlace] = skillInfo;
       return (
@@ -125,6 +128,7 @@ function changeProSkill(value: boolean) {
         v-click-outside="() => (isOptionsShowing = false)"
       >
         <input
+          type="text"
           class="child-skill-input"
           :value="currentData?.[childSkillData.place]"
           @input="updateCurrentData(($event.target as HTMLInputElement).value)"

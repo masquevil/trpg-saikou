@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { inject } from 'vue';
 import {
   filetoDataURL,
   urltoImage,
@@ -8,13 +7,12 @@ import {
 } from 'image-conversion';
 import { getImageSize } from '@/utils/image';
 
-// models
-import type { COCPlayerCharacter } from '@/types/coc-card/character';
+import usePC from '@/hooks/usePC';
 
 const WIDTH = 132 * 2;
 const HEIGHT = 176 * 2;
 
-const pc = inject<COCPlayerCharacter>('pc');
+const pc = usePC();
 
 async function handleUpload(event: Event) {
   const el = event.target as any;
@@ -37,7 +35,7 @@ async function handleUpload(event: Event) {
     height,
   });
   const resultUrl = await canvastoDataURL(canvas);
-  pc!.avatar = resultUrl;
+  pc.value.avatar = resultUrl;
 }
 </script>
 

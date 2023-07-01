@@ -20,19 +20,19 @@ export function generateRandomAttributes(age?: number) {
   otherAttrs.forEach((key) => {
     attributes[key] = throwDice(6, 3) * 5;
   });
-  return modifyAttributesByAge(attributes as COCAttributes, age || 0);
+  return attributes as COCAttributes;
 }
 
-function modifyAttributesByAge(
-  attributes: COCAttributes,
+export function modifyAttributesByAge(
+  attributes: Partial<COCAttributes>,
   age: number
 ): COCAttributes {
-  let results = attributes;
+  let results = withDefaultAttributes(attributes);
   if (age < 15) {
-    results = attributes;
+    // ignore this
   } else if (age < 20) {
     // 15 ~ 19
-    results = minusAttributes(attributes, ['str', 'siz'], 5);
+    results = minusAttributes(results, ['str', 'siz'], 5);
     results.luc = Math.max(results.luc, throwDice(6, 3) * 5);
   } else if (age < 40) {
     // 20 ~ 39
@@ -66,6 +66,23 @@ function modifyAttributesByAge(
   results.app = Math.max(results.app, 5);
   results.edu = Math.min(results.edu, 99);
   return results;
+}
+
+function withDefaultAttributes(
+  attributes: Partial<COCAttributes>
+): COCAttributes {
+  return {
+    str: 0,
+    dex: 0,
+    con: 0,
+    app: 0,
+    pow: 0,
+    siz: 0,
+    edu: 0,
+    int: 0,
+    luc: 0,
+    ...attributes,
+  };
 }
 
 function minusAttributes(

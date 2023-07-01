@@ -1,14 +1,10 @@
 <script setup lang="ts">
-import { inject } from 'vue';
-
-// components
 import PaperSection from '@/components/coc-card/PaperSection.vue';
 import WritableRow from '@/components/coc-card/WritableRow.vue';
 
-// models
-import type { COCPlayerCharacter } from '@/types/coc-card/character';
+import usePC from '@/hooks/usePC';
 
-const pc = inject<COCPlayerCharacter>('pc');
+const pc = usePC();
 </script>
 
 <template>

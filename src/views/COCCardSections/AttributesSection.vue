@@ -1,27 +1,18 @@
 <script setup lang="ts">
-import { inject } from 'vue';
-
 // components
 import PaperSection from '@/components/coc-card/PaperSection.vue';
 import WritableRow from '@/components/coc-card/WritableRow.vue';
 
 // models
-import { generateRandomAttributes } from '@/models/coc-card/attribute';
-import type {
-  COCPlayerCharacter,
-  COCAttributesKey,
-} from '@/types/coc-card/character';
+import type { COCAttributesKey } from '@/types/coc-card/character';
 
-const pc = inject<COCPlayerCharacter>('pc');
+import usePC from '@/hooks/usePC';
 
-function generate() {
-  if (!pc) return;
-  pc.attributes = generateRandomAttributes(Number(pc.age));
-}
+const pc = usePC();
 
 function updateAttr(key: COCAttributesKey, value: string) {
   if (!pc) return;
-  pc.attributes[key] = value ? +value : undefined;
+  pc.value.attributes[key] = value ? +value : undefined;
 }
 </script>
 
@@ -91,14 +82,14 @@ function updateAttr(key: COCAttributesKey, value: string) {
           :modelValue="`${pc.attributes.int ?? ''}`"
           @update:modelValue="(newValue) => updateAttr('int', newValue)"
         />
-        <div class="attributes-actions">
+        <!-- <div class="attributes-actions">
           <button
             class="button attributes-action"
             @click="generate"
           >
             随机生成属性<br />含年龄修正
           </button>
-        </div>
+        </div> -->
       </div>
     </div>
   </PaperSection>
@@ -125,33 +116,5 @@ function updateAttr(key: COCAttributesKey, value: string) {
 .dice-hint {
   font-size: 0.8em;
   margin: 0 0 0.1em 0.6em;
-}
-.attributes-actions {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-}
-.attributes-action {
-  font-size: 0.9em;
-  letter-spacing: 0.05em;
-  line-height: 1.4em;
-  padding: 0.1em;
-  cursor: pointer;
-  border-radius: 0.2em;
-  border: 1px solid #777;
-  color: var(--color-black);
-  background-color: var(--color-white);
-  &:hover {
-    background-color: var(--color-background-soft);
-  }
-  &:active {
-    background-color: var(--color-background-mute);
-  }
-}
-@media print {
-  .attributes-actions {
-    display: none;
-  }
 }
 </style>

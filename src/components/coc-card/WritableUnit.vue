@@ -52,5 +52,10 @@ defineEmits<Emits>();
   padding: var(--local-var-input-padding);
   font-size: 1em;
   text-align: center;
+
+  &:hover,
+  &:focus {
+    border-color: var(--color-black);
+  }
 }
 </style>

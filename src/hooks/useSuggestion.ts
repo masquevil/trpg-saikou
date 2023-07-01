@@ -1,5 +1,5 @@
 import { computed, watch } from 'vue';
-import type { ComputedRef } from 'vue';
+import type { ComputedRef, Ref } from 'vue';
 
 import formattedJobs from '@/models/coc-card/job';
 import { getDefaultSuggestion } from '@/models/coc-card/suggestion';
@@ -12,7 +12,7 @@ import type { Suggestion } from '@/types/coc-card/suggestion';
 
 // calculate suggestion: pro skills, point, wealth
 export default function useSuggestion(
-  pc: COCPlayerCharacter,
+  pc: Ref<COCPlayerCharacter>,
   viewData: COCCardViewData
 ): ComputedRef<Suggestion> {
   resetShowingChildSkills(viewData);
@@ -20,7 +20,7 @@ export default function useSuggestion(
 
   const suggestion = computed(() => {
     const suggestion = getDefaultSuggestion();
-    const job = jobs.get(pc.job);
+    const job = jobs.get(pc.value.job);
     const sugMap = new Map<string, number>();
     if (!job) return suggestion;
     // wealth
@@ -28,7 +28,7 @@ export default function useSuggestion(
     // point
     suggestion.point = job.point.reduce((sum, formula) => {
       const values = formula.map(
-        ([key, rate]) => (pc.attributes[key] || 0) * rate
+        ([key, rate]) => (pc.value.attributes[key] || 0) * rate
       );
       return sum + Math.max(...values);
     }, 0);
@@ -79,19 +79,19 @@ export default function useSuggestion(
   });
 
   watch(
-    () => pc.job,
+    () => pc.value.job,
     () => {
-      const job = jobs.get(pc.job);
+      const job = jobs.get(pc.value.job);
       if (!job) return;
       // pick skills
       viewData.jobSkills = [...job.skills];
       resetShowingChildSkills(viewData);
-      pc.proSkills = [];
+      pc.value.proSkills = [];
       const placedGroupSkill: Record<string, number> = {};
       job.skills.forEach((skillKey) => {
         // 普通技能
         if (typeof skillKey === 'string') {
-          pc.proSkills.push(skillKey);
+          pc.value.proSkills.push(skillKey);
         } else if (!Array.isArray(skillKey)) {
           // 二级技能
           const [skillNameDesc, childSkillName] = Object.entries(skillKey)[0];
@@ -123,7 +123,7 @@ export default function useSuggestion(
           }
           if (cIndex === -1) return;
           // set pc data
-          pc.proSkills.push([skillName, childSkillName, cIndex]);
+          pc.value.proSkills.push([skillName, childSkillName, cIndex]);
         }
       });
       delete viewData.jobSkills;

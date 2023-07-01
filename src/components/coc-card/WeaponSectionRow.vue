@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject } from 'vue';
+import { computed } from 'vue';
 
 import SoxCheckbox from '@/components/coc-card/SoxCheckbox.vue';
 import BaseTdInput from '@/components/coc-card/BaseTdInput.vue';
@@ -7,7 +7,6 @@ import BaseTdSelect from '@/components/coc-card/BaseTdSelect.vue';
 import FlattenTree from '@/components/coc-card/FlattenTree.vue';
 import type { Props as FlattenTreeProps } from '@/components/coc-card/FlattenTree.vue';
 
-import type { COCPlayerCharacter } from '@/types/coc-card/character';
 import type { Weapon } from '@/types/coc-card/weapon';
 
 import {
@@ -19,6 +18,7 @@ import {
 import { skillGroups } from '@/models/coc-card/skill';
 
 import { useToggle } from '@/utils/ui';
+import usePC from '@/hooks/usePC';
 import vClickOutside from '@/directives/clickOutside';
 
 interface Props {
@@ -53,7 +53,7 @@ function getPoint(skillName: string) {
     })?.init || 0;
   let plusPoint = 0;
   // get pc point
-  pc?.skillPoints.some((skillPoint) => {
+  pc?.value.skillPoints.some((skillPoint) => {
     const matched =
       // 投掷
       (!childName && name === skillPoint[0]) ||
@@ -77,7 +77,7 @@ function getPoint(skillName: string) {
 const weapon = computed(() => props.weapon || createWeapon());
 const point = computed(() => getPoint(weapon.value.skill));
 
-const pc = inject<COCPlayerCharacter>('pc');
+const pc = usePC();
 
 const battleSkills = computed<BattleSkill[]>(() => {
   const skills = skillGroups
@@ -121,8 +121,9 @@ const weaponTree = computed<FlattenTreeProps['tree']>(() => {
 
 function updatePCWeapon(updates: Partial<Weapon>) {
   if (!pc) return;
-  if (!pc.weapons[props.index]) pc.weapons[props.index] = createWeapon();
-  const weapon = pc.weapons[props.index];
+  if (!pc.value.weapons[props.index])
+    pc.value.weapons[props.index] = createWeapon();
+  const weapon = pc.value.weapons[props.index];
   Object.assign(weapon, updates);
 }
 

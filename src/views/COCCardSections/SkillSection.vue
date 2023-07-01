@@ -7,10 +7,11 @@ import SkillTable from '@/components/coc-card/SkillTable.vue';
 import WritableRow from '@/components/coc-card/WritableRow.vue';
 // models
 import { skillGroups } from '@/models/coc-card/skill';
-import type { COCPlayerCharacter } from '@/types/coc-card/character';
 import type { Suggestion } from '@/types/coc-card/suggestion';
 
-const pc = inject<COCPlayerCharacter>('pc');
+import usePC from '@/hooks/usePC';
+
+const pc = usePC();
 const suggestion = inject<ComputedRef<Suggestion>>('suggestion');
 
 const values = reactive({
@@ -26,7 +27,7 @@ const values = reactive({
 const rests = computed(() => {
   let p = 0;
   let i = 0;
-  pc?.skillPoints.forEach(([_, point]) => {
+  pc?.value.skillPoints.forEach(([_, point]) => {
     p += point.p || 0;
     i += point.i || 0;
   });
@@ -37,18 +38,16 @@ const rests = computed(() => {
 });
 
 watch(
-  () => [suggestion, pc?.attributes.int],
+  () => [suggestion, pc?.value.attributes.int],
   () => {
     if (suggestion?.value.point) {
       const v = suggestion.value.point > 0 ? suggestion.value.point : 0;
       values.pro.point = v;
       values.pro.str = `${v > 0 ? v : ''}`;
     }
-    const int = pc?.attributes.int;
-    if (int) {
-      values.interest.point = int * 2;
-      values.interest.str = `${int * 2}`;
-    }
+    const int = pc?.value.attributes.int;
+    values.interest.point = (int || 0) * 2;
+    values.interest.str = typeof int === 'number' ? `${int * 2}` : '';
   },
   { deep: true }
 );

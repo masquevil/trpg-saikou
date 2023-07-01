@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, inject } from 'vue';
 
 interface Props {
   label: string;
@@ -19,6 +19,8 @@ interface Emits {
   (event: 'blur', modelValue: string): void;
 }
 defineEmits<Emits>();
+
+const pageData = inject<{ printing: boolean }>('pageData');
 
 const inputStyle = ref({
   width: `${props.char}em`,
@@ -43,7 +45,7 @@ const inputStyle = ref({
       type="text"
       class="input"
       :style="inputStyle"
-      :placeholder="placeholder"
+      :placeholder="pageData?.printing ? '' : placeholder"
       :value="modelValue"
       @input="
         $emit('update:modelValue', ($event.target as HTMLInputElement).value)
@@ -86,11 +88,22 @@ const inputStyle = ref({
   border-bottom: 1px solid var(--color-line);
   padding: 0.2em;
   font-size: 1em;
+
+  &:hover,
+  &:focus {
+    border-color: var(--color-black);
+  }
 }
 
 @media print {
   .input {
     text-align: center;
+  }
+  .input::placeholder {
+    display: none;
+    visibility: hidden;
+    color: transparent;
+    opacity: 0;
   }
 }
 </style>

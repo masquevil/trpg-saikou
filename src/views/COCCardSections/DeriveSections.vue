@@ -1,25 +1,24 @@
 <script setup lang="ts">
-import { inject, computed, reactive } from 'vue';
-
 import PaperSection from '@/components/coc-card/PaperSection.vue';
 import WritableUnit from '@/components/coc-card/WritableUnit.vue';
 import WritableDivider from '@/components/coc-card/WritableDivider.vue';
 import StatusCheckbox from '@/components/coc-card/StatusCheckbox.vue';
 // models
-import type {
-  COCPlayerCharacter,
-  COCDeriveAttributes,
-} from '@/types/coc-card/character';
+import type { COCDeriveAttributes } from '@/types/coc-card/character';
 
-const pc = inject<COCPlayerCharacter>('pc');
+import usePC from '@/hooks/usePC';
+
+const pc = usePC();
 
 function updateAttr(
   key: keyof COCDeriveAttributes,
   cKey: 'now' | 'max' | 'start',
   value: string
 ): void {
-  if (!pc || !pc.deriveAttributes) return;
-  pc.deriveAttributes[key][cKey as 'now' | 'max'] = value ? value : undefined;
+  if (!pc || !pc.value.deriveAttributes) return;
+  pc.value.deriveAttributes[key][cKey as 'now' | 'max'] = value
+    ? value
+    : undefined;
 }
 </script>
 

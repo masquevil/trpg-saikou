@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch, inject } from 'vue';
+import { ref, computed, watch } from 'vue';
 import vClickOutside from '@/directives/clickOutside';
 
 // components
@@ -9,15 +9,16 @@ import FlattenTree from '@/components/coc-card/FlattenTree.vue';
 import type { Props as FlattenTreeProps } from '@/components/coc-card/FlattenTree.vue';
 
 // models
-import type { COCPlayerCharacter } from '@/types/coc-card/character';
 import formattedJobs from '@/models/coc-card/job';
+
+import usePC from '@/hooks/usePC';
+
+const pc = usePC();
 
 const { jobGroups } = formattedJobs;
 
 const isJobSeletorShowing = ref(false);
 const jobSearchInput = ref('');
-const pc = inject<COCPlayerCharacter>('pc');
-const pageData = inject<{ printing: boolean }>('pageData');
 
 function openJobSelector() {
   isJobSeletorShowing.value = true;
@@ -62,7 +63,7 @@ const jobTree = computed(() => {
 
 function onSelectJob(jobName: string) {
   if (!pc) return;
-  pc.job = jobName;
+  pc.value.job = jobName;
   closeJobSelector();
 }
 </script>
@@ -93,7 +94,7 @@ function onSelectJob(jobName: string) {
         <WritableRow
           label="职业"
           v-model="pc.job"
-          :placeholder="pageData?.printing ? '' : '自定义职业或选择预设职业'"
+          placeholder="自定义职业或选择预设职业"
           @focus="openJobSelector"
         />
         <Transition name="slide-up">

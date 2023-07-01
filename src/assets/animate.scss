@@ -22,3 +22,26 @@
   opacity: 0;
   pointer-events: none;
 }
+
+.swipe-paper-enter-active,
+.swipe-paper-leave-active {
+  z-index: 1;
+  transition: all .6s ease-in-out;
+}
+.swipe-paper-enter-active {
+  transition-delay: .8s;
+}
+.swipe-paper-enter-from,
+.swipe-paper-leave-to {
+  position: absolute;
+  top: 0;
+  pointer-events: none;
+}
+.swipe-paper-enter-from {
+  z-index: 2;
+  transform: rotateY(90deg) rotateZ(0);
+}
+.swipe-paper-leave-to {
+  z-index: 1;
+  transform: rotateY(-90deg) rotateZ(0);
+}

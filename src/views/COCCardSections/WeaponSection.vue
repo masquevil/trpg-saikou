@@ -1,17 +1,18 @@
 <script setup lang="ts">
-import { computed, inject } from 'vue';
+import { computed } from 'vue';
 
-import type { COCPlayerCharacter } from '@/types/coc-card/character';
 import type { Weapon } from '@/types/coc-card/weapon';
 
 import PaperSection from '@/components/coc-card/PaperSection.vue';
 import WeaponSectionRow from '@/components/coc-card/WeaponSectionRow.vue';
 
-const pc = inject<COCPlayerCharacter>('pc');
+import usePC from '@/hooks/usePC';
+
+const pc = usePC();
 
 const localWeapons = computed<(Weapon | undefined)[]>(() => {
   return Array.from({ length: 5 }).map((_, index) => {
-    return pc?.weapons[index] || undefined;
+    return pc?.value.weapons[index] || undefined;
   });
 });
 </script>

@@ -3,12 +3,9 @@ import { computed, inject } from 'vue';
 import type { ChildSkill } from '@/types/coc-card/skill';
 import type { SkillGroup, SkillGroups } from '@/types/coc-card/formattedSkill';
 import type { COCCardViewData } from '@/types/coc-card/viewData';
-import type {
-  COCPlayerCharacter,
-  COCPCSkill,
-  SkillPoint,
-} from '@/types/coc-card/character';
+import type { COCPCSkill, SkillPoint } from '@/types/coc-card/character';
 import { dynamicInitFormulas } from '@/models/coc-card/skill';
+import usePC from '@/hooks/usePC';
 
 import SkillTdLabel from './SkillTdLabel.vue';
 import SkillTdInput from './SkillTdInput.vue';
@@ -18,7 +15,7 @@ interface Props {
 }
 const props = defineProps<Props>();
 
-const pc = inject<COCPlayerCharacter>('pc');
+const pc = usePC();
 const viewData = inject<COCCardViewData>('viewData');
 
 interface TableRowData {
@@ -52,7 +49,7 @@ function getTableData(data: SkillGroups) {
         const isSpecialGroup = skillGroup.groupName === '特殊';
         let init = skill.init;
         if (pc && skill.name in dynamicInitFormulas) {
-          init = dynamicInitFormulas[skill.name](pc);
+          init = dynamicInitFormulas[skill.name](pc.value);
         }
         const isGroupStart = isSpecialGroup || index === 0;
         // simple skill row
@@ -132,7 +129,7 @@ const tableData = computed(() => getTableData(props.data));
 
 function findSkillPoints(skillInfo: COCPCSkill) {
   if (!pc) return;
-  return pc.skillPoints.find((skillPoint) => {
+  return pc.value.skillPoints.find((skillPoint) => {
     const [pointSkill] = skillPoint;
     if (typeof skillInfo === 'string') {
       return skillInfo === pointSkill;
@@ -154,7 +151,7 @@ function updateSkillPoint(
     const key =
       typeof skillKey === 'string' ? skillKey : ([...skillKey] as COCPCSkill);
     skillPoint = [key, {}];
-    pc.skillPoints.push(skillPoint);
+    pc.value.skillPoints.push(skillPoint);
   }
   const points = skillPoint[1];
   if (typeof value === 'boolean') {
