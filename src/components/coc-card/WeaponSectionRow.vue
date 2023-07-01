@@ -5,9 +5,9 @@ import SoxCheckbox from '@/components/coc-card/SoxCheckbox.vue';
 import BaseTdInput from '@/components/coc-card/BaseTdInput.vue';
 import BaseTdSelect from '@/components/coc-card/BaseTdSelect.vue';
 import FlattenTree from '@/components/coc-card/FlattenTree.vue';
-import type { Props as FlattenTreeProps } from '@/components/coc-card/FlattenTree.vue';
 
 import type { Weapon } from '@/types/coc-card/weapon';
+import type { FlattenTreeData } from '@/types/coc-card/flattenTree';
 
 import {
   createWeapon,
@@ -108,7 +108,7 @@ const {
   setFalse: hideWeaponSeletor,
 } = useToggle();
 
-const weaponTree = computed<FlattenTreeProps['tree']>(() => {
+const weaponTree = computed<FlattenTreeData>(() => {
   return weaponGroupOrders.map(([key, label]) => ({
     key,
     label,

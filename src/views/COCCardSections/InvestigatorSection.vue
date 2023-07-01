@@ -1,17 +1,18 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue';
-import vClickOutside from '@/directives/clickOutside';
 
 // components
 import PaperSection from '@/components/coc-card/PaperSection.vue';
 import WritableRow from '@/components/coc-card/WritableRow.vue';
 import FlattenTree from '@/components/coc-card/FlattenTree.vue';
-import type { Props as FlattenTreeProps } from '@/components/coc-card/FlattenTree.vue';
 
 // models
 import formattedJobs from '@/models/coc-card/job';
 
+import vClickOutside from '@/directives/clickOutside';
 import usePC from '@/hooks/usePC';
+
+import type { FlattenTreeData } from '@/types/coc-card/flattenTree';
 
 const pc = usePC();
 
@@ -57,7 +58,7 @@ const jobTree = computed(() => {
       });
     }
     return result;
-  }, [] as FlattenTreeProps['tree']);
+  }, [] as FlattenTreeData);
   return filteredData;
 });
 

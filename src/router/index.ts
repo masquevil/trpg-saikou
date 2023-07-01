@@ -1,31 +1,35 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import HomeView from '@/views/HomeView.vue';
-import COCCardView from '@/views/COCCardView.vue';
-import StoryListView from '@/views/StoryListView.vue';
-import SelfView from '@/views/SelfView.vue';
+import {
+  createRouter,
+  createWebHistory,
+  createWebHashHistory,
+} from 'vue-router';
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history:
+    // @ts-expect-error
+    process.env.NODE_ENV !== 'production'
+      ? createWebHistory(import.meta.env.BASE_URL)
+      : createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
       name: 'home',
-      component: HomeView,
+      component: () => import('../views/HomeView.vue'),
     },
     {
       path: '/coc-card',
       name: 'COCCard',
-      component: COCCardView,
+      component: () => import('../views/COCCardView.vue'),
     },
     {
       path: '/stories',
       name: 'stories',
-      component: StoryListView,
+      component: () => import('../views/StoryListView.vue'),
     },
     {
       path: '/self',
       name: 'self',
-      component: SelfView,
+      component: () => import('../views/SelfView.vue'),
     },
   ],
 });

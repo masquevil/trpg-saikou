@@ -1,6 +1,6 @@
 {
   "name": "trpg-saikou",
-  "version": "0.0.1",
+  "version": "0.0.8",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -14,7 +14,6 @@
   "dependencies": {
     "copy-to-clipboard": "^3.3.3",
     "element-plus": "^2.3.1",
-    "element-ui": "^2.15.13",
     "html-to-image": "^1.11.11",
     "image-conversion": "^2.1.1",
     "leancloud-storage": "^4.15.0",

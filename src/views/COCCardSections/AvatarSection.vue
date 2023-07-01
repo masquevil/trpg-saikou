@@ -42,7 +42,7 @@ async function handleUpload(event: Event) {
 <template>
   <label
     class="avatar-section"
-    :style="{ 'background-image': `url(${pc?.avatar})` }"
+    :style="{ 'background-image': pc?.avatar ? `url(${pc.avatar})` : 'none' }"
   >
     <input
       class="input-file"
