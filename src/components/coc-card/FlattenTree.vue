@@ -1,15 +1,10 @@
 <script setup lang="ts">
-import { reactive } from 'vue';
-
-interface Item {
-  label: string;
-  key: string;
-}
-
-export interface Props {
-  tree: (Item & {
-    children: Item[];
-  })[];
+import type {
+  FlattenTreeData,
+  FlattenTreeDataItem as Item,
+} from '@/types/coc-card/flattenTree';
+interface Props {
+  tree: FlattenTreeData;
 }
 defineProps<Props>();
 

@@ -5,7 +5,7 @@ export function throwDice(dice: number, times: number = 1, plus: number = 0) {
   }, plus);
 }
 
-export function growPoint(origin: number, times: number = 1) {
+export function growPoint(origin: number, times: number = 1): number {
   if (times < 1) return origin;
   let result = origin;
   const judge = throwDice(100);

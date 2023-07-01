@@ -1,8 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import HomeView from '@/views/HomeView.vue';
-import COCCardView from '@/views/COCCardView.vue';
-import StoryListView from '@/views/StoryListView.vue';
-import SelfView from '@/views/SelfView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,22 +6,22 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView,
+      component: () => import('../views/HomeView.vue'),
     },
     {
       path: '/coc-card',
       name: 'COCCard',
-      component: COCCardView,
+      component: () => import('../views/COCCardView.vue'),
     },
     {
       path: '/stories',
       name: 'stories',
-      component: StoryListView,
+      component: () => import('../views/StoryListView.vue'),
     },
     {
       path: '/self',
       name: 'self',
-      component: SelfView,
+      component: () => import('../views/SelfView.vue'),
     },
   ],
 });
