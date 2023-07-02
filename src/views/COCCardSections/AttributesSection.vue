@@ -82,14 +82,6 @@ function updateAttr(key: COCAttributesKey, value: string) {
           :modelValue="`${pc.attributes.int ?? ''}`"
           @update:modelValue="(newValue) => updateAttr('int', newValue)"
         />
-        <!-- <div class="attributes-actions">
-          <button
-            class="button attributes-action"
-            @click="generate"
-          >
-            随机生成属性<br />含年龄修正
-          </button>
-        </div> -->
       </div>
     </div>
   </PaperSection>
@@ -110,11 +102,11 @@ function updateAttr(key: COCAttributesKey, value: string) {
   gap: 0.2em;
 
   & :deep(.label) {
-    flex: 1 1 2.8em;
+    flex: 1 1 3.4em;
   }
 }
 .dice-hint {
   font-size: 0.8em;
-  margin: 0 0 0.1em 0.6em;
+  margin: 0 0 -0.3em 0.6em;
 }
 </style>

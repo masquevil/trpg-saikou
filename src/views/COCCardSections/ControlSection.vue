@@ -18,10 +18,12 @@ import useViewData from '@/hooks/useViewData';
 
 interface Props {
   paperInFront: boolean;
+  paperImage: {
+    front: string;
+    back: string;
+  };
 }
-withDefaults(defineProps<Props>(), {
-  // on: false,
-});
+const props = defineProps<Props>();
 
 interface Emits {
   (event: 'switch-paper', value: boolean): void;
@@ -39,6 +41,9 @@ const outData = computed(() => {
   const json = JSON.stringify({ pc: pc?.value, viewData: viewData });
   const str = LZString.compressToEncodedURIComponent(json);
   return str;
+});
+const isDownHelperShowing = computed(() => {
+  return Boolean(props.paperImage.front || props.paperImage.back);
 });
 
 function generate() {
@@ -182,6 +187,34 @@ function applyInData() {
       <div>二维码分享</div>
     </div> -->
     <div class="col-0"></div>
+    <div
+      v-if="isDownHelperShowing"
+      class="down-helper"
+    >
+      <div class="guide">如果 IOS 设备无法自动保存图片，可以长按此处保存：</div>
+      <div class="down-helper-images">
+        <div
+          class="down-helper-image-container"
+          data-content="正面"
+          v-if="paperImage.front"
+        >
+          <img
+            class="down-helper-image"
+            :src="paperImage.front"
+          />
+        </div>
+        <div
+          class="down-helper-image-container"
+          data-content="背面"
+          v-if="paperImage.back"
+        >
+          <img
+            class="down-helper-image"
+            :src="paperImage.back"
+          />
+        </div>
+      </div>
+    </div>
     <button
       class="control-button"
       @click="printPaper"
@@ -198,7 +231,7 @@ function applyInData() {
   --color-control-bg-hover: #444;
   --color-control-bg-active: #4b4e53;
 
-  padding: 32px 1.2em 32px 0;
+  padding: 32px 0;
   height: 100%;
   overflow: auto;
   display: flex;
@@ -236,6 +269,42 @@ function applyInData() {
   &:active {
     background-color: var(--color-control-bg-active);
   }
+}
+
+.down-helper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  line-height: 1.4;
+}
+.down-helper-images {
+  display: flex;
+  justify-content: space-around;
+}
+.down-helper-image-container {
+  flex: 0 1 auto;
+  width: 75px;
+  height: 105px;
+  position: relative;
+
+  &::after {
+    content: attr(data-content);
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.6);
+    pointer-events: none;
+  }
+}
+.down-helper-image {
+  width: 100%;
+  height: 100%;
 }
 
 .in-out-modal-body {

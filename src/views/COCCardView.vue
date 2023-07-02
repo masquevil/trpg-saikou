@@ -42,6 +42,10 @@ provide('pageData', pageData);
 provide('suggestion', suggestion);
 
 const paper = ref<HTMLElement | null>(null);
+const paperImage = reactive({
+  front: '',
+  back: '',
+});
 async function printPaper() {
   if (!paper.value) return;
 
@@ -56,6 +60,7 @@ async function printPaper() {
   });
   const imageName = [pc.name, pc.playerName, '正面'].filter((v) => v).join('-');
   downloadImage(href, imageName);
+  paperImage.front = href;
 
   // reset
   resetPrintStyles();
@@ -82,6 +87,7 @@ window.xx = { pc: pcRef, viewData, suggestion, printPaper };
     >
       <ControlSection
         :paperInFront="paperInFront"
+        :paperImage="paperImage"
         @switch-paper="(v) => (paperInFront = v)"
         @print-paper="printPaper"
         @reset-card="resetCard"
@@ -129,17 +135,19 @@ window.xx = { pc: pcRef, viewData, suggestion, printPaper };
 
 <style scoped lang="scss">
 .page {
+  min-width: 1440px;
   color: var(--color-text);
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  gap: 20px;
+  gap: 30px;
 }
 
 .left-bar {
   position: sticky;
   top: 0;
   height: 100vh;
+  width: 200px;
 }
 
 .paper-container {
@@ -174,9 +182,6 @@ window.xx = { pc: pcRef, viewData, suggestion, printPaper };
 }
 
 @media screen and (max-width: 960px) {
-  .page {
-    min-width: 1440px;
-  }
   .paper {
     --base-size: 16px;
   }

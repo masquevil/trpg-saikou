@@ -179,7 +179,12 @@ function getTotal(points: SkillPoint, init: number) {
         <th class="skill-th th-deep"></th>
         <th class="skill-th th-deep th-skill">
           <div class="th-skill-label">
-            <div class="th-skill-label-pro">本职技能</div>
+            <div class="th-skill-label-pro">
+              <span>本</span>
+              <span>职</span>
+              <span>技</span>
+              <span>能</span>
+            </div>
             技能
           </div>
         </th>
@@ -329,19 +334,10 @@ function getTotal(points: SkillPoint, init: number) {
   font-size: calc(var(--pro-font-base) * 1em);
   width: calc(var(--th-line-height) / var(--pro-font-base));
   height: calc(var(--th-line-height) / var(--pro-font-base));
-  line-height: 1.12em;
-  --padding-h: calc(
-    (var(--th-line-height) / 2 - var(--pro-font-base) * 1em) /
-      var(--pro-font-base)
-  );
-  --padding-v: calc(var(--padding-h) - 0.12em / var(--pro-font-base));
-  padding: calc(
-    (var(--th-line-height) / 2 - var(--pro-font-base) * 1em) /
-      var(--pro-font-base)
-  );
-  padding-left: var(--padding-h);
-  padding-top: var(--padding-v);
-  margin-top: 1px;
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: center;
+  align-items: center;
   background-color: var(--color-white);
 }
 .th-grow {

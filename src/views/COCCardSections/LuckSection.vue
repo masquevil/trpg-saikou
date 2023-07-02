@@ -3,6 +3,7 @@ import PaperSection from '@/components/coc-card/PaperSection.vue';
 import WritableRow from '@/components/coc-card/WritableRow.vue';
 
 import usePC from '@/hooks/usePC';
+import qr from '@/assets/coc-card-qr.png';
 
 const pc = usePC();
 </script>
@@ -27,7 +28,11 @@ const pc = usePC();
         <div class="qr-section-header">扫码车卡</div>
       </template>
       <div class="qr-container">
-        <div class="qr-code"></div>
+        <img
+          class="qr-code"
+          :src="qr"
+        />
+        <!-- <div class="qr-code"></div> -->
       </div>
     </PaperSection>
   </div>
@@ -63,6 +68,5 @@ const pc = usePC();
 .qr-code {
   width: 9em;
   height: 9em;
-  border: 1px solid var(--color-border);
 }
 </style>

@@ -105,7 +105,7 @@ watch(
   flex-direction: column;
   justify-content: space-between;
   gap: 0.3em;
-  padding: 0.5em 0.6em 0.8em;
+  padding: 0.3em 0.6em 0.8em;
 
   &:deep(.label) {
     flex: 1 1 4em;

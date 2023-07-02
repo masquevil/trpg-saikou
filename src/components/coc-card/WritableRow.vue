@@ -66,8 +66,8 @@ const inputStyle = ref({
   --color-line: #b2b2b2;
 }
 .writable-row-with-hint {
-  & .input {
-    margin-bottom: 0.24em;
+  & .label {
+    margin: 0.3em 0;
   }
 }
 
@@ -75,12 +75,19 @@ const inputStyle = ref({
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 }
 .label-title {
-  padding-bottom: 0.1em;
+  padding-top: 0.2em;
 }
 .label-hint {
-  font-size: 0.6em;
+  /* font-size: 0.6em; */
+  position: absolute;
+  top: 100%;
+  margin-top: -0.1em;
+  transform: scale(0.6);
+  transform: top center;
+  white-space: nowrap;
 }
 
 .input {
