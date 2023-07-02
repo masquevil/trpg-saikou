@@ -22,6 +22,12 @@ import HintSection from './COCCardSections/HintSection.vue';
 import SkillSection from './COCCardSections/SkillSection.vue';
 import WeaponSection from './COCCardSections/WeaponSection.vue';
 import BattleSection from './COCCardSections/BattleSection.vue';
+import StorySection from './COCCardSections/StorySection.vue';
+import AssetsSection from './COCCardSections/AssetsSection.vue';
+import ItemSection from './COCCardSections/ItemSection.vue';
+import MythosSection from './COCCardSections/MythosSection.vue';
+import FriendSection from './COCCardSections/FriendSection.vue';
+import ExperienceSection from './COCCardSections/ExperienceSection.vue';
 
 const pc = reactive<COCPlayerCharacter>(createPC());
 const pcRef = ref(pc);
@@ -46,12 +52,14 @@ const paperImage = reactive({
   front: '',
   back: '',
 });
-async function printPaper() {
+async function printPaper(debug: boolean = false) {
   if (!paper.value) return;
 
   // prepare
   applyPrintStyles();
   pageData.printing = true;
+
+  if (debug) return;
 
   // do proint
   const href = await toPng(paper.value, {
@@ -73,7 +81,7 @@ function resetCard() {
 }
 
 // @ts-expect-error
-window.xx = { pc: pcRef, viewData, suggestion, printPaper };
+window.xx = { pc: pcRef, viewData, pageData, printPaper };
 </script>
 
 <template>
@@ -125,7 +133,18 @@ window.xx = { pc: pcRef, viewData, suggestion, printPaper };
           class="paper theme-light"
           v-else
         >
-          <div class="paper-content">TODO</div>
+          <div class="paper-content">
+            <StorySection />
+            <div class="section-row">
+              <AssetsSection />
+              <ItemSection class="col-0" />
+              <MythosSection />
+            </div>
+            <div class="section-row">
+              <FriendSection class="col-0" />
+              <ExperienceSection />
+            </div>
+          </div>
         </div>
       </Transition>
     </div>
@@ -135,7 +154,7 @@ window.xx = { pc: pcRef, viewData, suggestion, printPaper };
 
 <style scoped lang="scss">
 .page {
-  min-width: 1440px;
+  min-width: 1300px;
   color: var(--color-text);
   display: flex;
   justify-content: center;

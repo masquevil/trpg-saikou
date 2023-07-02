@@ -32,7 +32,6 @@ const pc = usePC();
           class="qr-code"
           :src="qr"
         />
-        <!-- <div class="qr-code"></div> -->
       </div>
     </PaperSection>
   </div>
