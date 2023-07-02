@@ -83,15 +83,17 @@ const multiSkillsTexts = computed(() => {
 
 <style scoped lang="scss">
 .hint-section {
-  margin: -0.48em 0;
+  margin: -0.44em 0;
   height: 0.72em;
   flex: 0 0 auto;
 }
 .hint-section-content {
-  font-size: 0.72em;
   line-height: 1;
   display: flex;
   color: var(--vt-c-text-light-2);
+  white-space: nowrap;
+  transform: scale(0.72);
+  transform-origin: left top;
 }
 
 .suggestion-content {

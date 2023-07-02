@@ -190,6 +190,7 @@ window.xx = { pc: pcRef, viewData, suggestion, printPaper };
 @media print {
   .page:not(.page[print-ignore]) {
     width: auto;
+    min-width: auto;
     display: block;
   }
   .paper-container:not(.paper-container[print-ignore]) {

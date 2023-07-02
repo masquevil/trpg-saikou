@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { CloseBold, Select } from '@element-plus/icons-vue';
+
 interface Props {
   checked?: boolean;
   xOnFalse?: boolean;
@@ -21,15 +23,18 @@ function onChange($event: Event) {
 </script>
 
 <template>
-  <input
-    type="checkbox"
-    class="sox-checkbox"
-    :class="{
-      'sox-checkbox-x-on-false': xOnFalse,
-    }"
-    :checked="checked"
-    @change="onChange"
-  />
+  <label class="sox-checkbox">
+    <el-icon size="0.9em">
+      <Select v-if="checked" />
+      <CloseBold v-if="!checked && xOnFalse" />
+    </el-icon>
+    <input
+      type="checkbox"
+      class="sox-checkbox-input"
+      :checked="checked"
+      @change="onChange"
+    />
+  </label>
 </template>
 
 <style scoped lang="scss">
@@ -53,15 +58,11 @@ function onChange($event: Event) {
   &:active {
     background-color: var(--color-background-mute);
   }
-
-  &:checked::before {
-    content: '✓';
-  }
 }
-.sox-checkbox-x-on-false {
-  &:not(:checked)::before {
-    content: '✖️';
-    font-size: 0.9em;
-  }
+.sox-checkbox-input {
+  visibility: hidden;
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
 }
 </style>
