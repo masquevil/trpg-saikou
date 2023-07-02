@@ -67,7 +67,7 @@ async function printPaper(debug: boolean = false) {
     canvasHeight: 297 * 6,
   });
   const imageName = [pc.name, pc.playerName, '正面'].filter((v) => v).join('-');
-  downloadImage(href, imageName);
+  downloadImage(href, `${imageName}.png`);
   paperImage.front = href;
 
   // reset
@@ -166,7 +166,7 @@ window.xx = { pc: pcRef, viewData, pageData, printPaper };
   position: sticky;
   top: 0;
   height: 100vh;
-  width: 200px;
+  width: 210px;
 }
 
 .paper-container {
