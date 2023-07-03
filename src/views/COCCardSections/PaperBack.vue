@@ -19,13 +19,22 @@ defineProps<Props>();
   <PaperLayout :setRef="setRef">
     <StorySection />
     <div class="section-row">
-      <AssetsSection class="col-0" />
-      <ItemSection class="col-0" />
-      <MythosSection class="col-0" />
+      <div class="section-row col-2">
+        <ItemSection class="col-0" />
+        <AssetsSection class="col-0" />
+      </div>
+      <MythosSection class="col-1" />
     </div>
     <div class="section-row">
-      <FriendSection class="col-0" />
-      <ExperienceSection />
+      <FriendSection class="col-2" />
+      <ExperienceSection class="col-1" />
+    </div>
+    <div class="inspiration-row">
+      <div class="special-thanks">Special Thanks 听枫馆·枫笛(北京)</div>
+      <div class="inspiration">
+        Inspired By 沉世TRPG(上海) 猫爷TRPG(网络) 人格解体(网络)
+      </div>
+      <div class="copyright">「克苏鲁的呼唤」7版人物卡 Copyright 侠小然</div>
     </div>
   </PaperLayout>
 </template>
@@ -35,5 +44,19 @@ defineProps<Props>();
   display: flex;
   gap: 1em;
   align-items: stretch;
+}
+.inspiration-row {
+  flex: 1 0 0;
+  display: flex;
+  align-items: flex-end;
+  color: #888;
+  font-size: 0.88em;
+  line-height: 1;
+}
+.special-thanks {
+  flex: 3;
+}
+.inspiration {
+  flex: 5;
 }
 </style>

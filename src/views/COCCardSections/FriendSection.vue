@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import PaperSection from '@/components/coc-card/PaperSection.vue';
-import WritableRow from '@/components/coc-card/WritableRow.vue';
+import WritableArea from '@/components/coc-card/WritableArea.vue';
 
 import { usePC } from '@/hooks/useCOCCardProviders';
 
@@ -13,12 +13,19 @@ const pc = usePC();
     title="人物关系"
     subTitle="Relationships"
   >
-    <div class="story-section-body">TODO</div>
+    <div class="section-body">
+      <WritableArea
+        label=""
+        :rows="8"
+        v-model="pc.friends"
+        placeholder="角色  玩家  职业  关系 —— 懒得结构化了，应该不会有人在网上车卡时候就填吧？"
+      />
+    </div>
   </PaperSection>
 </template>
 
 <style scoped lang="scss">
-.story-section-body {
+.section-body {
   padding: 0.4em 0.6em 0.6em;
 }
 </style>

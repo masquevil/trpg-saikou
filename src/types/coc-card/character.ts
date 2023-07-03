@@ -42,6 +42,10 @@ export interface COCPlayerCharacter {
     magics: string; // 法术
     touches: string; // 第三类接触
   };
+  // 经历过的模组
+  experiencedModules: string;
+  // 人物关系
+  friends: string;
 }
 
 export interface COCAttributes {

@@ -50,6 +50,8 @@ export function createPC(
       magics: '',
       touches: '',
     },
+    experiencedModules: '',
+    friends: '',
     ...override,
   };
 }

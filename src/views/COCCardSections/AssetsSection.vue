@@ -44,7 +44,7 @@ const wealth = computed(() => {
       <WritableArea
         label="资产"
         :rows="9"
-        :maxlength="18 * 9 - 3"
+        :maxlength="17 * 9 - 2"
         v-model="pc.assets.assets"
       />
     </div>
