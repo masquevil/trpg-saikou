@@ -68,7 +68,6 @@ function ageGrow() {
 function printPaper() {
   ElMessage.info({
     message: '图片生成中，页面会有轻微抖动，请稍候…',
-    duration: 500,
     onClose() {
       emit('print-paper');
     },

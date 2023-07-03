@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { reactive, provide, ref } from 'vue';
-import { toPng } from 'html-to-image';
+import { toJpeg } from 'html-to-image';
 
 import { createPC } from '@/models/coc-card/character';
 
@@ -37,7 +37,7 @@ const viewData = reactive<COCCardViewData>({
 const pageData = reactive({
   printing: false,
 });
-const paperInFront = ref(true);
+const paperInFront = ref(location.search.includes('turn=back') ? false : true);
 
 useDerives(pcRef);
 const suggestion = useSuggestion(pcRef, viewData);
@@ -62,12 +62,13 @@ async function printPaper(debug: boolean = false) {
   if (debug) return;
 
   // do proint
-  const href = await toPng(paper.value, {
-    canvasWidth: 210 * 6,
-    canvasHeight: 297 * 6,
+  const href = await toJpeg(paper.value, {
+    canvasWidth: 210 * 4,
+    canvasHeight: 297 * 4,
+    quality: 0.5,
   });
   const imageName = [pc.name, pc.playerName, '正面'].filter((v) => v).join('-');
-  downloadImage(href, `${imageName}.png`);
+  downloadImage(href, `${imageName}.jpg`);
   paperImage.front = href;
 
   // reset
