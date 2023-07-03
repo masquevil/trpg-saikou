@@ -1,8 +1,11 @@
 <script setup lang="ts">
+import { Aim } from '@element-plus/icons-vue';
+import { computed } from 'vue';
+
 interface Props {
   on?: boolean;
 }
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   on: false,
 });
 
@@ -12,6 +15,10 @@ interface Emits {
 defineEmits<Emits>();
 
 const INPUT_NAME = 'page-switcher';
+const options = computed<[string, string, boolean][]>(() => [
+  ['正面', '调查员属性', true],
+  ['背面', '调查员故事', false],
+]);
 </script>
 
 <template>
@@ -19,36 +26,28 @@ const INPUT_NAME = 'page-switcher';
     <div class="header">正在编辑：{{ on ? '正面' : '背面' }}</div>
     <div class="swicher">
       <label
+        v-for="option in options"
+        :key="option[0]"
         class="swicher-option"
-        :class="{ 'swicher-option-inactive': !on }"
+        :class="{ 'swicher-option-inactive': on !== option[2] }"
       >
-        <div>
+        <div class="swicher-option-title">
           <input
             type="radio"
             class="switcher-radio"
             :name="INPUT_NAME"
-            :checked="on"
-            @change="$emit('change', true)"
+            :checked="on === option[2]"
+            @change="$emit('change', option[2])"
           />
-          <span>正面</span>
+          <el-icon
+            size="0.9em"
+            v-if="on !== option[2]"
+          >
+            <Aim />
+          </el-icon>
+          <span>{{ option[0] }}</span>
         </div>
-        <div>调查员属性</div>
-      </label>
-      <label
-        class="swicher-option"
-        :class="{ 'swicher-option-inactive': on }"
-      >
-        <div>
-          <input
-            type="radio"
-            class="switcher-radio"
-            :name="INPUT_NAME"
-            :checked="!on"
-            @change="$emit('change', false)"
-          />
-          <span>背面</span>
-        </div>
-        <div>调查员故事</div>
+        <div>{{ option[1] }}</div>
       </label>
     </div>
   </div>
@@ -96,15 +95,13 @@ const INPUT_NAME = 'page-switcher';
     background-color: var(--color-bg-opp-active);
   }
 }
+.swicher-option-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2em;
+}
 .switcher-radio {
   appearance: none;
-  &:checked {
-    &::before {
-      content: '✓';
-      color: var(--color-text);
-      margin-right: 0.4em;
-      margin-left: -0.4em;
-    }
-  }
 }
 </style>

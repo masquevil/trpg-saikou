@@ -216,7 +216,7 @@ window.xx = { pc: pcRef, viewData, pageData, printPaper };
 /* when print image & print */
 @mixin printing-styles {
   .paper {
-    --base-size: 3.6mm;
+    --base-size: 3.2mm;
   }
 }
 .printing-image {
