@@ -40,6 +40,16 @@ export function createPC(
       mad: '',
       desc: '',
     },
+    // assets
+    assets: {
+      cash: '',
+      consumption: '',
+      assets: '',
+      items: '',
+      magicItems: '',
+      magics: '',
+      touches: '',
+    },
     ...override,
   };
 }

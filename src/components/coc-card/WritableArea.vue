@@ -6,10 +6,13 @@ interface Props {
   rows?: number;
   placeholder?: string;
   modelValue?: string;
+  maxlength?: number;
+  readonly?: boolean;
 }
 const props = withDefaults(defineProps<Props>(), {
   rows: 3,
   modelValue: '',
+  readonly: false,
 });
 
 interface Emits {
@@ -31,12 +34,13 @@ const pageData = usePageData();
     <textarea
       class="input"
       :style="{
-        textIndent: `${label.length + 0.4}em`,
+        textIndent: label.length ? `${label.length + 0.4}em` : undefined,
       }"
       :rows="rows"
       :placeholder="pageData?.printing ? '' : placeholder"
       :value="modelValue"
-      :maxlength="rows * 29 - label.length - 1"
+      :maxlength="maxlength"
+      :readonly="readonly"
       @input="
         $emit('update:modelValue', ($event.target as HTMLInputElement).value)
       "
@@ -49,7 +53,7 @@ const pageData = usePageData();
       >
         <div
           class="line-row-label"
-          v-if="row === 1"
+          v-if="row === 1 && label"
           :style="{
             width: `${label.length}em`,
           }"
@@ -91,6 +95,7 @@ const pageData = usePageData();
   line-height: var(--line-height);
   color: var(--color-text);
   overflow: hidden;
+  font-family: inherit;
   word-break: break-all;
 
   &:hover,

@@ -19,9 +19,9 @@ defineProps<Props>();
   <PaperLayout :setRef="setRef">
     <StorySection />
     <div class="section-row">
-      <AssetsSection />
+      <AssetsSection class="col-0" />
       <ItemSection class="col-0" />
-      <MythosSection />
+      <MythosSection class="col-0" />
     </div>
     <div class="section-row">
       <FriendSection class="col-0" />

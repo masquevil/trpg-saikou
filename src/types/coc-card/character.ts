@@ -32,6 +32,16 @@ export interface COCPlayerCharacter {
     mad: string; // 精神症状
     desc: string; // 个人介绍
   };
+  // assets
+  assets: {
+    cash: string; // 现金
+    consumption: string; // 消费水平
+    assets: string; // 资产
+    items: string; // 物品
+    magicItems: string; // 魔法物品与典籍
+    magics: string; // 法术
+    touches: string; // 第三类接触
+  };
 }
 
 export interface COCAttributes {

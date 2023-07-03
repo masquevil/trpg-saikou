@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import PaperSection from '@/components/coc-card/PaperSection.vue';
-import WritableRow from '@/components/coc-card/WritableRow.vue';
+import WritableArea from '@/components/coc-card/WritableArea.vue';
 
 import { usePC } from '@/hooks/useCOCCardProviders';
 
@@ -13,12 +13,31 @@ const pc = usePC();
     title="克苏鲁神话"
     subTitle="Cthulu Mythos"
   >
-    <div class="story-section-body">TODO</div>
+    <div class="section-body">
+      <WritableArea
+        label="魔法物品与典籍"
+        :rows="4"
+        :maxlength="18 * 4 - 8"
+        v-model="pc.assets.magicItems"
+      />
+      <WritableArea
+        label="法术"
+        :rows="4"
+        :maxlength="18 * 4 - 3"
+        v-model="pc.assets.magics"
+      />
+      <WritableArea
+        label="第三类接触"
+        :rows="4"
+        :maxlength="18 * 4 - 6"
+        v-model="pc.assets.touches"
+      />
+    </div>
   </PaperSection>
 </template>
 
 <style scoped lang="scss">
-.story-section-body {
+.section-body {
   padding: 0.4em 0.6em 0.6em;
 }
 </style>

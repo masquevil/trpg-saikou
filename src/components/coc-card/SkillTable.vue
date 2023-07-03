@@ -179,10 +179,30 @@ function getTotal(points: SkillPoint, init: number) {
         <th class="skill-th th-deep th-skill">
           <div class="th-skill-label">
             <div class="th-skill-label-pro">
-              <span>本</span>
-              <span>职</span>
-              <span>技</span>
-              <span>能</span>
+              <span
+                class="th-skill-label-pro-text"
+                style="transform-origin: 50% 40%"
+              >
+                本
+              </span>
+              <span
+                class="th-skill-label-pro-text"
+                style="transform-origin: 0% 40%"
+              >
+                职
+              </span>
+              <span
+                class="th-skill-label-pro-text"
+                style="transform-origin: 50% 10%"
+              >
+                技
+              </span>
+              <span
+                class="th-skill-label-pro-text"
+                style="transform-origin: 0% 10%"
+              >
+                能
+              </span>
             </div>
             技能
           </div>
@@ -330,14 +350,22 @@ function getTotal(points: SkillPoint, init: number) {
 }
 .th-skill-label-pro {
   --pro-font-base: 0.66;
-  font-size: calc(var(--pro-font-base) * 1em);
-  width: calc(var(--th-line-height) / var(--pro-font-base));
-  height: calc(var(--th-line-height) / var(--pro-font-base));
+  /* font-size: calc(var(--pro-font-base) * 1em); */
+  width: calc(var(--th-line-height));
+  height: calc(var(--th-line-height));
   display: grid;
   grid-template-columns: auto auto;
   justify-content: center;
   align-items: center;
   background-color: var(--color-white);
+}
+.th-skill-label-pro-text {
+  display: inline-block;
+  transform: scale(var(--pro-font-base));
+  line-height: 1;
+  width: calc(var(--th-line-height) / 2);
+  height: calc(var(--th-line-height) / 2);
+  text-align: center;
 }
 .th-grow {
   padding: 0 0.24em;

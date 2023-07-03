@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import PaperSection from '@/components/coc-card/PaperSection.vue';
-import WritableRow from '@/components/coc-card/WritableRow.vue';
+import WritableArea from '@/components/coc-card/WritableArea.vue';
 
 import { usePC } from '@/hooks/useCOCCardProviders';
 
@@ -13,12 +13,19 @@ const pc = usePC();
     title="物品与装备"
     subTitle="Items and Equipments"
   >
-    <div class="story-section-body">TODO</div>
+    <div class="section-body">
+      <WritableArea
+        label=""
+        :rows="12"
+        :maxlength="18 * 12"
+        v-model="pc.assets.items"
+      />
+    </div>
   </PaperSection>
 </template>
 
 <style scoped lang="scss">
-.story-section-body {
+.section-body {
   padding: 0.4em 0.6em 0.6em;
 }
 </style>
