@@ -22,7 +22,7 @@ export function createPC(
       createWeapon({
         name: '徒手格斗',
         skill: '格斗(斗殴)',
-        dam: '1D3 + DB',
+        dam: '1D3+DB',
         range: '/',
         round: '/',
         num: '/',
