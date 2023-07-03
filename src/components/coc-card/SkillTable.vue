@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { computed, inject } from 'vue';
+import { computed } from 'vue';
 import type { ChildSkill } from '@/types/coc-card/skill';
 import type { SkillGroup, SkillGroups } from '@/types/coc-card/formattedSkill';
-import type { COCCardViewData } from '@/types/coc-card/viewData';
 import type { COCPCSkill, SkillPoint } from '@/types/coc-card/character';
 import { dynamicInitFormulas } from '@/models/coc-card/skill';
 import { usePC, useViewData } from '@/hooks/useCOCCardProviders';

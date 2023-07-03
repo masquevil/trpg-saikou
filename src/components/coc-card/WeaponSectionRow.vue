@@ -19,6 +19,7 @@ import { skillGroups } from '@/models/coc-card/skill';
 
 import { useToggle } from '@/utils/ui';
 import { usePC, usePageData } from '@/hooks/useCOCCardProviders';
+// @ts-ignore
 import vClickOutside from '@/directives/clickOutside';
 
 interface Props {

@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import { ref, inject, computed } from 'vue';
+// @ts-ignore
 import vClickOutside from '@/directives/clickOutside';
 import { usePC } from '@/hooks/useCOCCardProviders';
 import type { ChildSkill } from '@/types/coc-card/skill';
 import type { COCCardViewData } from '@/types/coc-card/viewData';
-import type {
-  COCPlayerCharacter,
-  COCPCSkill,
-} from '@/types/coc-card/character';
+import type { COCPCSkill } from '@/types/coc-card/character';
 
 import SoxCheckbox from './SoxCheckbox.vue';
 

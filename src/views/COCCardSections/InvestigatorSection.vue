@@ -9,6 +9,7 @@ import FlattenTree from '@/components/coc-card/FlattenTree.vue';
 // models
 import formattedJobs from '@/models/coc-card/job';
 
+// @ts-ignore
 import vClickOutside from '@/directives/clickOutside';
 import { usePC, usePageData } from '@/hooks/useCOCCardProviders';
 
