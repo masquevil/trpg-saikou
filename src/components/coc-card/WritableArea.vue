@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, inject } from 'vue';
+import { usePageData } from '@/hooks/useCOCCardProviders';
 
 interface Props {
   label: string;
@@ -17,11 +17,16 @@ interface Emits {
 }
 defineEmits<Emits>();
 
-const pageData = inject<{ printing: boolean }>('pageData');
+const pageData = usePageData();
 </script>
 
 <template>
-  <div class="writable-area">
+  <div
+    class="writable-area"
+    :class="{
+      'printing-image': pageData?.printing,
+    }"
+  >
     <div class="label">{{ label }}</div>
     <textarea
       class="input"
@@ -116,12 +121,19 @@ const pageData = inject<{ printing: boolean }>('pageData');
   border-bottom: 1px solid var(--color-line);
 }
 
-@media print {
+/* when print image & print */
+@mixin printing-styles {
   .input::placeholder {
     display: none;
     visibility: hidden;
     color: transparent;
     opacity: 0;
   }
+}
+.printing-image {
+  @include printing-styles;
+}
+@media print {
+  @include printing-styles;
 }
 </style>

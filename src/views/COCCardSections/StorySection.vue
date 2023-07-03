@@ -2,7 +2,7 @@
 import PaperSection from '@/components/coc-card/PaperSection.vue';
 import WritableArea from '@/components/coc-card/WritableArea.vue';
 
-import usePC from '@/hooks/usePC';
+import { usePC } from '@/hooks/useCOCCardProviders';
 
 const pc = usePC();
 </script>

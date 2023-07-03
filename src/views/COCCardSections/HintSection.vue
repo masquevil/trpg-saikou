@@ -1,15 +1,14 @@
 <script setup lang="ts">
-import { computed, reactive, watch, inject } from 'vue';
-import type { ComputedRef } from 'vue';
+import { computed, reactive, watch } from 'vue';
 
 import { countTexts } from '@/constants/coc-card/countTexts';
 
-import type {
-  Suggestion,
-  SuggestionMultiSkill,
-} from '@/types/coc-card/suggestion';
+import type { SuggestionMultiSkill } from '@/types/coc-card/suggestion';
 
-const suggestion = inject<ComputedRef<Suggestion>>('suggestion');
+import { useSuggestion, usePageData } from '@/hooks/useCOCCardProviders';
+
+const suggestion = useSuggestion();
+const pageData = usePageData();
 
 const multiSkillsInfo = reactive<[SuggestionMultiSkill, number, string][]>([]);
 watch(
@@ -61,7 +60,12 @@ const multiSkillsTexts = computed(() => {
 </script>
 
 <template>
-  <div class="hint-section">
+  <div
+    class="hint-section"
+    :class="{
+      'printing-image': pageData?.printing,
+    }"
+  >
     <div class="hint-section-content">
       <div
         class="suggestion-content"
@@ -103,6 +107,10 @@ const multiSkillsTexts = computed(() => {
   color: #9148db;
 }
 
+/* when print image & print */
+.hint-section.printing-image {
+  display: none;
+}
 @media print {
   .hint-section {
     display: none;

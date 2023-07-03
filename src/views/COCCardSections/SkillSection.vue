@@ -1,18 +1,17 @@
 <script setup lang="ts">
-import { inject, computed, reactive, watch } from 'vue';
-import type { ComputedRef } from 'vue';
+import { computed, reactive, watch } from 'vue';
 
 import PaperSection from '@/components/coc-card/PaperSection.vue';
 import SkillTable from '@/components/coc-card/SkillTable.vue';
 import WritableRow from '@/components/coc-card/WritableRow.vue';
 // models
 import { skillGroups } from '@/models/coc-card/skill';
-import type { Suggestion } from '@/types/coc-card/suggestion';
 
-import usePC from '@/hooks/usePC';
+import { usePC, useSuggestion, usePageData } from '@/hooks/useCOCCardProviders';
 
 const pc = usePC();
-const suggestion = inject<ComputedRef<Suggestion>>('suggestion');
+const suggestion = useSuggestion();
+const pageData = usePageData();
 
 const values = reactive({
   pro: {
@@ -70,7 +69,12 @@ function updatePointValue(
 </script>
 
 <template>
-  <PaperSection class="skill-section">
+  <PaperSection
+    class="skill-section"
+    :class="{
+      'printing-image': pageData?.printing,
+    }"
+  >
     <template v-slot:header>
       <div class="header">
         <div class="header-left points-container">
@@ -207,9 +211,16 @@ function updatePointValue(
   border-right: 1px solid var(--color-black);
 }
 
-@media print {
+/* when print image & print */
+@mixin printing-styles {
   .point-rest {
     display: none;
   }
+}
+.printing-image {
+  @include printing-styles;
+}
+@media print {
+  @include printing-styles;
 }
 </style>

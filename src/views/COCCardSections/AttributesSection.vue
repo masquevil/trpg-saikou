@@ -6,7 +6,7 @@ import WritableRow from '@/components/coc-card/WritableRow.vue';
 // models
 import type { COCAttributesKey } from '@/types/coc-card/character';
 
-import usePC from '@/hooks/usePC';
+import { usePC } from '@/hooks/useCOCCardProviders';
 
 const pc = usePC();
 

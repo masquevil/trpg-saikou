@@ -80,6 +80,7 @@ const INPUT_NAME = 'page-switcher';
   padding: 0.6em 0.8em;
   text-align: center;
   cursor: pointer;
+  white-space: nowrap;
   transition: all 0.4s;
 }
 .swicher-option-inactive {

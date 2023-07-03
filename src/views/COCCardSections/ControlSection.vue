@@ -13,8 +13,7 @@ import {
   modifyAttributesByAge,
 } from '@/models/coc-card/attribute';
 
-import usePC from '@/hooks/usePC';
-import useViewData from '@/hooks/useViewData';
+import { usePC, useViewData } from '@/hooks/useCOCCardProviders';
 
 interface Props {
   paperInFront: boolean;
@@ -231,6 +230,7 @@ function applyInData() {
   --color-control-bg-active: #4b4e53;
 
   padding: 32px 0;
+  padding-bottom: calc(env(safe-area-inset-bottom) + 32px);
   height: 100%;
   overflow: auto;
   display: flex;
@@ -261,6 +261,7 @@ function applyInData() {
   border: 1px solid var(--color-border);
   background-color: var(--color-control-bg);
   cursor: pointer;
+  font-size: 1em;
 
   &:hover {
     background-color: var(--color-control-bg-hover);

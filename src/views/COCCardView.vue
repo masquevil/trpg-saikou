@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, provide, ref } from 'vue';
+import { reactive, provide, ref, nextTick } from 'vue';
 import { toJpeg } from 'html-to-image';
 
 import { createPC } from '@/models/coc-card/character';
@@ -10,7 +10,6 @@ import type { COCCardViewData } from '@/types/coc-card/viewData';
 import useDerives from '@/hooks/useDerives';
 import useSuggestion from '@/hooks/useSuggestion';
 import { downloadImage } from '@/utils/image';
-import { applyPrintStyles, resetPrintStyles } from '@/utils/print';
 
 import ControlSection from './COCCardSections/ControlSection.vue';
 import InvestigatorSection from './COCCardSections/InvestigatorSection.vue';
@@ -52,29 +51,30 @@ const paperImage = reactive({
   front: '',
   back: '',
 });
-async function printPaper(debug: boolean = false) {
+function printPaper(debug: boolean = false) {
   if (!paper.value) return;
-
   // prepare
-  applyPrintStyles();
   pageData.printing = true;
 
   if (debug) return;
 
-  // do proint
-  const href = await toJpeg(paper.value, {
-    canvasWidth: 210 * 4,
-    canvasHeight: 297 * 4,
-    quality: 0.5,
-  });
-  const imageName = [pc.name, pc.playerName, '正面'].filter((v) => v).join('-');
-  downloadImage(href, `${imageName}.jpg`);
-  paperImage.front = href;
+  nextTick(async () => {
+    if (!paper.value) return;
+    // do proint
+    const href = await toJpeg(paper.value, {
+      canvasWidth: 210 * 6,
+      canvasHeight: 297 * 6,
+      quality: 0.5,
+    });
+    const imageName = [pc.name, pc.playerName, '正面']
+      .filter((v) => v)
+      .join('-');
+    downloadImage(href, `${imageName}.jpg`);
+    paperImage.front = href;
 
-  // reset
-  resetPrintStyles();
-  pageData.printing = false;
-  return href;
+    // reset
+    pageData.printing = false;
+  });
 }
 
 function resetCard() {
@@ -88,12 +88,11 @@ window.xx = { pc: pcRef, viewData, pageData, printPaper };
 <template>
   <main
     class="page"
-    :print-ignore="pageData.printing ? true : undefined"
+    :class="{
+      'printing-image': pageData.printing,
+    }"
   >
-    <div
-      class="left-bar web-only"
-      :print-ignore="pageData.printing ? true : undefined"
-    >
+    <div class="left-bar web-only">
       <ControlSection
         :paperInFront="paperInFront"
         :paperImage="paperImage"
@@ -102,10 +101,7 @@ window.xx = { pc: pcRef, viewData, pageData, printPaper };
         @reset-card="resetCard"
       />
     </div>
-    <div
-      class="paper-container"
-      :print-ignore="pageData.printing ? true : undefined"
-    >
+    <div class="paper-container">
       <Transition name="swipe-paper">
         <div
           class="paper theme-light"
@@ -167,7 +163,7 @@ window.xx = { pc: pcRef, viewData, pageData, printPaper };
   position: sticky;
   top: 0;
   height: 100vh;
-  width: 210px;
+  width: 200px;
 }
 
 .paper-container {
@@ -207,21 +203,32 @@ window.xx = { pc: pcRef, viewData, pageData, printPaper };
   }
 }
 
+/* when print */
 @media print {
-  .page:not(.page[print-ignore]) {
+  .page {
     width: auto;
     min-width: auto;
     display: block;
   }
-  .paper-container:not(.paper-container[print-ignore]) {
+  .paper-container {
     margin: auto;
   }
+  .web-only {
+    display: none;
+  }
+}
+
+/* when print image & print */
+@mixin printing-styles {
   .paper {
     --base-size: 3.6mm;
   }
-  .web-only:not(.web-only[print-ignore]) {
-    display: none;
-  }
+}
+.printing-image {
+  @include printing-styles;
+}
+@media print {
+  @include printing-styles;
 }
 </style>
 

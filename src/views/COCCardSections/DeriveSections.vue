@@ -6,7 +6,7 @@ import StatusCheckbox from '@/components/coc-card/StatusCheckbox.vue';
 // models
 import type { COCDeriveAttributes } from '@/types/coc-card/character';
 
-import usePC from '@/hooks/usePC';
+import { usePC } from '@/hooks/useCOCCardProviders';
 
 const pc = usePC();
 

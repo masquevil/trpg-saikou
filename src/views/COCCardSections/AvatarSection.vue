@@ -7,12 +7,13 @@ import {
 } from 'image-conversion';
 import { getImageSize } from '@/utils/image';
 
-import usePC from '@/hooks/usePC';
+import { usePC, usePageData } from '@/hooks/useCOCCardProviders';
 
 const WIDTH = 132 * 2;
 const HEIGHT = 176 * 2;
 
 const pc = usePC();
+const pageData = usePageData();
 
 async function handleUpload(event: Event) {
   const el = event.target as any;
@@ -42,6 +43,9 @@ async function handleUpload(event: Event) {
 <template>
   <label
     class="avatar-section"
+    :class="{
+      'printing-image': pageData?.printing,
+    }"
     :style="{ 'background-image': pc?.avatar ? `url(${pc.avatar})` : 'none' }"
   >
     <input
@@ -91,9 +95,17 @@ async function handleUpload(event: Event) {
   gap: 0.8em;
   color: #777;
 }
-@media print {
+
+/* when print image & print */
+@mixin printing-styles {
   .avatar-placeholder {
     display: none;
   }
+}
+.printing-image {
+  @include printing-styles;
+}
+@media print {
+  @include printing-styles;
 }
 </style>

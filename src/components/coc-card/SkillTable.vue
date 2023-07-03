@@ -5,7 +5,7 @@ import type { SkillGroup, SkillGroups } from '@/types/coc-card/formattedSkill';
 import type { COCCardViewData } from '@/types/coc-card/viewData';
 import type { COCPCSkill, SkillPoint } from '@/types/coc-card/character';
 import { dynamicInitFormulas } from '@/models/coc-card/skill';
-import usePC from '@/hooks/usePC';
+import { usePC, useViewData } from '@/hooks/useCOCCardProviders';
 
 import SkillTdLabel from './SkillTdLabel.vue';
 import SkillTdInput from './SkillTdInput.vue';
@@ -16,7 +16,7 @@ interface Props {
 const props = defineProps<Props>();
 
 const pc = usePC();
-const viewData = inject<COCCardViewData>('viewData');
+const viewData = useViewData();
 
 interface TableRowData {
   // group info (optional)

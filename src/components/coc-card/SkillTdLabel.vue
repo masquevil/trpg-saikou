@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, inject, computed } from 'vue';
 import vClickOutside from '@/directives/clickOutside';
-import usePC from '@/hooks/usePC';
+import { usePC } from '@/hooks/useCOCCardProviders';
 import type { ChildSkill } from '@/types/coc-card/skill';
 import type { COCCardViewData } from '@/types/coc-card/viewData';
 import type {

@@ -6,7 +6,7 @@ import type { Weapon } from '@/types/coc-card/weapon';
 import PaperSection from '@/components/coc-card/PaperSection.vue';
 import WeaponSectionRow from '@/components/coc-card/WeaponSectionRow.vue';
 
-import usePC from '@/hooks/usePC';
+import { usePC } from '@/hooks/useCOCCardProviders';
 
 const pc = usePC();
 

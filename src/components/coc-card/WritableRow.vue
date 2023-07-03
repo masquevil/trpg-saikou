@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { ref, inject } from 'vue';
+import { ref } from 'vue';
+
+import { usePageData } from '@/hooks/useCOCCardProviders';
 
 interface Props {
   label: string;
@@ -20,7 +22,7 @@ interface Emits {
 }
 defineEmits<Emits>();
 
-const pageData = inject<{ printing: boolean }>('pageData');
+const pageData = usePageData();
 
 const inputStyle = ref({
   width: `${props.char}em`,
@@ -30,7 +32,10 @@ const inputStyle = ref({
 <template>
   <div
     class="writable-row"
-    :class="{ 'writable-row-with-hint': !!hint }"
+    :class="{
+      'writable-row-with-hint': !!hint,
+      'printing-image': pageData?.printing,
+    }"
   >
     <div class="label">
       <div class="label-title">{{ label }}</div>
@@ -102,7 +107,8 @@ const inputStyle = ref({
   }
 }
 
-@media print {
+/* when print image & print */
+@mixin printing-styles {
   .input {
     text-align: center;
   }
@@ -112,5 +118,11 @@ const inputStyle = ref({
     color: transparent;
     opacity: 0;
   }
+}
+.printing-image {
+  @include printing-styles;
+}
+@media print {
+  @include printing-styles;
 }
 </style>

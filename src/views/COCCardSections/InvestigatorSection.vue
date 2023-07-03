@@ -10,11 +10,12 @@ import FlattenTree from '@/components/coc-card/FlattenTree.vue';
 import formattedJobs from '@/models/coc-card/job';
 
 import vClickOutside from '@/directives/clickOutside';
-import usePC from '@/hooks/usePC';
+import { usePC, usePageData } from '@/hooks/useCOCCardProviders';
 
 import type { FlattenTreeData } from '@/types/coc-card/flattenTree';
 
 const pc = usePC();
+const pageData = usePageData();
 
 const { jobGroups } = formattedJobs;
 
@@ -75,7 +76,12 @@ function onSelectJob(jobName: string) {
     subTitle="Investigator"
     v-if="pc"
   >
-    <div class="info-section">
+    <div
+      class="info-section"
+      :class="{
+        'printing-image': pageData?.printing,
+      }"
+    >
       <WritableRow
         label="姓名"
         v-model="pc.name"
@@ -179,9 +185,16 @@ function onSelectJob(jobName: string) {
   padding: 0.6em 0.8em;
 }
 
-@media print {
+/* when print image & print */
+@mixin printing-styles {
   .job-selector {
     display: none;
   }
+}
+.printing-image {
+  @include printing-styles;
+}
+@media print {
+  @include printing-styles;
 }
 </style>

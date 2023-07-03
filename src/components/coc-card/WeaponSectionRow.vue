@@ -18,7 +18,7 @@ import {
 import { skillGroups } from '@/models/coc-card/skill';
 
 import { useToggle } from '@/utils/ui';
-import usePC from '@/hooks/usePC';
+import { usePC, usePageData } from '@/hooks/useCOCCardProviders';
 import vClickOutside from '@/directives/clickOutside';
 
 interface Props {
@@ -31,13 +31,16 @@ interface Emits {
   (event: 'input', value: string): void;
   (event: 'focus', $event: FocusEvent): void;
 }
-const emit = defineEmits<Emits>();
+defineEmits<Emits>();
 
 interface BattleSkill {
   // format: 战斗(斗殴) or 投掷
   name: string;
   init: number;
 }
+
+const pc = usePC();
+const pageData = usePageData();
 
 function getTDClass(row: number, col: number) {
   const rowBase = row % 2 ? 0 : 1;
@@ -76,8 +79,6 @@ function getPoint(skillName: string) {
 
 const weapon = computed(() => props.weapon || createWeapon());
 const point = computed(() => getPoint(weapon.value.skill));
-
-const pc = usePC();
 
 const battleSkills = computed<BattleSkill[]>(() => {
   const skills = skillGroups
@@ -319,7 +320,8 @@ function onSelectWeapon(name: string) {
   display: none;
 }
 
-@media print {
+/* when print image & print */
+@mixin printing-styles {
   .wp-point-placeholder {
     display: none;
   }
@@ -329,5 +331,11 @@ function onSelectWeapon(name: string) {
   .hide-in-print {
     display: none;
   }
+}
+.printing-image {
+  @include printing-styles;
+}
+@media print {
+  @include printing-styles;
 }
 </style>
