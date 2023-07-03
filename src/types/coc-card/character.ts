@@ -20,6 +20,18 @@ export interface COCPlayerCharacter {
   skillPoints: [COCPCSkill, SkillPoint][];
   // weapons
   weapons: Weapon[];
+  // stories
+  stories: {
+    app: string; // 形象描述
+    belief: string; // 思想与信念
+    IPerson: string; // 重要之人
+    IPlace: string; // 意义非凡之地
+    IItem: string; // 宝贵之物
+    trait: string; // 特质
+    scar: string; // 伤口与疤痕
+    mad: string; // 精神症状
+    desc: string; // 个人介绍
+  };
 }
 
 export interface COCAttributes {

@@ -36,7 +36,7 @@ const pageData = usePageData();
       :rows="rows"
       :placeholder="pageData?.printing ? '' : placeholder"
       :value="modelValue"
-      :maxlength="rows * 29 - 5"
+      :maxlength="rows * 29 - label.length - 1"
       @input="
         $emit('update:modelValue', ($event.target as HTMLInputElement).value)
       "

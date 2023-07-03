@@ -62,8 +62,9 @@ function printPaper(debug: boolean = false) {
     if (!paper.value) return;
     // do proint
     const href = await toJpeg(paper.value, {
-      canvasWidth: 210 * 6,
-      canvasHeight: 297 * 6,
+      canvasWidth: 210 * 8,
+      canvasHeight: 297 * 8,
+      pixelRatio: 1,
       quality: 0.5,
     });
     const imageName = [pc.name, pc.playerName, '正面']
@@ -195,12 +196,6 @@ window.xx = { pc: pcRef, viewData, pageData, printPaper };
   display: flex;
   gap: 1em;
   align-items: stretch;
-}
-
-@media screen and (max-width: 960px) {
-  .paper {
-    --base-size: 16px;
-  }
 }
 
 /* when print */

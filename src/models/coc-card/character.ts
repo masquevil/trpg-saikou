@@ -29,6 +29,17 @@ export function createPC(
         err: '/',
       }),
     ],
+    stories: {
+      app: '',
+      belief: '',
+      IPerson: '',
+      IPlace: '',
+      IItem: '',
+      trait: '',
+      scar: '',
+      mad: '',
+      desc: '',
+    },
     ...override,
   };
 }

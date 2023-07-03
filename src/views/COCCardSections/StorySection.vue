@@ -15,19 +15,44 @@ const pc = usePC();
   >
     <div class="story-section-body">
       <div class="story-section-column">
-        <WritableArea label="形象描述" />
-        <WritableArea label="思想与信念" />
-        <WritableArea label="重要之人" />
-        <WritableArea label="意义非凡之地" />
-        <WritableArea label="宝贵之物" />
-        <WritableArea label="特质" />
+        <WritableArea
+          label="形象描述"
+          v-model="pc.stories.app"
+        />
+        <WritableArea
+          label="思想与信念"
+          v-model="pc.stories.belief"
+        />
+        <WritableArea
+          label="重要之人"
+          v-model="pc.stories.IPerson"
+        />
+        <WritableArea
+          label="意义非凡之地"
+          v-model="pc.stories.IPlace"
+        />
+        <WritableArea
+          label="宝贵之物"
+          v-model="pc.stories.IItem"
+        />
+        <WritableArea
+          label="特质"
+          v-model="pc.stories.trait"
+        />
       </div>
       <div class="story-section-column">
-        <WritableArea label="伤口与疤痕" />
-        <WritableArea label="精神症状" />
+        <WritableArea
+          label="伤口与疤痕"
+          v-model="pc.stories.scar"
+        />
+        <WritableArea
+          label="精神症状"
+          v-model="pc.stories.mad"
+        />
         <WritableArea
           label="个人介绍"
           :rows="12"
+          v-model="pc.stories.desc"
         />
       </div>
     </div>
