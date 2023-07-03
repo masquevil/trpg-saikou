@@ -108,7 +108,8 @@ watch(
   padding: 0.3em 0.6em 0.8em;
 
   &:deep(.label) {
-    flex: 1 1 4em;
+    width: 4.4em;
+    flex: 1 1 auto;
   }
 }
 

@@ -26,16 +26,17 @@
 .swipe-paper-enter-active,
 .swipe-paper-leave-active {
   z-index: 1;
-  transition: all .6s ease-in-out;
+  transition: all .4s ease-in-out;
 }
 .swipe-paper-enter-active {
-  transition-delay: .8s;
+  transition-delay: .56s;
 }
 .swipe-paper-enter-from,
 .swipe-paper-leave-to {
   position: absolute;
   top: 0;
   pointer-events: none;
+  opacity: 0.5;
 }
 .swipe-paper-enter-from {
   z-index: 2;

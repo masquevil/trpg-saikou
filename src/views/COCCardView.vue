@@ -12,21 +12,8 @@ import useSuggestion from '@/hooks/useSuggestion';
 import { downloadImage } from '@/utils/image';
 
 import ControlSection from './COCCardSections/ControlSection.vue';
-import InvestigatorSection from './COCCardSections/InvestigatorSection.vue';
-import AttributesSection from './COCCardSections/AttributesSection.vue';
-import LuckSection from './COCCardSections/LuckSection.vue';
-import AvatarSection from './COCCardSections/AvatarSection.vue';
-import DeriveSections from './COCCardSections/DeriveSections.vue';
-import HintSection from './COCCardSections/HintSection.vue';
-import SkillSection from './COCCardSections/SkillSection.vue';
-import WeaponSection from './COCCardSections/WeaponSection.vue';
-import BattleSection from './COCCardSections/BattleSection.vue';
-import StorySection from './COCCardSections/StorySection.vue';
-import AssetsSection from './COCCardSections/AssetsSection.vue';
-import ItemSection from './COCCardSections/ItemSection.vue';
-import MythosSection from './COCCardSections/MythosSection.vue';
-import FriendSection from './COCCardSections/FriendSection.vue';
-import ExperienceSection from './COCCardSections/ExperienceSection.vue';
+import PaperFront from './COCCardSections/PaperFront.vue';
+import PaperBack from './COCCardSections/PaperBack.vue';
 
 const pc = reactive<COCPlayerCharacter>(createPC());
 const pcRef = ref(pc);
@@ -46,33 +33,46 @@ provide('viewData', viewData);
 provide('pageData', pageData);
 provide('suggestion', suggestion);
 
-const paper = ref<HTMLElement | null>(null);
+const paperEls = reactive<HTMLElement[]>([]);
 const paperImage = reactive({
   front: '',
   back: '',
 });
 function printPaper(debug: boolean = false) {
-  if (!paper.value) return;
+  if (!paperEls.length) return;
   // prepare
   pageData.printing = true;
 
   if (debug) return;
 
   nextTick(async () => {
-    if (!paper.value) return;
+    if (!paperEls.length) return;
     // do proint
-    const href = await toJpeg(paper.value, {
-      canvasWidth: 210 * 8,
-      canvasHeight: 297 * 8,
-      pixelRatio: 1,
-      quality: 0.5,
+    const hrefs = await Promise.all(
+      paperEls.map(async (el) => {
+        if (!el) return '';
+        return await toJpeg(el, {
+          canvasWidth: 210 * 8,
+          canvasHeight: 297 * 8,
+          pixelRatio: 1,
+          quality: 0.5,
+        });
+      })
+    );
+    paperImage.front = hrefs[0];
+    paperImage.back = hrefs[1];
+    // auto download
+    const data = [
+      ['正面', hrefs[0]],
+      ['背面', hrefs[1]],
+    ];
+    data.forEach(([name, href]) => {
+      const imageName = [pc.name, pc.playerName, name]
+        .filter((v) => v)
+        .join('-');
+      if (!href) return;
+      downloadImage(href, `${imageName}.jpg`);
     });
-    const imageName = [pc.name, pc.playerName, '正面']
-      .filter((v) => v)
-      .join('-');
-    downloadImage(href, `${imageName}.jpg`);
-    paperImage.front = href;
-
     // reset
     pageData.printing = false;
   });
@@ -87,12 +87,7 @@ window.xx = { pc: pcRef, viewData, pageData, printPaper };
 </script>
 
 <template>
-  <main
-    class="page"
-    :class="{
-      'printing-image': pageData.printing,
-    }"
-  >
+  <main class="page">
     <div class="left-bar web-only">
       <ControlSection
         :paperInFront="paperInFront"
@@ -103,48 +98,21 @@ window.xx = { pc: pcRef, viewData, pageData, printPaper };
       />
     </div>
     <div class="paper-container">
-      <Transition name="swipe-paper">
-        <div
-          class="paper theme-light"
-          v-if="paperInFront"
-        >
-          <div
-            class="paper-content"
-            ref="paper"
-          >
-            <div class="section-row">
-              <InvestigatorSection />
-              <AttributesSection />
-              <LuckSection class="col-0" />
-              <AvatarSection />
-            </div>
-            <DeriveSections />
-            <HintSection />
-            <SkillSection />
-            <div class="section-row">
-              <WeaponSection class="col-0" />
-              <BattleSection />
-            </div>
-          </div>
-        </div>
-        <div
-          class="paper theme-light"
-          v-else
-        >
-          <div class="paper-content">
-            <StorySection />
-            <div class="section-row">
-              <AssetsSection />
-              <ItemSection class="col-0" />
-              <MythosSection />
-            </div>
-            <div class="section-row">
-              <FriendSection class="col-0" />
-              <ExperienceSection />
-            </div>
-          </div>
-        </div>
-      </Transition>
+      <div class="papers-editing web-only">
+        <Transition name="swipe-paper">
+          <PaperFront v-if="paperInFront" />
+          <PaperBack v-else />
+        </Transition>
+      </div>
+      <div
+        class="papers-printing"
+        :class="{
+          'papers-printing-active': pageData.printing,
+        }"
+      >
+        <PaperFront :setRef="(el) => {paperEls[0] = el as HTMLElement}" />
+        <PaperBack :setRef="(el) => {paperEls[1] = el as HTMLElement}" />
+      </div>
     </div>
     <div class="web-only"></div>
   </main>
@@ -171,31 +139,12 @@ window.xx = { pc: pcRef, viewData, pageData, printPaper };
   margin: 32px 0;
   perspective: 900em;
 }
-.paper {
-  --base-size: 15px; // 3.2mm * n
-  /* --base-size: 3.2mm; */
-  font-size: var(--base-size);
-  width: 65.625em; // 210mm / 3.2mm
-  height: 92.8125em; // 297mm / 3.2mm
-  /* margin: auto; */
+.papers-printing {
+  --base-size: 3.2mm;
+  display: none;
 }
-.paper-content {
-  box-sizing: border-box;
-  padding: 1.5em 1.8em;
-  width: 100%;
-  height: 100%;
-  color: var(--color-text);
-  background-color: var(--color-white);
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 0.6em;
-}
-
-.section-row {
-  display: flex;
-  gap: 1em;
-  align-items: stretch;
+.papers-printing-active {
+  display: block;
 }
 
 /* when print */
@@ -211,19 +160,9 @@ window.xx = { pc: pcRef, viewData, pageData, printPaper };
   .web-only {
     display: none;
   }
-}
-
-/* when print image & print */
-@mixin printing-styles {
-  .paper {
-    --base-size: 3.2mm;
+  .papers-printing {
+    display: block;
   }
-}
-.printing-image {
-  @include printing-styles;
-}
-@media print {
-  @include printing-styles;
 }
 </style>
 

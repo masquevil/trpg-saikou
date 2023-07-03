@@ -103,5 +103,6 @@ const options = computed<[string, string, boolean][]>(() => [
 }
 .switcher-radio {
   appearance: none;
+  display: none;
 }
 </style>
