@@ -219,6 +219,18 @@ function applyInData() {
     >
       生成图片
     </button>
+    <div class="guide issue-row">
+      <img
+        class="issue-icon"
+        src="https://github.githubassets.com/favicons/favicon-dark.png"
+      />
+      <a
+        class="issue-link"
+        href="https://github.com/masquevil/trpg-saikou/issues"
+      >
+        交流 讨论 反馈：点这里
+      </a>
+    </div>
   </div>
 </template>
 
@@ -317,5 +329,26 @@ function applyInData() {
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.issue-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4em;
+  line-height: 1;
+}
+.issue-link {
+  color: var(--color-white);
+  &:hover {
+    opacity: 0.8;
+  }
+  &:active {
+    opacity: 0.9;
+  }
+}
+.issue-icon {
+  width: 1em;
+  height: 1em;
 }
 </style>

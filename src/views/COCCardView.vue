@@ -82,8 +82,7 @@ function resetCard() {
   pcRef.value = reactive(createPC());
 }
 
-// @ts-expect-error
-window.xx = { pc: pcRef, viewData, pageData, printPaper };
+// window.xx = { pc: pcRef, viewData, pageData, printPaper };
 </script>
 
 <template>
