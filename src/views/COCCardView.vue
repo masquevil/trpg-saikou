@@ -138,6 +138,9 @@ function resetCard() {
   margin: 32px 0;
   perspective: 900em;
 }
+.papers-editing {
+  --base-size: 15px;
+}
 .papers-printing {
   --base-size: 3.2mm;
   display: none;
