@@ -349,7 +349,7 @@ export const jobs: Job[] = [
     ],
   },
   {
-    name: '黑客/骇客',
+    name: '黑客',
     point: [[['edu', 4]]],
     wealth: [10, 70],
     skills: [

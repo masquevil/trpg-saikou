@@ -26,13 +26,13 @@ const localWeapons = computed<(Weapon | undefined)[]>(() => {
       <div class="weapon-section-row">
         <div class="wp-th th-deep">武器名称</div>
         <div class="wp-th th-light">使用技能</div>
-        <div class="wp-th th-deep">成功率%</div>
+        <div class="wp-th th-deep">%</div>
         <div class="wp-th th-light">伤害</div>
         <div class="wp-th th-deep">射程</div>
         <div class="wp-th th-light">贯穿</div>
         <div class="wp-th th-deep">次数</div>
         <div class="wp-th th-light">装弹量</div>
-        <div class="wp-th th-deep">故障值</div>
+        <div class="wp-th th-deep">故障</div>
       </div>
       <WeaponSectionRow
         class="weapon-section-row"
@@ -55,7 +55,7 @@ const localWeapons = computed<(Weapon | undefined)[]>(() => {
 }
 .weapon-section-row {
   display: grid;
-  grid-template-columns: 12fr 5fr 4fr 4fr 2fr 2fr 5fr 3fr 3fr;
+  grid-template-columns: 13fr 6fr 2fr 8fr 4fr 2fr 5fr 4fr 2fr;
   text-align: center;
 }
 

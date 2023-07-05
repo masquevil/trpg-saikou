@@ -124,7 +124,7 @@ export const jobGroups: JobGroup[] = [
     ['灰色/无职', 'huisewuzhi'],
     [
       ['私家侦探', 'sijiazhentan'],
-      ['黑客/骇客', 'heikehaike'],
+      ['黑客', 'heike'],
       ['黑帮老大', 'heibanglaoda'],
       ['黑帮马仔', 'heibangmazai'],
       ['性工作者', 'xinggongzuozhe'],

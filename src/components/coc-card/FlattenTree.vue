@@ -47,7 +47,8 @@ defineEmits<Emits>();
 
 .group {
   display: flex;
-  gap: 0.6em;
+  align-items: flex-start;
+  gap: 0.4em;
   padding-bottom: 0.6em;
   border-bottom: 1px dashed var(--color-border);
 
@@ -60,15 +61,15 @@ defineEmits<Emits>();
 .group-label {
   flex: 0 0 5.2em;
   color: var(--color-group-label);
-  font-size: 0.8em;
-  line-height: 2.25em;
+  font-size: 0.96em;
+  line-height: 1.8em;
   text-align: right;
 }
 
 .options {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4em 0.8em;
+  gap: 0.4em 0.5em;
 }
 
 .option {
