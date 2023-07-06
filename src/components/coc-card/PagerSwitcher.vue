@@ -68,7 +68,7 @@ const options = computed<[string, string, boolean][]>(() => [
   flex-direction: column;
 }
 .header {
-  padding: 0.6em 0.8em 0.2em;
+  padding: 0.4em 0.8em 0em;
   line-height: 1;
   text-align: center;
 }

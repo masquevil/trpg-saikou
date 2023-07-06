@@ -108,10 +108,10 @@ function applyInData() {
     <div class="guide">
       <div>使用指南：</div>
       <ol class="guide-ol">
-        <li>在线车卡</li>
+        <li>生成图片</li>
+        <li>手写空白卡 or 在线车卡</li>
         <li>直接打印（Ctrl + P）</li>
         <li>通过打印生成 PDF</li>
-        <li>生成图片</li>
       </ol>
     </div>
     <button
@@ -227,6 +227,7 @@ function applyInData() {
       <a
         class="issue-link"
         href="https://github.com/masquevil/trpg-saikou/issues"
+        target="_blank"
       >
         交流 讨论 反馈：点这里
       </a>
@@ -267,7 +268,7 @@ function applyInData() {
 }
 
 .control-button {
-  padding: 0.4em 0.6em;
+  padding: 0.3em 0.4em;
   border-radius: 0.6em;
   color: var(--color-text);
   border: 1px solid var(--color-border);
