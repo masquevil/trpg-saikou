@@ -7,8 +7,17 @@ import WritableRow from '@/components/coc-card/WritableRow.vue';
 import type { COCAttributesKey } from '@/types/coc-card/character';
 
 import { usePC } from '@/hooks/useCOCCardProviders';
+import { computed } from 'vue';
 
 const pc = usePC();
+
+const sum = computed(() => {
+  const { str, con, dex, app, pow, siz, edu, int } = pc?.value.attributes || {};
+  const vals = [str, con, dex, app, pow, siz, edu, int];
+  const filled = vals.every((v) => v);
+  if (!filled) return 0;
+  return vals.reduce<number>((sum, cur) => sum + (cur || 0), 0);
+});
 
 function updateAttr(key: COCAttributesKey, value: string) {
   if (!pc) return;
@@ -82,6 +91,13 @@ function updateAttr(key: COCAttributesKey, value: string) {
           :modelValue="`${pc.attributes.int ?? ''}`"
           @update:modelValue="(newValue) => updateAttr('int', newValue)"
         />
+        <div class="col-0"></div>
+        <div
+          class="ponits-sum"
+          v-if="sum"
+        >
+          总点数 {{ sum }}
+        </div>
       </div>
     </div>
   </PaperSection>
@@ -108,5 +124,13 @@ function updateAttr(key: COCAttributesKey, value: string) {
 .dice-hint {
   font-size: 0.8em;
   margin: 0 0 -0.3em 0.6em;
+}
+
+.ponits-sum {
+  text-align: center;
+  opacity: 0.8;
+  line-height: 1;
+  transform: scale(0.88);
+  transform-origin: center bottom;
 }
 </style>

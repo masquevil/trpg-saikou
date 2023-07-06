@@ -83,13 +83,13 @@ function applyInData() {
   const data = JSON.parse(json);
   if (data && data.viewData && data.pc && viewData && pc) {
     try {
+      pc.value = data.pc;
       viewData.showingChildSkills = new Map(Object.entries(data.viewData));
       viewData.jobSkills = data.viewData.jobSkills;
-      pc.value = data.pc;
       ElMessage.success('已成功导入');
       inOutModalVisible.value = false;
     } catch (_) {
-      ElMessage.error('数据有误，无法导入。页面可能受损，建议刷新');
+      ElMessage.error('数据有误，无法导入。页面可能因此受损，建议刷新');
     }
   } else {
     ElMessage.error('数据有误，无法导入');

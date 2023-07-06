@@ -113,7 +113,6 @@ function resetCard() {
         <PaperBack :setRef="(el) => {paperEls[1] = el as HTMLElement}" />
       </div>
     </div>
-    <div class="web-only"></div>
   </main>
 </template>
 
@@ -124,6 +123,7 @@ function resetCard() {
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  padding: 0 30px;
   gap: 30px;
 }
 
@@ -155,6 +155,7 @@ function resetCard() {
     width: auto;
     min-width: auto;
     display: block;
+    padding: 0;
   }
   .paper-container {
     margin: auto;
