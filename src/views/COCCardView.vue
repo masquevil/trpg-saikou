@@ -86,7 +86,7 @@ function resetCard() {
 </script>
 
 <template>
-  <main class="page">
+  <main class="page theme-dark">
     <div class="left-bar web-only">
       <ControlSection
         :paperInFront="paperInFront"
@@ -96,7 +96,7 @@ function resetCard() {
         @reset-card="resetCard"
       />
     </div>
-    <div class="paper-container">
+    <div class="paper-container theme-light">
       <div class="papers-editing web-only">
         <Transition name="swipe-paper">
           <PaperFront v-if="paperInFront" />
