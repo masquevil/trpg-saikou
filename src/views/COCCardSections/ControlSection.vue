@@ -11,6 +11,7 @@ import PagerSwitcher from '@/components/coc-card/PagerSwitcher.vue';
 import {
   generateRandomAttributes,
   modifyAttributesByAge,
+  getAttributesSum,
 } from '@/models/coc-card/attribute';
 
 import { usePC, useViewData } from '@/hooks/useCOCCardProviders';
@@ -44,11 +45,17 @@ const outData = computed(() => {
 const isDownHelperShowing = computed(() => {
   return Boolean(props.paperImage.front || props.paperImage.back);
 });
+const generateTimes = ref(0);
 
 function generate() {
   if (!pc) return;
-  pc.value.attributes = generateRandomAttributes();
+  // 多次 roll 点取最高，增加 roll 点体验
+  const attrs = Array.from({ length: (generateTimes.value % 3) + 1 })
+    .map(() => generateRandomAttributes())
+    .sort((a, b) => getAttributesSum(b) - getAttributesSum(a))[0];
+  pc.value.attributes = attrs;
   ElMessage.success('已为您生成一组数据，看看符不符合心意吧！');
+  generateTimes.value++;
 }
 
 function ageGrow() {

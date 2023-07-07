@@ -9,6 +9,7 @@ interface Props {
   placeholder?: string;
   char?: number;
   modelValue?: string;
+  readonly?: boolean;
 }
 const props = withDefaults(defineProps<Props>(), {
   char: 5,
@@ -51,6 +52,7 @@ const inputStyle = ref({
       class="input"
       :style="inputStyle"
       :placeholder="pageData?.printing ? '' : placeholder"
+      :readonly="readonly"
       :value="modelValue"
       @input="
         $emit('update:modelValue', ($event.target as HTMLInputElement).value)
@@ -104,6 +106,9 @@ const inputStyle = ref({
   &:hover,
   &:focus {
     border-color: var(--color-black);
+  }
+  &:read-only {
+    cursor: not-allowed;
   }
 }
 

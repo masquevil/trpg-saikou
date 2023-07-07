@@ -68,6 +68,12 @@ export function modifyAttributesByAge(
   return results;
 }
 
+export function getAttributesSum(attributes: COCAttributes) {
+  const { str, con, dex, app, pow, siz, edu, int } = attributes;
+  const vals = [str, con, dex, app, pow, siz, edu, int];
+  return vals.reduce<number>((sum, cur) => sum + cur, 0);
+}
+
 function withDefaultAttributes(
   attributes: Partial<COCAttributes>
 ): COCAttributes {
