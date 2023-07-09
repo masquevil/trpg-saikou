@@ -55,7 +55,7 @@ const localWeapons = computed<(Weapon | undefined)[]>(() => {
 }
 .weapon-section-row {
   display: grid;
-  grid-template-columns: 13fr 6fr 2fr 8fr 4fr 2fr 5fr 4fr 2fr;
+  grid-template-columns: 13fr 6fr 2fr 8fr 4fr 2fr 5fr 5fr 2fr;
   text-align: center;
 }
 

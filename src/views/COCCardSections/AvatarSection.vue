@@ -10,7 +10,7 @@ import { getImageSize } from '@/utils/image';
 import { usePC, usePageData } from '@/hooks/useCOCCardProviders';
 
 const WIDTH = 132 * 2;
-const HEIGHT = 176 * 2;
+const HEIGHT = 172 * 2;
 
 const pc = usePC();
 const pageData = usePageData();
@@ -35,7 +35,7 @@ async function handleUpload(event: Event) {
     width,
     height,
   });
-  const resultUrl = await canvastoDataURL(canvas);
+  const resultUrl = await canvastoDataURL(canvas, 0.4);
   pc.value.avatar = resultUrl;
 }
 </script>

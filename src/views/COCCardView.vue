@@ -21,7 +21,7 @@ const viewData = reactive<COCCardViewData>({
   showingChildSkills: new Map(),
 });
 const pageData = reactive({
-  printing: false,
+  printing: location.search.includes('debug=true'),
 });
 const paperInFront = ref(location.search.includes('turn=back') ? false : true);
 
@@ -97,7 +97,10 @@ function resetCard() {
       />
     </div>
     <div class="paper-container theme-light">
-      <div class="papers-editing web-only">
+      <div
+        class="papers-editing web-only"
+        v-if="!pageData.printing"
+      >
         <Transition name="swipe-paper">
           <PaperFront v-if="paperInFront" />
           <PaperBack v-else />

@@ -16,11 +16,11 @@ const pageData = usePageData();
 const values = reactive({
   pro: {
     point: 0,
-    str: '',
+    str: pc?.value.pointValues.pro || '',
   },
   interest: {
     point: 0,
-    str: '',
+    str: pc?.value.pointValues.interest || '',
   },
 });
 const rests = computed(() => {
@@ -36,28 +36,8 @@ const rests = computed(() => {
   };
 });
 
-watch(
-  () => [suggestion, pc?.value.attributes.int],
-  () => {
-    if (suggestion?.value.point) {
-      const v = suggestion.value.point > 0 ? suggestion.value.point : 0;
-      values.pro.point = v;
-      values.pro.str = `${v > 0 ? v : ''}`;
-    }
-    const int = pc?.value.attributes.int;
-    values.interest.point = (int || 0) * 2;
-    values.interest.str = typeof int === 'number' ? `${int * 2}` : '';
-  },
-  { deep: true }
-);
-
-function updatePointValue(
-  data: {
-    point: number;
-    str: string;
-  },
-  value: string
-) {
+function updatePointValue(key: 'pro' | 'interest', value: string) {
+  const data = values[key];
   data.str = value;
   if (value) {
     const num = Number(value);
@@ -65,7 +45,47 @@ function updatePointValue(
   } else {
     data.point = 0;
   }
+  if (pc) {
+    pc.value.pointValues[key] = value;
+  }
 }
+
+// watch suggestion change
+watch(
+  () => [suggestion, pc?.value.attributes.int],
+  () => {
+    if (suggestion?.value.point) {
+      const v = suggestion.value.point > 0 ? suggestion.value.point : 0;
+      updatePointValue('pro', `${v > 0 ? v : ''}`);
+    }
+  },
+  { deep: true }
+);
+
+// watch pc int change
+watch(
+  () => pc?.value.attributes.int,
+  () => {
+    const int = pc?.value.attributes.int;
+    const str = typeof int === 'number' ? `${int * 2}` : '';
+    updatePointValue('interest', str);
+  }
+);
+
+// watch pc values change
+watch(
+  () => [pc?.value.pointValues],
+  () => {
+    if (!pc) return;
+    if (pc.value.pointValues.pro !== values.pro.str) {
+      updatePointValue('pro', pc.value.pointValues.pro);
+    }
+    if (pc.value.pointValues.interest !== values.interest.str) {
+      updatePointValue('interest', pc.value.pointValues.interest);
+    }
+  },
+  { deep: true }
+);
 </script>
 
 <template>
@@ -84,7 +104,7 @@ function updatePointValue(
               label="职业点数"
               :char="3"
               :modelValue="values.pro.str"
-              @update:modelValue="(v) => updatePointValue(values.pro, v)"
+              @update:modelValue="(v) => updatePointValue('pro', v)"
             />
             <div
               v-if="values.pro.point > 0"
@@ -99,7 +119,7 @@ function updatePointValue(
               label="兴趣点数"
               :char="3"
               :modelValue="values.interest.str"
-              @update:modelValue="(v) => updatePointValue(values.interest, v)"
+              @update:modelValue="(v) => updatePointValue('interest', v)"
             />
             <div
               v-if="values.interest.point > 0"
