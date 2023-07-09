@@ -45,26 +45,27 @@ function printPaper(debug: boolean = false) {
 
   if (debug) return;
 
+  async function printEl(el: HTMLElement) {
+    if (!el) return '';
+    return await toJpeg(el, {
+      canvasWidth: 210 * 8,
+      canvasHeight: 297 * 8,
+      pixelRatio: 1,
+      quality: 0.5,
+      skipFonts: true,
+    });
+  }
+
   nextTick(async () => {
     if (!paperEls.length) return;
     // do proint
-    const hrefs = await Promise.all(
-      paperEls.map(async (el) => {
-        if (!el) return '';
-        return await toJpeg(el, {
-          canvasWidth: 210 * 8,
-          canvasHeight: 297 * 8,
-          pixelRatio: 1,
-          quality: 0.5,
-        });
-      })
-    );
-    paperImage.front = hrefs[0];
-    paperImage.back = hrefs[1];
+    const hrefs = [await printEl(paperEls[1]), await printEl(paperEls[0])];
+    paperImage.front = hrefs[1];
+    paperImage.back = hrefs[0];
     // auto download
     const data = [
-      ['正面', hrefs[0]],
-      ['背面', hrefs[1]],
+      ['正面', hrefs[1]],
+      ['背面', hrefs[0]],
     ];
     data.forEach(([name, href]) => {
       const imageName = [pc.name, pc.playerName, name]
