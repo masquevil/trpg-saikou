@@ -31,6 +31,8 @@ const periodText = welcome ? '入门' : periodTexts[props.period];
   border-radius: 4px;
   font-size: 14px;
   line-height: 14px;
+  width: 44px;
+  display: inline-block;
   color: var(--period-text-color, #eee);
   background-color: var(--period-label-color, #666);
 

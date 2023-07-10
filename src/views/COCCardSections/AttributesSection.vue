@@ -4,7 +4,7 @@ import { computed, ref } from 'vue';
 // components
 import PaperSection from '@/components/coc-card/PaperSection.vue';
 import WritableRow from '@/components/coc-card/WritableRow.vue';
-import SoxCheckbox from '@/components/coc-card/SoxCheckbox.vue';
+import SoxCheckbox from '@/components/sox/SoxCheckbox.vue';
 
 // models
 import type {

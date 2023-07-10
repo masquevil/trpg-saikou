@@ -55,13 +55,7 @@
 }
 
 :root {
-  @include theme-light-vars;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    @include theme-dark-vars;
-  }
+  @include theme-dark-vars;
 }
 
 .theme-light {

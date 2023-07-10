@@ -7,7 +7,7 @@ import type { ChildSkill } from '@/types/coc-card/skill';
 import type { COCCardViewData } from '@/types/coc-card/viewData';
 import type { COCPCSkill } from '@/types/coc-card/character';
 
-import SoxCheckbox from './SoxCheckbox.vue';
+import SoxCheckbox from '../sox/SoxCheckbox.vue';
 
 interface Props {
   skillName: string;

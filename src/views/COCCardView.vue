@@ -172,21 +172,3 @@ function resetCard() {
   }
 }
 </style>
-
-<style lang="scss">
-body {
-  --color-background: var(--color-black);
-}
-.el-message--error {
-  --el-message-border-color: hsl(350, 60%, 80%);
-  --el-message-text-color: hsl(350, 100%, 35%);
-}
-.el-message--success {
-  --el-message-border-color: hsl(150, 60%, 30%);
-  --el-message-text-color: hsl(150, 100%, 20%);
-}
-.el-message--info {
-  --el-message-border-color: hsl(190, 60%, 30%);
-  --el-message-text-color: hsl(190, 100%, 20%);
-}
-</style>

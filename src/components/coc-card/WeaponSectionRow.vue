@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import SoxCheckbox from '@/components/coc-card/SoxCheckbox.vue';
+import SoxCheckbox from '@/components/sox/SoxCheckbox.vue';
 import BaseTdInput from '@/components/coc-card/BaseTdInput.vue';
 import BaseTdSelect from '@/components/coc-card/BaseTdSelect.vue';
 import FlattenTree from '@/components/coc-card/FlattenTree.vue';

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import SoxCheckbox from './SoxCheckbox.vue';
+import SoxCheckbox from '../sox/SoxCheckbox.vue';
 import BaseTdInput from './BaseTdInput.vue';
 
 interface Props {

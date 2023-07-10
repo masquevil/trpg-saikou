@@ -23,7 +23,7 @@ const wantedList = list
   .filter((item) => item.record?.prefer)
   .sort((a, b) => (b.record?.prefer || 0) - (a.record?.prefer || 0));
 const playedList = list
-  .filter((item) => item.record?.isPlayed)
+  .filter((item) => item.record?.isPlayed || item.experience)
   .sort(
     (a, b) =>
       (b.experience?.experienceScore || 0) -
@@ -42,11 +42,26 @@ const playedList = list
           <h1 class="section-title">我想玩的</h1>
         </div>
         <div>
-          <div v-for="{ story, record } in wantedList" :key="story.name" class="wanted-card">
-            <PeriodLabel :period="story.period" :welcome="story.options?.welcome" />
-            {{ story.name }}
-            <span class="prefer-label" v-if="record?.prefer">
-              <span v-for="(_, i) in Array.from({ length: record.prefer })" :key="i">♡</span>
+          <div
+            v-for="{ story, record } in wantedList"
+            :key="story.name"
+            class="wanted-card"
+          >
+            <PeriodLabel
+              :period="story.period"
+              :welcome="story.options?.welcome"
+            />
+            <span>{{ story.name }}</span>
+            <span
+              class="prefer-label"
+              v-if="record?.prefer"
+            >
+              <template
+                v-for="(_, i) in Array.from({ length: record.prefer })"
+                :key="i"
+              >
+                <span>♡</span>
+              </template>
             </span>
           </div>
         </div>
@@ -55,26 +70,43 @@ const playedList = list
         <div class="section-header">
           <h1 class="section-title">我玩过的</h1>
           <label>
-            <input type="checkbox" v-model="privateMode" />
+            <input
+              type="checkbox"
+              v-model="privateMode"
+            />
             隐藏主观评价
           </label>
         </div>
         <div>
-          <div v-for="{ story, experience } in playedList" :key="story.name" class="played-card">
+          <div
+            v-for="{ story, experience } in playedList"
+            :key="story.name"
+            class="played-card"
+          >
             <div class="played-card-header">
-              <PeriodLabel :period="story.period" :welcome="story.options?.welcome" />
+              <PeriodLabel
+                :period="story.period"
+                :welcome="story.options?.welcome"
+              />
               <span class="played-card-name">{{ story.name }}</span>
-              <span>体验评分:
-                {{ !privateMode ? experience?.experienceScore : '*' }}</span>
-              <span>模组评分: {{ experience?.storyScore }}</span>
+              <span v-if="!experience">暂无评价</span>
+              <template v-else>
+                <span>
+                  体验评分:
+                  {{ !privateMode ? experience?.experienceScore : '*' }}
+                </span>
+                <span>模组评分: {{ experience?.storyScore }}</span>
+              </template>
             </div>
             <div>
               {{
                 !privateMode
-                ? experience?.comments
-                : Array.from({
-                  length: experience?.comments.length || 0
-                }).map(() => "*").join('')
+                  ? experience?.comments
+                  : Array.from({
+                      length: experience?.comments.length || 0,
+                    })
+                      .map(() => '*')
+                      .join('')
               }}
             </div>
           </div>
@@ -115,7 +147,7 @@ const playedList = list
 }
 
 .section-wanted {
-  flex: 1;
+  flex: 3;
 }
 
 .wanted-card {
@@ -127,7 +159,7 @@ const playedList = list
 }
 
 .section-played {
-  flex: 2;
+  flex: 5;
 }
 
 .played-card {

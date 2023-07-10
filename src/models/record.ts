@@ -1,6 +1,7 @@
 import type StoryNames from '@/types/name';
 import type { Record, FormattedRecord } from '@/types/record';
 import myUserData from '@/local/record';
+import experiences from './experience';
 
 /* story user data handlers */
 function formatStoryUserData(data: Record): [StoryNames, FormattedRecord] {
@@ -10,9 +11,17 @@ function formatStoryUserData(data: Record): [StoryNames, FormattedRecord] {
     name,
     {
       prefer,
-      isPlayed,
+      isPlayed: isPlayed,
     },
   ];
 }
 
-export default new Map(myUserData.map(formatStoryUserData));
+const records = new Map(myUserData.map(formatStoryUserData));
+
+experiences.forEach((_, name) => {
+  if (!records.has(name)) {
+    records.set(name, { prefer: 0, isPlayed: true });
+  }
+});
+
+export default records;

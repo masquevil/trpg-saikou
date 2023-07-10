@@ -1,11 +1,12 @@
 <script setup lang="ts">
+import { ref, watch } from 'vue';
 import { CloseBold, Select } from '@element-plus/icons-vue';
 
 interface Props {
   checked?: boolean;
   xOnFalse?: boolean;
 }
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   checked: false,
   xOnFalse: false,
 });
@@ -16,8 +17,19 @@ interface Emits {
 }
 const emit = defineEmits<Emits>();
 
+const localChecked = ref(props.checked);
+
+watch(
+  () => props.checked,
+  () => {
+    localChecked.value = props.checked;
+  }
+);
+
 function onChange($event: Event) {
-  emit('check', ($event.target as HTMLInputElement).checked, $event);
+  const value = ($event.target as HTMLInputElement).checked;
+  localChecked.value = value;
+  emit('check', value, $event);
   emit('change', $event);
 }
 </script>
@@ -25,13 +37,13 @@ function onChange($event: Event) {
 <template>
   <label class="sox-checkbox">
     <el-icon size="0.9em">
-      <Select v-if="checked" />
-      <CloseBold v-if="!checked && xOnFalse" />
+      <Select v-if="localChecked" />
+      <CloseBold v-if="!localChecked && xOnFalse" />
     </el-icon>
     <input
       type="checkbox"
       class="sox-checkbox-input"
-      :checked="checked"
+      :checked="localChecked"
       @change="onChange"
     />
   </label>
@@ -40,23 +52,26 @@ function onChange($event: Event) {
 <style scoped lang="scss">
 .sox-checkbox {
   --color-line: #8a8a8a;
+  --color-font: var(--color-black);
 
   font-size: 1em;
   line-height: 1em;
   width: 0.9em;
   height: 0.9em;
+  display: inline-block;
   outline: 1px solid var(--color-line);
   background-color: var(--color-white);
   text-align: center;
   cursor: pointer;
   overflow: hidden;
+  color: var(--color-font);
 
   &:hover,
   &:focus {
     outline-color: var(--color-black);
   }
   &:active {
-    background-color: var(--color-background-mute);
+    background-color: var(--vt-c-white-mute);
   }
 }
 .sox-checkbox-input {

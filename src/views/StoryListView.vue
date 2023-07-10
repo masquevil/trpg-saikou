@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
+
 import PeriodLabel from '@/components/PeriodLabel.vue';
+import SoxCheckbox from '@/components/sox/SoxCheckbox.vue';
 
 import useTheme from '@/hooks/useTheme';
 
@@ -13,9 +15,9 @@ import records from '@/models/record';
 import experiences from '@/models/experience';
 
 interface listItem {
-  story: FormattedStory,
-  record?: FormattedRecord,
-  experience?: FormattedExperience,
+  story: FormattedStory;
+  record?: FormattedRecord;
+  experience?: FormattedExperience;
 }
 
 useTheme('dark');
@@ -39,11 +41,13 @@ const periodOrder: Period[] = ['short', 'medium', 'long', 'battle'];
 function sortList(list: listItem[]) {
   const sorters: ((a: listItem, b: listItem) => number)[] = [
     // 玩过的，靠前
-    (a, b) => Number(b.record?.isPlayed || false) - Number(a.record?.isPlayed || false),
+    (a, b) =>
+      Number(b.record?.isPlayed || false) - Number(a.record?.isPlayed || false),
     // 更想玩的，靠前
     (a, b) => (b.record?.prefer || 0) - (a.record?.prefer || 0),
     // 时间短的，靠前
-    (a, b) => periodOrder.indexOf(a.story.period) - periodOrder.indexOf(b.story.period),
+    (a, b) =>
+      periodOrder.indexOf(a.story.period) - periodOrder.indexOf(b.story.period),
     // 年代早的，靠前；同年代，按具体时间排序，没有具体时间的靠后
     (a, b) => {
       const da = a.story.decade.decade;
@@ -62,27 +66,29 @@ function sortList(list: listItem[]) {
       const ca = a.story.area[0].country;
       const cb = b.story.area[0].country;
       if (ca !== cb) return ca > cb ? -1 : 1;
-      return (a.story.area[0].city || '') > (b.story.area[0].city || '') ? -1 : 1;
+      return (a.story.area[0].city || '') > (b.story.area[0].city || '')
+        ? -1
+        : 1;
     },
   ];
   const sorttedList = [...list]
     .filter((item: listItem) => !item.story.options?.inactive)
     .filter((item: listItem) => !item.story.options?.removed);
-  sorters.reverse().forEach(sorter => sorttedList.sort(sorter));
+  sorters.reverse().forEach((sorter) => sorttedList.sort(sorter));
   return sorttedList;
 }
 
-const list = sortList([
-  ...stories.map(getListMapper()),
-]);
+const list = sortList([...stories.map(getListMapper())]);
 
-const periodOptions = periodOrder.map(key => [key, periodTexts[key]] as [Period, string]);
+const periodOptions = periodOrder.map(
+  (key) => [key, periodTexts[key]] as [Period, string]
+);
 const countryOptions = computed(() => {
   const countries = new Map<string, number>();
   list.forEach((item) => {
     item.story.area.forEach((place) => {
       countries.set(place.country, (countries.get(place.country) || 0) + 1);
-    })
+    });
   });
   return [...countries.entries()].sort((a, b) => b[1] - a[1]);
 });
@@ -108,7 +114,8 @@ const computedList = computed(() => {
     if (!showWelcome && story.options?.welcome) return false;
     if (period.size > 0 && !period.has(story.period)) return false;
     if (decade && !story.decade.decade?.startsWith(decade)) return false;
-    if (country && !story.area.some((place) => place.country === country)) return false;
+    if (country && !story.area.some((place) => place.country === country))
+      return false;
     return true;
   });
 });
@@ -118,56 +125,130 @@ const computedList = computed(() => {
   <main class="page">
     <div class="header">
       <h1 class="title">听枫馆打卡记录</h1>
-      <RouterLink class="link" to="/self">我的记录</RouterLink>
+      <RouterLink
+        class="link"
+        to="/self"
+      >
+        我的记录
+      </RouterLink>
     </div>
     <div class="filter-section">
-      <select v-model="filters.showPlayed" class="filter-control">
+      <select
+        v-model="filters.showPlayed"
+        class="filter-control"
+      >
         <option :value="1">显示玩过的</option>
         <option :value="0">隐藏玩过的</option>
       </select>
-      <select v-model="filters.showWelcome" class="filter-control">
+      <select
+        v-model="filters.showWelcome"
+        class="filter-control"
+      >
         <option :value="1">显示入门模组</option>
         <option :value="0">隐藏入门模组</option>
       </select>
       <div class="filter-multi-container filter-of-period">
-        <select v-model="filterPeriodValue" @change="onPeriodChange(filterPeriodValue)" class="filter-control">
-          <option value disabled selected>选择时长</option>
-          <option value hidden>重置</option>
-          <option v-for="option in periodOptions" :key="option[0]" :value="option[0]">{{ option[1] }}</option>
+        <select
+          v-model="filterPeriodValue"
+          @change="onPeriodChange(filterPeriodValue)"
+          class="filter-control"
+        >
+          <option
+            value
+            disabled
+            selected
+          >
+            选择时长
+          </option>
+          <option
+            value
+            hidden
+          >
+            重置
+          </option>
+          <option
+            v-for="option in periodOptions"
+            :key="option[0]"
+            :value="option[0]"
+          >
+            {{ option[1] }}
+          </option>
         </select>
         <div class="filter-multi-values">
-          <PeriodLabel v-for="selectedPeriod in periodOrder.filter(p => filters.period.has(p))" :key="selectedPeriod"
-            class="period-label-filter-value" :period="selectedPeriod" @click="filters.period.delete(selectedPeriod)" />
+          <PeriodLabel
+            v-for="selectedPeriod in periodOrder.filter((p) =>
+              filters.period.has(p)
+            )"
+            :key="selectedPeriod"
+            class="period-label-filter-value"
+            :period="selectedPeriod"
+            @click="filters.period.delete(selectedPeriod)"
+          />
         </div>
       </div>
-      <select v-model="filters.decade" class="filter-control">
+      <select
+        v-model="filters.decade"
+        class="filter-control"
+      >
         <option value>全年代</option>
         <option value="20">2000+</option>
         <option value="19">1900+</option>
       </select>
-      <select v-model="filters.country" class="filter-control">
+      <select
+        v-model="filters.country"
+        class="filter-control"
+      >
         <option value>全世界</option>
-        <option v-for="countryOption in countryOptions" :key="countryOption[0]" :value="countryOption[0]">
+        <option
+          v-for="countryOption in countryOptions"
+          :key="countryOption[0]"
+          :value="countryOption[0]"
+        >
           仅{{ countryOption[0] }} ({{ countryOption[1] }})
         </option>
       </select>
     </div>
     <div class="list">
-      <div class="item" v-for="{ story, record, experience } in computedList" :key="story.name">
+      <div
+        class="item"
+        v-for="{ story, record, experience } in computedList"
+        :key="story.name"
+      >
         <div class="item-mark">
-          <input type="checkbox" :checked="record?.isPlayed">
+          <SoxCheckbox :checked="record?.isPlayed" />
         </div>
         <div class="item-name">
-          <PeriodLabel :period="story.period" :welcome="story.options?.welcome" />
-          <span>{{ story.name }}{{ story.options?.store ? ` (${story.options.store})` : '' }}</span>
-          <span class="prefer-label" v-if="record?.prefer">
-            <span v-for="(_, i) in Array.from({ length: record.prefer })" :key="i">♡</span>
+          <PeriodLabel
+            :period="story.period"
+            :welcome="story.options?.welcome"
+          />
+          <span>
+            {{ story.name }}
+            {{ story.options?.store ? ` (${story.options.store})` : '' }}
           </span>
-          <div class="item-comments-container" v-if="experience">
+          <span
+            class="prefer-label"
+            v-if="record?.prefer"
+          >
+            <template
+              v-for="(_, i) in Array.from({ length: record.prefer })"
+              :key="i"
+            >
+              <span>♡</span>
+            </template>
+          </span>
+          <div
+            class="item-comments-container"
+            v-if="experience"
+          >
             <div class="item-comments-icon">📝</div>
             <div class="item-comments-panel">
               <div>
-                <span>模组{{ experience.storyScore }}分/体验{{ experience.experienceScore }}分</span>{{ ' ' }}
+                <span>
+                  模组{{ experience.storyScore }}分/体验{{
+                    experience.experienceScore
+                  }}分
+                </span>
                 <span>{{ experience.comments }}</span>
               </div>
             </div>
@@ -175,8 +256,15 @@ const computedList = computed(() => {
         </div>
         <div class="item-decade">{{ story.decade.decadeText }}</div>
         <div class="item-areas">
-          <span class="area-info" v-for="area in story.area" :key="area.city">{{ `${area.country}${area.city ?? ''}`
-          }}</span>
+          <template
+            v-for="(area, index) in story.area"
+            :key="area.city"
+          >
+            <span v-if="index"> / </span>
+            <span class="area-info">
+              {{ `${area.country}${area.city ?? ''}` }}
+            </span>
+          </template>
         </div>
       </div>
     </div>
@@ -258,6 +346,7 @@ const computedList = computed(() => {
 
 .item-mark {
   flex: 0 0 auto;
+  line-height: 0;
 }
 
 .item-name {
@@ -287,7 +376,7 @@ const computedList = computed(() => {
   z-index: 1;
   opacity: 0;
   pointer-events: none;
-  transition: opacity .4s;
+  transition: opacity 0.4s;
 
   .item-comments-container:hover & {
     opacity: 1;
@@ -316,15 +405,5 @@ const computedList = computed(() => {
 .area-info {
   white-space: nowrap;
   display: inline-block;
-
-  &::after {
-    content: '\B';
-  }
-
-  &:not(:first-child) {
-    &::before {
-      content: '/ ';
-    }
-  }
 }
 </style>
