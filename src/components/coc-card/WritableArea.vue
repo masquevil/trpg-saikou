@@ -67,7 +67,7 @@ const pageData = usePageData();
 <style scoped lang="scss">
 .writable-area {
   --color-line: #b2b2b2;
-  --line-height: 2.06em;
+  --line-height: 2em;
   --padding-h: 0.4em;
 
   position: relative;
@@ -117,9 +117,7 @@ const pageData = usePageData();
   align-items: flex-end;
 }
 .line-row-label {
-  box-sizing: content-box;
-  height: var(--line-height);
-  padding-right: var(--padding-h);
+  margin-right: var(--padding-h);
 }
 .line {
   flex: 1 1 0;

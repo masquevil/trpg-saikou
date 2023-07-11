@@ -16,8 +16,8 @@ const pc = usePC();
     <div class="section-body">
       <WritableArea
         label=""
-        :rows="8"
-        :maxlength="18 * 8"
+        :rows="9"
+        :maxlength="18 * 9"
         v-model="pc.experiencedModules"
       />
     </div>
