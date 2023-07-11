@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { reactive } from 'vue';
 
 import { usePageData } from '@/hooks/useCOCCardProviders';
 
@@ -25,7 +25,7 @@ defineEmits<Emits>();
 
 const pageData = usePageData();
 
-const inputStyle = ref({
+const inputStyle = reactive({
   width: `${props.char}em`,
 });
 </script>

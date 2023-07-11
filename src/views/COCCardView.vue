@@ -98,10 +98,7 @@ function resetCard() {
       />
     </div>
     <div class="paper-container theme-light">
-      <div
-        class="papers-editing web-only"
-        v-if="!pageData.printing"
-      >
+      <div class="papers-editing web-only">
         <Transition name="swipe-paper">
           <PaperFront v-if="paperInFront" />
           <PaperBack v-else />

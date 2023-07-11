@@ -56,72 +56,44 @@ watch(
 </script>
 
 <template>
-  <div class="battle-section">
-    <PaperSection title="战斗">
-      <div
-        class="battle-section-body"
-        v-if="pc"
-      >
-        <WritableRow
-          label="伤害加值"
-          hint="DB"
-          :char="6"
-          v-model="pc.battleAttributes.db"
-        />
-        <WritableRow
-          label="体格"
-          :char="6"
-          v-model="pc.battleAttributes.size"
-        />
-        <WritableRow
-          label="护甲"
-          :char="6"
-          v-model="pc.battleAttributes.armor"
-        />
-        <WritableRow
-          label="移动力"
-          :char="6"
-          v-model="pc.battleAttributes.mov"
-        />
-      </div>
-    </PaperSection>
-    <div class="copyright">
-      <span class="footprint">🐾</span>
-      <span>© 侠小然 2023</span>
-      <span class="footprint">🐾</span>
+  <PaperSection title="战斗">
+    <div
+      class="battle-section-body"
+      v-if="pc"
+    >
+      <WritableRow
+        label="伤害加值"
+        hint="DB"
+        v-model="pc.battleAttributes.db"
+      />
+      <WritableRow
+        label="体格"
+        v-model="pc.battleAttributes.size"
+      />
+      <WritableRow
+        label="护甲"
+        v-model="pc.battleAttributes.armor"
+      />
+      <WritableRow
+        label="移动力"
+        v-model="pc.battleAttributes.mov"
+      />
     </div>
-  </div>
+  </PaperSection>
 </template>
 
 <style scoped lang="scss">
-.battle-section {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
 .battle-section-body {
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 0.3em;
-  padding: 0.3em 0.6em 0.8em;
+  padding: 0.6em 0.6em 1.2em 0.4em;
 
   &:deep(.label) {
     width: 4.4em;
     flex: 1 1 auto;
   }
-}
-
-.copyright {
-  line-height: 1;
-  font-size: 0.88em;
-  color: #888;
-  display: flex;
-  justify-content: space-between;
-}
-.footprint {
-  padding: 0 0.4em;
-  opacity: 0.5;
 }
 </style>

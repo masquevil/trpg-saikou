@@ -20,6 +20,7 @@ const pc = usePC();
         <WritableRow
           label="幸运"
           :modelValue="`${pc.attributes.luc ?? ''}`"
+          placeholder="3D6×5"
           @update:modelValue="(newValue) => (pc!.attributes.luc = +newValue)"
         />
       </div>
@@ -32,6 +33,7 @@ const pc = usePC();
         <img
           class="qr-code"
           :src="qr"
+          alt="二维码渲染失败，请手动访问 https://masquevil.github.io/trpg-saikou/#/coc-card"
         />
       </div>
     </PaperSection>
@@ -63,10 +65,12 @@ const pc = usePC();
   height: 100%;
   width: 100%;
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
 }
 .qr-code {
-  width: 9em;
-  height: 9em;
+  width: 8.6em;
+  height: 8.6em;
 }
 </style>

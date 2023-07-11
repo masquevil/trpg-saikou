@@ -115,10 +115,9 @@ function applyInData() {
     <div class="guide">
       <div>使用指南：</div>
       <ol class="guide-ol">
-        <li>生成图片</li>
+        <li>生成图片（建议电脑端使用）</li>
         <li>手写空白卡 or 在线车卡</li>
         <li>直接打印（Ctrl + P）</li>
-        <li>通过打印生成 PDF</li>
       </ol>
     </div>
     <button
@@ -233,10 +232,10 @@ function applyInData() {
       />
       <a
         class="issue-link"
-        href="https://github.com/masquevil/trpg-saikou/issues"
+        href="https://github.com/masquevil/trpg-saikou#商业使用"
         target="_blank"
       >
-        交流 讨论 反馈：点这里
+        交流 反馈 商业合作：点这里
       </a>
     </div>
   </div>

@@ -24,8 +24,9 @@
   --color-white: #fff;
   --color-black: #2e2e2e;
 
-  --color-link: hsla(240, 100%, 75%, 1);
-  --color-link-background: hsla(240, 100%, 75%, 0.2);
+  --color-link: hsl(240, 100%, 75%);
+  --color-link-hover: hsl(240, 50%, 60%);
+  --color-link-active: hsl(240, 30%, 40%);
   --color-placeholder: #b2b2b2;
 }
 

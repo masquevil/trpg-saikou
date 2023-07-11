@@ -183,7 +183,7 @@ function updateAttr(key: COCAttributesKey, value: string) {
 <style scoped lang="scss">
 .info-section {
   display: flex;
-  padding: 0.4em 0.6em 0.3em;
+  padding: 0.4em 0.6em 0.6em;
   gap: 0.8em;
 }
 .divider {

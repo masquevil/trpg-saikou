@@ -128,20 +128,24 @@ function onSelectJob(jobName: string) {
       <div class="row">
         <WritableRow
           label="年龄"
+          :char="6"
           v-model="pc.age"
         />
         <WritableRow
           label="性别"
+          :char="6"
           v-model="pc.gender"
         />
       </div>
       <div class="row">
         <WritableRow
           label="住地"
+          :char="6"
           v-model="pc.location"
         />
         <WritableRow
           label="故乡"
+          :char="6"
           v-model="pc.hometown"
         />
       </div>

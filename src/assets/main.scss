@@ -39,10 +39,13 @@ table {
 .link {
   color: var(--color-link);
   cursor: pointer;
-  transition: background-color 0.4s;
+  transition: color 0.3s ease;
 
   &:hover {
-    background-color: var(--color-link-background);
+    color: var(--color-link-hover);
+  }
+  &:active {
+    color: var(--color-link-active);
   }
 }
 

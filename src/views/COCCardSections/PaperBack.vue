@@ -61,7 +61,7 @@ defineProps<Props>();
   white-space: nowrap;
   overflow: visible;
   width: 0px;
-  transform: scale(0.88);
+  transform: scale(0.8);
   transform-origin: left bottom;
 }
 .special-thanks {
