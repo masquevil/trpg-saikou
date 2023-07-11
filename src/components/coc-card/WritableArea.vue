@@ -67,7 +67,7 @@ const pageData = usePageData();
 <style scoped lang="scss">
 .writable-area {
   --color-line: #b2b2b2;
-  --line-height: 2.04em;
+  --line-height: 2.06em;
   --padding-h: 0.4em;
 
   position: relative;
@@ -79,7 +79,6 @@ const pageData = usePageData();
   z-index: 10;
   font-weight: 900;
   padding: 0 calc(var(--padding-h) / 2);
-  transform: translateY(calc(var(--line-height) * 0.1));
   line-height: var(--line-height);
   color: var(--color-black);
 }
@@ -87,7 +86,6 @@ const pageData = usePageData();
 .input {
   width: 100%;
   padding: 0 var(--padding-h);
-  transform: translateY(calc(var(--line-height) * 0.1));
   resize: none;
   border: none;
   border-radius: 0;
@@ -108,6 +106,7 @@ const pageData = usePageData();
 .lines {
   position: absolute;
   top: 0;
+  transform: translateY(calc(var(--line-height) * -0.1));
   width: 100%;
   height: 100%;
   pointer-events: none;
@@ -115,14 +114,16 @@ const pageData = usePageData();
 .line-row {
   display: flex;
   height: var(--line-height);
-  align-items: stretch;
+  align-items: flex-end;
 }
 .line-row-label {
   box-sizing: content-box;
+  height: var(--line-height);
   padding-right: var(--padding-h);
 }
 .line {
   flex: 1 1 0;
+  height: 1px;
   border-bottom: 1px solid var(--color-line);
 }
 

@@ -32,9 +32,21 @@
   display: flex;
   justify-content: space-between;
   color: #777;
+  white-space: nowrap;
+}
+
+.commercial-info {
+  width: 0;
+  flex: 1 0 0;
+  transform: scale(0.72);
+  transform-origin: left bottom;
+}
+.commercial-link {
+  color: inherit;
 }
 
 .copyright {
+  flex: 0 0 auto;
   display: flex;
   justify-content: space-between;
   gap: 0.6em;
@@ -43,13 +55,5 @@
 }
 .footprint {
   opacity: 0.5;
-}
-
-.commercial-info {
-  transform: scale(0.72);
-  transform-origin: left bottom;
-}
-.commercial-link {
-  color: inherit;
 }
 </style>

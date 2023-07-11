@@ -276,6 +276,7 @@ function onSelectWeapon(name: string) {
   display: flex;
   align-items: center;
   justify-content: center;
+  white-space: nowrap;
 }
 .td-color-0 {
   background-color: var(--wp-color-0);
