@@ -125,7 +125,7 @@ function onSelectJob(jobName: string) {
           </div>
         </Transition>
       </div>
-      <div class="row">
+      <div class="info-row">
         <WritableRow
           label="年龄"
           :char="6"
@@ -137,7 +137,7 @@ function onSelectJob(jobName: string) {
           v-model="pc.gender"
         />
       </div>
-      <div class="row">
+      <div class="info-row">
         <WritableRow
           label="住地"
           :char="6"
@@ -154,7 +154,7 @@ function onSelectJob(jobName: string) {
 </template>
 
 <style scoped lang="scss">
-.row {
+.info-row {
   display: flex;
   gap: 1em;
 }

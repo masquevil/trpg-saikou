@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",
+    "local": "NODE_ENV=development vite build --mode development",
     "preview": "vite preview",
     "build-only": "vite build",
     "deploy": "./shell/deploy.sh",
@@ -20,6 +21,7 @@
     "image-conversion": "^2.1.1",
     "leancloud-storage": "^4.15.0",
     "lz-string": "^1.5.0",
+    "qs": "^6.11.2",
     "sass": "^1.63.2",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6"

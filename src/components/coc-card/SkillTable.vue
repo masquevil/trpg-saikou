@@ -325,7 +325,7 @@ function getTotal(points: SkillPoint, init: number) {
   --td-color-1: hsl(0, 0%, 92%);
   --td-color-2: hsl(0, 0%, 84%);
   --td-color-3: hsl(0, 0%, 76%);
-  --td-line-height: 1.56em;
+  --td-line-height: 1.54em;
   --th-line-height: 1.66em;
 }
 

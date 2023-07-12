@@ -6,8 +6,7 @@ import {
 
 const router = createRouter({
   history:
-    // @ts-expect-error
-    process.env.NODE_ENV !== 'production'
+    import.meta.env.MODE !== 'production'
       ? createWebHistory(import.meta.env.BASE_URL)
       : createWebHashHistory(import.meta.env.BASE_URL),
   routes: [

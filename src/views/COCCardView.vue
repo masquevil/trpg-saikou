@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { reactive, provide, ref, nextTick } from 'vue';
 import { toJpeg } from 'html-to-image';
+import qs from 'qs';
 
 import { createPC } from '@/models/coc-card/character';
 
@@ -15,15 +16,16 @@ import ControlSection from './COCCardSections/ControlSection.vue';
 import PaperFront from './COCCardSections/PaperFront.vue';
 import PaperBack from './COCCardSections/PaperBack.vue';
 
+const qsObject = qs.parse(location.search.slice(1));
 const pc = reactive<COCPlayerCharacter>(createPC());
 const pcRef = ref(pc);
 const viewData = reactive<COCCardViewData>({
   showingChildSkills: new Map(),
 });
 const pageData = reactive({
-  printing: location.search.includes('debug=true'),
+  printing: qsObject.debug === 'true',
 });
-const paperInFront = ref(location.search.includes('turn=back') ? false : true);
+const paperInFront = ref(qsObject.turn === 'back' ? false : true);
 
 useDerives(pcRef);
 const suggestion = useSuggestion(pcRef, viewData);
@@ -38,27 +40,25 @@ const paperImage = reactive({
   front: '',
   back: '',
 });
+async function printEl(el: HTMLElement) {
+  if (!el) return '';
+  return await toJpeg(el, {
+    canvasWidth: 210 * 8,
+    canvasHeight: 297 * 8,
+    pixelRatio: 1,
+    quality: 0.5,
+    skipFonts: true,
+  });
+}
 function printPaper(debug: boolean = false) {
   if (!paperEls.length) return;
   // prepare
   pageData.printing = true;
-
   if (debug) return;
-
-  async function printEl(el: HTMLElement) {
-    if (!el) return '';
-    return await toJpeg(el, {
-      canvasWidth: 210 * 8,
-      canvasHeight: 297 * 8,
-      pixelRatio: 1,
-      quality: 0.5,
-      skipFonts: true,
-    });
-  }
 
   nextTick(async () => {
     if (!paperEls.length) return;
-    // do proint
+    // do print
     const hrefs = [await printEl(paperEls[1]), await printEl(paperEls[0])];
     paperImage.front = hrefs[1];
     paperImage.back = hrefs[0];
@@ -140,6 +140,7 @@ function resetCard() {
   perspective: 900em;
 }
 .papers-editing {
+  /* TODO: print & confirm */
   --base-size: 15px;
 }
 .papers-printing {

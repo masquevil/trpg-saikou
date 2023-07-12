@@ -1,1 +1,1 @@
-// declare module 'request-image-size';
+declare module 'qs';
