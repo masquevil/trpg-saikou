@@ -15,6 +15,7 @@ import CopyrightSection from './CopyrightSection.vue';
 
 interface Props {
   setRef?: VNodeRef;
+  cheating?: boolean;
 }
 defineProps<Props>();
 </script>
@@ -23,7 +24,7 @@ defineProps<Props>();
   <PaperLayout :setRef="setRef">
     <div class="section-row">
       <InvestigatorSection />
-      <AttributesSection />
+      <AttributesSection :cheating="cheating" />
       <LuckSection class="col-0" />
       <AvatarSection />
     </div>

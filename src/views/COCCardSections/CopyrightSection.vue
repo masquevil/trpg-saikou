@@ -14,7 +14,7 @@
         class="link commercial-link"
         href="mailto:705422032@qq.com"
       >
-        705422032@qq.com (枫笛)
+        705422032@qq.com (听枫馆·枫笛)
       </a>
     </div>
     <div class="copyright">

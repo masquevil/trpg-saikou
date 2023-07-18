@@ -4,7 +4,6 @@ import { computed, ref } from 'vue';
 // components
 import PaperSection from '@/components/coc-card/PaperSection.vue';
 import WritableRow from '@/components/coc-card/WritableRow.vue';
-import SoxCheckbox from '@/components/sox/SoxCheckbox.vue';
 
 // models
 import type {
@@ -15,50 +14,16 @@ import type {
 import { usePC } from '@/hooks/useCOCCardProviders';
 import { generateRandomAttributes } from '@/models/coc-card/attribute';
 
+interface Props {
+  cheating?: boolean;
+}
+defineProps<Props>();
+
 const pc = usePC();
 
-const cheating = ref(false);
-
-const attributes = computed<Partial<COCAttributes>>(() => {
-  const { str, con, dex, app, pow, siz, edu, int } = pc?.value.attributes || {};
-  const keys: Exclude<COCAttributesKey, 'luc'>[] = [
-    'str',
-    'con',
-    'dex',
-    'app',
-    'pow',
-    'siz',
-    'edu',
-    'int',
-  ];
-  const vals = [str, con, dex, app, pow, siz, edu, int];
-  const result = { str, con, dex, app, pow, siz, edu, int };
-
-  if (vals.some((val) => !val)) return result;
-
-  if (cheating.value) {
-    const backups = [
-      generateRandomAttributes(),
-      generateRandomAttributes(),
-      generateRandomAttributes(),
-      generateRandomAttributes(),
-    ];
-    keys.forEach((key) => {
-      const originValue = pc?.value.attributes[key];
-      if (originValue) {
-        result[key] = Math.max(
-          originValue,
-          ...backups.map((backup) => backup[key])
-        );
-      }
-    });
-  }
-
-  return result;
-});
-
 const sum = computed(() => {
-  const { str, con, dex, app, pow, siz, edu, int } = attributes.value;
+  if (!pc) return 0;
+  const { str, con, dex, app, pow, siz, edu, int } = pc.value.attributes;
   const vals = [str, con, dex, app, pow, siz, edu, int];
   const filled = vals.every((v) => v);
   if (!filled) return 0;
@@ -84,35 +49,35 @@ function updateAttr(key: COCAttributesKey, value: string) {
           label="力量"
           hint="STR"
           :readonly="cheating"
-          :modelValue="`${attributes.str ?? ''}`"
+          :modelValue="`${pc?.attributes.str ?? ''}`"
           @update:modelValue="(newValue) => updateAttr('str', newValue)"
         />
         <WritableRow
           label="体质"
           hint="CON"
           :readonly="cheating"
-          :modelValue="`${attributes.con ?? ''}`"
+          :modelValue="`${pc?.attributes.con ?? ''}`"
           @update:modelValue="(newValue) => updateAttr('con', newValue)"
         />
         <WritableRow
           label="敏捷"
           hint="DEX"
           :readonly="cheating"
-          :modelValue="`${attributes.dex ?? ''}`"
+          :modelValue="`${pc?.attributes.dex ?? ''}`"
           @update:modelValue="(newValue) => updateAttr('dex', newValue)"
         />
         <WritableRow
           label="外貌"
           hint="APP"
           :readonly="cheating"
-          :modelValue="`${attributes.app ?? ''}`"
+          :modelValue="`${pc?.attributes.app ?? ''}`"
           @update:modelValue="(newValue) => updateAttr('app', newValue)"
         />
         <WritableRow
           label="意志"
           hint="POW"
           :readonly="cheating"
-          :modelValue="`${attributes.pow ?? ''}`"
+          :modelValue="`${pc?.attributes.pow ?? ''}`"
           @update:modelValue="(newValue) => updateAttr('pow', newValue)"
         />
       </div>
@@ -128,46 +93,30 @@ function updateAttr(key: COCAttributesKey, value: string) {
           label="体型"
           hint="SIZ"
           :readonly="cheating"
-          :modelValue="`${attributes.siz ?? ''}`"
+          :modelValue="`${pc?.attributes.siz ?? ''}`"
           @update:modelValue="(newValue) => updateAttr('siz', newValue)"
         />
         <WritableRow
           label="教育"
           hint="知识 EDU"
           :readonly="cheating"
-          :modelValue="`${attributes.edu ?? ''}`"
+          :modelValue="`${pc?.attributes.edu ?? ''}`"
           @update:modelValue="(newValue) => updateAttr('edu', newValue)"
         />
         <WritableRow
           label="智力"
           hint="灵感 INT"
           :readonly="cheating"
-          :modelValue="`${attributes.int ?? ''}`"
+          :modelValue="`${pc?.attributes.int ?? ''}`"
           @update:modelValue="(newValue) => updateAttr('int', newValue)"
         />
         <div class="attributes-actions">
-          <el-tooltip
-            effect="dark"
-            placement="top"
+          <div
+            class="ponits-sum"
+            v-if="cheating && sum"
           >
-            <template #content>
-              灌铅的结果仅供娱乐
-              <br />
-              不会影响你的技能点
-              <br />
-              生成图片时也会忽略
-            </template>
-            <label
-              class="cheating-row"
-              :class="{ 'web-only': !cheating }"
-            >
-              <SoxCheckbox
-                :checked="cheating"
-                @check="(v) => (cheating = v)"
-              />
-              我要灌铅！
-            </label>
-          </el-tooltip>
+            已开启灌铅模式
+          </div>
           <div
             class="ponits-sum"
             v-if="sum"

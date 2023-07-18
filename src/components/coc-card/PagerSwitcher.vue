@@ -68,25 +68,27 @@ const options = computed<[string, string, boolean][]>(() => [
   flex-direction: column;
 }
 .header {
-  padding: 0.4em 0.8em 0em;
+  padding: 6px 12px 0;
   line-height: 1;
   text-align: center;
 }
 .swicher {
   display: flex;
+  justify-content: space-around;
 }
 .swicher-option {
-  padding: 0.6em 0.8em;
+  padding: 8px 12px;
   text-align: center;
   cursor: pointer;
   white-space: nowrap;
   transition: all 0.4s;
+  font-size: 14px;
 }
 .swicher-option-inactive {
   background-color: var(--color-bg-opp);
-  padding: 0.2em 0.6em;
-  margin: 0.4em 0.2em;
-  border-radius: 1em;
+  padding: 2px 8px;
+  margin: 6px 4px;
+  border-radius: 12px;
 
   &:hover {
     background-color: var(--color-bg-opp-hover);

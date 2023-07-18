@@ -22,8 +22,9 @@ interface Props {
     front: string;
     back: string;
   };
+  cheating?: boolean;
 }
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), { cheating: false });
 
 interface Emits {
   (event: 'switch-paper', value: boolean): void;
@@ -49,8 +50,11 @@ const generateTimes = ref(0);
 
 function generate() {
   if (!pc) return;
+
   // 多次 roll 点取最高，增加 roll 点体验
-  const attrs = Array.from({ length: (generateTimes.value % 3) + 1 })
+  const attrs = Array.from({
+    length: props.cheating ? 5 : (generateTimes.value % 3) + 1,
+  })
     .map(() => generateRandomAttributes())
     .sort((a, b) => getAttributesSum(b) - getAttributesSum(a))[0];
   pc.value.attributes = attrs;
@@ -254,11 +258,12 @@ function applyInData() {
   overflow: auto;
   display: flex;
   flex-direction: column;
-  gap: 0.6em;
+  gap: 8px;
 }
 .title {
-  font-size: 1.6em;
+  font-size: 24px;
   line-height: 1.2;
+  text-align: center;
 }
 
 .page-switcher {
@@ -266,7 +271,7 @@ function applyInData() {
 }
 
 .guide {
-  font-size: 0.84em;
+  font-size: 12px;
   opacity: 0.82;
 }
 .guide-ol {
@@ -274,13 +279,14 @@ function applyInData() {
 }
 
 .control-button {
-  padding: 0.3em 0.4em;
-  border-radius: 0.6em;
+  padding: 6px 8px;
+  border-radius: 8px;
   color: var(--color-text);
   border: 1px solid var(--color-border);
   background-color: var(--color-control-bg);
   cursor: pointer;
-  font-size: 1em;
+  font-size: 14px;
+  line-height: 1;
 
   &:hover {
     background-color: var(--color-control-bg-hover);
@@ -342,7 +348,7 @@ function applyInData() {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.4em;
+  gap: 4px;
   line-height: 1;
 }
 .issue-link {

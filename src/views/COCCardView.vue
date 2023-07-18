@@ -26,6 +26,7 @@ const pageData = reactive({
   printing: qsObject.debug === 'true',
 });
 const paperInFront = ref(qsObject.turn === 'back' ? false : true);
+const cheating = ref(qsObject.cheating === 'true');
 
 useDerives(pcRef);
 const suggestion = useSuggestion(pcRef, viewData);
@@ -92,6 +93,7 @@ function resetCard() {
       <ControlSection
         :paperInFront="paperInFront"
         :paperImage="paperImage"
+        :cheating="cheating"
         @switch-paper="(v) => (paperInFront = v)"
         @print-paper="printPaper"
         @reset-card="resetCard"
@@ -100,7 +102,10 @@ function resetCard() {
     <div class="paper-container theme-light">
       <div class="papers-editing web-only">
         <Transition name="swipe-paper">
-          <PaperFront v-if="paperInFront" />
+          <PaperFront
+            v-if="paperInFront"
+            :cheating="cheating"
+          />
           <PaperBack v-else />
         </Transition>
       </div>
@@ -110,7 +115,10 @@ function resetCard() {
           'papers-printing-active': pageData.printing,
         }"
       >
-        <PaperFront :setRef="(el) => {paperEls[0] = el as HTMLElement}" />
+        <PaperFront
+          :setRef="(el) => {paperEls[0] = el as HTMLElement}"
+          :cheating="cheating"
+        />
         <PaperBack :setRef="(el) => {paperEls[1] = el as HTMLElement}" />
       </div>
     </div>
