@@ -555,7 +555,7 @@ export const skills: Skill[] = [
       skills: [
         {
           name: '数学',
-          init: 1,
+          init: 10,
         },
         {
           name: '物理',

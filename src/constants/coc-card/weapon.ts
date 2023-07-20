@@ -768,7 +768,7 @@ export const weapons: WeaponWithInfo[] = [
     dam: '2D6',
     tho: 1,
     range: '90',
-    round: '1或3发点射或连射',
+    round: '1(3)点射/连射',
     num: '30',
     price: '',
     err: '97',
