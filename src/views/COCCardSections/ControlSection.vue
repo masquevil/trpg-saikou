@@ -16,6 +16,8 @@ import {
 
 import { usePC, useViewData } from '@/hooks/useCOCCardProviders';
 
+import type { COCCardViewData } from '@/types/coc-card/viewData';
+
 interface Props {
   paperInFront: boolean;
   paperImage: {
@@ -39,7 +41,17 @@ const viewData = useViewData();
 const inOutModalVisible = ref(false);
 const inData = ref('');
 const outData = computed(() => {
-  const json = JSON.stringify({ pc: pc?.value, viewData: viewData });
+  const showingChildSkills: Record<string, string[]> = {};
+  viewData?.showingChildSkills.forEach((value, key) => {
+    showingChildSkills[key] = value;
+  });
+  const json = JSON.stringify({
+    pc: pc?.value,
+    viewData: {
+      ...viewData,
+      showingChildSkills,
+    },
+  });
   const str = LZString.compressToEncodedURIComponent(json);
   return str;
 });
@@ -95,8 +107,13 @@ function applyInData() {
   if (data && data.viewData && data.pc && viewData && pc) {
     try {
       pc.value = data.pc;
-      viewData.showingChildSkills = new Map(Object.entries(data.viewData));
-      viewData.jobSkills = data.viewData.jobSkills;
+      viewData.showingChildSkills = new Map(
+        Object.entries(data.viewData.showingChildSkills)
+      );
+      const restKeys: (keyof COCCardViewData)[] = ['jobSkills'];
+      restKeys.forEach((key) => {
+        viewData[key] = data.viewData[key];
+      });
       ElMessage.success('已成功导入');
       inOutModalVisible.value = false;
     } catch (_) {

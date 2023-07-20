@@ -256,9 +256,18 @@ function getTotal(points: SkillPoint, init: number) {
           <span
             v-if="!row.init && row.initPlaceholder"
             class="init-placeholder"
-            >{{ row.initPlaceholder }}</span
           >
-          <span v-else>{{ row.init }}</span>
+            {{ row.initPlaceholder }}
+          </span>
+          <span v-else-if="row.groupName !== '其它'">
+            {{ row.init }}
+          </span>
+          <!-- pro point -->
+          <SkillTdInput
+            v-else
+            :value="`${row.points.b ?? ''}`"
+            @input="(v) => updateSkillPoint(row.skillKey, 'b', v)"
+          />
         </td>
         <td
           class="skill-td"

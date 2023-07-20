@@ -15,14 +15,12 @@ export default function useDerives(pc: Ref<COCPlayerCharacter>) {
       pc.value.deriveAttributes = {
         sanity: {
           start: `${pow || ''}`,
-          // TODO
-          max: `${pow ? 99 : ''}`,
         },
         hp: {
-          max: HPMax,
+          start: HPMax,
         },
         mp: {
-          max: MPMax,
+          start: MPMax,
         },
       };
     },

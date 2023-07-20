@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { computed } from 'vue';
+
 import PaperSection from '@/components/coc-card/PaperSection.vue';
 import WritableUnit from '@/components/coc-card/WritableUnit.vue';
 import WritableDivider from '@/components/coc-card/WritableDivider.vue';
@@ -12,14 +14,23 @@ const pc = usePC();
 
 function updateAttr(
   key: keyof COCDeriveAttributes,
-  cKey: 'now' | 'max' | 'start',
+  cKey: 'now' | 'start',
   value: string
 ): void {
   if (!pc || !pc.value.deriveAttributes) return;
-  pc.value.deriveAttributes[key][cKey as 'now' | 'max'] = value
-    ? value
-    : undefined;
+  pc.value.deriveAttributes[key][cKey] = value ? value : undefined;
 }
+
+const sanMax = computed(() => {
+  if (!pc) return '';
+  if (!pc.value.attributes.pow) return '';
+  const cthulu = pc.value.skillPoints.find(([name]) => {
+    return name === '克苏鲁神话';
+  })?.[1];
+  const { p = 0, i = 0, g = 0 } = cthulu || {};
+  const cthuluPoint = cthulu ? p + i + g : 0;
+  return `${99 - cthuluPoint}`;
+});
 </script>
 
 <template>
@@ -46,8 +57,8 @@ function updateAttr(
         <WritableDivider />
         <WritableUnit
           label="最大理智"
-          :modelValue="`${pc.deriveAttributes?.sanity?.max ?? ''}`"
-          @update:modelValue="(val) => updateAttr('sanity', 'max', val)"
+          :modelValue="sanMax"
+          readonly
         />
       </div>
     </PaperSection>
@@ -64,8 +75,8 @@ function updateAttr(
         <WritableDivider />
         <WritableUnit
           label="最大生命"
-          :modelValue="`${pc.deriveAttributes?.hp?.max ?? ''}`"
-          @update:modelValue="(val) => updateAttr('hp', 'max', val)"
+          :modelValue="`${pc.deriveAttributes?.hp?.start ?? ''}`"
+          @update:modelValue="(val) => updateAttr('hp', 'start', val)"
         />
       </div>
     </PaperSection>
@@ -82,8 +93,8 @@ function updateAttr(
         <WritableDivider />
         <WritableUnit
           label="最大魔法"
-          :modelValue="`${pc.deriveAttributes?.mp?.max ?? ''}`"
-          @update:modelValue="(val) => updateAttr('mp', 'max', val)"
+          :modelValue="`${pc.deriveAttributes?.mp?.start ?? ''}`"
+          @update:modelValue="(val) => updateAttr('mp', 'start', val)"
         />
       </div>
     </PaperSection>

@@ -70,15 +70,14 @@ export interface COCDeriveAttributes {
   sanity: {
     now?: string;
     start?: string;
-    max?: string;
   };
   hp: {
     now?: string;
-    max?: string;
+    start?: string;
   };
   mp: {
     now?: string;
-    max?: string;
+    start?: string;
   };
 }
 
@@ -94,6 +93,7 @@ export interface COCBattleAttributes {
 export type COCPCSkill = string | [string, string, number];
 
 export interface SkillPoint {
+  b?: number;
   p?: number;
   i?: number;
   g?: number;

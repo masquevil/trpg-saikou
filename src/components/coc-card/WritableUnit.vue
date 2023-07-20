@@ -2,9 +2,11 @@
 interface Props {
   label: string;
   modelValue?: string;
+  readonly?: boolean;
 }
 withDefaults(defineProps<Props>(), {
   modelValue: '',
+  readonly: false,
 });
 
 interface Emits {
@@ -20,6 +22,7 @@ defineEmits<Emits>();
       type="text"
       class="input"
       :value="modelValue"
+      :readonly="readonly"
       @input="
         $emit('update:modelValue', ($event.target as HTMLInputElement).value)
       "
