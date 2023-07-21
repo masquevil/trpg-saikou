@@ -1351,7 +1351,7 @@ export const weaponGroups: WeaponGroups = {
   tsq: [
     'AK-47或AKM',
     'AK-74',
-    'FN FAL',
+    'FN FAL 突击步枪',
     '加利尔突击步枪',
     'M16A2',
     'M4',
