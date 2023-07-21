@@ -13,16 +13,20 @@ const pc = usePC();
 const suggestion = useSuggestion();
 const pageData = usePageData();
 
-const values = reactive({
-  pro: {
-    point: 0,
-    str: pc?.value.pointValues.pro || '',
-  },
-  interest: {
-    point: 0,
-    str: pc?.value.pointValues.interest || '',
-  },
-});
+function getValues() {
+  const { pro, interest } = pc?.value.pointValues || {};
+  return {
+    pro: {
+      point: Number(pro || 0),
+      str: pro || '',
+    },
+    interest: {
+      point: Number(interest || 0),
+      str: interest || '',
+    },
+  };
+}
+const values = reactive(getValues());
 const rests = computed(() => {
   let p = 0;
   let i = 0;
