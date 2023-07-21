@@ -39,7 +39,7 @@ function updateAttr(key: COCAttributesKey, value: string) {
 <template>
   <PaperSection
     title="属性"
-    subTitle="Attributes"
+    subTitle="Characteristics"
     v-if="pc"
   >
     <div class="info-section">

@@ -11,7 +11,7 @@ const pc = usePC();
   <PaperSection
     v-if="pc"
     title="经历过的模组"
-    subTitle="Experienced Modules"
+    subTitle="Experienced Scenarios"
   >
     <div class="section-body">
       <WritableArea
