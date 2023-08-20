@@ -56,7 +56,10 @@ watch(
 </script>
 
 <template>
-  <PaperSection title="战斗">
+  <PaperSection
+    title="战斗"
+    subTitle="Combat"
+  >
     <div
       class="battle-section-body"
       v-if="pc"

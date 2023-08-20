@@ -11,7 +11,7 @@ const pc = usePC();
   <PaperSection
     v-if="pc"
     title="物品与装备"
-    subTitle="Items and Equipments"
+    subTitle="Possessions"
   >
     <div class="section-body">
       <WritableArea

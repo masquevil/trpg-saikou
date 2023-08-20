@@ -20,7 +20,7 @@ const wealth = computed(() => {
   <PaperSection
     v-if="pc"
     title="资产"
-    subTitle="Assets"
+    subTitle="Cash & Assets"
   >
     <div class="section-body">
       <WritableArea
