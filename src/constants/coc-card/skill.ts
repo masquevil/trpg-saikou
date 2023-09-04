@@ -406,7 +406,7 @@ export const skills: Skill[] = [
           init: 15,
         },
         {
-          name: '电锯',
+          name: '链锯',
           init: 10,
         },
         {
