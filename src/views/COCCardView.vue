@@ -17,8 +17,7 @@ import PaperFront from './COCCardSections/PaperFront.vue';
 import PaperBack from './COCCardSections/PaperBack.vue';
 
 const qsObject = qs.parse(location.search.slice(1));
-const pc = reactive<COCPlayerCharacter>(createPC());
-const pcRef = ref(pc);
+const pcRef = ref<COCPlayerCharacter>(createPC());
 const viewData = reactive<COCCardViewData>({
   showingChildSkills: new Map(),
 });
@@ -59,6 +58,7 @@ function printPaper(debug: boolean = false) {
 
   nextTick(async () => {
     if (!paperEls.length) return;
+    const pc = pcRef.value;
     // do print
     const hrefs = [await printEl(paperEls[1]), await printEl(paperEls[0])];
     paperImage.front = hrefs[1];
