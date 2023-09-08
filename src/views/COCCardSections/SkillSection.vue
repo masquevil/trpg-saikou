@@ -56,10 +56,13 @@ function updatePointValue(key: 'pro' | 'interest', value: string) {
 
 // watch suggestion change
 watch(
-  () => [suggestion, pc?.value.attributes.int],
-  () => {
-    if (suggestion?.value.point) {
-      const v = suggestion.value.point > 0 ? suggestion.value.point : 0;
+  () => ({ suggestion: suggestion?.value, pc: pc?.value }),
+  ({ suggestion: newSug, pc: newPC }, { suggestion: oldSug, pc: oldPC }) => {
+    // if changed by import, ignore change
+    // because point value should be updated by itself
+    if (newPC !== oldPC) return;
+    if (newSug && newSug !== oldSug) {
+      const v = newSug.point > 0 ? newSug.point : 0;
       updatePointValue('pro', `${v > 0 ? v : ''}`);
     }
   },
@@ -68,10 +71,12 @@ watch(
 
 // watch pc int change
 watch(
-  () => pc?.value.attributes.int,
-  () => {
-    const int = pc?.value.attributes.int;
-    const str = typeof int === 'number' ? `${int * 2}` : '';
+  () => ({ int: pc?.value.attributes.int, pc: pc?.value }),
+  ({ int: newInt, pc: newPC }, { pc: oldPC }) => {
+    // if changed by import, ignore change
+    // because point value should be updated by itself
+    if (newPC !== oldPC) return;
+    const str = typeof newInt === 'number' ? `${newInt * 2}` : '';
     updatePointValue('interest', str);
   }
 );
