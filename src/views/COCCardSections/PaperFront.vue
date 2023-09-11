@@ -31,7 +31,10 @@ defineProps<Props>();
     <DeriveSections />
     <HintSection />
     <SkillSection />
-    <div class="section-row">
+    <div
+      class="section-row"
+      style="gap: 0.8em"
+    >
       <WeaponSection class="col-0" />
       <BattleSection />
     </div>

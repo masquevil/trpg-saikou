@@ -68,18 +68,22 @@ watch(
         label="伤害加值"
         hint="DB"
         v-model="pc.battleAttributes.db"
+        :char="4"
       />
       <WritableRow
         label="体格"
         v-model="pc.battleAttributes.size"
+        :char="4"
       />
       <WritableRow
         label="护甲"
         v-model="pc.battleAttributes.armor"
+        :char="4"
       />
       <WritableRow
         label="移动力"
         v-model="pc.battleAttributes.mov"
+        :char="4"
       />
     </div>
   </PaperSection>
@@ -92,7 +96,7 @@ watch(
   flex-direction: column;
   justify-content: space-between;
   gap: 0.3em;
-  padding: 0.6em 0.6em 1.2em 0.4em;
+  padding: 0.6em 0.6em 1.2em 0.2em;
 
   &:deep(.label) {
     width: 4.4em;

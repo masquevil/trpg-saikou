@@ -49,9 +49,9 @@ const localWeapons = computed<(Weapon | undefined)[]>(() => {
 .weapon-section-body {
   color: var(--color-black);
   --wp-color-0: hsl(0, 0%, 100%);
-  --wp-color-1: hsl(0, 0%, 92%);
-  --wp-color-2: hsl(0, 0%, 84%);
-  --wp-color-3: hsl(0, 0%, 76%);
+  --wp-color-1: hsl(0, 0%, 94%);
+  --wp-color-2: hsl(0, 0%, 88%);
+  --wp-color-3: hsl(0, 0%, 82%);
 }
 .weapon-section-row {
   display: grid;
