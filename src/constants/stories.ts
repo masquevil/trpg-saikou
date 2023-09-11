@@ -37,11 +37,21 @@ const stories: Story[] = [
   // 长篇
   [StoryNames.共斗, '1998', '中国-北京', [12, 18]],
   [StoryNames.谢娘娘点化, '2000', '中国-湖北', [10, 12]],
-  [StoryNames.行走在黑暗中的人们的宴会, '现代', '日本-东京/中国-香港', [10, 15]],
+  [
+    StoryNames.行走在黑暗中的人们的宴会,
+    '现代',
+    '日本-东京/中国-香港',
+    [10, 15],
+  ],
   [StoryNames.列宁格勒之影, '1927', '苏联-列宁格勒', [15, 20]],
   [StoryNames.岸上星辰, '1920s', '美国', [25, 30]],
   // 战役
-  [StoryNames.奈亚拉托提普的面具, '1921', '秘鲁/美国/英格兰/埃及/澳大利亚/肯尼亚/中国', [50, 100]],
+  [
+    StoryNames.奈亚拉托提普的面具,
+    '1921',
+    '秘鲁/美国/英格兰/埃及/澳大利亚/肯尼亚/中国',
+    [50, 100],
+  ],
   [StoryNames.东方快车上的恐怖, '1923', '欧洲', [50, 100]],
   [StoryNames.阿撒托斯的红眼, '多年代', '多地域', [40, 70]],
   // 特殊规则
@@ -55,11 +65,28 @@ const stories: Story[] = [
   [StoryNames.海月之下, '1923', '中国-天津', [4, 6], { inactive: true }],
   [StoryNames.比黑更黑, '1920s', '美国-阿卡姆', [4, 6], { inactive: true }],
   [StoryNames.普罗维登斯的阴霾, '1920s', '美国', [4, 5], { inactive: true }],
-  [StoryNames.我的妹妹想让你受点苦, '未知', '未知', [5, 6], { special: true, inactive: true }],
+  [
+    StoryNames.我的妹妹想让你受点苦,
+    '未知',
+    '未知',
+    [5, 6],
+    { special: true, inactive: true },
+  ],
   [StoryNames.女巫的刻印, '1920s', '美国', [4, 6], { inactive: true }],
 
+  // 测试团
+  [StoryNames.维娜·斯塔尔的收音机, '1920s', '美国', [4, 6], { inactive: true }],
+
   // 其它店铺
-  [StoryNames.夏日怪谈, '1980s', '美国', [3, 6], { welcome: true, store: '沉世-上海' }]
+  [
+    StoryNames.夏日怪谈,
+    '1980s',
+    '美国',
+    [3, 6],
+    { welcome: true, store: '沉世-上海' },
+  ],
+  [StoryNames.瘟疫, '现代', '美国', [3, 6], { store: '赵四' }],
+  [StoryNames.今晚加餐, '现代', '美国', [1, 2], { store: '赵四' }],
 ];
 
 export default stories;
