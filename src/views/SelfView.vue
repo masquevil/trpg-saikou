@@ -98,7 +98,7 @@ const playedList = list
                 <span>模组评分: {{ experience?.storyScore }}</span>
               </template>
             </div>
-            <div>
+            <div class="experience-comments">
               {{
                 !privateMode
                   ? experience?.comments
@@ -178,5 +178,9 @@ const playedList = list
 
 .played-card-name {
   flex: 1;
+}
+
+.experience-comments {
+  word-break: break-all;
 }
 </style>
