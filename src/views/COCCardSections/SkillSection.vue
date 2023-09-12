@@ -164,7 +164,10 @@ watch(
       </div>
     </template>
     <div class="skill-section-body">
-      <SkillTable :data="skillGroups.slice(0, 6)" />
+      <SkillTable
+        :data="skillGroups.slice(0, 6)"
+        :suggestion="suggestion"
+      />
       <div class="divider"></div>
       <SkillTable :data="skillGroups.slice(6)" />
     </div>

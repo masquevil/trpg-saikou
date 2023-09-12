@@ -3,6 +3,7 @@ import { computed } from 'vue';
 import type { ChildSkill } from '@/types/coc-card/skill';
 import type { SkillGroup, SkillGroups } from '@/types/coc-card/formattedSkill';
 import type { COCPCSkill, SkillPoint } from '@/types/coc-card/character';
+import type { Suggestion } from '@/types/coc-card/suggestion';
 import { dynamicInitFormulas } from '@/models/coc-card/skill';
 import { usePC, useViewData } from '@/hooks/useCOCCardProviders';
 
@@ -11,6 +12,7 @@ import SkillTdInput from './SkillTdInput.vue';
 
 interface Props {
   data: SkillGroups;
+  suggestion?: Suggestion;
 }
 const props = defineProps<Props>();
 
@@ -27,6 +29,7 @@ interface TableRowData {
   key: string;
   skillName: string;
   skillKey: COCPCSkill;
+  comments?: string;
   init: number;
   initPlaceholder?: string;
   points: SkillPoint;
@@ -39,7 +42,7 @@ interface TableRowData {
   };
 }
 
-function getTableData(data: SkillGroups) {
+function getTableData(data: SkillGroups, suggestion?: Suggestion) {
   const tableData = data.reduce<TableRowData[]>(
     (result: any, skillGroup: SkillGroup) => {
       const rows: TableRowData[] = skillGroup.groupSkills.reduce<
@@ -55,10 +58,15 @@ function getTableData(data: SkillGroups) {
         const skillKey = skill.name;
         const skillPoint = findSkillPoints(skillKey);
         const points = skillPoint?.[1] || {};
+        // 信用评级范围
+        const [w0, w1] = suggestion?.wealth ?? [-1, -1];
+        const comments =
+          skillKey === '信用评级' && w0 >= 0 && w1 >= 0 ? `(${w0}~${w1})` : '';
         let rowData: TableRowData = {
           key: skill.name,
           skillName: skill.name,
           skillKey: skill.name,
+          comments,
           init,
           initPlaceholder: skill.initPlaceholder,
           points,
@@ -124,7 +132,7 @@ function getTableData(data: SkillGroups) {
   return tableData;
 }
 
-const tableData = computed(() => getTableData(props.data));
+const tableData = computed(() => getTableData(props.data, props.suggestion));
 
 function findSkillPoints(skillInfo: COCPCSkill) {
   if (!pc) return;
@@ -243,6 +251,7 @@ function getTotal(points: SkillPoint, init: number) {
         >
           <SkillTdLabel
             :skillName="row.skillName"
+            :comments="row.comments"
             :childSkillData="row.childSkillData"
           />
         </td>

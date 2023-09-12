@@ -11,6 +11,7 @@ import SoxCheckbox from '../sox/SoxCheckbox.vue';
 
 interface Props {
   skillName: string;
+  comments?: string;
   childSkillData?: {
     name: string;
     place: number;
@@ -153,6 +154,12 @@ function changeProSkill(value: boolean) {
         </div>
       </div>
     </div>
+    <div
+      v-if="comments"
+      class="skill-td-label-comments"
+    >
+      {{ comments }}
+    </div>
   </div>
 </template>
 
@@ -230,5 +237,14 @@ function changeProSkill(value: boolean) {
   opacity: 0.8;
   background-color: var(--color-background-mute);
   color: var(--color-line);
+}
+
+.skill-td-label-comments {
+  display: inline-block;
+  line-height: 1;
+  margin-left: 0.1em;
+  opacity: 0.72;
+  width: 0;
+  transform: scale(0.75);
 }
 </style>
