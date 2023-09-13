@@ -265,15 +265,18 @@ watch(
       gap: 0.4em;
     }
     .skill-section-body {
-      min-width: 31em; // 210mm / 3.2mm - 1.8em * 2
       flex-wrap: wrap;
+      overflow: auto;
 
       .divider {
         border: none;
         border-top: 1px solid var(--color-black);
-        width: 100%;
+        min-width: 31em;
         align-self: stretch;
       }
+    }
+    .skill-table {
+      min-width: 31em; // 210mm / 3.2mm - 1.8em * 2
     }
   }
 }

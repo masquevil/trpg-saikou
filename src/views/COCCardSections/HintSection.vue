@@ -115,3 +115,20 @@ const multiSkillsTexts = computed(() => {
   }
 }
 </style>
+
+<style lang="scss">
+@media screen and (max-width: 1024px) {
+  .papers-editing {
+    .hint-section {
+      white-space: normal;
+      line-height: 1.2em;
+      height: auto;
+    }
+    .suggestion-content {
+      display: block;
+      transform: none;
+      font-size: 12px;
+    }
+  }
+}
+</style>

@@ -75,6 +75,9 @@ const localWeapons = computed<(Weapon | undefined)[]>(() => {
 @media screen and (max-width: 1024px) {
   .papers-editing {
     .weapon-section-body {
+      overflow: auto;
+    }
+    .weapon-section-row {
       min-width: 68em; // 210mm / 3.2mm - 1.8em * 2 + 余量
     }
   }
