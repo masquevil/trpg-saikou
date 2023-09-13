@@ -67,3 +67,14 @@ withDefaults(defineProps<Props>(), {
   flex-direction: column;
 }
 </style>
+
+<style lang="scss">
+@media screen and (max-width: 1024px) {
+  .papers-editing {
+    .paper-section {
+      flex: 1 1 auto;
+      max-width: 100%;
+    }
+  }
+}
+</style>

@@ -256,3 +256,25 @@ watch(
   @include printing-styles;
 }
 </style>
+
+<style lang="scss">
+@media screen and (max-width: 1024px) {
+  .papers-editing {
+    .header {
+      flex-direction: column;
+      gap: 0.4em;
+    }
+    .skill-section-body {
+      min-width: 31em; // 210mm / 3.2mm - 1.8em * 2
+      flex-wrap: wrap;
+
+      .divider {
+        border: none;
+        border-top: 1px solid var(--color-black);
+        width: 100%;
+        align-self: stretch;
+      }
+    }
+  }
+}
+</style>

@@ -75,3 +75,29 @@ defineProps<Props>();
   transform-origin: right bottom;
 }
 </style>
+
+<style lang="scss">
+@media screen and (max-width: 1024px) {
+  .papers-editing {
+    .inspiration-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      align-items: center;
+      /* align-items: flex-start; */
+
+      .inspiration-item {
+        flex: 1 1 0;
+        width: 125%;
+        transform-origin: center bottom;
+        text-align: center;
+      }
+    }
+  }
+  .papers-editing {
+    .section-row {
+      flex-wrap: wrap;
+    }
+  }
+}
+</style>

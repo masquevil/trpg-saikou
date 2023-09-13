@@ -100,7 +100,7 @@ watch(
 
   &:deep(.label) {
     width: 4.4em;
-    flex: 1 1 auto;
+    flex: 0 1 auto;
   }
 }
 </style>

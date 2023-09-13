@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { reactive, provide, ref, nextTick } from 'vue';
-import { toJpeg } from 'html-to-image';
+import { reactive, provide, ref } from 'vue';
 import qs from 'qs';
+import { ElMessage } from 'element-plus';
 
 import { createPC } from '@/models/coc-card/character';
 
@@ -10,7 +10,6 @@ import type { COCCardViewData } from '@/types/coc-card/viewData';
 
 import useDerives from '@/hooks/useDerives';
 import useSuggestion from '@/hooks/useSuggestion';
-import { downloadImage } from '@/utils/image';
 
 import ControlSection from './COCCardSections/ControlSection.vue';
 import PaperFront from './COCCardSections/PaperFront.vue';
@@ -35,53 +34,17 @@ provide('viewData', viewData);
 provide('pageData', pageData);
 provide('suggestion', suggestion);
 
-const paperEls = reactive<HTMLElement[]>([]);
-const paperImage = reactive({
-  front: '',
-  back: '',
-});
-async function printEl(el: HTMLElement) {
-  if (!el) return '';
-  return await toJpeg(el, {
-    canvasWidth: 210 * 8,
-    canvasHeight: 297 * 8,
-    pixelRatio: 1,
-    quality: 0.5,
-    skipFonts: true,
-  });
-}
-function printPaper(debug: boolean = false) {
-  if (!paperEls.length) return;
-  // prepare
-  pageData.printing = true;
-  if (debug) return;
-
-  nextTick(async () => {
-    if (!paperEls.length) return;
-    const pc = pcRef.value;
-    // do print
-    const hrefs = [await printEl(paperEls[1]), await printEl(paperEls[0])];
-    paperImage.front = hrefs[1];
-    paperImage.back = hrefs[0];
-    // auto download
-    const data = [
-      ['正面', hrefs[1]],
-      ['背面', hrefs[0]],
-    ];
-    data.forEach(([name, href]) => {
-      const imageName = [pc.name, pc.playerName, name]
-        .filter((v) => v)
-        .join('-');
-      if (!href) return;
-      downloadImage(href, `${imageName}.jpg`);
-    });
-    // reset
-    pageData.printing = false;
-  });
-}
+const paperEls = reactive<{ front?: HTMLElement; back?: HTMLElement }>({});
 
 function resetCard() {
   pcRef.value = reactive(createPC());
+  ElMessage.info('已重置人物卡');
+}
+
+function switchCheating() {
+  cheating.value = !cheating.value;
+  pcRef.value.attributes = {};
+  ElMessage.info(`灌铅模式已${cheating.value ? '开启' : '关闭'}`);
 }
 
 // window.xx = { pc: pcRef, viewData, pageData, printPaper };
@@ -89,18 +52,9 @@ function resetCard() {
 
 <template>
   <main class="page theme-dark">
-    <div class="left-bar web-only">
-      <ControlSection
-        :paperInFront="paperInFront"
-        :paperImage="paperImage"
-        :cheating="cheating"
-        @switch-paper="(v) => (paperInFront = v)"
-        @print-paper="printPaper"
-        @reset-card="resetCard"
-      />
-    </div>
+    <h1 class="title web-only">COC 7版人物卡 车卡工具</h1>
     <div class="paper-container theme-light">
-      <div class="papers-editing web-only">
+      <div class="papers-animation-container papers-editing web-only">
         <Transition name="swipe-paper">
           <PaperFront
             v-if="paperInFront"
@@ -110,45 +64,55 @@ function resetCard() {
         </Transition>
       </div>
       <div
-        class="papers-printing"
+        class="papers-animation-container papers-printing"
         :class="{
           'papers-printing-active': pageData.printing,
         }"
       >
         <PaperFront
-          :setRef="(el) => {paperEls[0] = el as HTMLElement}"
+          :setRef="(el) => {paperEls.front = el as HTMLElement}"
           :cheating="cheating"
         />
-        <PaperBack :setRef="(el) => {paperEls[1] = el as HTMLElement}" />
+        <PaperBack :setRef="(el) => {paperEls.back = el as HTMLElement}" />
       </div>
+    </div>
+    <div class="sticky-footer web-only">
+      <ControlSection
+        :paperEls="paperEls"
+        :cheating="cheating"
+        @switch-paper="() => (paperInFront = !paperInFront)"
+        @switch-cheating="switchCheating"
+        @reset-card="resetCard"
+      />
     </div>
   </main>
 </template>
 
 <style scoped lang="scss">
 .page {
-  min-width: 1300px;
+  min-height: 100vh;
   color: var(--color-text);
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 0 30px;
-  gap: 30px;
+  flex-direction: column;
+  margin-top: constant(safe-area-inset-top);
+  margin-top: env(safe-area-inset-top);
 }
-
-.left-bar {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  width: 200px;
+.title {
+  font-size: 28px;
+  line-height: 1.2;
+  text-align: center;
+  margin: 18px;
 }
 
 .paper-container {
-  margin: 32px 0;
   perspective: 900em;
 }
+.papers-animation-container.papers-editing {
+  width: 65.625em; // 210mm / 3.2mm
+  min-height: 92.8125em; // 297mm / 3.2mm
+  margin: auto;
+}
 .papers-editing {
-  /* TODO: print & confirm */
   --base-size: 15px;
 }
 .papers-printing {
@@ -157,6 +121,22 @@ function resetCard() {
 }
 .papers-printing-active {
   display: block;
+}
+
+.sticky-footer {
+  position: sticky;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  margin-top: 24px;
+  background-color: rgba(22, 22, 22, 0.88);
+}
+
+@media screen and (max-width: 1024px) {
+  .papers-animation-container.papers-editing {
+    width: auto;
+    height: auto;
+  }
 }
 
 /* when print */

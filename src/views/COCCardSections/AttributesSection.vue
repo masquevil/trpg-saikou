@@ -139,12 +139,13 @@ function updateAttr(key: COCAttributesKey, value: string) {
   border-right: 1px solid var(--color-border);
 }
 .attributes-group {
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
   gap: 0.2em;
 
   & :deep(.label) {
-    flex: 1 1 3.4em;
+    flex: 0 1 2.8em;
   }
 }
 .dice-hint {

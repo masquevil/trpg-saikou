@@ -57,3 +57,25 @@
   opacity: 0.5;
 }
 </style>
+
+<style lang="scss">
+@media screen and (max-width: 1024px) {
+  .papers-editing {
+    .copyright-section {
+      flex-direction: column;
+
+      .commercial-info {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.2em 1em;
+      }
+
+      .copyright {
+        width: 100%;
+        transform-origin: left bottom;
+      }
+    }
+  }
+}
+</style>

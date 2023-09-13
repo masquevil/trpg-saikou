@@ -31,10 +31,7 @@ defineProps<Props>();
     <DeriveSections />
     <HintSection />
     <SkillSection />
-    <div
-      class="section-row"
-      style="gap: 0.8em"
-    >
+    <div class="section-row">
       <WeaponSection class="col-0" />
       <BattleSection />
     </div>
@@ -45,7 +42,8 @@ defineProps<Props>();
 <style scoped lang="scss">
 .section-row {
   display: flex;
-  gap: 1em;
+  gap: 0.8em;
   align-items: stretch;
+  flex-wrap: wrap;
 }
 </style>

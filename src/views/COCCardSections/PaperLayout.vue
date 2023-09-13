@@ -47,3 +47,14 @@ withDefaults(defineProps<Props>(), {});
   gap: 0.6em;
 }
 </style>
+
+<style lang="scss">
+@media screen and (max-width: 1024px) {
+  .papers-editing {
+    .paper {
+      width: 100%;
+      height: auto;
+    }
+  }
+}
+</style>

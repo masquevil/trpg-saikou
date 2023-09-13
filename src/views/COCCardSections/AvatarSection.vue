@@ -65,8 +65,10 @@ async function handleUpload(event: Event) {
 
 <style scoped lang="scss">
 .avatar-section {
+  flex: 1 1 auto;
   position: relative;
   width: 10.94em;
+  min-height: 12em;
   border: 1px solid var(--color-black);
   padding: 1em;
   cursor: pointer;

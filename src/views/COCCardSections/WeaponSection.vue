@@ -70,3 +70,13 @@ const localWeapons = computed<(Weapon | undefined)[]>(() => {
   background-color: var(--wp-color-2);
 }
 </style>
+
+<style lang="scss">
+@media screen and (max-width: 1024px) {
+  .papers-editing {
+    .weapon-section-body {
+      min-width: 68em; // 210mm / 3.2mm - 1.8em * 2 + 余量
+    }
+  }
+}
+</style>

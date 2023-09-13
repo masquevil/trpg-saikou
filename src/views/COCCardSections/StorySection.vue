@@ -78,3 +78,14 @@ const pc = usePC();
   flex: 1 1 0;
 }
 </style>
+
+<style lang="scss">
+@media screen and (max-width: 1024px) {
+  .papers-editing {
+    .story-section-body {
+      flex-direction: column;
+      gap: 0;
+    }
+  }
+}
+</style>

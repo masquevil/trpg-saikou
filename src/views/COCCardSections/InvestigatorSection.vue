@@ -157,6 +157,10 @@ function onSelectJob(jobName: string) {
 .info-row {
   display: flex;
   gap: 1em;
+
+  & :deep(.writable-row) {
+    flex: 1 1 auto;
+  }
 }
 
 .info-section {

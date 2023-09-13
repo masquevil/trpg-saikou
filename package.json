@@ -3,7 +3,7 @@
   "version": "0.2.1",
   "private": true,
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host 0.0.0.0",
     "build": "run-p type-check build-only",
     "local": "NODE_ENV=development vite build --mode development",
     "preview": "vite preview",

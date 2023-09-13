@@ -122,7 +122,8 @@ const sanMax = computed(() => {
 <style scoped lang="scss">
 .computed-sections {
   display: flex;
-  gap: 1em;
+  flex-wrap: wrap;
+  gap: 0.8em;
   align-items: stretch;
 }
 
@@ -130,6 +131,7 @@ const sanMax = computed(() => {
   padding: 0.4em 0.6em;
   display: flex;
   gap: 0.4em;
+  justify-content: space-around;
 }
 
 .body-status-section {

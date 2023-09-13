@@ -68,6 +68,7 @@ const pc = usePC();
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  min-width: 9.36em;
 }
 .qr-code {
   width: 8.6em;
