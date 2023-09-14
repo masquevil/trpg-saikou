@@ -136,7 +136,7 @@ function applyJob(jobName: string) {
 }
 .job-card-row {
   display: flex;
-  gap: 1.4em;
+  gap: 8px;
 }
 .job-card-action-use {
   display: flex;
