@@ -65,14 +65,14 @@
       flex-direction: column;
 
       .commercial-info {
-        width: 100%;
+        width: 0;
         display: flex;
         flex-wrap: wrap;
         gap: 0.2em 1em;
       }
 
       .copyright {
-        width: 100%;
+        width: 0;
         transform-origin: left bottom;
       }
     }

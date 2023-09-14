@@ -7,8 +7,8 @@ export type SuggestionMultiSkillItem = string | SuggestionGroupSkill;
 export type SuggestionMultiSkill = SuggestionMultiSkillItem[];
 
 export interface Suggestion {
+  wealth: [number, number];
   text: string;
   multiSkills: SuggestionMultiSkill[];
-  wealth: [number, number];
-  point: number;
+  multiSkillTexts: string[];
 }

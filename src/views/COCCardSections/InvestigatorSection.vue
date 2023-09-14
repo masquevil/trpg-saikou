@@ -207,3 +207,13 @@ function onSelectJob(jobName: string) {
   @include printing-styles;
 }
 </style>
+
+<style lang="scss">
+@media screen and (max-width: 1024px) {
+  .papers-editing {
+    .job-selector {
+      display: none;
+    }
+  }
+}
+</style>

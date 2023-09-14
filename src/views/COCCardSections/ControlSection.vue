@@ -19,6 +19,9 @@ import {
 import ControlButton from '@/components/coc-card/ControlButton.vue';
 import ControlDialog from '@/components/coc-card/ControlDialog.vue';
 import DownloaderItem from '@/components/coc-card/DownloaderItem.vue';
+import GuidePaneContent from '@/components/coc-card/GuidePaneContent.vue';
+import IssueRow from '@/components/coc-card/IssueRow.vue';
+import JobList from '@/components/coc-card/JobList.vue';
 
 // models
 import {
@@ -213,73 +216,20 @@ function applyInData() {
             @click="$emit('switch-cheating')"
           />
         </div>
-        <div class="issue-row">
-          <img
-            class="issue-icon"
-            src="https://github.githubassets.com/favicons/favicon-dark.png"
-          />
-          <a
-            class="issue-link"
-            href="https://github.com/masquevil/trpg-saikou#商业使用"
-            target="_blank"
-          >
-            交流 反馈 商业合作：点这里
-          </a>
-        </div>
+        <IssueRow />
       </el-tab-pane>
-      <el-tab-pane label="职业列表">开发中…</el-tab-pane>
+      <el-tab-pane
+        label="职业列表"
+        class="more-pane"
+      >
+        <JobList />
+      </el-tab-pane>
       <el-tab-pane label="武器列表">开发中…</el-tab-pane>
       <el-tab-pane
         label="使用指南"
         class="more-pane"
       >
-        <div class="guide-group-title">基本说明：</div>
-        <ol class="guide-ol">
-          <li>本工具生成的人物卡可以用 A4 纸双面打印。</li>
-          <li>可以打印空白卡手写，也可以在线车卡。</li>
-          <li>除了生成图片外，也可以直接打印（Ctrl + P）</li>
-          <li>推荐 PC 端使用，移动端存在兼容性问题。</li>
-        </ol>
-        <div class="guide-group-title">以下为目前已有的功能介绍：</div>
-        <ol class="guide-ol">
-          <li>Roll 点：随机生成一组属性。</li>
-          <li>翻面：正面为调查员属性，背面为调查员故事。</li>
-          <li>
-            保存：生成 A4 纸大小的正反面两张图，可以手动保存。
-            还有当前人物卡全部数据的 txt，可以通过“导入”再次使用。
-          </li>
-          <li>
-            快速年龄修正：根据你的年龄自动进行教育成长判定，同时按照规则随机调整基础属性。
-          </li>
-          <li>重置人物卡：清空当前填写的全部内容。</li>
-          <li>
-            <div>导入/导出数据：</div>
-            <ol class="guide-ol">
-              <li>导出：将当前所填写的全部内容压缩后以文本形式储存到本地。</li>
-              <li>导入：将数据导入回来继续修改。</li>
-            </ol>
-          </li>
-          <li>
-            开启灌铅模式：每次 Roll 点会随机 5 次数据，选取其中最高的一次结果。
-          </li>
-        </ol>
-        <div class="guide-group-title">其它说明：</div>
-        <ol class="guide-ol">
-          <li>支持 iOS 设备的“添加到主屏幕”功能。</li>
-        </ol>
-        <div class="issue-row">
-          <img
-            class="issue-icon"
-            src="https://github.githubassets.com/favicons/favicon-dark.png"
-          />
-          <a
-            class="issue-link"
-            href="https://github.com/masquevil/trpg-saikou#商业使用"
-            target="_blank"
-          >
-            交流 反馈 商业合作：点这里
-          </a>
-        </div>
+        <GuidePaneContent />
       </el-tab-pane>
     </el-tabs>
 
@@ -403,23 +353,13 @@ function applyInData() {
   --el-border-color-light: var(--color-border);
 }
 .more-pane {
-  max-height: 24vh;
+  max-height: 30vh;
   overflow: auto;
 }
 .more-controls {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
-}
-
-.guide-group-title {
-  margin: 12px 0 6px;
-  &:first-child {
-    margin-top: 0;
-  }
-}
-.guide-ol {
-  padding-left: 1.8em;
 }
 
 .downloader-body {
@@ -447,28 +387,6 @@ function applyInData() {
   display: flex;
   flex-direction: column;
   gap: 16px;
-}
-
-.issue-row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 4px;
-  line-height: 1;
-  margin-top: 16px;
-}
-.issue-link {
-  color: var(--color-white);
-  &:hover {
-    opacity: 0.8;
-  }
-  &:active {
-    opacity: 0.9;
-  }
-}
-.issue-icon {
-  width: 1em;
-  height: 1em;
 }
 
 @media screen and (min-width: 1024px) {

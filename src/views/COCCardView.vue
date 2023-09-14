@@ -47,7 +47,7 @@ function switchCheating() {
   ElMessage.info(`灌铅模式已${cheating.value ? '开启' : '关闭'}`);
 }
 
-// window.xx = { pc: pcRef, viewData, pageData, printPaper };
+// window.xx = { pc: pcRef, viewData, pageData };
 </script>
 
 <template>
@@ -129,7 +129,7 @@ function switchCheating() {
   bottom: 0;
   width: 100%;
   margin-top: 24px;
-  background-color: rgba(22, 22, 22, 0.88);
+  background-color: rgba(22, 22, 22, 0.92);
 }
 
 @media screen and (max-width: 1024px) {

@@ -6,6 +6,7 @@ import SkillTable from '@/components/coc-card/SkillTable.vue';
 import WritableRow from '@/components/coc-card/WritableRow.vue';
 // models
 import { skillGroups } from '@/models/coc-card/skill';
+import formattedJobs, { getProPointByJobAndAttrs } from '@/models/coc-card/job';
 
 import { usePC, useSuggestion, usePageData } from '@/hooks/useCOCCardProviders';
 
@@ -40,57 +41,67 @@ const rests = computed(() => {
   };
 });
 
-function updatePointValue(key: 'pro' | 'interest', value: string) {
+function updateLocalValue(key: 'pro' | 'interest', value: string = '') {
   const data = values[key];
-  data.str = value;
-  if (value) {
-    const num = Number(value);
+  const customValue = pc?.value.pointValues[key];
+  data.str = customValue ? customValue : value;
+  if (data.str) {
+    const num = Number(data.str);
     data.point = !Number.isNaN(num) ? num : 0;
   } else {
     data.point = 0;
   }
-  if (pc) {
+}
+
+function updatePointValue(key: 'pro' | 'interest', value: string) {
+  if (pc && pc.value.pointValues[key] !== value) {
     pc.value.pointValues[key] = value;
   }
 }
 
-// watch suggestion change
+// watch attributes & job change
 watch(
-  () => ({ suggestion: suggestion?.value, pc: pc?.value }),
-  ({ suggestion: newSug, pc: newPC }, { suggestion: oldSug, pc: oldPC }) => {
-    // if changed by import, ignore change
-    // because point value should be updated by itself
-    if (newPC !== oldPC) return;
-    if (newSug && newSug !== oldSug) {
-      const v = newSug.point > 0 ? newSug.point : 0;
-      updatePointValue('pro', `${v > 0 ? v : ''}`);
+  () => ({
+    job: pc?.value.job,
+    attributes: pc?.value.attributes,
+  }),
+  ({ job: jobName, attributes }) => {
+    const { point: newPro } = getProPointByJobAndAttrs(jobName, attributes);
+    if (newPro) {
+      updateLocalValue('pro', `${newPro > 0 ? newPro : ''}`);
+    }
+
+    const int = attributes?.int;
+    const newInterest = int ? `${int * 2}` : '';
+    if (newInterest) {
+      updateLocalValue('interest', newInterest);
     }
   },
   { deep: true }
 );
 
-// watch pc int change
-watch(
-  () => ({ int: pc?.value.attributes.int, pc: pc?.value }),
-  ({ int: newInt, pc: newPC }, { pc: oldPC }) => {
-    // if changed by import, ignore change
-    // because point value should be updated by itself
-    if (newPC !== oldPC) return;
-    const str = typeof newInt === 'number' ? `${newInt * 2}` : '';
-    updatePointValue('interest', str);
-  }
-);
-
 // watch pc values change
 watch(
-  () => [pc?.value.pointValues],
-  () => {
-    if (!pc) return;
-    if (pc.value.pointValues.pro !== values.pro.str) {
-      updatePointValue('pro', pc.value.pointValues.pro);
+  () => ({
+    pointValues: pc?.value.pointValues,
+    pro: pc?.value.pointValues.pro,
+    interest: pc?.value.pointValues.interest,
+  }),
+  (
+    { pointValues: newPointValues, pro: newPro, interest: newInterest },
+    { pointValues: oldPointValues, pro: oldPro, interest: oldInterest }
+  ) => {
+    // import from txt
+    if (newPointValues !== oldPointValues) {
+      updateLocalValue('pro', newPro);
+      updateLocalValue('interest', newInterest);
+      return;
     }
-    if (pc.value.pointValues.interest !== values.interest.str) {
-      updatePointValue('interest', pc.value.pointValues.interest);
+    if (newPro !== oldPro) {
+      updateLocalValue('pro', newPro);
+    }
+    if (newInterest !== oldInterest) {
+      updateLocalValue('interest', newInterest);
     }
   },
   { deep: true }
@@ -271,7 +282,7 @@ watch(
       .divider {
         border: none;
         border-top: 1px solid var(--color-black);
-        min-width: 31em;
+        width: 100%;
         align-self: stretch;
       }
     }

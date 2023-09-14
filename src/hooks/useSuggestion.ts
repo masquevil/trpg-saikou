@@ -2,15 +2,14 @@ import { computed, watch } from 'vue';
 import type { ComputedRef, Ref } from 'vue';
 
 import formattedJobs from '@/models/coc-card/job';
-import { getDefaultSuggestion } from '@/models/coc-card/suggestion';
+import { getJobSuggestion } from '@/models/coc-card/suggestion';
 import { skills } from '@/constants/coc-card/skill';
-import { countTexts } from '@/constants/coc-card/countTexts';
 
 import type { COCPlayerCharacter } from '@/types/coc-card/character';
 import type { COCCardViewData } from '@/types/coc-card/viewData';
 import type { Suggestion } from '@/types/coc-card/suggestion';
 
-// calculate suggestion: pro skills, point, wealth
+// calculate suggestion: pro skills, wealth
 export default function useSuggestion(
   pc: Ref<COCPlayerCharacter>,
   viewData: COCCardViewData
@@ -19,63 +18,7 @@ export default function useSuggestion(
   const { jobs } = formattedJobs;
 
   const suggestion = computed(() => {
-    const suggestion = getDefaultSuggestion();
-    const job = jobs.get(pc.value.job);
-    const sugMap = new Map<string, number>();
-    if (!job) return suggestion;
-    // wealth
-    suggestion.wealth = [...job.wealth];
-    // point
-    suggestion.point = job.point.reduce((sum, formula) => {
-      const values = formula.map(
-        ([key, rate]) => (pc.value.attributes[key] || 0) * rate
-      );
-      return sum + Math.max(...values);
-    }, 0);
-    // handle suggest skills
-    job.skills.forEach((skillKey) => {
-      // 普通技能
-      if (typeof skillKey === 'string') {
-        sugMap.set(skillKey, 0);
-      } else if (Array.isArray(skillKey)) {
-        // 多选技能
-        suggestion.multiSkills.push(
-          skillKey.map((skillKey) => {
-            if (typeof skillKey === 'string') return skillKey;
-            const [name, childName] = Object.entries(skillKey)[0];
-            return { name, childName };
-          })
-        );
-      } else {
-        // 二级技能
-        const [skillNameDesc, childSkillName] = Object.entries(skillKey)[0];
-        let skillName = skillNameDesc;
-        const isDescribedName = skillNameDesc.includes('(');
-        if (isDescribedName) {
-          skillName = skillName.split('(')[0];
-        }
-        // set suggestion item
-        let sugKey = skillName;
-        if (childSkillName) sugKey = `${skillName}(${childSkillName})`;
-        if (isDescribedName) sugKey = skillNameDesc;
-        sugMap.set(
-          sugKey,
-          isDescribedName || childSkillName ? 0 : (sugMap.get(sugKey) || 0) + 1
-        );
-      }
-    });
-    // set suggestion
-    const restCount = 8 - job.skills.length;
-    suggestion.text = [
-      ...sugMap.entries(),
-      ...(restCount ? [['其他个人或时代特长', restCount]] : []),
-    ]
-      .map(
-        ([key, count]) =>
-          `${key}${count ? `(任${countTexts[`${count}`]})` : ''}`
-      )
-      .join('、');
-    return suggestion;
+    return getJobSuggestion(pc.value.job);
   });
 
   watch(

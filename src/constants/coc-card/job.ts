@@ -1,5 +1,4 @@
 import type { Job } from '../../types/coc-card/job';
-// import type { Job } from {'../../types/coc': 'card/job'};
 
 export const jobs: Job[] = [
   {

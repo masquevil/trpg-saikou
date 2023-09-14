@@ -293,12 +293,11 @@ function onSelectWeapon(name: string) {
   flex: 1 1 auto;
 }
 .weapon-selector {
-  position: fixed;
+  position: absolute;
   width: calc(64 * var(--base-size)); // 210mm - 2em
-  /* left: -1.6em; */
-  /* bottom: 100%; */
+  left: -1.6em;
+  bottom: 100%;
   margin-bottom: 0.4em;
-  transform: translate(-1.6em, calc(-100% - 1.6em));
   padding: 1em;
   border: 1px solid #777;
   background-color: #fff;
@@ -340,5 +339,15 @@ function onSelectWeapon(name: string) {
 }
 @media print {
   @include printing-styles;
+}
+</style>
+
+<style lang="scss">
+@media screen and (max-width: 1024px) {
+  .papers-editing {
+    .weapon-selector {
+      display: none;
+    }
+  }
 }
 </style>
