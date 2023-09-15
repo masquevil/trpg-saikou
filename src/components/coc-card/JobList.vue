@@ -6,19 +6,12 @@ import { Upload } from '@element-plus/icons-vue';
 import formattedJobs, { getProPointByJobAndAttrs } from '@/models/coc-card/job';
 import { getJobSuggestion } from '@/models/coc-card/suggestion';
 
-import { pointAttrTexts } from '@/constants/coc-card/texts';
-
 import { usePC } from '@/hooks/useCOCCardProviders';
 
 interface Props {
   label?: string;
 }
 defineProps<Props>();
-
-interface Emits {
-  (event: 'click'): void;
-}
-defineEmits<Emits>();
 
 const { jobGroups, jobs } = formattedJobs;
 const pc = usePC();

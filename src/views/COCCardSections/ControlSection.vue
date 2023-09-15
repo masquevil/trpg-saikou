@@ -22,6 +22,7 @@ import DownloaderItem from '@/components/coc-card/DownloaderItem.vue';
 import GuidePaneContent from '@/components/coc-card/GuidePaneContent.vue';
 import IssueRow from '@/components/coc-card/IssueRow.vue';
 import JobList from '@/components/coc-card/JobList.vue';
+import WeaponList from '@/components/coc-card/WeaponList.vue';
 
 // models
 import {
@@ -224,7 +225,12 @@ function applyInData() {
       >
         <JobList />
       </el-tab-pane>
-      <el-tab-pane label="武器列表">开发中…</el-tab-pane>
+      <el-tab-pane
+        label="武器列表"
+        class="more-pane"
+      >
+        <WeaponList />
+      </el-tab-pane>
       <el-tab-pane
         label="使用指南"
         class="more-pane"
