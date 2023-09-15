@@ -350,10 +350,11 @@ const computedList = computed(() => {
 }
 
 .item-name {
-  flex: 1 0 auto;
+  flex: 1 1 auto;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 8px;
+  gap: 2px 8px;
 }
 
 .prefer-label {

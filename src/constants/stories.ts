@@ -25,6 +25,7 @@ const stories: Story[] = [
   [StoryNames.死亡铭刻, '2010s', '日本', [4, 6]],
   [StoryNames.不夜城的苍白之颜, '2010s', '日本', [4, 6]],
   [StoryNames.亲密邂逅, '2023', '未知', [5, 6]],
+  [StoryNames.镜头光影之笼, '现代', '美国', [4, 5]],
   // 中篇
   [StoryNames.黑水溪, '1920s', '美国-阿卡姆', [6, 10]],
   [StoryNames.芝加哥之王, '1920s', '美国-芝加哥', [6, 9]],
@@ -34,6 +35,7 @@ const stories: Story[] = [
   [StoryNames['小瓢虫，快回家'], '现代', '美国', [8, 10]],
   [StoryNames['狂气之峰~邪神的山岭'], '现代', '南极', [6, 8]],
   [StoryNames['狂气之峰~寻梦未知之峰'], '现代', '未知', [6, 8]],
+  [StoryNames.原爆点, '2019', '意大利', [8, 10]],
   // 长篇
   [StoryNames.共斗, '1998', '中国-北京', [12, 18]],
   [StoryNames.谢娘娘点化, '2000', '中国-湖北', [10, 12]],
@@ -65,6 +67,7 @@ const stories: Story[] = [
   [StoryNames.海月之下, '1923', '中国-天津', [4, 6], { inactive: true }],
   [StoryNames.比黑更黑, '1920s', '美国-阿卡姆', [4, 6], { inactive: true }],
   [StoryNames.普罗维登斯的阴霾, '1920s', '美国', [4, 5], { inactive: true }],
+  [StoryNames.阳光营地, '未知', '未知', [4, 6], { inactive: true }],
   [
     StoryNames.我的妹妹想让你受点苦,
     '未知',
