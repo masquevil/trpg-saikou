@@ -327,9 +327,6 @@ function applyInData() {
 <style scoped lang="scss">
 .control-section {
   --color-border: #8a8a8a;
-  --color-control-bg: #3a3a3a;
-  --color-control-bg-hover: #444;
-  --color-control-bg-active: #4b4e53;
 
   max-width: 65.625em;
   margin: auto;

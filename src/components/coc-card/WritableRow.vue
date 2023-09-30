@@ -18,8 +18,8 @@ const props = withDefaults(defineProps<Props>(), {
 
 interface Emits {
   (event: 'update:modelValue', modelValue: string): void;
-  (event: 'focus', modelValue: string): void;
-  (event: 'blur', modelValue: string): void;
+  (event: 'focus'): void;
+  (event: 'blur'): void;
 }
 defineEmits<Emits>();
 

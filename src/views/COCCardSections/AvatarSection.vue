@@ -1,66 +1,50 @@
 <script setup lang="ts">
-import {
-  filetoDataURL,
-  urltoImage,
-  imagetoCanvas,
-  canvastoDataURL,
-} from 'image-conversion';
-import { getImageSize } from '@/utils/image';
+import { computed, ref } from 'vue';
 
+import ControlDialog from '@/components/coc-card/ControlDialog.vue';
+import AvatarModalContent from '@/components/coc-card/AvatarModalContent.vue';
 import { usePC, usePageData } from '@/hooks/useCOCCardProviders';
-
-const WIDTH = 132 * 2;
-const HEIGHT = 172 * 2;
+import {
+  SdAvatarDomain,
+  SdAvatarOutputPath,
+} from '@/constants/coc-card/sdAvatar';
 
 const pc = usePC();
 const pageData = usePageData();
 
-async function handleUpload(event: Event) {
-  const el = event.target as any;
-  const file: File = el.files[0];
-  el.value = null;
-  if (!file || !pc) return;
-
-  const url = await filetoDataURL(file);
-  let { width, height } = await getImageSize(url);
-  if (width > WIDTH) {
-    height = (height / width) * WIDTH;
-    width = WIDTH;
-  }
-  if (height > HEIGHT) {
-    width = (width / height) * HEIGHT;
-    height = HEIGHT;
-  }
-  const canvas = await imagetoCanvas(await urltoImage(url), {
-    width,
-    height,
-  });
-  const resultUrl = await canvastoDataURL(canvas, 0.4);
-  pc.value.avatar = resultUrl;
-}
+const isModalShown = ref(false);
+const avatarUrl = computed(() => {
+  const sdUrl = pc?.value.sdAvatar
+    ? `${SdAvatarDomain}${SdAvatarOutputPath}/${pc?.value.sdAvatar}.jpg`
+    : '';
+  return pc?.value.avatar || sdUrl || '';
+});
 </script>
 
 <template>
-  <label
+  <div
     class="avatar-section"
     :class="{
       'printing-image': pageData?.printing,
     }"
-    :style="{ 'background-image': pc?.avatar ? `url(${pc.avatar})` : 'none' }"
+    :style="{ 'background-image': avatarUrl ? `url(${avatarUrl})` : 'none' }"
+    @click="isModalShown = true"
   >
-    <input
-      class="input-file"
-      type="file"
-      accept="image/*"
-      @change="handleUpload"
-    />
     <div
       class="avatar-placeholder"
-      v-if="!pc?.avatar"
+      v-if="!avatarUrl"
     >
-      <div>点击上传头像</div>
+      <div>设置形象</div>
     </div>
-  </label>
+
+    <ControlDialog
+      class="coc-card-avatar-modal"
+      title="设置形象"
+      v-model="isModalShown"
+    >
+      <AvatarModalContent @finished="isModalShown = false" />
+    </ControlDialog>
+  </div>
 </template>
 
 <style scoped lang="scss">
@@ -84,9 +68,6 @@ async function handleUpload(event: Event) {
   }
 }
 
-.input-file {
-  display: none;
-}
 .avatar-placeholder {
   width: 100%;
   height: 100%;
@@ -109,5 +90,17 @@ async function handleUpload(event: Event) {
 }
 @media print {
   @include printing-styles;
+}
+</style>
+
+<style lang="scss">
+.coc-card-avatar-modal {
+  /* half of footer control height */
+  transform: translateY(-32px);
+  max-width: 420px;
+
+  & .el-dialog__body {
+    padding-top: 10px;
+  }
 }
 </style>

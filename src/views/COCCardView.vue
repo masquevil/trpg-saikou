@@ -56,11 +56,13 @@ function switchCheating() {
     <div class="paper-container theme-light">
       <div class="papers-animation-container papers-editing web-only">
         <Transition name="swipe-paper">
-          <PaperFront
-            v-if="paperInFront"
-            :cheating="cheating"
-          />
-          <PaperBack v-else />
+          <KeepAlive>
+            <PaperFront
+              v-if="paperInFront"
+              :cheating="cheating"
+            />
+            <PaperBack v-else />
+          </KeepAlive>
         </Transition>
       </div>
       <div

@@ -11,6 +11,7 @@ export interface COCPlayerCharacter {
   location: string;
   hometown: string;
   avatar?: string;
+  sdAvatar?: string;
   // attributes
   attributes: Partial<COCAttributes>;
   deriveAttributes?: COCDeriveAttributes;
