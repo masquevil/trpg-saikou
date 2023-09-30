@@ -115,7 +115,10 @@ function applyWeapon(index: number, weapon?: Weapon) {
                 @click="onApplyButtonClick"
                 v-click-outside="onHideApplyPopover"
               >
-                <el-icon size="0.9em">
+                <el-icon
+                  size="0.9em"
+                  class="job-card-action-use-icon"
+                >
                   <Upload />
                 </el-icon>
                 使用
@@ -219,6 +222,9 @@ function applyWeapon(index: number, weapon?: Weapon) {
   align-items: center;
   margin: -2px -6px;
   padding: 2px 6px;
+}
+.job-card-action-use-icon {
+  pointer-events: none;
 }
 
 @media screen and (max-width: 1024px) {
