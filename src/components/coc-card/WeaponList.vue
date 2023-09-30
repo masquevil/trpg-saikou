@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { Upload } from '@element-plus/icons-vue';
-import { ClickOutside as vClickOutside } from 'element-plus';
+import { ClickOutside } from 'element-plus';
 
 // models
 import {
@@ -24,6 +24,9 @@ interface listItem {
   items: Weapon[];
 }
 
+// This import is never used as a value and must use 'import type' because 'importsNotUsedAsValues' is set to 'error'.
+// import { ClickOutside as vClickOutside } from 'element-plus';
+const vClickOutside = ClickOutside;
 const pc = usePC();
 
 const collapseActiveNames = ref(
