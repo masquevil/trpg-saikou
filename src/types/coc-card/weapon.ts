@@ -14,6 +14,10 @@ export interface Weapon {
   num: string;
   // 故障率
   err: string;
+  // 年代
+  time?: string;
+  // 价格
+  price?: string;
 }
 
 export interface WeaponGroups {

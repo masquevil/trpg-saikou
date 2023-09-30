@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { ref, computed } from 'vue';
 import { Upload } from '@element-plus/icons-vue';
+import { ClickOutside as vClickOutside } from 'element-plus';
 
 // models
 import {
@@ -17,13 +18,19 @@ interface Props {
 }
 defineProps<Props>();
 
+interface listItem {
+  name: string;
+  groupKey: string;
+  items: Weapon[];
+}
+
 const pc = usePC();
 
 const collapseActiveNames = ref(
   weaponGroupOrders.map(([groupKey]) => groupKey)
 );
 
-const list = computed(() => {
+const list = computed<listItem[]>(() => {
   const weaponsMap = new Map(
     weapons.map((weapon) => [
       weapon.name,
@@ -54,8 +61,21 @@ function getDisplayedWeaponRange(range: string) {
   return range || 'N/A';
 }
 
-function applyWeapon(weapon: Weapon, index: number) {
-  if (!pc) return;
+const applyButtonRefs = ref<{ el: HTMLElement; weapon: Weapon }[]>([]);
+const applyTriggerIndex = ref(-1);
+const applyPopoverVisible = ref(false);
+function onApplyButtonClick(event: MouseEvent) {
+  const target = event.target as HTMLElement;
+  const index = applyButtonRefs.value.findIndex((item) => item.el === target);
+  if (index === -1) return;
+  applyTriggerIndex.value = index;
+  applyPopoverVisible.value = true;
+}
+function onHideApplyPopover() {
+  applyPopoverVisible.value = false;
+}
+function applyWeapon(index: number, weapon?: Weapon) {
+  if (!pc || !weapon) return;
   pc.value.weapons[index] = weapon;
 }
 </script>
@@ -81,30 +101,22 @@ function applyWeapon(weapon: Weapon, index: number) {
             <div class="weapon-card-header">
               <span>【{{ weapon.name }}】{{ weapon.skill }}</span>
 
-              <el-popover
-                placement="left-start"
-                trigger="click"
-                :width="200"
-                popper-class="weapon-card-places-container"
-                :auto-close="2400"
+              <a
+                class="job-card-action job-card-action-use"
+                :ref="(el) => {
+                  applyButtonRefs.push({
+                    el: el as HTMLElement,
+                    weapon,
+                  });
+                }"
+                @click="onApplyButtonClick"
+                v-click-outside="onHideApplyPopover"
               >
-                <template #reference>
-                  <a class="job-card-action job-card-action-use">
-                    <el-icon size="0.9em">
-                      <Upload />
-                    </el-icon>
-                    使用
-                  </a>
-                </template>
-                <a
-                  v-for="i in 5"
-                  :key="i"
-                  class="job-card-action"
-                  @click="applyWeapon(weapon, i - 1)"
-                >
-                  {{ i }}
-                </a>
-              </el-popover>
+                <el-icon size="0.9em">
+                  <Upload />
+                </el-icon>
+                使用
+              </a>
             </div>
             <div class="weapon-card-row">
               <span>伤害：{{ weapon.dam }}</span>
@@ -124,6 +136,25 @@ function applyWeapon(weapon: Weapon, index: number) {
         </div>
       </el-collapse-item>
     </el-collapse>
+
+    <el-popover
+      placement="left-start"
+      popper-class="weapon-card-places-container"
+      trigger="click"
+      virtual-triggering
+      :visible="applyPopoverVisible"
+      :width="200"
+      :virtual-ref="applyButtonRefs[applyTriggerIndex]?.el"
+    >
+      <a
+        v-for="i in 5"
+        :key="i"
+        class="job-card-action"
+        @click="applyWeapon(i - 1, applyButtonRefs[applyTriggerIndex]?.weapon)"
+      >
+        {{ i }}
+      </a>
+    </el-popover>
   </div>
 </template>
 
