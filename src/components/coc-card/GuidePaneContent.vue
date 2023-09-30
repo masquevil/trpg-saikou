@@ -6,10 +6,13 @@ import IssueRow from './IssueRow.vue';
   <div>
     <div class="guide-group-title">基本说明：</div>
     <ol class="guide-ol">
-      <li>本工具生成的人物卡可以用 A4 纸双面打印。</li>
-      <li>可以打印空白卡手写，也可以在线车卡。</li>
+      <li>COC 7版人物卡，也是在线车卡工具。</li>
+      <li>
+        可以生成 A4 纸大小的正反面两张图。也可以直接生成空白卡，打印后手写。
+      </li>
       <li>除了生成图片外，也可以直接打印（Ctrl + P）</li>
       <li>推荐 PC 端使用，移动端存在兼容性问题。</li>
+      <li>提供了预设的 1000+ 头像，也可以自定义。</li>
     </ol>
     <div class="guide-group-title">以下为目前已有的功能介绍：</div>
     <ol class="guide-ol">
@@ -35,6 +38,9 @@ import IssueRow from './IssueRow.vue';
       </li>
       <li>
         职业列表：展示所有预设职业，可以快速选择职业。可以看到每个职业根据当前属性计算出的职业点数。
+      </li>
+      <li>
+        职业列表：展示所有预设武器，可以快速选择武器。点击“使用”后点击数字将这个武器填到对应的位置。
       </li>
     </ol>
     <div class="guide-group-title">其它说明：</div>

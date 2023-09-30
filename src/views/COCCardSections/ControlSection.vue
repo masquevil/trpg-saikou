@@ -13,6 +13,7 @@ import {
   Refresh,
   DocumentCopy,
   KnifeFork,
+  IceCream,
 } from '@element-plus/icons-vue';
 
 // components
@@ -35,6 +36,8 @@ import { usePC, useViewData, usePageData } from '@/hooks/useCOCCardProviders';
 import usePrintPaper from '@/hooks/usePrintPaper';
 
 import type { COCCardViewData } from '@/types/coc-card/viewData';
+import qrWechat from '@/assets/qr-wechat.jpg';
+import qrAlipay from '@/assets/qr-alipay.jpg';
 
 interface Props {
   paperEls: {
@@ -79,6 +82,7 @@ const outDataUrl = computed(() => {
 
 const inOutModalVisible = ref(false);
 const downloadModalVisible = ref(false);
+const rewardModalVisible = ref(false);
 const morePanelVisible = ref(false);
 
 const generateTimes = ref(0);
@@ -216,6 +220,11 @@ function applyInData() {
             :icon="KnifeFork"
             @click="$emit('switch-cheating')"
           />
+          <ControlButton
+            label="投喂作者"
+            :icon="IceCream"
+            @click="rewardModalVisible = true"
+          />
         </div>
         <IssueRow />
       </el-tab-pane>
@@ -321,6 +330,30 @@ function applyInData() {
         </div>
       </div>
     </ControlDialog>
+
+    <ControlDialog
+      v-model="rewardModalVisible"
+      title="投喂作者"
+    >
+      <div class="reward-modal-body">
+        <div class="reward-texts">
+          <div>喜欢这个工具？欢迎投喂！</div>
+          <div>本项目为 github pages 纯前端项目，所以不用担心停运哦！</div>
+        </div>
+        <div class="reward-qr-container">
+          <img
+            class="reward-qr"
+            :src="qrWechat"
+          />
+        </div>
+        <div class="reward-qr-container">
+          <img
+            class="reward-qr"
+            :src="qrAlipay"
+          />
+        </div>
+      </div>
+    </ControlDialog>
   </div>
 </template>
 
@@ -360,8 +393,8 @@ function applyInData() {
   overflow: auto;
 }
 .more-controls {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 16px;
 }
 
@@ -392,9 +425,42 @@ function applyInData() {
   gap: 16px;
 }
 
+.reward-modal-body {
+  margin-top: -18px;
+  display: grid;
+  grid-template-areas:
+    'text text'
+    'qr1 qr2';
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 32px;
+  color: var(--color-text);
+}
+.reward-texts {
+  grid-area: text;
+}
+.reward-qr-container {
+  width: 100%;
+  height: 100%;
+  justify-self: center;
+}
+.reward-qr {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 @media screen and (min-width: 1024px) {
   .downloader-hints {
     display: none;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .reward-modal-body {
+    grid-template-areas:
+      'text'
+      'qr1'
+      'qr2';
+    grid-template-columns: 1fr;
   }
 }
 </style>
