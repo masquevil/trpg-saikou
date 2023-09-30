@@ -41,6 +41,17 @@ function onSelected(sdImage: SdImageData) {
   emit('finished');
 }
 
+const refreshWaitTime = ref(0);
+function setWaiter() {
+  refreshWaitTime.value = 3;
+  const timer = setInterval(() => {
+    refreshWaitTime.value--;
+    if (refreshWaitTime.value <= 0) {
+      clearInterval(timer);
+    }
+  }, 1000);
+}
+
 const matchSource = computed(() => {
   const { gender, age, stories } = pc?.value || {};
   return {
@@ -63,6 +74,7 @@ function matchSdImages() {
     sdImages.value = images;
     poolSDImageIndex.value = 0;
   });
+  setWaiter();
 }
 
 function refreshSDImages() {
@@ -70,6 +82,7 @@ function refreshSDImages() {
   if (poolSDImageIndex.value >= sdImages.value.length) {
     poolSDImageIndex.value = 0;
   }
+  setWaiter();
 }
 </script>
 
@@ -82,8 +95,14 @@ function refreshSDImages() {
       <ActionButton
         fullWidth
         @click="matchSdImages"
+        :disabled="refreshWaitTime > 0"
       >
-        {{ shouldUpdateMatch ? '形象描述已更新，重新匹配' : '匹配形象' }}
+        <template v-if="refreshWaitTime">
+          {{ `${refreshWaitTime} ……` }}
+        </template>
+        <template v-else>
+          {{ shouldUpdateMatch ? '形象描述已更新，重新匹配' : '匹配形象' }}
+        </template>
       </ActionButton>
     </div>
     <div v-if="sdImages.length">
@@ -106,14 +125,15 @@ function refreshSDImages() {
               v-model="pc.age"
             />
           </div>
-          <span
+          <button
             v-if="!shouldUpdateMatch && sdImages.length > poolSDImageIndex"
             class="refresh-button"
             @click="refreshSDImages"
+            :disabled="refreshWaitTime > 0"
           >
             <el-icon><Refresh /></el-icon>
-            换一批
-          </span>
+            {{ refreshWaitTime ? `${refreshWaitTime} ……` : '换一批' }}
+          </button>
         </div>
         <AvatarInputRow
           label="形象描述"
@@ -176,8 +196,13 @@ function refreshSDImages() {
   line-height: 1;
   cursor: pointer;
   color: var(--color-white);
+  background-color: transparent;
   &:hover {
     color: var(--color-text);
+  }
+  &:disabled {
+    cursor: not-allowed;
+    color: #888;
   }
 }
 

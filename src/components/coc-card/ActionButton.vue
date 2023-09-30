@@ -3,8 +3,9 @@ import { withDefaults } from 'vue';
 
 interface Props {
   fullWidth?: boolean;
+  disabled?: boolean;
 }
-withDefaults(defineProps<Props>(), { fullWidth: false });
+withDefaults(defineProps<Props>(), { fullWidth: false, disabled: false });
 
 interface Emits {
   (event: 'click'): void;
@@ -13,15 +14,16 @@ defineEmits<Emits>();
 </script>
 
 <template>
-  <div
+  <button
     class="action-button"
     :class="{
       'action-button-full-width': fullWidth,
     }"
     @click="$emit('click', $event)"
+    :disabled="disabled"
   >
     <slot></slot>
-  </div>
+  </button>
 </template>
 
 <style scoped lang="scss">
@@ -41,6 +43,11 @@ defineEmits<Emits>();
   }
   &:active {
     background-color: var(--color-control-bg-active);
+  }
+  &:disabled {
+    cursor: not-allowed;
+    background-color: var(--color-control-bg);
+    opacity: 0.6;
   }
 }
 
