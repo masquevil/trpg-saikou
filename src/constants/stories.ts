@@ -25,7 +25,6 @@ const stories: Story[] = [
   [StoryNames.死亡铭刻, '2010s', '日本', [4, 6]],
   [StoryNames.不夜城的苍白之颜, '2010s', '日本', [4, 6]],
   [StoryNames.亲密邂逅, '2023', '未知', [5, 6]],
-  [StoryNames.镜头光影之笼, '现代', '美国', [4, 5]],
   // 中篇
   [StoryNames.黑水溪, '1920s', '美国-阿卡姆', [6, 10]],
   [StoryNames.芝加哥之王, '1920s', '美国-芝加哥', [6, 9]],
@@ -76,6 +75,7 @@ const stories: Story[] = [
     { special: true, inactive: true },
   ],
   [StoryNames.女巫的刻印, '1920s', '美国', [4, 6], { inactive: true }],
+  [StoryNames.镜头光影之笼, '现代', '美国', [4, 5], { inactive: true }],
 
   // 测试团
   [StoryNames.维娜·斯塔尔的收音机, '1920s', '美国', [4, 6], { inactive: true }],
