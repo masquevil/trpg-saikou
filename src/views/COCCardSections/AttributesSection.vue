@@ -113,7 +113,7 @@ function updateAttr(key: COCAttributesKey, value: string) {
         <div class="attributes-actions">
           <div
             v-if="!sum"
-            class="ponits-hint"
+            class="ponits-hint web-only"
           >
             请点左下角“Roll点”
           </div>
