@@ -112,17 +112,20 @@ function updateAttr(key: COCAttributesKey, value: string) {
         />
         <div class="attributes-actions">
           <div
-            class="ponits-sum"
-            v-if="cheating && sum"
+            v-if="!sum"
+            class="ponits-hint"
           >
-            已开启灌铅模式
+            请点左下角“Roll点”
           </div>
-          <div
-            class="ponits-sum"
-            v-if="sum"
-          >
-            总点数 {{ sum }}
-          </div>
+          <template v-else>
+            <div
+              class="ponits-sum"
+              v-if="cheating"
+            >
+              已开启灌铅模式
+            </div>
+            <div class="ponits-sum">总点数 {{ sum }}</div>
+          </template>
         </div>
       </div>
     </div>
@@ -160,6 +163,10 @@ function updateAttr(key: COCAttributesKey, value: string) {
   justify-content: flex-end;
   align-items: center;
   gap: 0.4em;
+}
+.ponits-hint {
+  color: #777;
+  font-size: 0.8em;
 }
 .cheating-row {
   display: flex;

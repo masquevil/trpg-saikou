@@ -85,18 +85,21 @@ function onSelectJob(jobName: string) {
     >
       <WritableRow
         label="姓名"
+        placeholder="角色姓名"
         v-model="pc.name"
       />
       <WritableRow
         label="玩家"
+        placeholder="玩家昵称"
         v-model="pc.playerName"
       />
       <WritableRow
         label="时代"
         v-model="pc.time"
       />
+      <!-- pc job selector -->
       <div
-        class="rel"
+        class="rel only-wide"
         v-click-outside="closeJobSelector"
       >
         <WritableRow
@@ -124,6 +127,14 @@ function onSelectJob(jobName: string) {
             />
           </div>
         </Transition>
+      </div>
+      <!-- mobile job selector -->
+      <div class="only-compact">
+        <WritableRow
+          label="职业"
+          v-model="pc.job"
+          placeholder="自定义或从“更多”→“职业列表”中选择"
+        />
       </div>
       <div class="info-row">
         <WritableRow
@@ -192,6 +203,19 @@ function onSelectJob(jobName: string) {
   border: 1px solid var(--color-border);
   width: 100%;
   padding: 0.6em 0.8em;
+}
+
+.only-compact {
+  display: none;
+}
+
+@media screen and (max-width: 1024px) {
+  .only-compact {
+    display: block;
+  }
+  .only-wide {
+    display: none;
+  }
 }
 
 /* when print image & print */

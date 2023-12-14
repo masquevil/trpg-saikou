@@ -36,6 +36,7 @@
 }
 
 .commercial-info {
+  margin-right: -10em;
   width: 0;
   flex: 1 0 0;
   transform: scale(0.72);

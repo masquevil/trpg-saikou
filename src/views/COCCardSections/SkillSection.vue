@@ -122,6 +122,7 @@ watch(
             <WritableRow
               class="point-writer"
               label="职业点数"
+              :placeholder="pc?.job ? '问KP' : ''"
               :char="3"
               :modelValue="values.pro.str"
               @update:modelValue="(v) => updatePointValue('pro', v)"
