@@ -20,6 +20,8 @@ https://masquevil.github.io/trpg-saikou/#/coc-card
 1. 生成正反面图片，方便打印
 2. 可以打印空白卡线下车卡
 3. 也可以在线车卡
+4. 内置 1000+ 张 AI 生成的头像，方便快速车一张精品卡
+5. 主要设计参考：听枫馆北京TRPG跑团桌游吧。
 
 ### 记录工具
 
@@ -40,8 +42,6 @@ yarn dev
 ```
 
 ## 商业使用
-
-本项目由侠小然开发，主要设计参考：听枫馆北京TRPG跑团桌游吧。
 
 交流、反馈、新需求请：[提 Issue](https://github.com/masquevil/trpg-saikou/issues)
 
