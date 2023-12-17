@@ -16,7 +16,7 @@ defineProps<Props>();
 const { jobGroups, jobs } = formattedJobs;
 const pc = usePC();
 
-const collapseActiveNames = ref(jobGroups.map((g) => g.name));
+const collapseActiveNames = ref([]);
 
 const list = computed(() => {
   return jobGroups.map((group) => {

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, nextTick, ref, watch } from 'vue';
 import { ElMessage } from 'element-plus';
 import LZString from 'lz-string';
 import copy from 'copy-to-clipboard';
@@ -14,6 +14,7 @@ import {
   DocumentCopy,
   KnifeFork,
   IceCream,
+  Guide,
 } from '@element-plus/icons-vue';
 
 // components
@@ -49,8 +50,8 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), { cheating: false });
 
 interface Emits {
-  (event: 'switch-paper', value: boolean): void;
-  (event: 'switch-cheating', value: boolean): void;
+  (event: 'switch-paper'): void;
+  (event: 'switch-cheating'): void;
   (event: 'reset-card'): void;
 }
 const emit = defineEmits<Emits>();
@@ -84,6 +85,7 @@ const inOutModalVisible = ref(false);
 const downloadModalVisible = ref(false);
 const rewardModalVisible = ref(false);
 const morePanelVisible = ref(false);
+const morePanelActiveTab = ref('features');
 
 const generateTimes = ref(0);
 function actGenerate() {
@@ -167,6 +169,18 @@ function applyInData() {
     ElMessage.error('数据有误，无法导入');
   }
 }
+
+// preload qr codes when more panel is opened
+const cleanPreloadFn = watch(morePanelVisible, (visible) => {
+  if (visible) {
+    const img = new Image();
+    img.src = qrWechat;
+    nextTick(() => {
+      img.src = qrAlipay;
+    });
+    cleanPreloadFn();
+  }
+});
 </script>
 
 <template>
@@ -197,52 +211,70 @@ function applyInData() {
     <el-tabs
       v-if="morePanelVisible"
       class="more-container"
+      v-model="morePanelActiveTab"
     >
-      <el-tab-pane label="更多功能">
+      <el-tab-pane
+        label="更多功能"
+        name="features"
+      >
         <div class="more-controls">
           <ControlButton
             label="快速年龄修正"
             :icon="Scissor"
+            iconSize="1.4em"
             @click="actAgeGrow"
           />
           <ControlButton
             label="重置人物卡"
             :icon="Refresh"
+            iconSize="1.4em"
             @click="$emit('reset-card')"
           />
           <ControlButton
             label="导入/导出数据"
             :icon="DocumentCopy"
+            iconSize="1.4em"
             @click="inOutModalVisible = true"
           />
           <ControlButton
             :label="`${cheating ? '关闭' : '开启'}灌铅模式`"
             :icon="KnifeFork"
+            iconSize="1.4em"
             @click="$emit('switch-cheating')"
+          />
+          <ControlButton
+            label="查看使用指南"
+            :icon="Guide"
+            iconSize="1.4em"
+            @click="morePanelActiveTab = 'guide'"
           />
           <ControlButton
             label="投喂作者"
             :icon="IceCream"
+            iconSize="1.4em"
             @click="rewardModalVisible = true"
           />
         </div>
         <IssueRow />
       </el-tab-pane>
       <el-tab-pane
-        label="职业列表"
         class="more-pane"
+        label="职业列表"
+        name="jobs"
       >
         <JobList />
       </el-tab-pane>
       <el-tab-pane
-        label="武器列表"
         class="more-pane"
+        label="武器列表"
+        name="weapons"
       >
         <WeaponList />
       </el-tab-pane>
       <el-tab-pane
-        label="使用指南"
         class="more-pane"
+        label="使用指南"
+        name="guide"
       >
         <GuidePaneContent />
       </el-tab-pane>
@@ -389,7 +421,7 @@ function applyInData() {
   --el-border-color-light: var(--color-border);
 }
 .more-pane {
-  max-height: 30vh;
+  max-height: 32vh;
   overflow: auto;
 }
 .more-controls {

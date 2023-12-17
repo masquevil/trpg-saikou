@@ -6,7 +6,7 @@ interface Props {
 withDefaults(defineProps<Props>(), { fullWidth: false, disabled: false });
 
 interface Emits {
-  (event: 'click'): void;
+  (event: 'click', evt?: MouseEvent): void;
 }
 defineEmits<Emits>();
 </script>

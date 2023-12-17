@@ -270,8 +270,8 @@ function onSelectWeapon(name: string) {
 
 <style scoped lang="scss">
 .wp-td {
-  line-height: 1;
-  padding: 0.36em 0.2em;
+  line-height: 1.88em;
+  padding: 0 0.2em;
   font-size: 0.92em;
   display: flex;
   align-items: center;

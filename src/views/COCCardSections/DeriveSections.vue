@@ -143,7 +143,7 @@ const sanMax = computed(() => {
     background-color: hsl(0, 0%, 96%);
     &:nth-child(2),
     &:nth-child(3) {
-      background-color: hsl(0, 0%, 88%);
+      background-color: hsl(0, 0%, 82%);
     }
   }
 }

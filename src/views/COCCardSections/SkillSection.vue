@@ -6,9 +6,11 @@ import SkillTable from '@/components/coc-card/SkillTable.vue';
 import WritableRow from '@/components/coc-card/WritableRow.vue';
 // models
 import { skillGroups } from '@/models/coc-card/skill';
-import formattedJobs, { getProPointByJobAndAttrs } from '@/models/coc-card/job';
+import { getProPointByJobAndAttrs } from '@/models/coc-card/job';
 
 import { usePC, useSuggestion, usePageData } from '@/hooks/useCOCCardProviders';
+
+const skillTableSeparateIndex = 5;
 
 const pc = usePC();
 const suggestion = useSuggestion();
@@ -177,12 +179,13 @@ watch(
     </template>
     <div class="skill-section-body">
       <SkillTable
-        :data="skillGroups.slice(0, 6)"
+        :data="skillGroups.slice(0, skillTableSeparateIndex)"
         :suggestion="suggestion"
       />
       <div class="divider"></div>
-      <SkillTable :data="skillGroups.slice(6)" />
+      <SkillTable :data="skillGroups.slice(skillTableSeparateIndex)" />
     </div>
+    <!-- <div class="border-stabler"></div> -->
   </PaperSection>
 </template>
 
@@ -228,9 +231,9 @@ watch(
   display: flex;
   align-items: center;
   gap: 0.4em;
-  font-size: 0.88em;
+  font-size: 0.96em;
   line-height: 1;
-  padding: 0.1em 0.6em;
+  padding: 0 0.5em 0.1em;
 }
 .point-writer {
   display: flex;
@@ -253,6 +256,12 @@ watch(
 }
 .divider {
   border-right: 1px solid var(--color-black);
+  height: 100%;
+}
+.border-stabler {
+  border-top: 1px solid transparent;
+  width: 100%;
+  align-self: stretch;
 }
 
 /* when print image & print */

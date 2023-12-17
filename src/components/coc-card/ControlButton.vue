@@ -10,7 +10,7 @@ interface Props {
 defineProps<Props>();
 
 interface Emits {
-  (event: 'click'): void;
+  (event: 'click', evt?: MouseEvent): void;
 }
 defineEmits<Emits>();
 </script>

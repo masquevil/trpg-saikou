@@ -29,9 +29,7 @@ interface listItem {
 const vClickOutside = ClickOutside;
 const pc = usePC();
 
-const collapseActiveNames = ref(
-  weaponGroupOrders.map(([groupKey]) => groupKey)
-);
+const collapseActiveNames = ref([]);
 
 const list = computed<listItem[]>(() => {
   const weaponsMap = new Map(

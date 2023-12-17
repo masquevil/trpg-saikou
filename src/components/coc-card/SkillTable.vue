@@ -340,11 +340,11 @@ function getTotal(points: SkillPoint, init: number) {
   color: var(--color-black);
 
   --td-color-0: hsl(0, 0%, 100%);
-  --td-color-1: hsl(0, 0%, 94%);
-  --td-color-2: hsl(0, 0%, 88%);
-  --td-color-3: hsl(0, 0%, 82%);
-  --td-line-height: 1.54em;
-  --th-line-height: 1.66em;
+  --td-color-1: hsl(0, 0%, 93%);
+  --td-color-2: hsl(0, 0%, 86%);
+  --td-color-3: hsl(0, 0%, 79%);
+  --td-line-height: 1.71em;
+  --th-line-height: calc(var(--td-line-height) + 0.1em);
 }
 
 .skill-th {
@@ -390,27 +390,29 @@ function getTotal(points: SkillPoint, init: number) {
 }
 
 .td-color-0 {
-  background-color: var(--td-color-0);
+  --cur-td-color: var(--td-color-0);
 }
 .td-color-1 {
-  background-color: var(--td-color-1);
+  --cur-td-color: var(--td-color-1);
 }
 .td-color-2 {
-  background-color: var(--td-color-2);
+  --cur-td-color: var(--td-color-2);
 }
 
 .skill-td {
   text-align: center;
   line-height: var(--td-line-height);
   border: none;
+  background-color: var(--cur-td-color);
 }
 .td-group-name {
+  border-style: none;
   width: 1.4em;
   padding: 0.2em;
   line-height: 1.6em;
 }
 .td-group-name-visible {
-  border: 1px solid var(--color-black);
+  border: 1pt solid var(--color-black);
   border-left: none;
   border-bottom: none;
 }
@@ -425,6 +427,5 @@ function getTotal(points: SkillPoint, init: number) {
 
 .init-placeholder {
   color: var(--color-placeholder);
-  font-size: 0.86em;
 }
 </style>

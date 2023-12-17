@@ -27,11 +27,12 @@
 
 <style scoped lang="scss">
 .copyright-section {
-  margin-top: -0.44em;
-  line-height: 1;
+  margin-top: -0.24em;
+  height: 0;
+  line-height: 0;
   display: flex;
   justify-content: space-between;
-  color: #777;
+  color: #4b4e53;
   white-space: nowrap;
 }
 
@@ -41,6 +42,7 @@
   flex: 1 0 0;
   transform: scale(0.72);
   transform-origin: left bottom;
+  line-height: 1em;
 }
 .commercial-link {
   color: inherit;
@@ -51,11 +53,18 @@
   display: flex;
   justify-content: space-between;
   gap: 0.6em;
+  line-height: 1em;
   transform: scale(0.72);
   transform-origin: right bottom;
 }
 .footprint {
   opacity: 0.5;
+}
+
+@media screen and (max-width: 1024px) {
+  .copyright-section {
+    height: auto;
+  }
 }
 </style>
 
