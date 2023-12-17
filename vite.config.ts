@@ -27,4 +27,7 @@ export default defineConfig({
       scss: {},
     },
   },
+  build: {
+    assetsInlineLimit: 8192,
+  },
 });
