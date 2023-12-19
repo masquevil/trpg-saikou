@@ -286,13 +286,13 @@ watch(
       gap: 0.4em;
     }
     .skill-section-body {
+      flex-direction: column;
       flex-wrap: wrap;
       overflow: auto;
 
       .divider {
         border: none;
         border-top: 1px solid var(--color-black);
-        width: 100%;
         align-self: stretch;
       }
     }

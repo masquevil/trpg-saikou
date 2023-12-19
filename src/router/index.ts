@@ -19,6 +19,9 @@ const router = createRouter({
       path: '/coc-card',
       name: 'COCCard',
       component: () => import('../views/COCCardView.vue'),
+      meta: {
+        title: 'COC 车卡',
+      },
     },
     {
       path: '/stories',
@@ -31,6 +34,26 @@ const router = createRouter({
       component: () => import('../views/SelfView.vue'),
     },
   ],
+});
+
+// dynamic set title
+declare module 'vue-router' {
+  interface RouteMeta {
+    title?: string;
+  }
+}
+router.beforeEach((to) => {
+  const { title } = to.meta;
+
+  // set title
+  const titleSuffix = 'TRPG 赛高 | 侠小然';
+  const docTitle = title ? `${title} | ${titleSuffix}` : titleSuffix;
+  document.title = docTitle;
+  document.head
+    .querySelector('meta[name="application-name"]')
+    ?.setAttribute('content', title || 'TRPG 赛高');
+
+  return true;
 });
 
 export default router;
