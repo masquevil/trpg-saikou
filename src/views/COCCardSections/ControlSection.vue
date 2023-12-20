@@ -15,6 +15,7 @@ import {
   KnifeFork,
   IceCream,
   Guide,
+  Brush,
 } from '@element-plus/icons-vue';
 
 // components
@@ -35,10 +36,12 @@ import {
 
 import { usePC, useViewData, usePageData } from '@/hooks/useCOCCardProviders';
 import usePrintPaper from '@/hooks/usePrintPaper';
+import { downloadFile } from '@/utils/file';
 
 import type { COCCardViewData } from '@/types/coc-card/viewData';
 import qrWechat from '@/assets/qr-wechat.jpg';
 import qrAlipay from '@/assets/qr-alipay.jpg';
+import cardPdf from '@/assets/coc-card-empty.pdf';
 
 interface Props {
   paperEls: {
@@ -221,37 +224,36 @@ const cleanPreloadFn = watch(morePanelVisible, (visible) => {
           <ControlButton
             label="快速年龄修正"
             :icon="Scissor"
-            iconSize="1.4em"
             @click="actAgeGrow"
           />
           <ControlButton
             label="重置人物卡"
             :icon="Refresh"
-            iconSize="1.4em"
             @click="$emit('reset-card')"
           />
           <ControlButton
             label="导入/导出数据"
             :icon="DocumentCopy"
-            iconSize="1.4em"
             @click="inOutModalVisible = true"
           />
           <ControlButton
             :label="`${cheating ? '关闭' : '开启'}灌铅模式`"
             :icon="KnifeFork"
-            iconSize="1.4em"
             @click="$emit('switch-cheating')"
           />
           <ControlButton
             label="查看使用指南"
             :icon="Guide"
-            iconSize="1.4em"
             @click="morePanelActiveTab = 'guide'"
+          />
+          <ControlButton
+            label="下载空白卡"
+            :icon="Brush"
+            @click="downloadFile(cardPdf, '【TRPG 赛高】空白卡.pdf')"
           />
           <ControlButton
             label="投喂作者"
             :icon="IceCream"
-            iconSize="1.4em"
             @click="rewardModalVisible = true"
           />
         </div>

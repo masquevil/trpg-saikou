@@ -1,3 +1,5 @@
+import { downloadFile } from './file';
+
 export function getImageSize(url: string) {
   return new Promise<{ width: number; height: number }>((resolve) => {
     const img = document.createElement('img');
@@ -13,8 +15,5 @@ export function getImageSize(url: string) {
 }
 
 export function downloadImage(url: string, title: string = 'image') {
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = title;
-  a.click();
+  downloadFile(url, title);
 }

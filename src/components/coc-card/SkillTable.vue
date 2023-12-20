@@ -262,12 +262,14 @@ function getTotal(points: SkillPoint, init: number) {
             'td-color-1': (index + 1) % 2,
           }"
         >
-          <span
+          <div
             v-if="!row.init && row.initPlaceholder"
             class="init-placeholder"
           >
-            {{ row.initPlaceholder }}
-          </span>
+            <span class="init-placeholder-content">
+              {{ row.initPlaceholder }}
+            </span>
+          </div>
           <span v-else-if="row.groupName !== '其它'">
             {{ row.init }}
           </span>
@@ -427,5 +429,14 @@ function getTotal(points: SkillPoint, init: number) {
 
 .init-placeholder {
   color: var(--color-placeholder);
+  display: inline-flex;
+  width: 0;
+  justify-content: center;
+}
+.init-placeholder-content {
+  display: block;
+  transform: scale(0.88);
+  transform-origin: center center;
+  white-space: nowrap;
 }
 </style>
