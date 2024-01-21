@@ -10,7 +10,7 @@ import { getProPointByJobAndAttrs } from '@/models/coc-card/job';
 
 import { usePC, useSuggestion, usePageData } from '@/hooks/useCOCCardProviders';
 
-const skillTableSeparateIndex = 5;
+const skillTableSeparateIndex = 6;
 
 const pc = usePC();
 const suggestion = useSuggestion();

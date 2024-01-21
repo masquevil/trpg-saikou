@@ -37,7 +37,6 @@ function downloadFile() {
 
 function openModal() {
   previewImageModalVisible.value = true;
-  console.log('xxx 1', previewImageModalVisible.value, props.previewImage);
 }
 </script>
 
