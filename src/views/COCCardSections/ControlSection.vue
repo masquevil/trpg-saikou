@@ -195,11 +195,6 @@ const cleanPreloadFn = watch(morePanelVisible, (visible) => {
         @click="actGenerate"
       />
       <ControlButton
-        label="翻面"
-        :icon="Reading"
-        @click="$emit('switch-paper')"
-      />
-      <ControlButton
         label="保存"
         :icon="Download"
         @click="() => actPrintPaper()"
@@ -247,7 +242,7 @@ const cleanPreloadFn = watch(morePanelVisible, (visible) => {
             @click="morePanelActiveTab = 'guide'"
           />
           <ControlButton
-            label="下载空白卡"
+            label="下载空白卡PDF"
             :icon="Brush"
             @click="downloadFile(cardPdf, '【TRPG 赛高】空白卡.pdf')"
           />

@@ -93,8 +93,6 @@ defineProps<Props>();
         text-align: center;
       }
     }
-  }
-  .papers-editing {
     .section-row {
       flex-wrap: wrap;
     }
