@@ -195,6 +195,11 @@ const cleanPreloadFn = watch(morePanelVisible, (visible) => {
         @click="actGenerate"
       />
       <ControlButton
+        label="翻面"
+        :icon="Reading"
+        @click="$emit('switch-paper')"
+      />
+      <ControlButton
         label="保存"
         :icon="Download"
         @click="() => actPrintPaper()"

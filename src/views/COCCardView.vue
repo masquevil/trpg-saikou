@@ -23,6 +23,7 @@ const viewData = reactive<COCCardViewData>({
 const pageData = reactive({
   printing: qsObject.debug === 'true',
 });
+const paperInFront = ref(qsObject.turn === 'back' ? false : true);
 const cheating = ref(qsObject.cheating === 'true');
 
 useDerives(pcRef);
@@ -52,20 +53,28 @@ function switchCheating() {
 <template>
   <main class="page theme-dark">
     <h1 class="title web-only">COC 7版人物卡 车卡工具</h1>
-    <div class="papers-container theme-light">
+    <div class="paper-container theme-light">
+      <div class="papers-animation-container papers-editing web-only">
+        <Transition name="swipe-paper">
+          <KeepAlive>
+            <PaperFront
+              v-if="paperInFront"
+              :cheating="cheating"
+            />
+            <PaperBack v-else />
+          </KeepAlive>
+        </Transition>
+      </div>
       <div
-        class="papers"
+        class="papers-animation-container papers-printing"
         :class="{
-          'papers-editing': !pageData.printing,
-          'papers-printing': pageData.printing,
+          'papers-printing-active': pageData.printing,
         }"
       >
         <PaperFront
-          :cheating="cheating"
           :setRef="(el) => {paperEls.front = el as HTMLElement}"
+          :cheating="cheating"
         />
-        <h2 class="paper-title web-only">正面 —— 调查员属性 ↑</h2>
-        <h2 class="paper-title web-only">↓ 背面 —— 调查员故事</h2>
         <PaperBack :setRef="(el) => {paperEls.back = el as HTMLElement}" />
       </div>
     </div>
@@ -73,6 +82,7 @@ function switchCheating() {
       <ControlSection
         :paperEls="paperEls"
         :cheating="cheating"
+        @switch-paper="() => (paperInFront = !paperInFront)"
         @switch-cheating="switchCheating"
         @reset-card="resetCard"
       />
@@ -96,30 +106,23 @@ function switchCheating() {
   margin: 18px;
 }
 
-.papers {
+.paper-container {
+  perspective: 900em;
+}
+.papers-animation-container.papers-editing {
   width: 65.625em; // 210mm / 3.2mm
   min-height: 92.8125em; // 297mm / 3.2mm
   margin: auto;
-  font-size: var(--base-size);
 }
 .papers-editing {
   --base-size: 15px;
 }
 .papers-printing {
   --base-size: 3.2mm;
+  display: none;
 }
-.paper-title {
-  font-size: 20px;
-  text-align: center;
-  margin: 64px auto 0;
-  line-height: 1;
-
-  & + & {
-    margin-top: 16px;
-  }
-  &:last-of-type {
-    margin-bottom: 64px;
-  }
+.papers-printing-active {
+  display: block;
 }
 
 .sticky-footer {
@@ -132,7 +135,7 @@ function switchCheating() {
 }
 
 @media screen and (max-width: 1024px) {
-  .papers-editing {
+  .papers-animation-container.papers-editing {
     width: auto;
     height: auto;
   }
@@ -146,14 +149,14 @@ function switchCheating() {
     display: block;
     padding: 0;
   }
-  .papers-container {
+  .paper-container {
     margin: auto;
-  }
-  .papers {
-    --base-size: 3.2mm;
   }
   .web-only {
     display: none;
+  }
+  .papers-printing {
+    display: block;
   }
 }
 </style>

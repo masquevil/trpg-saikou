@@ -17,6 +17,7 @@ import IssueRow from './IssueRow.vue';
     <div class="guide-group-title">以下为目前已有的功能介绍：</div>
     <ol class="guide-ol">
       <li>Roll 点：随机生成一组属性。</li>
+      <li>翻面：正面为调查员属性，背面为调查员故事。</li>
       <li>
         保存：生成 A4 纸大小的正反面两张图，可以手动保存。
         还有当前人物卡全部数据的 txt，可以通过“导入”再次使用。
