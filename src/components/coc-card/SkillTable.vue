@@ -5,7 +5,7 @@ import type { SkillGroup, SkillGroups } from '@/types/coc-card/formattedSkill';
 import type { COCPCSkill, SkillPoint } from '@/types/coc-card/character';
 import type { Suggestion } from '@/types/coc-card/suggestion';
 import { dynamicInitFormulas } from '@/models/coc-card/skill';
-import { usePC, useViewData } from '@/hooks/useCOCCardProviders';
+import { usePC, useViewData, usePageData } from '@/hooks/useCOCCardProviders';
 
 import SkillTdLabel from './SkillTdLabel.vue';
 import SkillTdInput from './SkillTdInput.vue';
@@ -18,6 +18,7 @@ const props = defineProps<Props>();
 
 const pc = usePC();
 const viewData = useViewData();
+const pageData = usePageData();
 
 interface TableRowData {
   // group info (optional)
@@ -34,6 +35,7 @@ interface TableRowData {
   initPlaceholder?: string;
   points: SkillPoint;
   total: number;
+  totalSeparation: [number, number, number]; // 100/50/20
   // child skill info
   childSkillData?: {
     name: string;
@@ -62,6 +64,7 @@ function getTableData(data: SkillGroups, suggestion?: Suggestion) {
         const [w0, w1] = suggestion?.wealth ?? [-1, -1];
         const comments =
           skillKey === '信用评级' && w0 >= 0 && w1 >= 0 ? `(${w0}~${w1})` : '';
+        const total = getTotal(points, init);
         let rowData: TableRowData = {
           key: skill.name,
           skillName: skill.name,
@@ -70,7 +73,8 @@ function getTableData(data: SkillGroups, suggestion?: Suggestion) {
           init,
           initPlaceholder: skill.initPlaceholder,
           points,
-          total: getTotal(points, init),
+          total,
+          totalSeparation: [total, ~~(total / 2), ~~(total / 5)],
           ...(isGroupStart
             ? {
                 isGroupStart,
@@ -329,7 +333,19 @@ function getTotal(points: SkillPoint, init: number) {
             'td-color-1': (index + 1) % 2,
           }"
         >
-          <span v-if="row.total !== row.init">{{ row.total }}</span>
+          <span
+            v-if="pageData?.showTotalSeparation"
+            class="total-separation"
+          >
+            <span
+              v-for="(sep, i) in row.totalSeparation"
+              :key="i"
+              class="total-sep"
+            >
+              {{ sep }}
+            </span>
+          </span>
+          <span v-else-if="row.total !== row.init">{{ row.total }}</span>
         </td>
       </tr>
     </tbody>
@@ -345,6 +361,7 @@ function getTotal(points: SkillPoint, init: number) {
   --td-color-1: hsl(0, 0%, 93%);
   --td-color-2: hsl(0, 0%, 86%);
   --td-color-3: hsl(0, 0%, 79%);
+  --sep-color: #aaa;
   --td-line-height: 1.66em;
   --th-line-height: calc(var(--td-line-height) + 0.1em);
 }
@@ -438,5 +455,17 @@ function getTotal(points: SkillPoint, init: number) {
   transform: scale(0.88);
   transform-origin: center center;
   white-space: nowrap;
+}
+
+.total-separation {
+  display: flex;
+  justify-content: center;
+}
+.total-sep {
+  flex: 1 1 0.2em;
+
+  & + & {
+    border-left: 1pt solid var(--sep-color);
+  }
 }
 </style>

@@ -7,6 +7,7 @@ import { createPC } from '@/models/coc-card/character';
 
 import type { COCPlayerCharacter } from '@/types/coc-card/character';
 import type { COCCardViewData } from '@/types/coc-card/viewData';
+import type { PageData } from '@/types/coc-card/pageData';
 
 import useDerives from '@/hooks/useDerives';
 import useSuggestion from '@/hooks/useSuggestion';
@@ -20,8 +21,9 @@ const pcRef = ref<COCPlayerCharacter>(createPC());
 const viewData = reactive<COCCardViewData>({
   showingChildSkills: new Map(),
 });
-const pageData = reactive({
+const pageData = reactive<PageData>({
   printing: qsObject.debug === 'true',
+  showTotalSeparation: qsObject.sep === 'true',
 });
 const paperInFront = ref(qsObject.turn === 'back' ? false : true);
 const cheating = ref(qsObject.cheating === 'true');

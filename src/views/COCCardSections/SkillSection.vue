@@ -185,7 +185,6 @@ watch(
       <div class="divider"></div>
       <SkillTable :data="skillGroups.slice(skillTableSeparateIndex)" />
     </div>
-    <!-- <div class="border-stabler"></div> -->
   </PaperSection>
 </template>
 

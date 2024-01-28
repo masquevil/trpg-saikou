@@ -16,6 +16,7 @@ import {
   IceCream,
   Guide,
   Brush,
+  Mug,
 } from '@element-plus/icons-vue';
 
 // components
@@ -173,6 +174,16 @@ function applyInData() {
   }
 }
 
+function switchTotalMode() {
+  if (!pageData) return;
+  pageData.showTotalSeparation = !pageData.showTotalSeparation;
+  ElMessage.info(
+    `已切换成功率显示方式为：${
+      pageData.showTotalSeparation ? '全面（普通 | 困难 | 极难）' : '极简'
+    }`
+  );
+}
+
 // preload qr codes when more panel is opened
 const cleanPreloadFn = watch(morePanelVisible, (visible) => {
   if (visible) {
@@ -250,6 +261,11 @@ const cleanPreloadFn = watch(morePanelVisible, (visible) => {
             label="下载空白卡PDF"
             :icon="Brush"
             @click="downloadFile(cardPdf, '【TRPG 赛高】空白卡.pdf')"
+          />
+          <ControlButton
+            label="切换成功率模式"
+            :icon="Mug"
+            @click="switchTotalMode"
           />
           <ControlButton
             label="投喂作者"
