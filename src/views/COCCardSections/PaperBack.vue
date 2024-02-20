@@ -34,7 +34,7 @@ defineProps<Props>();
         Special Thanks 听枫馆·枫笛(北京)
       </div>
       <div class="inspiration-item inspiration">
-        Inspired By 沉世TRPG(上海) 猫爷TRPG(网络) 人格解体(网络)
+        Inspired By 猫爷TRPG 人格解体
       </div>
       <div class="inspiration-item copyright">
         「克苏鲁的呼唤」7版人物卡 Copyright 侠小然
@@ -54,7 +54,6 @@ defineProps<Props>();
   display: flex;
   align-items: flex-end;
   color: #888;
-  /* font-size: 0.88em; */
   line-height: 1;
 }
 .inspiration-item {
@@ -65,13 +64,16 @@ defineProps<Props>();
   transform-origin: left bottom;
 }
 .special-thanks {
-  flex: 3 3 0;
+  flex: 3 0 0;
 }
 .inspiration {
-  flex: 5 5 0;
+  flex: 3 0 0;
+  text-align: right;
+  transform-origin: center bottom;
 }
 .copyright {
-  flex: 4 4 0;
+  flex: 4 0 0;
+  text-align: right;
   transform-origin: right bottom;
 }
 </style>
