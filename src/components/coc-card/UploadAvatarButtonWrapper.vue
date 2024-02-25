@@ -9,9 +9,14 @@ import {
 import { getImageSize } from '@/utils/image';
 import { usePC } from '@/hooks/useCOCCardProviders';
 
+interface Props {
+  id?: string;
+}
 interface Emits {
   (event: 'uploaded', url: string): void;
 }
+
+defineProps<Props>();
 const emit = defineEmits<Emits>();
 
 const WIDTH = 132 * 2;
@@ -47,8 +52,9 @@ async function handleUpload(event: Event) {
 </script>
 
 <template>
-  <label>
+  <label :for="id">
     <input
+      :id="id"
       class="input-file"
       type="file"
       accept="image/*"

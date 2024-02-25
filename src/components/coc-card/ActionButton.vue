@@ -2,8 +2,13 @@
 interface Props {
   fullWidth?: boolean;
   disabled?: boolean;
+  tag?: string;
 }
-withDefaults(defineProps<Props>(), { fullWidth: false, disabled: false });
+withDefaults(defineProps<Props>(), {
+  fullWidth: false,
+  disabled: false,
+  tag: 'button',
+});
 
 interface Emits {
   (event: 'click', evt?: MouseEvent): void;
@@ -12,7 +17,8 @@ defineEmits<Emits>();
 </script>
 
 <template>
-  <button
+  <component
+    :is="tag"
     class="action-button"
     :class="{
       'action-button-full-width': fullWidth,
@@ -21,7 +27,7 @@ defineEmits<Emits>();
     :disabled="disabled"
   >
     <slot></slot>
-  </button>
+  </component>
 </template>
 
 <style scoped lang="scss">

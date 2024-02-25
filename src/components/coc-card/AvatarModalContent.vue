@@ -90,7 +90,12 @@ function refreshSDImages() {
   <div class="avatar-modal-content">
     <div class="action-buttons">
       <UploadAvatarButtonWrapper @uploaded="onUploaded">
-        <ActionButton fullWidth>上传形象</ActionButton>
+        <ActionButton
+          tag="div"
+          fullWidth
+        >
+          上传形象
+        </ActionButton>
       </UploadAvatarButtonWrapper>
       <ActionButton
         fullWidth
