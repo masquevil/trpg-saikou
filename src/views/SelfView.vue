@@ -2,14 +2,10 @@
 import { ref } from 'vue';
 import PeriodLabel from '@/components/PeriodLabel.vue';
 
-import useTheme from '@/hooks/useTheme';
-
 // types & constants
 import stories from '@/models/story';
 import records from '@/models/record';
 import experiences from '@/models/experience';
-
-useTheme('dark');
 
 const privateMode = ref(false);
 

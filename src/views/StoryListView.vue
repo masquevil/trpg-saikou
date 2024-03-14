@@ -4,8 +4,6 @@ import { ref, computed } from 'vue';
 import PeriodLabel from '@/components/PeriodLabel.vue';
 import SoxCheckbox from '@/components/sox/SoxCheckbox.vue';
 
-import useTheme from '@/hooks/useTheme';
-
 // types & constants
 import type { Period, FormattedStory } from '@/types/story';
 import type { FormattedRecord } from '@/types/record';
@@ -19,8 +17,6 @@ interface listItem {
   record?: FormattedRecord;
   experience?: FormattedExperience;
 }
-
-useTheme('dark');
 
 /* list handlers */
 function getListMapper() {

@@ -35,6 +35,7 @@ function handleFocus(event: FocusEvent) {
   font-size: 1em;
   background-color: transparent;
   text-align: center;
+
   &:hover,
   &:focus {
     /* box-shadow: 0 0 1px 1px #534565; */

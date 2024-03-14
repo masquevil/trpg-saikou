@@ -3,6 +3,14 @@ import {
   createWebHistory,
   createWebHashHistory,
 } from 'vue-router';
+import { useColorMode } from '@vueuse/core';
+
+declare module 'vue-router' {
+  interface RouteMeta {
+    title?: string;
+    theme?: 'dark' | 'light';
+  }
+}
 
 const router = createRouter({
   history:
@@ -37,11 +45,6 @@ const router = createRouter({
 });
 
 // dynamic set title
-declare module 'vue-router' {
-  interface RouteMeta {
-    title?: string;
-  }
-}
 router.beforeEach((to) => {
   const { title } = to.meta;
 
@@ -54,6 +57,12 @@ router.beforeEach((to) => {
     ?.setAttribute('content', title || 'TRPG 赛高');
 
   return true;
+});
+
+// dynamic set theme, default to dark
+router.afterEach((to) => {
+  const colorMode = useColorMode();
+  colorMode.value = to.meta.theme || 'dark';
 });
 
 export default router;

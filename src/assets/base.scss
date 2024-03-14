@@ -22,6 +22,7 @@
 
   // my custom
   --color-white: #fff;
+  --color-white-bg: #fafafa;
   --color-black: #2e2e2e;
 
   --color-link: hsl(240, 100%, 75%);
@@ -64,14 +65,13 @@
   @include theme-dark-vars;
 }
 
-.theme-light {
+.light, .theme-light {
   @include theme-light-vars;
 }
 
-.theme-dark {
+.dark, .theme-dark {
   @include theme-dark-vars;
 }
-
 
 *,
 *::before,
