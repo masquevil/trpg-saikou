@@ -6,7 +6,7 @@ interface Props {
 defineProps<Props>();
 
 interface Emits {
-  (event: 'update:modelValue'): void;
+  (event: 'update:modelValue', value: boolean): void;
 }
 defineEmits<Emits>();
 </script>
