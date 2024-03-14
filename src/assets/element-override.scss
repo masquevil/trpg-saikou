@@ -4,14 +4,17 @@
   margin-top: env(safe-area-inset-top);
 }
 .el-message--error {
+  --el-message-bg-color: hsl(350, 50%, 95%);
   --el-message-border-color: hsl(350, 60%, 80%);
   --el-message-text-color: hsl(350, 100%, 35%);
 }
 .el-message--success {
-  --el-message-border-color: hsl(150, 60%, 30%);
-  --el-message-text-color: hsl(150, 100%, 20%);
+  --el-message-bg-color: hsl(100, 50%, 95%);
+  --el-message-border-color: hsl(100, 60%, 30%);
+  --el-message-text-color: hsl(100, 100%, 20%);
 }
 .el-message--info {
+  --el-message-bg-color: hsl(190, 50%, 95%);
   --el-message-border-color: hsl(190, 60%, 30%);
   --el-message-text-color: hsl(190, 100%, 20%);
 }
