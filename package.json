@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "vite --host 0.0.0.0",
-    "build": "run-p type-check build-only",
+    "build": "run-p type-check build-only && run-p build-lib",
     "build-lib": "vite build -c vite.libs.config.ts",
     "local": "NODE_ENV=development vite build --mode development",
     "preview": "vite preview",
