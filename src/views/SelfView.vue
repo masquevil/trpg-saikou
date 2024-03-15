@@ -23,10 +23,10 @@ const playedList = list
   .sort(
     (a, b) =>
       (b.experience?.experienceScore || 0) -
-      (a.experience?.experienceScore || 0)
+      (a.experience?.experienceScore || 0),
   )
   .sort(
-    (a, b) => (b.experience?.storyScore || 0) - (a.experience?.storyScore || 0)
+    (a, b) => (b.experience?.storyScore || 0) - (a.experience?.storyScore || 0),
   );
 </script>
 
@@ -53,8 +53,8 @@ const playedList = list
               v-if="record?.prefer"
             >
               <template
-                v-for="(_, i) in Array.from({ length: record.prefer })"
-                :key="i"
+                v-for="(_, _i) in Array.from({ length: record.prefer })"
+                :key="_i"
               >
                 <span>♡</span>
               </template>

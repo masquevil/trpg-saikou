@@ -18,7 +18,7 @@ import {
 import { skillGroups } from '@/models/coc-card/skill';
 
 import { useToggle } from '@/utils/ui';
-import { usePC, usePageData } from '@/hooks/useCOCCardProviders';
+import { usePC } from '@/hooks/useCOCCardProviders';
 // @ts-ignore
 import vClickOutside from '@/directives/clickOutside';
 
@@ -41,7 +41,6 @@ interface BattleSkill {
 }
 
 const pc = usePC();
-const pageData = usePageData();
 
 function getTDClass(row: number, col: number) {
   const rowBase = row % 2 ? 0 : 1;

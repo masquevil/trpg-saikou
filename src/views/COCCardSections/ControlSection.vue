@@ -141,7 +141,7 @@ function actAgeGrow() {
   }
   pc.value.attributes = modifyAttributesByAge(
     pc.value.attributes,
-    Number(pc.value.age || 0)
+    Number(pc.value.age || 0),
   );
   ElMessage.success('已为您进行年龄修正！');
 }
@@ -158,7 +158,7 @@ function applyInData() {
     try {
       pc.value = data.pc;
       viewData.showingChildSkills = new Map(
-        Object.entries(data.viewData.showingChildSkills)
+        Object.entries(data.viewData.showingChildSkills),
       );
       const restKeys: (keyof COCCardViewData)[] = ['jobSkills'];
       restKeys.forEach((key) => {
@@ -180,7 +180,7 @@ function switchTotalMode() {
   ElMessage.info(
     `已切换成功率显示方式为：${
       pageData.showTotalSeparation ? '全面（普通 | 困难 | 极难）' : '极简'
-    }`
+    }`,
   );
 }
 
@@ -464,7 +464,6 @@ const cleanPreloadFn = watch(morePanelVisible, (visible) => {
 }
 
 .in-out-modal-body {
-  margin-top: -24px;
   display: flex;
   gap: 20px;
 }
@@ -476,7 +475,6 @@ const cleanPreloadFn = watch(morePanelVisible, (visible) => {
 }
 
 .reward-modal-body {
-  margin-top: -18px;
   display: grid;
   grid-template-areas:
     'text text'
@@ -490,7 +488,8 @@ const cleanPreloadFn = watch(morePanelVisible, (visible) => {
 }
 .reward-qr-container {
   width: 100%;
-  height: 100%;
+  aspect-ratio: 1/1;
+  max-width: 280px;
   justify-self: center;
 }
 .reward-qr {

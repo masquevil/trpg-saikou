@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { DefineComponent } from 'vue';
+import type { Component } from 'vue';
 
 import ActionButton from './ActionButton.vue';
 
 interface Props {
   label: string;
-  icon: DefineComponent;
+  icon: Component;
 }
 defineProps<Props>();
 

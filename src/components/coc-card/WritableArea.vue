@@ -9,7 +9,7 @@ interface Props {
   maxlength?: number;
   readonly?: boolean;
 }
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   rows: 3,
   modelValue: '',
   readonly: false,

@@ -1,18 +1,14 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 
 // components
 import PaperSection from '@/components/coc-card/PaperSection.vue';
 import WritableRow from '@/components/coc-card/WritableRow.vue';
 
 // models
-import type {
-  COCAttributesKey,
-  COCAttributes,
-} from '@/types/coc-card/character';
+import type { COCAttributesKey } from '@/types/coc-card/character';
 
 import { usePC } from '@/hooks/useCOCCardProviders';
-import { generateRandomAttributes } from '@/models/coc-card/attribute';
 
 interface Props {
   cheating?: boolean;

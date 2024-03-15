@@ -77,7 +77,7 @@ function sortList(list: listItem[]) {
 const list = sortList([...stories.map(getListMapper())]);
 
 const periodOptions = periodOrder.map(
-  (key) => [key, periodTexts[key]] as [Period, string]
+  (key) => [key, periodTexts[key]] as [Period, string],
 );
 const countryOptions = computed(() => {
   const countries = new Map<string, number>();
@@ -173,7 +173,7 @@ const computedList = computed(() => {
         <div class="filter-multi-values">
           <PeriodLabel
             v-for="selectedPeriod in periodOrder.filter((p) =>
-              filters.period.has(p)
+              filters.period.has(p),
             )"
             :key="selectedPeriod"
             class="period-label-filter-value"
@@ -227,8 +227,8 @@ const computedList = computed(() => {
             v-if="record?.prefer"
           >
             <template
-              v-for="(_, i) in Array.from({ length: record.prefer })"
-              :key="i"
+              v-for="(_, _i) in Array.from({ length: record.prefer })"
+              :key="_i"
             >
               <span>♡</span>
             </template>

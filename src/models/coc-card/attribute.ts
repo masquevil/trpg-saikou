@@ -9,7 +9,7 @@ const normalAttrs: COCAttributesKey[] = ['str', 'dex', 'con', 'app', 'pow'];
 const higherAttrs: COCAttributesKey[] = ['siz', 'edu', 'int'];
 const otherAttrs: COCAttributesKey[] = ['luc'];
 
-export function generateRandomAttributes(age?: number) {
+export function generateRandomAttributes() {
   const attributes: Partial<COCAttributes> = {};
   normalAttrs.forEach((key) => {
     attributes[key] = throwDice(6, 3) * 5;
@@ -25,7 +25,7 @@ export function generateRandomAttributes(age?: number) {
 
 export function modifyAttributesByAge(
   attributes: Partial<COCAttributes>,
-  age: number
+  age: number,
 ): COCAttributes {
   let results = withDefaultAttributes(attributes);
   if (age < 15) {
@@ -75,7 +75,7 @@ export function getAttributesSum(attributes: COCAttributes) {
 }
 
 function withDefaultAttributes(
-  attributes: Partial<COCAttributes>
+  attributes: Partial<COCAttributes>,
 ): COCAttributes {
   return {
     str: 0,
@@ -94,7 +94,7 @@ function withDefaultAttributes(
 function minusAttributes(
   attributes: COCAttributes,
   keys: COCAttributesKey[],
-  total: number
+  total: number,
 ): COCAttributes {
   const results = { ...attributes };
   const sum = keys.reduce((sum, key) => sum + results[key], 0);
