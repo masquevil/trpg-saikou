@@ -74,10 +74,20 @@ function switchCheating() {
         }"
       >
         <PaperFront
-          :setRef="(el) => {paperEls.front = el as HTMLElement}"
+          :setRef="
+            (el) => {
+              paperEls.front = el as HTMLElement;
+            }
+          "
           :cheating="cheating"
         />
-        <PaperBack :setRef="(el) => {paperEls.back = el as HTMLElement}" />
+        <PaperBack
+          :setRef="
+            (el) => {
+              paperEls.back = el as HTMLElement;
+            }
+          "
+        />
       </div>
     </div>
     <div class="sticky-footer web-only">

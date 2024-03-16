@@ -94,9 +94,14 @@ export interface COCBattleAttributes {
 export type COCPCSkill = string | [string, string, number];
 
 export interface SkillPoint {
+  // 初始点数
   b?: number;
+  // 职业点数
   p?: number;
+  // 兴趣点数
   i?: number;
+  // 成长点数
   g?: number;
+  // 是否有成长
   c?: boolean;
 }

@@ -98,9 +98,9 @@ function getTableData(data: SkillGroups, suggestion?: Suggestion) {
               viewData?.showingChildSkills.get(skill.name)?.[childIndex] ??
               placeName;
             const childSkill = skill.group?.skills.find(
-              ({ name }) => name === childSkillName
+              ({ name }) => name === childSkillName,
             );
-            const init = childSkill?.init ?? rowData.init;
+            let init = childSkill?.init ?? rowData.init;
             const skillKey: COCPCSkill = [
               skill.name,
               childSkillName,
@@ -108,6 +108,9 @@ function getTableData(data: SkillGroups, suggestion?: Suggestion) {
             ];
             const skillPoint = findSkillPoints(skillKey);
             const points = skillPoint?.[1] || {};
+            if (pc && !skill.name) {
+              init = points.b || 0;
+            }
             return {
               ...rowData,
               // group info
@@ -131,7 +134,7 @@ function getTableData(data: SkillGroups, suggestion?: Suggestion) {
       }, []);
       return [...result, ...rows];
     },
-    []
+    [],
   );
   return tableData;
 }
@@ -154,7 +157,7 @@ function findSkillPoints(skillInfo: COCPCSkill) {
 function updateSkillPoint(
   skillKey: COCPCSkill,
   pointName: keyof SkillPoint,
-  value: string | boolean
+  value: string | boolean,
 ) {
   if (!pc) return;
   let skillPoint = findSkillPoints(skillKey);
@@ -419,6 +422,7 @@ function getTotal(points: SkillPoint, init: number) {
 }
 
 .skill-td {
+  position: relative;
   text-align: center;
   line-height: var(--td-line-height);
   border: none;

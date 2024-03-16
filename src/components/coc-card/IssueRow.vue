@@ -11,7 +11,7 @@
       href="https://github.com/masquevil/trpg-saikou#商业使用"
       target="_blank"
     >
-      交流 反馈 商业合作：点这里
+      交流 反馈 商业合作：Github
     </a>
   </div>
 </template>

@@ -14,7 +14,7 @@ import {
   DocumentCopy,
   KnifeFork,
   IceCream,
-  Guide,
+  // Guide,
   Brush,
   Mug,
 } from '@element-plus/icons-vue';
@@ -24,9 +24,11 @@ import ControlButton from '@/components/coc-card/ControlButton.vue';
 import ControlDialog from '@/components/coc-card/ControlDialog.vue';
 import DownloaderItem from '@/components/coc-card/DownloaderItem.vue';
 import GuidePaneContent from '@/components/coc-card/GuidePaneContent.vue';
-import IssueRow from '@/components/coc-card/IssueRow.vue';
+// import IssueRow from '@/components/coc-card/IssueRow.vue';
+import QunSection from '@/components/coc-card/QunSection.vue';
 import JobList from '@/components/coc-card/JobList.vue';
 import WeaponList from '@/components/coc-card/WeaponList.vue';
+import DiceMaid from '@/components/coc-card/control-section-parts/dice-maid/DiceMaid.vue';
 
 // models
 import {
@@ -228,6 +230,7 @@ const cleanPreloadFn = watch(morePanelVisible, (visible) => {
       v-model="morePanelActiveTab"
     >
       <el-tab-pane
+        class="more-pane"
         label="更多功能"
         name="features"
       >
@@ -252,11 +255,7 @@ const cleanPreloadFn = watch(morePanelVisible, (visible) => {
             :icon="KnifeFork"
             @click="$emit('switch-cheating')"
           />
-          <ControlButton
-            label="查看使用指南"
-            :icon="Guide"
-            @click="morePanelActiveTab = 'guide'"
-          />
+          <DiceMaid />
           <ControlButton
             label="下载空白卡PDF"
             :icon="Brush"
@@ -273,17 +272,18 @@ const cleanPreloadFn = watch(morePanelVisible, (visible) => {
             @click="rewardModalVisible = true"
           />
         </div>
-        <IssueRow />
+        <!-- <IssueRow /> -->
+        <QunSection />
       </el-tab-pane>
       <el-tab-pane
-        class="more-pane"
+        class="more-pane more-pane-less"
         label="职业列表"
         name="jobs"
       >
         <JobList />
       </el-tab-pane>
       <el-tab-pane
-        class="more-pane"
+        class="more-pane more-pane-less"
         label="武器列表"
         name="weapons"
       >
@@ -381,6 +381,8 @@ const cleanPreloadFn = watch(morePanelVisible, (visible) => {
       </div>
     </ControlDialog>
 
+    <!--  -->
+
     <ControlDialog
       v-model="rewardModalVisible"
       title="投喂作者"
@@ -439,8 +441,11 @@ const cleanPreloadFn = watch(morePanelVisible, (visible) => {
   --el-border-color-light: var(--color-border);
 }
 .more-pane {
-  max-height: 32vh;
+  max-height: 64vh;
   overflow: auto;
+}
+.more-pane-less {
+  max-height: 32vh;
 }
 .more-controls {
   display: grid;
