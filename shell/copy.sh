@@ -3,5 +3,5 @@
 
 for file in src/local/*.example.ts
 do
-  cp "$file" "${file//.example.ts/.1.ts}"
+  cp "$file" "${file//.example.ts/.ts}"
 done
