@@ -119,7 +119,9 @@ function switchCheating() {
 }
 
 .paper-container {
+  /* 一个奇怪的 ios bug，必须同时存在这两条才不会出现横向滚动条 */
   perspective: 900em;
+  overflow: hidden;
 }
 .papers-animation-container.papers-editing {
   width: 65.625em; // 210mm / 3.2mm
