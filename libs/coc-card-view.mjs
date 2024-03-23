@@ -10706,7 +10706,7 @@ const hZ = /* @__PURE__ */ p(EZ, [["render", WZ], ["__scopeId", "data-v-b85a4f33
       _: 1
     }, 8, ["setRef"]));
   }
-}), ig = /* @__PURE__ */ p(PU, [["__scopeId", "data-v-8db5e252"]]), TU = (C) => (UA("data-v-a3cb0d54"), C = C(), LA(), C), BU = { class: "page theme-dark" }, GU = /* @__PURE__ */ TU(() => /* @__PURE__ */ Z("h1", { class: "title web-only" }, "COC 7版人物卡 车卡工具", -1)), jU = { class: "paper-container theme-light" }, dU = { class: "papers-animation-container papers-editing web-only" }, xU = { class: "sticky-footer web-only" }, uU = /* @__PURE__ */ m({
+}), ig = /* @__PURE__ */ p(PU, [["__scopeId", "data-v-8db5e252"]]), TU = (C) => (UA("data-v-2ec329e8"), C = C(), LA(), C), BU = { class: "page theme-dark" }, GU = /* @__PURE__ */ TU(() => /* @__PURE__ */ Z("h1", { class: "title web-only" }, "COC 7版人物卡 车卡工具", -1)), jU = { class: "paper-container theme-light" }, dU = { class: "papers-animation-container papers-editing web-only" }, xU = { class: "sticky-footer web-only" }, uU = /* @__PURE__ */ m({
   __name: "COCCardView",
   setup(C) {
     const A = Ko.parse(location.search.slice(1)), w = $(SM()), M = xA({
@@ -10770,7 +10770,7 @@ const hZ = /* @__PURE__ */ p(EZ, [["render", WZ], ["__scopeId", "data-v-b85a4f33
       ])
     ]));
   }
-}), yU = /* @__PURE__ */ p(uU, [["__scopeId", "data-v-a3cb0d54"]]);
+}), yU = /* @__PURE__ */ p(uU, [["__scopeId", "data-v-2ec329e8"]]);
 export {
   yU as default
 };
