@@ -79,12 +79,7 @@ function updateAttr(key: COCAttributesKey, value: string) {
       </div>
       <div class="divider"></div>
       <div class="attributes-group">
-        <div
-          class="dice-hint"
-          style="margin-left: 1em"
-        >
-          🎲 (2D6+6)×5
-        </div>
+        <div class="dice-hint">🎲 (2D6+6)×5</div>
         <WritableRow
           label="体型"
           hint="SIZ"
@@ -107,12 +102,10 @@ function updateAttr(key: COCAttributesKey, value: string) {
           @update:modelValue="(newValue) => updateAttr('int', newValue)"
         />
         <div class="attributes-actions">
-          <div
-            v-if="!sum"
-            class="ponits-hint web-only"
-          >
-            请点左下角“Roll点”
-          </div>
+          <template v-if="!sum">
+            <!-- TODO: 改成花式加点（天命5、420 购点、侠小然式），删除外面的“灌铅模式”入口和提示 -->
+            <div class="ponits-hint web-only">请点左下角“Roll点”</div>
+          </template>
           <template v-else>
             <div
               class="ponits-sum"
@@ -141,6 +134,7 @@ function updateAttr(key: COCAttributesKey, value: string) {
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 0.2em;
 
   & :deep(.label) {
@@ -148,6 +142,7 @@ function updateAttr(key: COCAttributesKey, value: string) {
   }
 }
 .dice-hint {
+  align-self: flex-start;
   font-size: 0.8em;
   margin: 0 0 -0.3em 0.6em;
 }
@@ -159,10 +154,14 @@ function updateAttr(key: COCAttributesKey, value: string) {
   justify-content: flex-end;
   align-items: center;
   gap: 0.4em;
+  width: 0;
+  white-space: nowrap;
 }
 .ponits-hint {
+  line-height: 1;
   color: #777;
-  font-size: 0.8em;
+  transform: scale(0.8);
+  transform-origin: center bottom;
 }
 .cheating-row {
   display: flex;
