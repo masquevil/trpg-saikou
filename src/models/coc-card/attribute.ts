@@ -74,7 +74,12 @@ export function getAttributesSum(attributes: COCAttributes) {
   return vals.reduce<number>((sum, cur) => sum + cur, 0);
 }
 
-function withDefaultAttributes(
+export function getLuckAttributesSum(attributes: COCAttributes) {
+  const { luc } = attributes;
+  return getAttributesSum(attributes) + luc;
+}
+
+export function withDefaultAttributes(
   attributes: Partial<COCAttributes>,
 ): COCAttributes {
   return {

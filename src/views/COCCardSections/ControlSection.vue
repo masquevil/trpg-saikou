@@ -203,7 +203,7 @@ const cleanPreloadFn = watch(morePanelVisible, (visible) => {
   <div class="control-section">
     <div class="main-controls">
       <ControlButton
-        label="Roll点"
+        label="天命一"
         :icon="Bicycle"
         @click="actGenerate"
       />

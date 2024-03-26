@@ -4,6 +4,7 @@ import { computed } from 'vue';
 // components
 import PaperSection from '@/components/coc-card/PaperSection.vue';
 import WritableRow from '@/components/coc-card/WritableRow.vue';
+import BuyPointsButton from '@/components/coc-card/BuyPointsButton.vue';
 
 // models
 import type { COCAttributesKey } from '@/types/coc-card/character';
@@ -82,19 +83,12 @@ function updateAttr(key: COCAttributesKey, value: string) {
           @update:modelValue="(newValue) => updateAttr(item.key, newValue)"
         />
         <div class="attributes-actions">
-          <template v-if="!sum">
-            <!-- TODO: 改成花式加点（天命5、420 购点、侠小然式），删除外面的“灌铅模式”入口和提示 -->
-            <div class="ponits-hint web-only">请点左下角“Roll点”</div>
-          </template>
-          <template v-else>
-            <div
-              class="ponits-sum"
-              v-if="cheating"
-            >
-              已开启灌铅模式
-            </div>
+          <template v-if="sum">
             <div class="ponits-sum">总点数 {{ sum }}</div>
           </template>
+          <div class="web-only">
+            <BuyPointsButton />
+          </div>
         </div>
       </div>
     </div>
@@ -136,21 +130,14 @@ function updateAttr(key: COCAttributesKey, value: string) {
   gap: 0.4em;
   width: 0;
   white-space: nowrap;
-}
-.ponits-hint {
-  line-height: 1;
-  color: #777;
-  transform: scale(0.8);
-  transform-origin: center bottom;
-}
-.cheating-row {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  width: auto;
-  line-height: 1;
-  gap: 0.3em;
-  padding-left: 0.3em;
+
+  --color-button-border: #b2b2b2;
+  --color-button-border-hover: #9a9a9a;
+  --color-button-bg: #fff;
+  --color-button-bg-hover: #fafafa;
+  --color-button-bg-active: #f5f5f5;
+  --color-button-text: #4b4e53;
+  --color-button-text-hover: #2e2e2e;
 }
 .ponits-sum {
   text-align: center;
