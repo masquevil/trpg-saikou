@@ -17,6 +17,24 @@ defineProps<Props>();
 
 const pc = usePC();
 
+interface RenderListItem {
+  key: COCAttributesKey;
+  label: string;
+  hint: string;
+}
+const leftList: RenderListItem[] = [
+  { key: 'str', label: '力量', hint: 'STR' },
+  { key: 'con', label: '体质', hint: 'CON' },
+  { key: 'dex', label: '敏捷', hint: 'DEX' },
+  { key: 'app', label: '外貌', hint: 'APP' },
+  { key: 'pow', label: '意志', hint: 'POW' },
+];
+const rightList: RenderListItem[] = [
+  { key: 'siz', label: '体型', hint: 'SIZ' },
+  { key: 'edu', label: '教育', hint: '知识 EDU' },
+  { key: 'int', label: '智力', hint: '灵感 INT' },
+];
+
 const sum = computed(() => {
   if (!pc) return 0;
   const { str, con, dex, app, pow, siz, edu, int } = pc.value.attributes;
@@ -42,64 +60,26 @@ function updateAttr(key: COCAttributesKey, value: string) {
       <div class="attributes-group">
         <div class="dice-hint">🎲 3D6×5</div>
         <WritableRow
-          label="力量"
-          hint="STR"
+          v-for="item in leftList"
+          :key="item.key"
+          :label="item.label"
+          :hint="item.hint"
           :readonly="cheating"
-          :modelValue="`${pc?.attributes.str ?? ''}`"
-          @update:modelValue="(newValue) => updateAttr('str', newValue)"
-        />
-        <WritableRow
-          label="体质"
-          hint="CON"
-          :readonly="cheating"
-          :modelValue="`${pc?.attributes.con ?? ''}`"
-          @update:modelValue="(newValue) => updateAttr('con', newValue)"
-        />
-        <WritableRow
-          label="敏捷"
-          hint="DEX"
-          :readonly="cheating"
-          :modelValue="`${pc?.attributes.dex ?? ''}`"
-          @update:modelValue="(newValue) => updateAttr('dex', newValue)"
-        />
-        <WritableRow
-          label="外貌"
-          hint="APP"
-          :readonly="cheating"
-          :modelValue="`${pc?.attributes.app ?? ''}`"
-          @update:modelValue="(newValue) => updateAttr('app', newValue)"
-        />
-        <WritableRow
-          label="意志"
-          hint="POW"
-          :readonly="cheating"
-          :modelValue="`${pc?.attributes.pow ?? ''}`"
-          @update:modelValue="(newValue) => updateAttr('pow', newValue)"
+          :modelValue="`${pc?.attributes[item.key] ?? ''}`"
+          @update:modelValue="(newValue) => updateAttr(item.key, newValue)"
         />
       </div>
       <div class="divider"></div>
       <div class="attributes-group">
         <div class="dice-hint">🎲 (2D6+6)×5</div>
         <WritableRow
-          label="体型"
-          hint="SIZ"
+          v-for="item in rightList"
+          :key="item.key"
+          :label="item.label"
+          :hint="item.hint"
           :readonly="cheating"
-          :modelValue="`${pc?.attributes.siz ?? ''}`"
-          @update:modelValue="(newValue) => updateAttr('siz', newValue)"
-        />
-        <WritableRow
-          label="教育"
-          hint="知识 EDU"
-          :readonly="cheating"
-          :modelValue="`${pc?.attributes.edu ?? ''}`"
-          @update:modelValue="(newValue) => updateAttr('edu', newValue)"
-        />
-        <WritableRow
-          label="智力"
-          hint="灵感 INT"
-          :readonly="cheating"
-          :modelValue="`${pc?.attributes.int ?? ''}`"
-          @update:modelValue="(newValue) => updateAttr('int', newValue)"
+          :modelValue="`${pc?.attributes[item.key] ?? ''}`"
+          @update:modelValue="(newValue) => updateAttr(item.key, newValue)"
         />
         <div class="attributes-actions">
           <template v-if="!sum">
