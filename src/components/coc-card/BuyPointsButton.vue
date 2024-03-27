@@ -168,27 +168,35 @@ const hiddenList: RenderListItem[] = [
           </div>
         </div>
         <div class="method-section-content">
-          <div>将 5组 3D6×5 分配到左侧，3组 2D6+6×5 分配到右侧</div>
-          <div
-            class="column-section-content"
-            v-if="actionKeadeDoing"
-          >
-            <div class="column-section-content-column kaede-value-column">
-              ·
+          <div class="kaede-desc-row">
+            <div class="kaede-desc-col">
+              分配 5组 3D6×5 到左侧
               <span
-                v-for="config in leftList"
-                :key="config.key"
+                v-if="actionKeadeDoing"
+                class="kaede-value-column"
               >
-                {{ actionKeadeChoice[config.key] }}
+                ·
+                <span
+                  v-for="config in leftList"
+                  :key="config.key"
+                >
+                  {{ actionKeadeChoice[config.key] }}
+                </span>
               </span>
             </div>
-            <div class="column-section-content-column kaede-value-column">
-              ·
+            <div class="kaede-desc-col">
+              分配 3组 (2D6+6)×5 到右侧
               <span
-                v-for="config in rightList"
-                :key="config.key"
+                v-if="actionKeadeDoing"
+                class="kaede-value-column"
               >
-                {{ actionKeadeChoice[config.key] }}
+                ·
+                <span
+                  v-for="config in rightList"
+                  :key="config.key"
+                >
+                  {{ actionKeadeChoice[config.key] }}
+                </span>
               </span>
             </div>
           </div>
@@ -452,7 +460,7 @@ const hiddenList: RenderListItem[] = [
 .column-section-content {
   display: flex;
   gap: 1.6em;
-  margin-top: 0.2em;
+  margin-top: 0.6em;
 }
 .column-section-content-column {
   flex: 1 1 0;
@@ -469,8 +477,18 @@ const hiddenList: RenderListItem[] = [
 }
 
 /* 枫笛式相关 */
+.kaede-desc-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1.4em;
+}
+.kaede-desc-col {
+  flex: 1 0 auto;
+}
 .kaede-value-column {
-  flex-direction: row;
+  margin-left: 0.4em;
+  display: inline-flex;
+  gap: 0.4em;
   font-size: 0.88em;
   opacity: 0.8;
 }
@@ -494,6 +512,8 @@ const hiddenList: RenderListItem[] = [
   font-size: 0.88em;
   line-height: 1;
   cursor: pointer;
+  font-family: monospace;
+  letter-spacing: -0.06em;
   &:hover {
     background-color: rgba(255, 255, 255, 0.1);
   }
