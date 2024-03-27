@@ -8417,7 +8417,7 @@ const vg = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4T+rRXhpZgAATU0AK
       _: 1
     })) : X("", !0);
   }
-}), $9 = /* @__PURE__ */ H(_9, [["__scopeId", "data-v-81d21179"]]), GA = (C) => (iA("data-v-7ff49f79"), C = C(), cA(), C), Ac = /* @__PURE__ */ GA(() => /* @__PURE__ */ i("div", { class: "ponits-button-text" }, "花式加点", -1)), Cc = [
+}), $9 = /* @__PURE__ */ H(_9, [["__scopeId", "data-v-81d21179"]]), GA = (C) => (iA("data-v-3ba5f27c"), C = C(), cA(), C), Ac = /* @__PURE__ */ GA(() => /* @__PURE__ */ i("div", { class: "ponits-button-text" }, "花式加点", -1)), Cc = [
   Ac
 ], wc = { class: "modal-body" }, Mc = { class: "method-section" }, gc = { class: "method-section-header" }, Ic = /* @__PURE__ */ GA(() => /* @__PURE__ */ i("div", { class: "method-section-title" }, "枫笛式", -1)), Dc = { class: "header-action" }, vc = { class: "method-section-content" }, oc = /* @__PURE__ */ GA(() => /* @__PURE__ */ i("div", null, "将 5组 3D6×5 分配到左侧，3组 2D6+6×5 分配到右侧", -1)), nc = {
   key: 0,
@@ -8473,7 +8473,7 @@ const vg = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4T+rRXhpZgAATU0AK
     function f(r) {
       M(r);
     }
-    const P = W(420), b = W(!1), j = W(fC({})), T = _(() => P.value - Pw(j.value));
+    const P = W(460), b = W(!1), j = W(fC({})), T = _(() => P.value - Pw(j.value));
     function G() {
       e(), b.value = !0, j.value = fC({});
     }
@@ -8737,7 +8737,7 @@ const vg = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4T+rRXhpZgAATU0AK
       ], 64);
     };
   }
-}), pc = /* @__PURE__ */ H(Qc, [["__scopeId", "data-v-7ff49f79"]]), eM = (C) => (iA("data-v-ba95d2f9"), C = C(), cA(), C), Ec = { class: "info-section" }, Vc = { class: "attributes-group" }, Hc = /* @__PURE__ */ eM(() => /* @__PURE__ */ i("div", { class: "dice-hint" }, "🎲 3D6×5", -1)), Sc = /* @__PURE__ */ eM(() => /* @__PURE__ */ i("div", { class: "divider" }, null, -1)), Xc = { class: "attributes-group" }, Wc = /* @__PURE__ */ eM(() => /* @__PURE__ */ i("div", { class: "dice-hint" }, "🎲 (2D6+6)×5", -1)), hc = { class: "attributes-actions" }, kc = {
+}), pc = /* @__PURE__ */ H(Qc, [["__scopeId", "data-v-3ba5f27c"]]), eM = (C) => (iA("data-v-ba95d2f9"), C = C(), cA(), C), Ec = { class: "info-section" }, Vc = { class: "attributes-group" }, Hc = /* @__PURE__ */ eM(() => /* @__PURE__ */ i("div", { class: "dice-hint" }, "🎲 3D6×5", -1)), Sc = /* @__PURE__ */ eM(() => /* @__PURE__ */ i("div", { class: "divider" }, null, -1)), Xc = { class: "attributes-group" }, Wc = /* @__PURE__ */ eM(() => /* @__PURE__ */ i("div", { class: "dice-hint" }, "🎲 (2D6+6)×5", -1)), hc = { class: "attributes-actions" }, kc = {
   key: 0,
   class: "ponits-sum"
 }, Yc = { class: "web-only" }, Jc = /* @__PURE__ */ p({
