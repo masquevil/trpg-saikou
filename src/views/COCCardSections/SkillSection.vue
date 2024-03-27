@@ -27,6 +27,8 @@ function getValues() {
       point: Number(interest || 0),
       str: interest || '',
     },
+    proLimit: '70',
+    interestLimit: '50',
   };
 }
 const values = reactive(getValues());
@@ -163,7 +165,8 @@ watch(
               class="point-writer"
               label="本职"
               :char="2"
-              modelValue="70"
+              :modelValue="values.proLimit"
+              @update:modelValue="(v) => values.proLimit = v"
             />
           </div>
           <div class="point-container">
@@ -171,7 +174,8 @@ watch(
               class="point-writer"
               label="其它"
               :char="2"
-              modelValue="50"
+              :modelValue="values.interestLimit"
+              @update:modelValue="(v) => values.interestLimit = v"
             />
           </div>
         </div>
