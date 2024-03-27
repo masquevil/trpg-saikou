@@ -92,7 +92,7 @@ function actionRollApplyHandler(result: COCAttributes) {
 }
 
 // 购点式相关
-const actionBuyTotalPoints = ref(420);
+const actionBuyTotalPoints = ref(460);
 const actionBuyDoing = ref<boolean>(false);
 const actionBuyResult = ref<COCAttributes>(withDefaultAttributes({}));
 const actionBuyRemainingPoints = computed(() => {
@@ -139,7 +139,6 @@ const hiddenList: RenderListItem[] = [
 </script>
 
 <template>
-  <!-- TODO: 改成花式加点（天命5、420 购点、侠小然式），删除外面的“灌铅模式”入口和提示 -->
   <button
     class="ponits-button web-only"
     @click="modalVisible = true"
