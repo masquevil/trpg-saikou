@@ -11,11 +11,6 @@ import type { COCAttributesKey } from '@/types/coc-card/character';
 
 import { usePC } from '@/hooks/useCOCCardProviders';
 
-interface Props {
-  cheating?: boolean;
-}
-defineProps<Props>();
-
 const pc = usePC();
 
 interface RenderListItem {
@@ -65,7 +60,6 @@ function updateAttr(key: COCAttributesKey, value: string) {
           :key="item.key"
           :label="item.label"
           :hint="item.hint"
-          :readonly="cheating"
           :modelValue="`${pc?.attributes[item.key] ?? ''}`"
           @update:modelValue="(newValue) => updateAttr(item.key, newValue)"
         />
@@ -78,7 +72,6 @@ function updateAttr(key: COCAttributesKey, value: string) {
           :key="item.key"
           :label="item.label"
           :hint="item.hint"
-          :readonly="cheating"
           :modelValue="`${pc?.attributes[item.key] ?? ''}`"
           @update:modelValue="(newValue) => updateAttr(item.key, newValue)"
         />

@@ -41,6 +41,7 @@ function applyPoints(attributes: COCAttributes) {
 // 枫笛式相关
 const actionKeadeChoice = ref<COCAttributes>(withDefaultAttributes({}));
 const actionKeadeDoing = ref<boolean>(false);
+const actionKeadeGenerateCount = ref(0);
 const actionKeadeSelectedKeysMap = ref<
   Partial<Record<COCAttributesKey, COCAttributesKey>>
 >({});
@@ -49,6 +50,7 @@ function actionKeadeHandler() {
   actionKeadeChoice.value = generateRandomAttributes();
   actionKeadeSelectedKeysMap.value.luc = 'luc';
   actionKeadeDoing.value = true;
+  actionKeadeGenerateCount.value++;
 }
 function actionKeadeApplyHandler() {
   const picked = Object.values(actionKeadeSelectedKeysMap.value).filter(
@@ -110,7 +112,6 @@ function actionBuyApplyHandler() {
 // shared
 function resetStates() {
   actionKeadeDoing.value = false;
-  actionRollGenerateCount.value = 0;
   actionRollResult.value = [];
   actionBuyDoing.value = false;
 }
@@ -161,6 +162,9 @@ const hiddenList: RenderListItem[] = [
               @click="actionKeadeHandler"
             >
               生成
+              <template v-if="actionKeadeGenerateCount">
+                (已生成 {{ actionKeadeGenerateCount }} 次)
+              </template>
             </el-button>
           </div>
         </div>

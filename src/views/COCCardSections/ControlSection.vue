@@ -12,9 +12,7 @@ import {
   Scissor,
   Refresh,
   DocumentCopy,
-  KnifeFork,
   IceCream,
-  // Guide,
   Brush,
   Mug,
 } from '@element-plus/icons-vue';
@@ -24,7 +22,6 @@ import ControlButton from '@/components/coc-card/ControlButton.vue';
 import ControlDialog from '@/components/coc-card/ControlDialog.vue';
 import DownloaderItem from '@/components/coc-card/DownloaderItem.vue';
 import GuidePaneContent from '@/components/coc-card/GuidePaneContent.vue';
-// import IssueRow from '@/components/coc-card/IssueRow.vue';
 import QunSection from '@/components/coc-card/QunSection.vue';
 import JobList from '@/components/coc-card/JobList.vue';
 import WeaponList from '@/components/coc-card/WeaponList.vue';
@@ -51,13 +48,11 @@ interface Props {
     front?: HTMLElement;
     back?: HTMLElement;
   };
-  cheating?: boolean;
 }
-const props = withDefaults(defineProps<Props>(), { cheating: false });
+const props = defineProps<Props>();
 
 interface Emits {
   (event: 'switch-paper'): void;
-  (event: 'switch-cheating'): void;
   (event: 'reset-card'): void;
 }
 const emit = defineEmits<Emits>();
@@ -99,7 +94,7 @@ function actGenerate() {
 
   // 多次 roll 点取最高，增加 roll 点体验
   const attrs = Array.from({
-    length: props.cheating ? 5 : (generateTimes.value % 3) + 1,
+    length: (generateTimes.value % 3) + 1,
   })
     .map(() => generateRandomAttributes())
     .sort((a, b) => getAttributesSum(b) - getAttributesSum(a))[0];
@@ -249,11 +244,6 @@ const cleanPreloadFn = watch(morePanelVisible, (visible) => {
             label="导入/导出数据"
             :icon="DocumentCopy"
             @click="inOutModalVisible = true"
-          />
-          <ControlButton
-            :label="`${cheating ? '关闭' : '开启'}灌铅模式`"
-            :icon="KnifeFork"
-            @click="$emit('switch-cheating')"
           />
           <DiceMaid />
           <ControlButton

@@ -26,7 +26,6 @@ const pageData = reactive<PageData>({
   showTotalSeparation: qsObject.sep === 'true',
 });
 const paperInFront = ref(qsObject.turn === 'back' ? false : true);
-const cheating = ref(qsObject.cheating === 'true');
 
 useDerives(pcRef);
 const suggestion = useSuggestion(pcRef, viewData);
@@ -43,12 +42,6 @@ function resetCard() {
   ElMessage.info('已重置人物卡');
 }
 
-function switchCheating() {
-  cheating.value = !cheating.value;
-  pcRef.value.attributes = {};
-  ElMessage.info(`灌铅模式已${cheating.value ? '开启' : '关闭'}`);
-}
-
 // window.xx = { pc: pcRef, viewData, pageData };
 </script>
 
@@ -59,10 +52,7 @@ function switchCheating() {
       <div class="papers-animation-container papers-editing web-only">
         <Transition name="swipe-paper">
           <KeepAlive>
-            <PaperFront
-              v-if="paperInFront"
-              :cheating="cheating"
-            />
+            <PaperFront v-if="paperInFront" />
             <PaperBack v-else />
           </KeepAlive>
         </Transition>
@@ -79,7 +69,6 @@ function switchCheating() {
               paperEls.front = el as HTMLElement;
             }
           "
-          :cheating="cheating"
         />
         <PaperBack
           :setRef="
@@ -93,9 +82,7 @@ function switchCheating() {
     <div class="sticky-footer web-only">
       <ControlSection
         :paperEls="paperEls"
-        :cheating="cheating"
         @switch-paper="() => (paperInFront = !paperInFront)"
-        @switch-cheating="switchCheating"
         @reset-card="resetCard"
       />
     </div>
