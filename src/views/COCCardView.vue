@@ -3,7 +3,7 @@ import { reactive, provide, ref } from 'vue';
 import qs from 'qs';
 
 import { createPC } from '@/models/coc-card/character';
-import { defaultViewData } from '@/models/coc-card/viewData';
+import { createViewData } from '@/models/coc-card/viewData';
 
 import type { COCPlayerCharacter } from '@/types/coc-card/character';
 import type { COCCardViewData } from '@/types/coc-card/viewData';
@@ -18,7 +18,7 @@ import PaperBack from './COCCardSections/PaperBack.vue';
 
 const qsObject = qs.parse(location.search.slice(1));
 const pcRef = ref<COCPlayerCharacter>(createPC());
-const viewData = reactive<COCCardViewData>(defaultViewData(qsObject));
+const viewData = reactive<COCCardViewData>(createViewData(qsObject));
 const pageData = reactive<PageData>({
   printing: qsObject.debug === 'true',
   showTotalSeparation: qsObject.sep === 'true',

@@ -7,16 +7,26 @@ interface ViewDataCreateOption {
   limiti?: number;
 }
 
-export function defaultViewData(
-  option?: ViewDataCreateOption,
-): COCCardViewData {
+const storedOption: ViewDataCreateOption = {
+  limitp: 70,
+  limiti: 50,
+};
+
+function defaultViewData(): COCCardViewData {
   return {
     showingChildSkills: resetShowingChildSkills(),
     skillLimits: {
-      pro: option?.limitp || 70,
-      interest: option?.limiti || 50,
+      pro: storedOption?.limitp || 70,
+      interest: storedOption?.limiti || 50,
     },
   };
+}
+
+export function createViewData(
+  option?: Partial<ViewDataCreateOption>,
+): COCCardViewData {
+  Object.assign(storedOption, option);
+  return defaultViewData();
 }
 
 export function resetViewData(viewData: COCCardViewData) {
