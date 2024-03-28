@@ -19,6 +19,8 @@ export function createPC(
     pointValues: {
       pro: '',
       interest: '',
+      proLimit: '70',
+      interestLimit: '50',
     },
     proSkills: [],
     skillPoints: [],

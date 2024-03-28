@@ -17,7 +17,7 @@ const suggestion = useSuggestion();
 const pageData = usePageData();
 
 function getValues() {
-  const { pro, interest } = pc?.value.pointValues || {};
+  const { pro, interest, proLimit, interestLimit } = pc?.value.pointValues || {};
   return {
     pro: {
       point: Number(pro || 0),
@@ -26,6 +26,14 @@ function getValues() {
     interest: {
       point: Number(interest || 0),
       str: interest || '',
+    },
+    proLimit: {
+      point: Number(proLimit || 70),
+      str: proLimit || '',
+    },
+    interestLimit: {
+      point: Number(interestLimit || 70),
+      str: interestLimit || '',
     },
   };
 }
@@ -40,10 +48,12 @@ const rests = computed(() => {
   return {
     proPoint: values.pro.point - p,
     interestPoint: values.interest.point - i,
+    proLimit: values.proLimit.point,
+    interestLimit: values.interestLimit.point,
   };
 });
 
-function updateLocalValue(key: 'pro' | 'interest', value: string = '') {
+function updateLocalValue(key:'pro' | 'interest' | 'proLimit' | 'interestLimit', value: string = '') {
   const data = values[key];
   const customValue = pc?.value.pointValues[key];
   data.str = customValue ? customValue : value;
@@ -55,7 +65,7 @@ function updateLocalValue(key: 'pro' | 'interest', value: string = '') {
   }
 }
 
-function updatePointValue(key: 'pro' | 'interest', value: string) {
+function updatePointValue(key: 'pro' | 'interest' | 'proLimit' | 'interestLimit', value: string) {
   if (pc && pc.value.pointValues[key] !== value) {
     pc.value.pointValues[key] = value;
   }
@@ -88,15 +98,19 @@ watch(
     pointValues: pc?.value.pointValues,
     pro: pc?.value.pointValues.pro,
     interest: pc?.value.pointValues.interest,
+    proLimit: pc?.value.pointValues.proLimit,
+    interestLimit: pc?.value.pointValues.interestLimit,
   }),
   (
-    { pointValues: newPointValues, pro: newPro, interest: newInterest },
-    { pointValues: oldPointValues, pro: oldPro, interest: oldInterest }
+    { pointValues: newPointValues, pro: newPro, interest: newInterest, proLimit: newProLimit, interestLimit: newInterestLimit},
+    { pointValues: oldPointValues, pro: oldPro, interest: oldInterest}
   ) => {
     // import from txt
     if (newPointValues !== oldPointValues) {
       updateLocalValue('pro', newPro);
       updateLocalValue('interest', newInterest);
+      updateLocalValue('proLimit', newProLimit);
+      updateLocalValue('interestLimit', newInterestLimit);
       return;
     }
     if (newPro !== oldPro) {
@@ -163,7 +177,8 @@ watch(
               class="point-writer"
               label="本职"
               :char="2"
-              modelValue="70"
+              :modelValue="values.proLimit.str"
+              @update:modelValue="(v) => updatePointValue('proLimit', v)"
             />
           </div>
           <div class="point-container">
@@ -171,7 +186,8 @@ watch(
               class="point-writer"
               label="其它"
               :char="2"
-              modelValue="50"
+              :modelValue="values.interestLimit.str"
+              @update:modelValue="(v) => updatePointValue('interestLimit', v)"
             />
           </div>
         </div>
