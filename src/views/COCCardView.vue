@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { reactive, provide, ref } from 'vue';
 import qs from 'qs';
-import { ElMessage } from 'element-plus';
 
 import { createPC } from '@/models/coc-card/character';
+import { defaultViewData } from '@/models/coc-card/viewData';
 
 import type { COCPlayerCharacter } from '@/types/coc-card/character';
 import type { COCCardViewData } from '@/types/coc-card/viewData';
@@ -18,9 +18,7 @@ import PaperBack from './COCCardSections/PaperBack.vue';
 
 const qsObject = qs.parse(location.search.slice(1));
 const pcRef = ref<COCPlayerCharacter>(createPC());
-const viewData = reactive<COCCardViewData>({
-  showingChildSkills: new Map(),
-});
+const viewData = reactive<COCCardViewData>(defaultViewData(qsObject));
 const pageData = reactive<PageData>({
   printing: qsObject.debug === 'true',
   showTotalSeparation: qsObject.sep === 'true',
@@ -36,11 +34,6 @@ provide('pageData', pageData);
 provide('suggestion', suggestion);
 
 const paperEls = reactive<{ front?: HTMLElement; back?: HTMLElement }>({});
-
-function resetCard() {
-  pcRef.value = reactive(createPC());
-  ElMessage.info('已重置人物卡');
-}
 
 // window.xx = { pc: pcRef, viewData, pageData };
 </script>
@@ -83,7 +76,6 @@ function resetCard() {
       <ControlSection
         :paperEls="paperEls"
         @switch-paper="() => (paperInFront = !paperInFront)"
-        @reset-card="resetCard"
       />
     </div>
   </main>

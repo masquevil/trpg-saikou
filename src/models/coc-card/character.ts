@@ -3,7 +3,7 @@ import type { COCPlayerCharacter } from '@/types/coc-card/character';
 import { weapons, createWeapon } from './weapon';
 
 export function createPC(
-  override?: Partial<COCPlayerCharacter>
+  override?: Partial<COCPlayerCharacter>,
 ): COCPlayerCharacter {
   return {
     name: '',
@@ -19,8 +19,6 @@ export function createPC(
     pointValues: {
       pro: '',
       interest: '',
-      proLimit: '70',
-      interestLimit: '50',
     },
     proSkills: [],
     skillPoints: [],

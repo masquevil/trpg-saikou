@@ -54,6 +54,18 @@ export const dynamicInitFormulas: Record<
   闪避: (pc) => Math.floor((pc.attributes.dex || 0) / 2),
 };
 
+export function resetShowingChildSkills(viewData?: COCCardViewData) {
+  const map = new Map<string, string[]>();
+  skills.forEach((skill) => {
+    if (!skill.group) return;
+    map.set(skill.name, [...skill.group.show]);
+  });
+  if (viewData) {
+    viewData.showingChildSkills = map;
+  }
+  return map;
+}
+
 // 获取 pc 的数据，返回这个结构的字符串
 // 第一部分——属性：力量60str60敏捷60dex60……
 // 第二部分——衍生属性：hp12体力12mp12魔法12san60理智60san值60
@@ -92,7 +104,7 @@ export function getDiceMaidStString(
     if (Array.isArray(fullName)) {
       [skillName, , childSkillPosition] = fullName;
       childSkillName =
-        viewData.showingChildSkills.get(skillName)![childSkillPosition];
+        viewData.showingChildSkills.get(skillName)?.[childSkillPosition];
     } else {
       skillName = fullName;
     }
@@ -128,7 +140,7 @@ export function getDiceMaidStString(
     } else {
       let total = 0;
       // viewData
-      viewData.showingChildSkills.get(name)!.forEach((childSkillName) => {
+      viewData.showingChildSkills.get(name)?.forEach((childSkillName) => {
         if (!childSkillName) return;
         const mapKey = `${name}-${childSkillName}`;
         const point = pcPointsMap[mapKey];

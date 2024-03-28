@@ -8,16 +8,22 @@ import WritableRow from '@/components/coc-card/WritableRow.vue';
 import { skillGroups } from '@/models/coc-card/skill';
 import { getProPointByJobAndAttrs } from '@/models/coc-card/job';
 
-import { usePC, useSuggestion, usePageData } from '@/hooks/useCOCCardProviders';
+import {
+  usePC,
+  useSuggestion,
+  usePageData,
+  useViewData,
+} from '@/hooks/useCOCCardProviders';
 
 const skillTableSeparateIndex = 6;
 
 const pc = usePC();
 const suggestion = useSuggestion();
 const pageData = usePageData();
+const viewData = useViewData();
 
 function getValues() {
-  const { pro, interest, proLimit, interestLimit } = pc?.value.pointValues || {};
+  const { pro, interest } = pc?.value.pointValues || {};
   return {
     pro: {
       point: Number(pro || 0),
@@ -26,14 +32,6 @@ function getValues() {
     interest: {
       point: Number(interest || 0),
       str: interest || '',
-    },
-    proLimit: {
-      point: Number(proLimit || 70),
-      str: proLimit || '',
-    },
-    interestLimit: {
-      point: Number(interestLimit || 70),
-      str: interestLimit || '',
     },
   };
 }
@@ -48,15 +46,12 @@ const rests = computed(() => {
   return {
     proPoint: values.pro.point - p,
     interestPoint: values.interest.point - i,
-    proLimit: values.proLimit.point,
-    interestLimit: values.interestLimit.point,
   };
 });
 
-function updateLocalValue(key:'pro' | 'interest' | 'proLimit' | 'interestLimit', value: string = '') {
+function updateLocalValue(key: 'pro' | 'interest', value: string = '') {
   const data = values[key];
-  const customValue = pc?.value.pointValues[key];
-  data.str = customValue ? customValue : value;
+  data.str = value;
   if (data.str) {
     const num = Number(data.str);
     data.point = !Number.isNaN(num) ? num : 0;
@@ -65,9 +60,16 @@ function updateLocalValue(key:'pro' | 'interest' | 'proLimit' | 'interestLimit',
   }
 }
 
-function updatePointValue(key: 'pro' | 'interest' | 'proLimit' | 'interestLimit', value: string) {
+function updatePointValue(key: 'pro' | 'interest', value: string) {
   if (pc && pc.value.pointValues[key] !== value) {
     pc.value.pointValues[key] = value;
+  }
+}
+
+function updateLimit(key: 'pro' | 'interest', value: string) {
+  const num = Number(value);
+  if (viewData && viewData.skillLimits[key] !== num) {
+    viewData.skillLimits[key] = num;
   }
 }
 
@@ -79,17 +81,19 @@ watch(
   }),
   ({ job: jobName, attributes }) => {
     const { point: newPro } = getProPointByJobAndAttrs(jobName, attributes);
+    const customPro = pc?.value.pointValues.pro;
     if (newPro) {
-      updateLocalValue('pro', `${newPro > 0 ? newPro : ''}`);
+      updateLocalValue('pro', customPro ?? `${newPro > 0 ? newPro : ''}`);
     }
 
     const int = attributes?.int;
     const newInterest = int ? `${int * 2}` : '';
+    const customInterest = pc?.value.pointValues.pro;
     if (newInterest) {
-      updateLocalValue('interest', newInterest);
+      updateLocalValue('interest', customInterest ?? newInterest);
     }
   },
-  { deep: true }
+  { deep: true },
 );
 
 // watch pc values change
@@ -98,19 +102,15 @@ watch(
     pointValues: pc?.value.pointValues,
     pro: pc?.value.pointValues.pro,
     interest: pc?.value.pointValues.interest,
-    proLimit: pc?.value.pointValues.proLimit,
-    interestLimit: pc?.value.pointValues.interestLimit,
   }),
   (
-    { pointValues: newPointValues, pro: newPro, interest: newInterest, proLimit: newProLimit, interestLimit: newInterestLimit},
-    { pointValues: oldPointValues, pro: oldPro, interest: oldInterest}
+    { pointValues: newPointValues, pro: newPro, interest: newInterest },
+    { pointValues: oldPointValues, pro: oldPro, interest: oldInterest },
   ) => {
     // import from txt
     if (newPointValues !== oldPointValues) {
       updateLocalValue('pro', newPro);
       updateLocalValue('interest', newInterest);
-      updateLocalValue('proLimit', newProLimit);
-      updateLocalValue('interestLimit', newInterestLimit);
       return;
     }
     if (newPro !== oldPro) {
@@ -120,7 +120,7 @@ watch(
       updateLocalValue('interest', newInterest);
     }
   },
-  { deep: true }
+  { deep: true },
 );
 </script>
 
@@ -177,8 +177,8 @@ watch(
               class="point-writer"
               label="本职"
               :char="2"
-              :modelValue="values.proLimit.str"
-              @update:modelValue="(v) => updatePointValue('proLimit', v)"
+              :modelValue="`${viewData?.skillLimits.pro || ''}`"
+              @update:modelValue="(v) => updateLimit('pro', v)"
             />
           </div>
           <div class="point-container">
@@ -186,8 +186,8 @@ watch(
               class="point-writer"
               label="其它"
               :char="2"
-              :modelValue="values.interestLimit.str"
-              @update:modelValue="(v) => updatePointValue('interestLimit', v)"
+              :modelValue="`${viewData?.skillLimits.interest || ''}`"
+              @update:modelValue="(v) => updateLimit('interest', v)"
             />
           </div>
         </div>

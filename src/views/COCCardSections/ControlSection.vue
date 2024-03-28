@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, ref, watch } from 'vue';
+import { computed, nextTick, ref, watch, reactive } from 'vue';
 import { ElMessage } from 'element-plus';
 import LZString from 'lz-string';
 import copy from 'copy-to-clipboard';
@@ -33,6 +33,8 @@ import {
   modifyAttributesByAge,
   getAttributesSum,
 } from '@/models/coc-card/attribute';
+import { createPC } from '@/models/coc-card/character';
+import { resetViewData } from '@/models/coc-card/viewData';
 
 import { usePC, useViewData, usePageData } from '@/hooks/useCOCCardProviders';
 import usePrintPaper from '@/hooks/usePrintPaper';
@@ -53,7 +55,6 @@ const props = defineProps<Props>();
 
 interface Emits {
   (event: 'switch-paper'): void;
-  (event: 'reset-card'): void;
 }
 const emit = defineEmits<Emits>();
 
@@ -143,6 +144,17 @@ function actAgeGrow() {
   ElMessage.success('已为您进行年龄修正！');
 }
 
+function actResetCard() {
+  if (!pc || !viewData) return;
+  // reset pc
+  pc.value = reactive(createPC());
+  // reset viewData
+  resetViewData(viewData);
+
+  ElMessage.info('已重置人物卡');
+  morePanelVisible.value = false;
+}
+
 function copyOutData() {
   copy(outData.value);
   ElMessage.success('已复制到剪贴板');
@@ -157,12 +169,13 @@ function applyInData() {
       viewData.showingChildSkills = new Map(
         Object.entries(data.viewData.showingChildSkills),
       );
-      const restKeys: (keyof COCCardViewData)[] = ['jobSkills'];
+      const restKeys: (keyof COCCardViewData)[] = ['jobSkills', 'skillLimits'];
       restKeys.forEach((key) => {
         viewData[key] = data.viewData[key];
       });
       ElMessage.success('已成功导入');
       inOutModalVisible.value = false;
+      morePanelVisible.value = false;
     } catch (_) {
       ElMessage.error('数据有误，无法导入。页面可能因此受损，建议刷新');
     }
@@ -179,6 +192,7 @@ function switchTotalMode() {
       pageData.showTotalSeparation ? '全面（普通 | 困难 | 极难）' : '极简'
     }`,
   );
+  morePanelVisible.value = false;
 }
 
 // preload qr codes when more panel is opened
@@ -238,7 +252,7 @@ const cleanPreloadFn = watch(morePanelVisible, (visible) => {
           <ControlButton
             label="重置人物卡"
             :icon="Refresh"
-            @click="$emit('reset-card')"
+            @click="actResetCard"
           />
           <ControlButton
             label="导入/导出数据"

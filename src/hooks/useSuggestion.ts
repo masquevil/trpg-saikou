@@ -3,7 +3,7 @@ import type { ComputedRef, Ref } from 'vue';
 
 import formattedJobs from '@/models/coc-card/job';
 import { getJobSuggestion } from '@/models/coc-card/suggestion';
-import { skills } from '@/constants/coc-card/skill';
+import { resetShowingChildSkills } from '@/models/coc-card/skill';
 
 import type { COCPlayerCharacter } from '@/types/coc-card/character';
 import type { COCCardViewData } from '@/types/coc-card/viewData';
@@ -12,9 +12,8 @@ import type { Suggestion } from '@/types/coc-card/suggestion';
 // calculate suggestion: pro skills, wealth
 export default function useSuggestion(
   pc: Ref<COCPlayerCharacter>,
-  viewData: COCCardViewData
+  viewData: COCCardViewData,
 ): ComputedRef<Suggestion> {
-  resetShowingChildSkills(viewData);
   const { jobs } = formattedJobs;
 
   const suggestion = computed(() => {
@@ -70,15 +69,8 @@ export default function useSuggestion(
         }
       });
       delete viewData.jobSkills;
-    }
+    },
   );
 
   return suggestion;
-}
-
-function resetShowingChildSkills(viewData: COCCardViewData) {
-  skills.forEach((skill) => {
-    if (!skill.group) return;
-    viewData.showingChildSkills.set(skill.name, [...skill.group.show]);
-  });
 }

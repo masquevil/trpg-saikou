@@ -20,8 +20,6 @@ export interface COCPlayerCharacter {
   pointValues: {
     pro: string;
     interest: string;
-    proLimit: string;
-    interestLimit: string;
   };
   proSkills: COCPCSkill[];
   skillPoints: [COCPCSkill, SkillPoint][];
