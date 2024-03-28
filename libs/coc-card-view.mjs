@@ -3425,7 +3425,9 @@ function YM(C) {
     battleAttributes: {},
     pointValues: {
       pro: "",
-      interest: ""
+      interest: "",
+      proLimit: "70",
+      interestLimit: "50"
     },
     proSkills: [],
     skillPoints: [],
@@ -10143,7 +10145,7 @@ const XC = /* @__PURE__ */ H(X2, [["render", J2], ["__scopeId", "data-v-3d69914f
       ])
     ]));
   }
-}), ig = /* @__PURE__ */ H(VZ, [["__scopeId", "data-v-42f36190"]]), LM = (C) => (iA("data-v-93a79d61"), C = C(), cA(), C), HZ = { class: "header" }, SZ = { class: "header-left points-container" }, XZ = { class: "point-container" }, WZ = {
+}), ig = /* @__PURE__ */ H(VZ, [["__scopeId", "data-v-42f36190"]]), LM = (C) => (iA("data-v-a1eaa107"), C = C(), cA(), C), HZ = { class: "header" }, SZ = { class: "header-left points-container" }, XZ = { class: "point-container" }, WZ = {
   key: 0,
   class: "point-rest"
 }, hZ = { class: "point-container" }, kZ = {
@@ -10157,7 +10159,7 @@ const XC = /* @__PURE__ */ H(X2, [["render", J2], ["__scopeId", "data-v-3d69914f
   setup(C) {
     const A = gA(), w = Yg(), M = BA();
     function g() {
-      const { pro: n, interest: c } = (A == null ? void 0 : A.value.pointValues) || {};
+      const { pro: n, interest: c, proLimit: t, interestLimit: Z } = (A == null ? void 0 : A.value.pointValues) || {};
       return {
         pro: {
           point: Number(n || 0),
@@ -10166,6 +10168,14 @@ const XC = /* @__PURE__ */ H(X2, [["render", J2], ["__scopeId", "data-v-3d69914f
         interest: {
           point: Number(c || 0),
           str: c || ""
+        },
+        proLimit: {
+          point: Number(t || 70),
+          str: t || ""
+        },
+        interestLimit: {
+          point: Number(Z || 70),
+          str: Z || ""
         }
       };
     }
@@ -10175,7 +10185,9 @@ const XC = /* @__PURE__ */ H(X2, [["render", J2], ["__scopeId", "data-v-3d69914f
         n += Z.p || 0, c += Z.i || 0;
       }), {
         proPoint: I.pro.point - n,
-        interestPoint: I.interest.point - c
+        interestPoint: I.interest.point - c,
+        proLimit: I.proLimit.point,
+        interestLimit: I.interestLimit.point
       };
     });
     function v(n, c = "") {
@@ -10205,14 +10217,16 @@ const XC = /* @__PURE__ */ H(X2, [["render", J2], ["__scopeId", "data-v-3d69914f
       () => ({
         pointValues: A == null ? void 0 : A.value.pointValues,
         pro: A == null ? void 0 : A.value.pointValues.pro,
-        interest: A == null ? void 0 : A.value.pointValues.interest
+        interest: A == null ? void 0 : A.value.pointValues.interest,
+        proLimit: A == null ? void 0 : A.value.pointValues.proLimit,
+        interestLimit: A == null ? void 0 : A.value.pointValues.interestLimit
       }),
-      ({ pointValues: n, pro: c, interest: t }, { pointValues: Z, pro: U, interest: N }) => {
-        if (n !== Z) {
-          v("pro", c), v("interest", t);
+      ({ pointValues: n, pro: c, interest: t, proLimit: Z, interestLimit: U }, { pointValues: N, pro: f, interest: P }) => {
+        if (n !== N) {
+          v("pro", c), v("interest", t), v("proLimit", Z), v("interestLimit", U);
           return;
         }
-        c !== U && v("pro", c), t !== N && v("interest", t);
+        c !== f && v("pro", c), t !== P && v("interest", t);
       },
       { deep: !0 }
     ), (n, c) => {
@@ -10257,16 +10271,18 @@ const XC = /* @__PURE__ */ H(X2, [["render", J2], ["__scopeId", "data-v-3d69914f
                     class: "point-writer",
                     label: "本职",
                     char: 2,
-                    modelValue: "70"
-                  })
+                    modelValue: I.proLimit.str,
+                    "onUpdate:modelValue": c[2] || (c[2] = (U) => o("proLimit", U))
+                  }, null, 8, ["modelValue"])
                 ]),
                 i("div", _Z, [
                   l(IA, {
                     class: "point-writer",
                     label: "其它",
                     char: 2,
-                    modelValue: "50"
-                  })
+                    modelValue: I.interestLimit.str,
+                    "onUpdate:modelValue": c[3] || (c[3] = (U) => o("interestLimit", U))
+                  }, null, 8, ["modelValue"])
                 ])
               ])
             ])
@@ -10288,7 +10304,7 @@ const XC = /* @__PURE__ */ H(X2, [["render", J2], ["__scopeId", "data-v-3d69914f
       }, 8, ["class"]);
     };
   }
-}), wU = /* @__PURE__ */ H(CU, [["__scopeId", "data-v-93a79d61"]]), MU = (C) => (iA("data-v-eff12c4b"), C = C(), cA(), C), gU = ["value"], IU = /* @__PURE__ */ MU(() => /* @__PURE__ */ i("option", {
+}), wU = /* @__PURE__ */ H(CU, [["__scopeId", "data-v-a1eaa107"]]), MU = (C) => (iA("data-v-eff12c4b"), C = C(), cA(), C), gU = ["value"], IU = /* @__PURE__ */ MU(() => /* @__PURE__ */ i("option", {
   value: "",
   disabled: ""
 }, null, -1)), DU = ["value"], vU = /* @__PURE__ */ p({
