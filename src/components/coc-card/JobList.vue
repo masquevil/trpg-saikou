@@ -5,6 +5,7 @@ import { Upload } from '@element-plus/icons-vue';
 // models
 import formattedJobs, { getProPointByJobAndAttrs } from '@/models/coc-card/job';
 import { getJobSuggestion } from '@/models/coc-card/suggestion';
+import LA, { LAEventID, FeatureNames } from '@/plugins/51la';
 
 import { usePC } from '@/hooks/useCOCCardProviders';
 
@@ -32,7 +33,7 @@ const list = computed(() => {
 
         const { point: pointValue, text: pointText } = getProPointByJobAndAttrs(
           job.name,
-          pc?.value.attributes
+          pc?.value.attributes,
         );
 
         return {
@@ -50,6 +51,10 @@ const list = computed(() => {
 function applyJob(jobName: string) {
   if (!pc) return;
   pc.value.job = jobName;
+  LA.track(LAEventID.FEATURE, {
+    name: FeatureNames.PANE_USE_JOB,
+    job: jobName,
+  });
 }
 </script>
 

@@ -16,6 +16,7 @@ import {
   weaponGroupOrders,
 } from '@/models/coc-card/weapon';
 import { skillGroups } from '@/models/coc-card/skill';
+import LA, { LAEventID, FeatureNames } from '@/plugins/51la';
 
 import { useToggle } from '@/utils/ui';
 import { usePC } from '@/hooks/useCOCCardProviders';
@@ -136,6 +137,10 @@ function onSelectWeapon(name: string) {
     ...rest,
   });
   hideWeaponSeletor();
+  LA.track(LAEventID.FEATURE, {
+    name: FeatureNames.PAPER_USE_WEAPON,
+    weapon: name,
+  });
 }
 </script>
 

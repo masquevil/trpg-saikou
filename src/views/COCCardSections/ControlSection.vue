@@ -35,6 +35,7 @@ import {
 } from '@/models/coc-card/attribute';
 import { createPC } from '@/models/coc-card/character';
 import { resetViewData } from '@/models/coc-card/viewData';
+import LA, { LAEventID, FeatureNames } from '@/plugins/51la';
 
 import { usePC, useViewData, usePageData } from '@/hooks/useCOCCardProviders';
 import usePrintPaper from '@/hooks/usePrintPaper';
@@ -89,6 +90,16 @@ const rewardModalVisible = ref(false);
 const morePanelVisible = ref(false);
 const morePanelActiveTab = ref('features');
 
+function onTabChange(tabName: string | number) {
+  const map = {
+    features: FeatureNames.TAB_MORE,
+    jobs: FeatureNames.TAB_JOB_LIST,
+    weapons: FeatureNames.TAB_WEAPON_LIST,
+    guide: FeatureNames.TAB_GUIDE,
+  };
+  LA.track(LAEventID.FEATURE, { name: map[tabName as keyof typeof map] });
+}
+
 const generateTimes = ref(0);
 function actGenerate() {
   if (!pc) return;
@@ -102,6 +113,12 @@ function actGenerate() {
   pc.value.attributes = attrs;
   ElMessage.success('已为您生成一组数据，看看符不符合心意吧！');
   generateTimes.value++;
+  LA.track(LAEventID.FEATURE, { name: FeatureNames.F_ROLL });
+}
+
+function actSwitchPaper() {
+  emit('switch-paper');
+  LA.track(LAEventID.FEATURE, { name: FeatureNames.F_SWITCH_PAPER });
 }
 
 const { paperImages, printPaper } = usePrintPaper(props.paperEls);
@@ -129,12 +146,38 @@ function actPrintPaper(paperKey?: 'front' | 'back') {
       });
     },
   });
+
+  if (!paperKey) {
+    LA.track(LAEventID.FEATURE, { name: FeatureNames.F_SAVE });
+  } else {
+    LA.track(LAEventID.FEATURE, {
+      name: FeatureNames.CA_SAVE_REGEN,
+      file: paperKey,
+    });
+  }
+}
+function onDownloadFile(name: string) {
+  LA.track(LAEventID.FEATURE, {
+    name: FeatureNames.CA_SAVE_DOWNLOAD,
+    file: name,
+  });
+}
+
+function actToggleMorePanel() {
+  morePanelVisible.value = !morePanelVisible.value;
+  if (morePanelVisible.value) {
+    LA.track(LAEventID.FEATURE, { name: FeatureNames.F_MORE });
+  }
 }
 
 function actAgeGrow() {
   if (!pc?.value) return;
   if (!pc.value.age || pc.value.age === '0') {
     ElMessage.error('请先在人物卡中填写年龄');
+    LA.track(LAEventID.FEATURE, {
+      name: FeatureNames.MORE_AGE,
+      success: false,
+    });
     return;
   }
   pc.value.attributes = modifyAttributesByAge(
@@ -142,6 +185,7 @@ function actAgeGrow() {
     Number(pc.value.age || 0),
   );
   ElMessage.success('已为您进行年龄修正！');
+  LA.track(LAEventID.FEATURE, { name: FeatureNames.MORE_AGE, success: true });
 }
 
 function actResetCard() {
@@ -153,13 +197,18 @@ function actResetCard() {
 
   ElMessage.info('已重置人物卡');
   morePanelVisible.value = false;
+  LA.track(LAEventID.FEATURE, { name: FeatureNames.MORE_RESET });
 }
 
+function actOpenInOutModal() {
+  inOutModalVisible.value = true;
+  LA.track(LAEventID.FEATURE, { name: FeatureNames.MORE_INOUT });
+}
 function copyOutData() {
   copy(outData.value);
   ElMessage.success('已复制到剪贴板');
+  LA.track(LAEventID.FEATURE, { name: FeatureNames.CA_INOUT_EXPORT });
 }
-
 function applyInData() {
   const json = LZString.decompressFromEncodedURIComponent(inData.value);
   const data = JSON.parse(json);
@@ -182,6 +231,12 @@ function applyInData() {
   } else {
     ElMessage.error('数据有误，无法导入');
   }
+  LA.track(LAEventID.FEATURE, { name: FeatureNames.CA_INOUT_IMPORT });
+}
+
+function actDownloadEmptyCard() {
+  downloadFile(cardPdf, '【TRPG 赛高】空白卡.pdf');
+  LA.track(LAEventID.FEATURE, { name: FeatureNames.MORE_EMPTY });
 }
 
 function switchTotalMode() {
@@ -193,6 +248,15 @@ function switchTotalMode() {
     }`,
   );
   morePanelVisible.value = false;
+  LA.track(LAEventID.FEATURE, {
+    name: FeatureNames.MORE_TOTAL_MODE,
+    mode: pageData.showTotalSeparation ? 'full' : 'simple',
+  });
+}
+
+function actReward() {
+  rewardModalVisible.value = true;
+  LA.track(LAEventID.FEATURE, { name: FeatureNames.MORE_REWARD });
 }
 
 // preload qr codes when more panel is opened
@@ -219,7 +283,7 @@ const cleanPreloadFn = watch(morePanelVisible, (visible) => {
       <ControlButton
         label="翻面"
         :icon="Reading"
-        @click="$emit('switch-paper')"
+        @click="actSwitchPaper"
       />
       <ControlButton
         label="保存"
@@ -229,7 +293,7 @@ const cleanPreloadFn = watch(morePanelVisible, (visible) => {
       <ControlButton
         label="更多"
         :icon="More"
-        @click="morePanelVisible = !morePanelVisible"
+        @click="actToggleMorePanel"
       />
     </div>
 
@@ -237,6 +301,7 @@ const cleanPreloadFn = watch(morePanelVisible, (visible) => {
       v-if="morePanelVisible"
       class="more-container"
       v-model="morePanelActiveTab"
+      @tabChange="onTabChange"
     >
       <el-tab-pane
         class="more-pane"
@@ -257,13 +322,13 @@ const cleanPreloadFn = watch(morePanelVisible, (visible) => {
           <ControlButton
             label="导入/导出数据"
             :icon="DocumentCopy"
-            @click="inOutModalVisible = true"
+            @click="actOpenInOutModal"
           />
           <DiceMaid />
           <ControlButton
             label="下载空白卡PDF"
             :icon="Brush"
-            @click="downloadFile(cardPdf, '【TRPG 赛高】空白卡.pdf')"
+            @click="actDownloadEmptyCard"
           />
           <ControlButton
             label="切换成功率模式"
@@ -273,7 +338,7 @@ const cleanPreloadFn = watch(morePanelVisible, (visible) => {
           <ControlButton
             label="投喂作者"
             :icon="IceCream"
-            @click="rewardModalVisible = true"
+            @click="actReward"
           />
         </div>
         <!-- <IssueRow /> -->
@@ -318,6 +383,7 @@ const cleanPreloadFn = watch(morePanelVisible, (visible) => {
               type: 'jpg',
             }"
             @refresh="() => actPrintPaper('front')"
+            @downloaded="() => onDownloadFile('front')"
           />
           <DownloaderItem
             title="背面"
@@ -329,6 +395,7 @@ const cleanPreloadFn = watch(morePanelVisible, (visible) => {
               type: 'jpg',
             }"
             @refresh="() => actPrintPaper('back')"
+            @downloaded="() => onDownloadFile('back')"
           />
           <DownloaderItem
             title="车卡数据"
@@ -337,6 +404,7 @@ const cleanPreloadFn = watch(morePanelVisible, (visible) => {
               name: downloadName,
               type: 'txt',
             }"
+            @downloaded="() => onDownloadFile('data')"
           />
         </div>
         <div class="downloader-hints">

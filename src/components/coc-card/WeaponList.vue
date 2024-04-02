@@ -10,6 +10,7 @@ import {
   weaponGroupOrders,
 } from '@/models/coc-card/weapon';
 import type { Weapon } from '@/types/coc-card/weapon';
+import LA, { LAEventID, FeatureNames } from '@/plugins/51la';
 
 import { usePC } from '@/hooks/useCOCCardProviders';
 
@@ -42,7 +43,7 @@ const list = computed<listItem[]>(() => {
             ? `${weapon.range}m`
             : weapon.range,
       },
-    ])
+    ]),
   );
   return weaponGroupOrders.map(([groupKey, groupName]) => {
     return {
@@ -78,6 +79,10 @@ function onHideApplyPopover() {
 function applyWeapon(index: number, weapon?: Weapon) {
   if (!pc || !weapon) return;
   pc.value.weapons[index] = weapon;
+  LA.track(LAEventID.FEATURE, {
+    name: FeatureNames.PANE_USE_WEAPON,
+    weapon: weapon.name,
+  });
 }
 </script>
 
@@ -104,12 +109,14 @@ function applyWeapon(index: number, weapon?: Weapon) {
 
               <a
                 class="job-card-action job-card-action-use"
-                :ref="(el) => {
-                  applyButtonRefs.push({
-                    el: el as HTMLElement,
-                    weapon,
-                  });
-                }"
+                :ref="
+                  (el) => {
+                    applyButtonRefs.push({
+                      el: el as HTMLElement,
+                      weapon,
+                    });
+                  }
+                "
                 @click="onApplyButtonClick"
                 v-click-outside="onHideApplyPopover"
               >

@@ -8,6 +8,7 @@ import FlattenTree from '@/components/coc-card/FlattenTree.vue';
 
 // models
 import formattedJobs from '@/models/coc-card/job';
+import LA, { LAEventID, FeatureNames } from '@/plugins/51la';
 
 // @ts-ignore
 import vClickOutside from '@/directives/clickOutside';
@@ -33,25 +34,28 @@ watch(
   () => isJobSeletorShowing.value,
   () => {
     jobSearchInput.value = '';
-  }
+  },
 );
 
 const jobTree = computed(() => {
   const filterText = jobSearchInput.value;
   const filteredData = jobGroups.reduce((result, jobGroup) => {
     const { name: groupName, pinyin: groupPinyin, jobs } = jobGroup;
-    const filteredChildren = jobs.reduce((result, job) => {
-      if (
-        !filterText ||
-        groupName.includes(filterText) ||
-        groupPinyin.includes(filterText) ||
-        job.name.includes(filterText) ||
-        job.pinyin.includes(filterText)
-      ) {
-        result.push({ label: job.name, key: job.name });
-      }
-      return result;
-    }, [] as { label: string; key: string }[]);
+    const filteredChildren = jobs.reduce(
+      (result, job) => {
+        if (
+          !filterText ||
+          groupName.includes(filterText) ||
+          groupPinyin.includes(filterText) ||
+          job.name.includes(filterText) ||
+          job.pinyin.includes(filterText)
+        ) {
+          result.push({ label: job.name, key: job.name });
+        }
+        return result;
+      },
+      [] as { label: string; key: string }[],
+    );
     if (filteredChildren.length) {
       result.push({
         label: groupName,
@@ -68,6 +72,10 @@ function onSelectJob(jobName: string) {
   if (!pc) return;
   pc.value.job = jobName;
   closeJobSelector();
+  LA.track(LAEventID.FEATURE, {
+    name: FeatureNames.PAPER_USE_JOB,
+    job: jobName,
+  });
 }
 </script>
 

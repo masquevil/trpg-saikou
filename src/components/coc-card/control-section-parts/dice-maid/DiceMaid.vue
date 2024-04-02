@@ -9,6 +9,7 @@ import ControlButton from '@/components/coc-card/ControlButton.vue';
 import ControlDialog from '@/components/coc-card/ControlDialog.vue';
 import { usePC, useViewData } from '@/hooks/useCOCCardProviders';
 import { getDiceMaidStString } from '@/models/coc-card/skill.ts';
+import LA, { LAEventID, FeatureNames } from '@/plugins/51la';
 
 const pc = usePC();
 const viewData = useViewData();
@@ -19,12 +20,18 @@ const str = computed(
 
 const visible = ref(false);
 
+function onButtonClick() {
+  visible.value = true;
+  LA.track(LAEventID.FEATURE, { name: FeatureNames.MORE_DICE_MAID });
+}
+
 function onFocus(event: FocusEvent) {
   (event.target as HTMLTextAreaElement)?.select();
 }
 function onCopyButtonClick() {
   copy(str.value);
   ElMessage.success('已复制录卡指令');
+  LA.track(LAEventID.FEATURE, { name: FeatureNames.CA_DICE_MAID_COPY });
 }
 </script>
 
@@ -32,7 +39,7 @@ function onCopyButtonClick() {
   <ControlButton
     label="骰娘相关"
     :icon="Dessert"
-    @click="visible = true"
+    @click="onButtonClick"
   />
   <ControlDialog
     title="骰娘相关"
@@ -46,8 +53,9 @@ function onCopyButtonClick() {
             <a
               class="link"
               @click="onCopyButtonClick"
-              >复制</a
             >
+              复制
+            </a>
           </div>
         </div>
         <el-input

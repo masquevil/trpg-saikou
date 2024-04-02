@@ -18,8 +18,9 @@ const props = defineProps<Props>();
 
 interface Emits {
   (event: 'refresh'): void;
+  (event: 'downloaded'): void;
 }
-defineEmits<Emits>();
+const emit = defineEmits<Emits>();
 
 const previewImageModalVisible = ref(false);
 
@@ -33,6 +34,7 @@ function downloadFile() {
   if (!props.download) return;
   const { url } = props.download;
   downloadImage(url, fileName.value);
+  emit('downloaded');
 }
 
 function openModal() {
