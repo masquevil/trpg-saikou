@@ -67,7 +67,7 @@ const pageData = usePageData();
 <style scoped lang="scss">
 .writable-area {
   --color-line: #b2b2b2;
-  --line-height: 2em;
+  --line-height: 1.66em;
   --padding-h: 0.4em;
 
   position: relative;

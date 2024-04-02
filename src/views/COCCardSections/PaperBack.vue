@@ -27,6 +27,7 @@ defineProps<Props>();
     </div>
     <div class="section-row">
       <FriendSection class="col-2" />
+      <!-- TODO: FriendSection 留出一半空间，给可选规则/村规 -->
       <ExperienceSection class="col-1" />
     </div>
     <div class="inspiration-row">

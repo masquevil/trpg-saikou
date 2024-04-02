@@ -4,7 +4,30 @@ import WritableArea from '@/components/coc-card/WritableArea.vue';
 
 import { usePC } from '@/hooks/useCOCCardProviders';
 
+import type { COCPlayerCharacter } from '@/types/coc-card/character';
+
+interface AreaConfig {
+  label: string;
+  fieldName: keyof COCPlayerCharacter['stories'];
+  rows: number;
+}
+
 const pc = usePC();
+
+const leftConfigs: AreaConfig[] = [
+  { label: '形象描述', fieldName: 'app', rows: 3 },
+  { label: '思想与信念', fieldName: 'belief', rows: 3 },
+  { label: '重要之人', fieldName: 'IPerson', rows: 3 },
+  { label: '意义非凡之地', fieldName: 'IPlace', rows: 3 },
+  { label: '宝贵之物', fieldName: 'IItem', rows: 3 },
+  { label: '特质', fieldName: 'trait', rows: 3 },
+  { label: '伤口与疤痕', fieldName: 'scar', rows: 3 },
+  { label: '精神症状', fieldName: 'mad', rows: 3 },
+];
+const rightConfigs: AreaConfig[] = [];
+const restRows =
+  leftConfigs.reduce((acc, cur) => acc + cur.rows, 0) -
+  rightConfigs.reduce((acc, cur) => acc + cur.rows, 0);
 </script>
 
 <template>
@@ -16,52 +39,28 @@ const pc = usePC();
     <div class="story-section-body">
       <div class="story-section-column">
         <WritableArea
-          label="形象描述"
-          v-model="pc.stories.app"
-          :maxlength="3 * 29 - 5"
-        />
-        <WritableArea
-          label="思想与信念"
-          v-model="pc.stories.belief"
-          :maxlength="3 * 29 - 6"
-        />
-        <WritableArea
-          label="重要之人"
-          v-model="pc.stories.IPerson"
-          :maxlength="3 * 29 - 5"
-        />
-        <WritableArea
-          label="意义非凡之地"
-          v-model="pc.stories.IPlace"
-          :maxlength="3 * 29 - 7"
-        />
-        <WritableArea
-          label="宝贵之物"
-          v-model="pc.stories.IItem"
-          :maxlength="3 * 29 - 5"
-        />
-        <WritableArea
-          label="特质"
-          v-model="pc.stories.trait"
-          :maxlength="3 * 29 - 3"
+          v-for="config in leftConfigs"
+          :key="config.fieldName"
+          :label="config.label"
+          v-model="pc.stories[config.fieldName]"
+          :rows="config.rows"
+          :maxlength="config.rows * 29 - config.label.length - 1"
         />
       </div>
       <div class="story-section-column">
         <WritableArea
-          label="伤口与疤痕"
-          v-model="pc.stories.scar"
-          :maxlength="3 * 29 - 6"
-        />
-        <WritableArea
-          label="精神症状"
-          v-model="pc.stories.mad"
-          :maxlength="3 * 29 - 5"
+          v-for="config in rightConfigs"
+          :key="config.fieldName"
+          :label="config.label"
+          v-model="pc.stories[config.fieldName]"
+          :rows="config.rows"
+          :maxlength="config.rows * 29 - config.label.length - 1"
         />
         <WritableArea
           label="个人介绍"
-          :rows="12"
           v-model="pc.stories.desc"
-          :maxlength="12 * 29 - 5"
+          :rows="restRows"
+          :maxlength="restRows * 29 - 5"
         />
       </div>
     </div>

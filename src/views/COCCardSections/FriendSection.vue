@@ -16,7 +16,7 @@ const pc = usePC();
     <div class="section-body">
       <WritableArea
         label=""
-        :rows="9"
+        :rows="11"
         v-model="pc.friends"
         placeholder="角色  玩家  职业  关系 —— 懒得结构化了，应该不会有人在网上车卡时候就填吧？"
       />
