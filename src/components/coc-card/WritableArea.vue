@@ -46,6 +46,7 @@ const pageData = usePageData();
       "
     ></textarea>
     <div class="lines">
+      <div class="line-row"></div>
       <div
         class="line-row"
         v-for="row in rows"
@@ -110,10 +111,12 @@ const pageData = usePageData();
   width: 100%;
   height: 100%;
   pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .line-row {
   display: flex;
-  height: var(--line-height);
   align-items: flex-end;
 }
 .line-row-label {
