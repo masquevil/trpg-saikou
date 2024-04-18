@@ -16,15 +16,13 @@ import IssueRow from './IssueRow.vue';
     </ol>
     <div class="guide-group-title">以下为目前已有的功能介绍：</div>
     <ol class="guide-ol">
-      <li>
-        花式加点：在属性栏中。可以选择“枫笛式”、“天命式”、“购点式”多种方式加点。
-      </li>
-      <li>天命一：随机生成一组属性。</li>
+      <li>属性点：可以选择“枫笛式”、“天命式”、“购点式”多种方式加点。</li>
       <li>翻面：正面为调查员属性，背面为调查员故事。</li>
       <li>
         保存：生成 A4 纸大小的正反面两张图，可以手动保存。
         还有当前人物卡全部数据的 txt，可以通过“导入”再次使用。
       </li>
+      <li>一发入魂：在属性栏中，随机生成一组属性。</li>
       <li>
         快速年龄修正：根据你的年龄自动进行教育成长判定，同时按照规则随机调整基础属性。
       </li>
@@ -36,7 +34,6 @@ import IssueRow from './IssueRow.vue';
           <li>导入：将数据导入回来继续修改。</li>
         </ol>
       </li>
-      <li>开启灌铅模式：每次天命一会选取天命五中最高的一次结果。</li>
       <li>骰娘相关：方便网团录卡，提供对应指令。</li>
       <li>
         下载空白卡 PDF：方便面团打印使用和开店使用。以后也许会加上直接生成 PDF
@@ -55,7 +52,7 @@ import IssueRow from './IssueRow.vue';
     </ol>
     <div class="guide-group-title">其它说明：</div>
     <ol class="guide-ol">
-      <li>支持 iOS 设备的“添加到主屏幕”功能。</li>
+      <li>支持 iOS 设备的“添加到主屏幕”功能，可以离线使用。</li>
     </ol>
     <IssueRow />
   </div>
