@@ -3,8 +3,9 @@ export enum LAEventID {
 }
 
 export enum FeatureNames {
-  // footer actions
-  F_ROLL = 'F_ROLL',
+  // footer actions - F
+  F_ROLL = 'F_ROLL', // FIXME: deprecated
+  F_POINT = 'F_POINT',
   F_SWITCH_PAPER = 'F_SWITCH_PAPER',
   F_SAVE = 'F_SAVE',
   F_MORE = 'F_MORE',
@@ -15,12 +16,14 @@ export enum FeatureNames {
   TAB_WEAPON_LIST = 'TAB_WEAPON_LIST',
   TAB_GUIDE = 'TAB_GUIDE',
 
+  // paper actions - 页面上的按钮
+  PAPER_ROLL = 'PAPER_ROLL',
+  PAPER_USE_JOB = 'PAPER_USE_JOB',
+  PAPER_USE_WEAPON = 'PAPER_USE_WEAPON',
+
   // tab pane actions - 使用预设职业/武器
   PANE_USE_JOB = 'PANE_USE_JOB',
   PANE_USE_WEAPON = 'PANE_USE_WEAPON',
-  // paper actions - 使用预设职业/武器
-  PAPER_USE_JOB = 'PAPER_USE_JOB',
-  PAPER_USE_WEAPON = 'PAPER_USE_WEAPON',
 
   // more controls
   MORE_AGE = 'MORE_AGE',
@@ -41,8 +44,8 @@ export enum FeatureNames {
   // 骰娘 -> 复制录卡指令
   CA_DICE_MAID_COPY = 'CA_DICE_MAID_COPY',
 
-  // 花式加点
-  POINT_METHOD = 'POINT_METHOD',
+  // 花式加点 - Point Method - PM
+  POINT_METHOD = 'POINT_METHOD', // FIXME: deprecated
   // 花式加点 - 生成
   PM_GEN_KAEDE = 'PM_GEN_KAEDE',
   PM_GEN_ROLL = 'PM_GEN_ROLL',

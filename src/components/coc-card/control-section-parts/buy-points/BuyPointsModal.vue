@@ -22,25 +22,27 @@ import LA, { LAEventID, FeatureNames } from '@/plugins/51la';
 import { usePC } from '@/hooks/useCOCCardProviders';
 
 interface Props {
-  cheating?: boolean;
+  isOpen?: boolean;
 }
 defineProps<Props>();
 
-const pc = usePC();
-
-const modalVisible = ref(false);
-
-function onButtonClick() {
-  modalVisible.value = true;
-  LA.track(LAEventID.FEATURE, { name: FeatureNames.POINT_METHOD });
+interface Emits {
+  (event: 'close'): void;
 }
+const emit = defineEmits<Emits>();
+
+const pc = usePC();
 
 function applyPoints(attributes: COCAttributes) {
   if (!pc?.value) return;
   Object.entries(attributes).forEach(([key, value]) => {
     pc.value.attributes[key as COCAttributesKey] = value || undefined;
   });
-  modalVisible.value = false;
+  onCloseModal();
+}
+
+function onCloseModal() {
+  emit('close');
   resetStates();
 }
 
@@ -154,16 +156,10 @@ const hiddenList: RenderListItem[] = [
 </script>
 
 <template>
-  <button
-    class="ponits-button web-only"
-    @click="onButtonClick"
-  >
-    <div class="ponits-button-text">花式加点</div>
-  </button>
-
   <ControlDialog
-    v-model="modalVisible"
     title="花式加点"
+    :modelValue="isOpen"
+    @update:modelValue="onCloseModal"
   >
     <div class="modal-body">
       <div class="method-section">

@@ -1,12 +1,18 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { ref, computed } from 'vue';
+import { ElMessage } from 'element-plus';
 
 // components
 import PaperSection from '@/components/coc-card/PaperSection.vue';
 import WritableRow from '@/components/coc-card/WritableRow.vue';
-import BuyPointsButton from '@/components/coc-card/BuyPointsButton.vue';
+import AttrSectionButton from '@/components/coc-card/AttrSectionButton.vue';
 
 // models
+import LA, { LAEventID, FeatureNames } from '@/plugins/51la';
+import {
+  generateRandomAttributes,
+  getAttributesSum,
+} from '@/models/coc-card/attribute';
 import type { COCAttributesKey } from '@/types/coc-card/character';
 
 import { usePC } from '@/hooks/useCOCCardProviders';
@@ -44,6 +50,24 @@ function updateAttr(key: COCAttributesKey, value: string) {
   if (!pc) return;
   pc.value.attributes[key] = value ? +value : undefined;
 }
+
+// 一发入魂
+const generateTimes = ref(0);
+function actRoll() {
+  if (!pc) return;
+
+  // 多次 roll 点取最高，增加 roll 点体验
+  const attrs = Array.from({
+    length: (generateTimes.value % 3) + 1,
+  })
+    .map(() => generateRandomAttributes())
+    .sort((a, b) => getAttributesSum(b) - getAttributesSum(a))[0];
+  pc.value.attributes = attrs;
+  ElMessage.success('已为您生成一组数据，看看符不符合心意吧！');
+  generateTimes.value++;
+  LA.track(LAEventID.FEATURE, { name: FeatureNames.F_ROLL }); // FIXME: deprecated
+  LA.track(LAEventID.FEATURE, { name: FeatureNames.PAPER_ROLL });
+}
 </script>
 
 <template>
@@ -80,7 +104,7 @@ function updateAttr(key: COCAttributesKey, value: string) {
             <div class="ponits-sum">总点数 {{ sum }}</div>
           </template>
           <div class="web-only">
-            <BuyPointsButton />
+            <AttrSectionButton @click="actRoll">一发入魂</AttrSectionButton>
           </div>
         </div>
       </div>

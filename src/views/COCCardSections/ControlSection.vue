@@ -6,7 +6,6 @@ import copy from 'copy-to-clipboard';
 
 import {
   Reading,
-  Bicycle,
   Download,
   More,
   Scissor,
@@ -21,6 +20,7 @@ import {
 import ControlButton from '@/components/coc-card/ControlButton.vue';
 import ControlDialog from '@/components/coc-card/ControlDialog.vue';
 import DownloaderItem from '@/components/coc-card/DownloaderItem.vue';
+import BuyPointsButton from '@/components/coc-card/control-section-parts/buy-points/BuyPointsButton.vue';
 import GuidePaneContent from '@/components/coc-card/GuidePaneContent.vue';
 import QunSection from '@/components/coc-card/QunSection.vue';
 import JobList from '@/components/coc-card/JobList.vue';
@@ -28,11 +28,7 @@ import WeaponList from '@/components/coc-card/WeaponList.vue';
 import DiceMaid from '@/components/coc-card/control-section-parts/dice-maid/DiceMaid.vue';
 
 // models
-import {
-  generateRandomAttributes,
-  modifyAttributesByAge,
-  getAttributesSum,
-} from '@/models/coc-card/attribute';
+import { modifyAttributesByAge } from '@/models/coc-card/attribute';
 import { createPC } from '@/models/coc-card/character';
 import { resetViewData } from '@/models/coc-card/viewData';
 import LA, { LAEventID, FeatureNames } from '@/plugins/51la';
@@ -98,22 +94,6 @@ function onTabChange(tabName: string | number) {
     guide: FeatureNames.TAB_GUIDE,
   };
   LA.track(LAEventID.FEATURE, { name: map[tabName as keyof typeof map] });
-}
-
-const generateTimes = ref(0);
-function actGenerate() {
-  if (!pc) return;
-
-  // 多次 roll 点取最高，增加 roll 点体验
-  const attrs = Array.from({
-    length: (generateTimes.value % 3) + 1,
-  })
-    .map(() => generateRandomAttributes())
-    .sort((a, b) => getAttributesSum(b) - getAttributesSum(a))[0];
-  pc.value.attributes = attrs;
-  ElMessage.success('已为您生成一组数据，看看符不符合心意吧！');
-  generateTimes.value++;
-  LA.track(LAEventID.FEATURE, { name: FeatureNames.F_ROLL });
 }
 
 function actSwitchPaper() {
@@ -275,11 +255,7 @@ const cleanPreloadFn = watch(morePanelVisible, (visible) => {
 <template>
   <div class="control-section">
     <div class="main-controls">
-      <ControlButton
-        label="天命一"
-        :icon="Bicycle"
-        @click="actGenerate"
-      />
+      <BuyPointsButton />
       <ControlButton
         label="翻面"
         :icon="Reading"
