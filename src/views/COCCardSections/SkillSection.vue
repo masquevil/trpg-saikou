@@ -88,7 +88,7 @@ watch(
 
     const int = attributes?.int;
     const newInterest = int ? `${int * 2}` : '';
-    const customInterest = pc?.value.pointValues.pro;
+    const customInterest = pc?.value.pointValues.interest;
     if (newInterest) {
       updateLocalValue('interest', customInterest ?? newInterest);
     }
@@ -109,8 +109,9 @@ watch(
   ) => {
     // import from txt
     if (newPointValues !== oldPointValues) {
-      updateLocalValue('pro', newPro);
-      updateLocalValue('interest', newInterest);
+      if (typeof newPro !== 'undefined') updateLocalValue('pro', newPro);
+      if (typeof newInterest !== 'undefined')
+        updateLocalValue('interest', newInterest);
       return;
     }
     if (newPro !== oldPro) {

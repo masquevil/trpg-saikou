@@ -18,8 +18,8 @@ export interface COCPlayerCharacter {
   battleAttributes: COCBattleAttributes;
   // 技能与点数
   pointValues: {
-    pro: string;
-    interest: string;
+    pro?: string;
+    interest?: string;
   };
   proSkills: COCPCSkill[];
   skillPoints: [COCPCSkill, SkillPoint][];

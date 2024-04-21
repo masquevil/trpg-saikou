@@ -16,10 +16,7 @@ export function createPC(
     hometown: '',
     attributes: {},
     battleAttributes: {},
-    pointValues: {
-      pro: '',
-      interest: '',
-    },
+    pointValues: {},
     proSkills: [],
     skillPoints: [],
     weapons: [createWeapon(weapons[0])],
