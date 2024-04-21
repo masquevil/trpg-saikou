@@ -3423,10 +3423,7 @@ function Xg(C) {
     hometown: "",
     attributes: {},
     battleAttributes: {},
-    pointValues: {
-      pro: "",
-      interest: ""
-    },
+    pointValues: {},
     proSkills: [],
     skillPoints: [],
     weapons: [Ww(UM[0])],
@@ -10257,7 +10254,7 @@ const YC = /* @__PURE__ */ X(CZ, [["render", DZ], ["__scopeId", "data-v-3d69914f
       ])
     ]));
   }
-}), Zg = /* @__PURE__ */ X(_Z, [["__scopeId", "data-v-42f36190"]]), fM = (C) => (UA("data-v-731e9557"), C = C(), eA(), C), $Z = { class: "header" }, AU = { class: "header-left points-container" }, CU = { class: "point-container" }, wU = {
+}), Zg = /* @__PURE__ */ X(_Z, [["__scopeId", "data-v-42f36190"]]), fM = (C) => (UA("data-v-13a8d6ce"), C = C(), eA(), C), $Z = { class: "header" }, AU = { class: "header-left points-container" }, CU = { class: "point-container" }, wU = {
   key: 0,
   class: "point-rest"
 }, MU = { class: "point-container" }, gU = {
@@ -10315,7 +10312,7 @@ const YC = /* @__PURE__ */ X(CZ, [["render", DZ], ["__scopeId", "data-v-3d69914f
       ({ job: e, attributes: Z }) => {
         const { point: U } = hg(e, Z), N = A == null ? void 0 : A.value.pointValues.pro;
         U && o("pro", N ?? `${U > 0 ? U : ""}`);
-        const z = Z == null ? void 0 : Z.int, P = z ? `${z * 2}` : "", f = A == null ? void 0 : A.value.pointValues.pro;
+        const z = Z == null ? void 0 : Z.int, P = z ? `${z * 2}` : "", f = A == null ? void 0 : A.value.pointValues.interest;
         P && o("interest", f ?? P);
       },
       { deep: !0 }
@@ -10327,7 +10324,7 @@ const YC = /* @__PURE__ */ X(CZ, [["render", DZ], ["__scopeId", "data-v-3d69914f
       }),
       ({ pointValues: e, pro: Z, interest: U }, { pointValues: N, pro: z, interest: P }) => {
         if (e !== N) {
-          o("pro", Z), o("interest", U);
+          typeof Z < "u" && o("pro", Z), typeof U < "u" && o("interest", U);
           return;
         }
         Z !== z && o("pro", Z), U !== P && o("interest", U);
@@ -10408,7 +10405,7 @@ const YC = /* @__PURE__ */ X(CZ, [["render", DZ], ["__scopeId", "data-v-3d69914f
       }, 8, ["class"]);
     };
   }
-}), UU = /* @__PURE__ */ X(ZU, [["__scopeId", "data-v-731e9557"]]), eU = (C) => (UA("data-v-eff12c4b"), C = C(), eA(), C), lU = ["value"], tU = /* @__PURE__ */ eU(() => /* @__PURE__ */ n("option", {
+}), UU = /* @__PURE__ */ X(ZU, [["__scopeId", "data-v-13a8d6ce"]]), eU = (C) => (UA("data-v-eff12c4b"), C = C(), eA(), C), lU = ["value"], tU = /* @__PURE__ */ eU(() => /* @__PURE__ */ n("option", {
   value: "",
   disabled: ""
 }, null, -1)), LU = ["value"], zU = /* @__PURE__ */ V({
