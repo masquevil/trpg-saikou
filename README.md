@@ -15,7 +15,7 @@
 
 https://masquevil.github.io/trpg-saikou/#/coc-card
 
-![截图](./public/coc-card-eg.png)
+![截图](./src/assets/images/readme-preview/coc-card.png)
 
 1. 生成正反面图片，方便打印
 2. 可以打印空白卡线下车卡
@@ -25,7 +25,7 @@ https://masquevil.github.io/trpg-saikou/#/coc-card
 
 ### 记录工具
 
-![example](./public/example.png)
+![example](./src/assets/images/readme-preview/record.png)
 
 1. 需拉取本仓库代码后本地使用
 2. 记录自己 TRPG 打卡记录、评价、想玩程度

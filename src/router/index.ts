@@ -21,12 +21,12 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import('../views/HomeView.vue'),
+      component: () => import('../pages/home/AppView.vue'),
     },
     {
       path: '/coc-card',
       name: 'COCCard',
-      component: () => import('../views/COCCardView.vue'),
+      component: () => import('../pages/coc-card/AppView.vue'),
       meta: {
         title: 'COC 车卡',
       },
@@ -34,12 +34,12 @@ const router = createRouter({
     {
       path: '/stories',
       name: 'stories',
-      component: () => import('../views/StoryListView.vue'),
+      component: () => import('../pages/record/StoryListView.vue'),
     },
     {
       path: '/self',
       name: 'self',
-      component: () => import('../views/SelfView.vue'),
+      component: () => import('../pages/record/SelfView.vue'),
     },
   ],
 });

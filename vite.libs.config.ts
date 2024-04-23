@@ -13,7 +13,7 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/views/COCCardView.vue'),
+      entry: resolve(__dirname, 'src/pages/coc-card/AppView.vue'),
       name: 'COCCardView',
       fileName: 'coc-card-view',
     },
