@@ -14,7 +14,6 @@ const modalVisible = ref(false);
 
 function onButtonClick() {
   modalVisible.value = true;
-  LA.track(LAEventID.FEATURE, { name: FeatureNames.POINT_METHOD }); // FIXME: deprecated
   LA.track(LAEventID.FEATURE, { name: FeatureNames.F_POINT });
 }
 </script>

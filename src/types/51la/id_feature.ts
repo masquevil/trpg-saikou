@@ -1,6 +1,5 @@
 export enum FeatureNames {
   // footer actions - F
-  F_ROLL = 'F_ROLL', // FIXME: deprecated
   F_POINT = 'F_POINT',
   F_SWITCH_PAPER = 'F_SWITCH_PAPER',
   F_SAVE = 'F_SAVE',
@@ -41,7 +40,6 @@ export enum FeatureNames {
   CA_DICE_MAID_COPY = 'CA_DICE_MAID_COPY',
 
   // 花式加点 - Point Method - PM
-  POINT_METHOD = 'POINT_METHOD', // FIXME: deprecated
   // 花式加点 - 生成
   PM_GEN_KAEDE = 'PM_GEN_KAEDE',
   PM_GEN_ROLL = 'PM_GEN_ROLL',

@@ -65,7 +65,6 @@ function actRoll() {
   pc.value.attributes = attrs;
   ElMessage.success('已为您生成一组数据，看看符不符合心意吧！');
   generateTimes.value++;
-  LA.track(LAEventID.FEATURE, { name: FeatureNames.F_ROLL }); // FIXME: deprecated
   LA.track(LAEventID.FEATURE, { name: FeatureNames.PAPER_ROLL });
 }
 </script>
