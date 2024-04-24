@@ -1,4 +1,4 @@
-import { watch as QA, computed as IA, defineComponent as V, openBlock as L, createElementBlock as a, createElementVNode as i, createBlock as gA, resolveDynamicComponent as eg, normalizeClass as DA, withCtx as E, renderSlot as wC, resolveComponent as cA, createVNode as e, createTextVNode as vA, toDisplayString as y, ref as Y, createCommentVNode as h, inject as jC, reactive as yA, unref as F, normalizeStyle as TC, Fragment as k, renderList as MA, pushScopeId as UA, popScopeId as lA, createStaticVNode as zI, withDirectives as MC, nextTick as Lg, Transition as _w, vModelText as KI, vShow as zg, provide as VC, KeepAlive as RI } from "vue";
+import { watch as QA, computed as IA, defineComponent as V, openBlock as L, createElementBlock as a, createElementVNode as i, createBlock as MA, resolveDynamicComponent as eg, normalizeClass as DA, withCtx as E, renderSlot as wC, resolveComponent as cA, createVNode as e, createTextVNode as vA, toDisplayString as y, ref as Y, createCommentVNode as h, inject as jC, reactive as yA, unref as F, normalizeStyle as TC, Fragment as k, renderList as wA, pushScopeId as UA, popScopeId as lA, createStaticVNode as zI, withDirectives as MC, nextTick as Lg, Transition as _w, vModelText as KI, vShow as zg, provide as VC, KeepAlive as RI } from "vue";
 import { ElMessage as aA, ClickOutside as fI } from "element-plus";
 var Kg = typeof globalThis < "u" ? globalThis : typeof window < "u" ? window : typeof global < "u" ? global : typeof self < "u" ? self : {};
 function $w(C) {
@@ -662,8 +662,8 @@ function zD() {
       var W = d("%AsyncGeneratorFunction%");
       W && (s = W.prototype);
     } else if (T === "%AsyncIteratorPrototype%") {
-      var wA = d("%AsyncGenerator%");
-      wA && z && (s = z(wA.prototype));
+      var AA = d("%AsyncGenerator%");
+      AA && z && (s = z(AA.prototype));
     }
     return G[T] = s, s;
   }, u = {
@@ -725,20 +725,20 @@ function zD() {
       throw new I("invalid intrinsic syntax, expected closing `%`");
     if (W === "%" && s !== "%")
       throw new I("invalid intrinsic syntax, expected opening `%`");
-    var wA = [];
-    return m(T, x, function(AA, NA, tA, uA) {
-      wA[wA.length] = tA ? m(uA, p, "$1") : NA || AA;
-    }), wA;
+    var AA = [];
+    return m(T, x, function($, NA, tA, uA) {
+      AA[AA.length] = tA ? m(uA, p, "$1") : NA || $;
+    }), AA;
   }, j = function(T, s) {
-    var W = T, wA;
-    if (K(u, W) && (wA = u[W], W = "%" + wA[0] + "%"), K(G, W)) {
-      var AA = G[W];
-      if (AA === P && (AA = B(W)), typeof AA > "u" && !s)
+    var W = T, AA;
+    if (K(u, W) && (AA = u[W], W = "%" + AA[0] + "%"), K(G, W)) {
+      var $ = G[W];
+      if ($ === P && ($ = B(W)), typeof $ > "u" && !s)
         throw new D("intrinsic " + T + " exists, but is not available. Please file an issue!");
       return {
-        alias: wA,
+        alias: AA,
         name: W,
-        value: AA
+        value: $
       };
     }
     throw new I("intrinsic " + T + " does not exist!");
@@ -750,13 +750,13 @@ function zD() {
       throw new D('"allowMissing" argument must be a boolean');
     if (H(/^%?[^%]*%?$/, T) === null)
       throw new I("`%` may not be present anywhere but at the beginning and end of the intrinsic name");
-    var W = Q(T), wA = W.length > 0 ? W[0] : "", AA = j("%" + wA + "%", s), NA = AA.name, tA = AA.value, uA = !1, DC = AA.alias;
-    DC && (wA = DC[0], b(W, R([0, 1], DC)));
+    var W = Q(T), AA = W.length > 0 ? W[0] : "", $ = j("%" + AA + "%", s), NA = $.name, tA = $.value, uA = !1, DC = $.alias;
+    DC && (AA = DC[0], b(W, R([0, 1], DC)));
     for (var VA = 1, xA = !0; VA < W.length; VA += 1) {
       var bA = W[VA], yC = X(bA, 0, 1), QC = X(bA, -1);
       if ((yC === '"' || yC === "'" || yC === "`" || QC === '"' || QC === "'" || QC === "`") && yC !== QC)
         throw new I("property names with quotes must have matching quotes");
-      if ((bA === "constructor" || !xA) && (uA = !0), wA += "." + bA, NA = "%" + wA + "%", K(G, NA))
+      if ((bA === "constructor" || !xA) && (uA = !0), AA += "." + bA, NA = "%" + AA + "%", K(G, NA))
         tA = G[NA];
       else if (tA != null) {
         if (!(bA in tA)) {
@@ -4170,8 +4170,8 @@ function To(C, A) {
           return;
         const p = `${t}-${x}`, Q = B[p];
         if (t && (b = ((T = (d = u.group) == null ? void 0 : d.skills.find((s) => s.name === x)) == null ? void 0 : T.init) || b), Q) {
-          const { b: s = t ? b : 0, p: W = 0, i: wA = 0, g: AA = 0 } = Q;
-          H = s + W + wA + AA;
+          const { b: s = t ? b : 0, p: W = 0, i: AA = 0, g: $ = 0 } = Q;
+          H = s + W + AA + $;
         } else
           R.show.includes(x) && (H = b);
         N += `${x}${H}`;
@@ -6817,7 +6817,7 @@ const fn = /* @__PURE__ */ V({
   },
   emits: ["click"],
   setup(C) {
-    return (A, w) => (L(), gA(eg(A.tag), {
+    return (A, w) => (L(), MA(eg(A.tag), {
       class: DA(["action-button", {
         "action-button-full-width": A.fullWidth
       }]),
@@ -6845,14 +6845,14 @@ const fn = /* @__PURE__ */ V({
   setup(C) {
     return (A, w) => {
       const M = cA("el-icon");
-      return L(), gA(Yw, {
+      return L(), MA(Yw, {
         class: "control-button",
         onClick: w[0] || (w[0] = (g) => A.$emit("click", g))
       }, {
         default: E(() => [
           e(M, { size: "0.9em" }, {
             default: E(() => [
-              (L(), gA(eg(A.icon)))
+              (L(), MA(eg(A.icon)))
             ]),
             _: 1
           }),
@@ -6872,7 +6872,7 @@ const fn = /* @__PURE__ */ V({
   setup(C) {
     return (A, w) => {
       const M = cA("el-dialog");
-      return L(), gA(M, {
+      return L(), MA(M, {
         class: "coc-card-control-dialog",
         "append-to-body": "",
         "align-center": "",
@@ -7099,8 +7099,8 @@ function WA(C, A, w) {
     }
   }), M;
 }
-var $ = /* @__PURE__ */ ((C) => (C.FEATURE = "feature", C))($ || {}), _ = /* @__PURE__ */ ((C) => (C.F_ROLL = "F_ROLL", C.F_POINT = "F_POINT", C.F_SWITCH_PAPER = "F_SWITCH_PAPER", C.F_SAVE = "F_SAVE", C.F_MORE = "F_MORE", C.TAB_MORE = "TAB_MORE", C.TAB_JOB_LIST = "TAB_JOB_LIST", C.TAB_WEAPON_LIST = "TAB_WEAPON_LIST", C.TAB_GUIDE = "TAB_GUIDE", C.PAPER_ROLL = "PAPER_ROLL", C.PAPER_USE_JOB = "PAPER_USE_JOB", C.PAPER_USE_WEAPON = "PAPER_USE_WEAPON", C.PANE_USE_JOB = "PANE_USE_JOB", C.PANE_USE_WEAPON = "PANE_USE_WEAPON", C.MORE_AGE = "MORE_AGE", C.MORE_RESET = "MORE_RESET", C.MORE_INOUT = "MORE_INOUT", C.MORE_DICE_MAID = "MORE_DICE_MAID", C.MORE_EMPTY = "MORE_EMPTY", C.MORE_TOTAL_MODE = "MORE_TOTAL_MODE", C.MORE_REWARD = "MORE_REWARD", C.CA_SAVE_DOWNLOAD = "CA_SAVE_DOWNLOAD", C.CA_SAVE_REGEN = "CA_SAVE_REGEN", C.CA_INOUT_IMPORT = "CA_INOUT_IMPORT", C.CA_INOUT_EXPORT = "CA_INOUT_EXPORT", C.CA_DICE_MAID_COPY = "CA_DICE_MAID_COPY", C.POINT_METHOD = "POINT_METHOD", C.PM_GEN_KAEDE = "PM_GEN_KAEDE", C.PM_GEN_ROLL = "PM_GEN_ROLL", C.PM_GEN_BUY = "PM_GEN_BUY", C.PM_USE_KAEDE = "PM_USE_KAEDE", C.PM_USE_ROLL = "PM_USE_ROLL", C.PM_USE_BUY = "PM_USE_BUY", C))(_ || {});
-const CA = window.LA, IC = (C) => (UA("data-v-8ff1c70b"), C = C(), lA(), C), Xn = { class: "modal-body" }, Wn = { class: "method-section" }, hn = { class: "method-section-header" }, kn = /* @__PURE__ */ IC(() => /* @__PURE__ */ i("div", { class: "method-section-title" }, "枫笛式", -1)), Yn = { class: "header-action" }, Jn = { class: "method-section-content" }, On = { class: "kaede-desc-row" }, qn = { class: "kaede-desc-col" }, _n = {
+var CA = /* @__PURE__ */ ((C) => (C.FEATURE = "feature", C))(CA || {}), _ = /* @__PURE__ */ ((C) => (C.F_POINT = "F_POINT", C.F_SWITCH_PAPER = "F_SWITCH_PAPER", C.F_SAVE = "F_SAVE", C.F_MORE = "F_MORE", C.TAB_MORE = "TAB_MORE", C.TAB_JOB_LIST = "TAB_JOB_LIST", C.TAB_WEAPON_LIST = "TAB_WEAPON_LIST", C.TAB_GUIDE = "TAB_GUIDE", C.PAPER_ROLL = "PAPER_ROLL", C.PAPER_USE_JOB = "PAPER_USE_JOB", C.PAPER_USE_WEAPON = "PAPER_USE_WEAPON", C.PANE_USE_JOB = "PANE_USE_JOB", C.PANE_USE_WEAPON = "PANE_USE_WEAPON", C.MORE_AGE = "MORE_AGE", C.MORE_RESET = "MORE_RESET", C.MORE_INOUT = "MORE_INOUT", C.MORE_DICE_MAID = "MORE_DICE_MAID", C.MORE_EMPTY = "MORE_EMPTY", C.MORE_TOTAL_MODE = "MORE_TOTAL_MODE", C.MORE_REWARD = "MORE_REWARD", C.CA_SAVE_DOWNLOAD = "CA_SAVE_DOWNLOAD", C.CA_SAVE_REGEN = "CA_SAVE_REGEN", C.CA_INOUT_IMPORT = "CA_INOUT_IMPORT", C.CA_INOUT_EXPORT = "CA_INOUT_EXPORT", C.CA_DICE_MAID_COPY = "CA_DICE_MAID_COPY", C.PM_GEN_KAEDE = "PM_GEN_KAEDE", C.PM_GEN_ROLL = "PM_GEN_ROLL", C.PM_GEN_BUY = "PM_GEN_BUY", C.PM_USE_KAEDE = "PM_USE_KAEDE", C.PM_USE_ROLL = "PM_USE_ROLL", C.PM_USE_BUY = "PM_USE_BUY", C))(_ || {});
+const gA = window.LA, IC = (C) => (UA("data-v-8ff1c70b"), C = C(), lA(), C), Xn = { class: "modal-body" }, Wn = { class: "method-section" }, hn = { class: "method-section-header" }, kn = /* @__PURE__ */ IC(() => /* @__PURE__ */ i("div", { class: "method-section-title" }, "枫笛式", -1)), Yn = { class: "header-action" }, Jn = { class: "method-section-content" }, On = { class: "kaede-desc-row" }, qn = { class: "kaede-desc-col" }, _n = {
   key: 0,
   class: "kaede-value-column"
 }, $n = { class: "kaede-desc-col" }, Ai = {
@@ -7130,7 +7130,7 @@ const CA = window.LA, IC = (C) => (UA("data-v-8ff1c70b"), C = C(), lA(), C), Xn 
     }
     const D = Y(NC({})), v = Y(!1), o = Y(0), n = Y({});
     function c() {
-      R(), D.value = Jw(), n.value.luc = "luc", v.value = !0, o.value++, CA.track($.FEATURE, { name: _.PM_GEN_KAEDE });
+      R(), D.value = Jw(), n.value.luc = "luc", v.value = !0, o.value++, gA.track(CA.FEATURE, { name: _.PM_GEN_KAEDE });
     }
     function l() {
       if (Object.values(n.value).filter(
@@ -7144,7 +7144,7 @@ const CA = window.LA, IC = (C) => (UA("data-v-8ff1c70b"), C = C(), lA(), C), Xn 
         ([p, Q]) => {
           Q && (x[p] = D.value[Q]);
         }
-      ), g(x), CA.track($.FEATURE, { name: _.PM_USE_KAEDE });
+      ), g(x), gA.track(CA.FEATURE, { name: _.PM_USE_KAEDE });
     }
     function Z(H) {
       return Object.values(n.value).some(
@@ -7156,17 +7156,17 @@ const CA = window.LA, IC = (C) => (UA("data-v-8ff1c70b"), C = C(), lA(), C), Xn 
       R(), z.value = Array.from(
         { length: U.value },
         () => Jw()
-      ), r.value++, CA.track($.FEATURE, { name: _.PM_GEN_ROLL });
+      ), r.value++, gA.track(CA.FEATURE, { name: _.PM_GEN_ROLL });
     }
     function f(H) {
-      g(H), CA.track($.FEATURE, { name: _.PM_USE_ROLL });
+      g(H), gA.track(CA.FEATURE, { name: _.PM_USE_ROLL });
     }
     const G = Y(460), N = Y(!1), B = Y(NC({})), u = IA(() => G.value - dw(B.value));
     function t() {
-      R(), N.value = !0, B.value = NC({}), CA.track($.FEATURE, { name: _.PM_GEN_BUY });
+      R(), N.value = !0, B.value = NC({}), gA.track(CA.FEATURE, { name: _.PM_GEN_BUY });
     }
     function K() {
-      g(B.value), CA.track($.FEATURE, { name: _.PM_USE_BUY });
+      g(B.value), gA.track(CA.FEATURE, { name: _.PM_USE_BUY });
     }
     function R() {
       v.value = !1, z.value = [], N.value = !1;
@@ -7186,7 +7186,7 @@ const CA = window.LA, IC = (C) => (UA("data-v-8ff1c70b"), C = C(), lA(), C), Xn 
     ];
     return (H, x) => {
       const p = cA("el-button"), Q = cA("el-option"), j = cA("el-select"), d = cA("el-input");
-      return L(), gA(AC, {
+      return L(), MA(AC, {
         title: "花式加点",
         modelValue: H.isOpen,
         "onUpdate:modelValue": I
@@ -7218,7 +7218,7 @@ const CA = window.LA, IC = (C) => (UA("data-v-8ff1c70b"), C = C(), lA(), C), Xn 
                     vA(" 分配 5组 3D6×5 到左侧 "),
                     v.value ? (L(), a("span", _n, [
                       vA(" · "),
-                      (L(), a(k, null, MA(b, (T) => i("span", {
+                      (L(), a(k, null, wA(b, (T) => i("span", {
                         key: T.key
                       }, y(D.value[T.key]), 1)), 64))
                     ])) : h("", !0)
@@ -7227,7 +7227,7 @@ const CA = window.LA, IC = (C) => (UA("data-v-8ff1c70b"), C = C(), lA(), C), Xn 
                     vA(" 分配 3组 (2D6+6)×5 到右侧 "),
                     v.value ? (L(), a("span", Ai, [
                       vA(" · "),
-                      (L(), a(k, null, MA(m, (T) => i("span", {
+                      (L(), a(k, null, wA(m, (T) => i("span", {
                         key: T.key
                       }, y(D.value[T.key]), 1)), 64))
                     ])) : h("", !0)
@@ -7235,7 +7235,7 @@ const CA = window.LA, IC = (C) => (UA("data-v-8ff1c70b"), C = C(), lA(), C), Xn 
                 ]),
                 v.value ? (L(), a("div", Ci, [
                   i("div", wi, [
-                    (L(), a(k, null, MA(b, (T) => i("div", {
+                    (L(), a(k, null, wA(b, (T) => i("div", {
                       key: T.key,
                       class: "kaede-choice-row"
                     }, [
@@ -7248,7 +7248,7 @@ const CA = window.LA, IC = (C) => (UA("data-v-8ff1c70b"), C = C(), lA(), C), Xn 
                         clearable: ""
                       }, {
                         default: E(() => [
-                          (L(), a(k, null, MA(b, (s) => e(Q, {
+                          (L(), a(k, null, wA(b, (s) => e(Q, {
                             key: s.key,
                             label: D.value[s.key],
                             value: s.key,
@@ -7260,7 +7260,7 @@ const CA = window.LA, IC = (C) => (UA("data-v-8ff1c70b"), C = C(), lA(), C), Xn 
                     ])), 64))
                   ]),
                   i("div", gi, [
-                    (L(), a(k, null, MA(m, (T) => i("div", {
+                    (L(), a(k, null, wA(m, (T) => i("div", {
                       key: T.key,
                       class: "kaede-choice-row"
                     }, [
@@ -7273,7 +7273,7 @@ const CA = window.LA, IC = (C) => (UA("data-v-8ff1c70b"), C = C(), lA(), C), Xn 
                         clearable: ""
                       }, {
                         default: E(() => [
-                          (L(), a(k, null, MA(m, (s) => e(Q, {
+                          (L(), a(k, null, wA(m, (s) => e(Q, {
                             key: s.key,
                             label: D.value[s.key],
                             value: s.key,
@@ -7333,14 +7333,14 @@ const CA = window.LA, IC = (C) => (UA("data-v-8ff1c70b"), C = C(), lA(), C), Xn 
               ]),
               i("div", Zi, [
                 Ui,
-                (L(!0), a(k, null, MA(z.value, (T, s) => (L(), a("div", {
+                (L(!0), a(k, null, wA(z.value, (T, s) => (L(), a("div", {
                   key: s,
                   class: "action-roll-result"
                 }, [
-                  (L(!0), a(k, null, MA([...b, ...m, ...X], (W) => (L(), a("div", {
+                  (L(!0), a(k, null, wA([...b, ...m, ...X], (W) => (L(), a("div", {
                     key: W.key,
                     class: "action-roll-result-item",
-                    onClick: (wA) => f(T)
+                    onClick: (AA) => f(T)
                   }, y(W.label) + " " + y(T[W.key]), 9, li))), 128)),
                   i("div", ti, " 总点数 " + y(F(GC)(T)) + " / 含运 " + y(F(dw)(T)), 1)
                 ]))), 128))
@@ -7378,7 +7378,7 @@ const CA = window.LA, IC = (C) => (UA("data-v-8ff1c70b"), C = C(), lA(), C), Xn 
                 Fi,
                 N.value ? (L(), a("div", ai, [
                   i("div", ri, [
-                    (L(), a(k, null, MA(b, (T) => e(nA, {
+                    (L(), a(k, null, wA(b, (T) => e(nA, {
                       key: T.key,
                       label: T.label,
                       hint: T.hint,
@@ -7387,14 +7387,14 @@ const CA = window.LA, IC = (C) => (UA("data-v-8ff1c70b"), C = C(), lA(), C), Xn 
                     }, null, 8, ["label", "hint", "modelValue", "onUpdate:modelValue"])), 64))
                   ]),
                   i("div", Ni, [
-                    (L(), a(k, null, MA(m, (T) => e(nA, {
+                    (L(), a(k, null, wA(m, (T) => e(nA, {
                       key: T.key,
                       label: T.label,
                       hint: T.hint,
                       modelValue: `${B.value[T.key] ?? ""}`,
                       "onUpdate:modelValue": (s) => B.value[T.key] = Number(s)
                     }, null, 8, ["label", "hint", "modelValue", "onUpdate:modelValue"])), 64)),
-                    (L(), a(k, null, MA(X, (T) => e(nA, {
+                    (L(), a(k, null, wA(X, (T) => e(nA, {
                       key: T.key,
                       label: T.label,
                       hint: T.hint,
@@ -7429,7 +7429,7 @@ const CA = window.LA, IC = (C) => (UA("data-v-8ff1c70b"), C = C(), lA(), C), Xn 
   setup(C) {
     const A = Y(!1);
     function w() {
-      A.value = !0, CA.track($.FEATURE, { name: _.POINT_METHOD }), CA.track($.FEATURE, { name: _.F_POINT });
+      A.value = !0, gA.track(CA.FEATURE, { name: _.F_POINT });
     }
     return (M, g) => (L(), a(k, null, [
       e(PA, {
@@ -7443,7 +7443,7 @@ const CA = window.LA, IC = (C) => (UA("data-v-8ff1c70b"), C = C(), lA(), C), Xn 
       }, null, 8, ["isOpen"])
     ], 64));
   }
-}), Gi = /* @__PURE__ */ S(Ti, [["__scopeId", "data-v-bc451f3f"]]), ji = {}, $g = (C) => (UA("data-v-38603e1a"), C = C(), lA(), C), di = { class: "issue-row" }, ui = /* @__PURE__ */ $g(() => /* @__PURE__ */ i("img", {
+}), Gi = /* @__PURE__ */ S(Ti, [["__scopeId", "data-v-7bfa2f0b"]]), ji = {}, $g = (C) => (UA("data-v-38603e1a"), C = C(), lA(), C), di = { class: "issue-row" }, ui = /* @__PURE__ */ $g(() => /* @__PURE__ */ i("img", {
   class: "issue-icon",
   src: "https://github.githubassets.com/favicons/favicon-dark.png"
 }, null, -1)), xi = /* @__PURE__ */ $g(() => /* @__PURE__ */ i("a", {
@@ -7503,7 +7503,7 @@ const yi = /* @__PURE__ */ S(ji, [["render", si], ["__scopeId", "data-v-38603e1a
       })
     })));
     function D(v) {
-      M && (M.value.job = v, CA.track($.FEATURE, {
+      M && (M.value.job = v, gA.track(CA.FEATURE, {
         name: _.PANE_USE_JOB,
         job: v
       }));
@@ -7517,14 +7517,14 @@ const yi = /* @__PURE__ */ S(ji, [["render", si], ["__scopeId", "data-v-38603e1a
           "onUpdate:modelValue": o[0] || (o[0] = (Z) => g.value = Z)
         }, {
           default: E(() => [
-            (L(!0), a(k, null, MA(I.value, (Z) => (L(), gA(c, {
+            (L(!0), a(k, null, wA(I.value, (Z) => (L(), MA(c, {
               key: Z.name,
               title: Z.name,
               name: Z.name
             }, {
               default: E(() => [
                 i("div", Oi, [
-                  (L(!0), a(k, null, MA(Z.items, (U) => (L(), a("div", {
+                  (L(!0), a(k, null, wA(Z.items, (U) => (L(), a("div", {
                     key: U.name,
                     class: "job-card"
                   }, [
@@ -7594,7 +7594,7 @@ const yi = /* @__PURE__ */ S(ji, [["render", si], ["__scopeId", "data-v-38603e1a
       o.value = !1;
     }
     function l(Z, U) {
-      !w || !U || (w.value.weapons[Z] = U, CA.track($.FEATURE, {
+      !w || !U || (w.value.weapons[Z] = U, gA.track(CA.FEATURE, {
         name: _.PANE_USE_WEAPON,
         weapon: U.name
       }));
@@ -7609,14 +7609,14 @@ const yi = /* @__PURE__ */ S(ji, [["render", si], ["__scopeId", "data-v-38603e1a
           "onUpdate:modelValue": U[0] || (U[0] = (N) => M.value = N)
         }, {
           default: E(() => [
-            (L(!0), a(k, null, MA(g.value, (N) => (L(), gA(z, {
+            (L(!0), a(k, null, wA(g.value, (N) => (L(), MA(z, {
               key: N.groupKey,
               title: N.name,
               name: N.groupKey
             }, {
               default: E(() => [
                 i("div", g9, [
-                  (L(!0), a(k, null, MA(N.items, (B) => (L(), a("div", {
+                  (L(!0), a(k, null, wA(N.items, (B) => (L(), a("div", {
                     key: B.name,
                     class: "weapon-card"
                   }, [
@@ -7679,7 +7679,7 @@ const yi = /* @__PURE__ */ S(ji, [["render", si], ["__scopeId", "data-v-38603e1a
           "virtual-ref": (G = D.value[v.value]) == null ? void 0 : G.el
         }, {
           default: E(() => [
-            (L(), a(k, null, MA(5, (N) => i("a", {
+            (L(), a(k, null, wA(5, (N) => i("a", {
               key: N,
               class: "job-card-action",
               onClick: (B) => {
@@ -7700,14 +7700,14 @@ const yi = /* @__PURE__ */ S(ji, [["render", si], ["__scopeId", "data-v-38603e1a
       () => ".st " + (A && w ? To(A.value, w) : "")
     ), g = Y(!1);
     function I() {
-      g.value = !0, CA.track($.FEATURE, { name: _.MORE_DICE_MAID });
+      g.value = !0, gA.track(CA.FEATURE, { name: _.MORE_DICE_MAID });
     }
     function D(o) {
       var n;
       (n = o.target) == null || n.select();
     }
     function v() {
-      Yg(M.value), aA.success("已复制录卡指令"), CA.track($.FEATURE, { name: _.CA_DICE_MAID_COPY });
+      Yg(M.value), aA.success("已复制录卡指令"), gA.track(CA.FEATURE, { name: _.CA_DICE_MAID_COPY });
     }
     return (o, n) => {
       const c = cA("el-input");
@@ -8277,10 +8277,10 @@ const ng = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4T+rRXhpZgAATU0AK
         weapons: _.TAB_WEAPON_LIST,
         guide: _.TAB_GUIDE
       };
-      CA.track($.FEATURE, { name: d[j] });
+      gA.track(CA.FEATURE, { name: d[j] });
     }
     function P() {
-      M("switch-paper"), CA.track($.FEATURE, { name: _.F_SWITCH_PAPER });
+      M("switch-paper"), gA.track(CA.FEATURE, { name: _.F_SWITCH_PAPER });
     }
     const { paperImages: f, printPaper: G } = ic(w.paperEls), N = IA(() => {
       const { name: j, playerName: d } = (g == null ? void 0 : g.value) || {}, T = "【TRPG赛高】", s = [j, d].filter((W) => W).join("-");
@@ -8300,25 +8300,25 @@ const ng = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4T+rRXhpZgAATU0AK
               l.value = !0, D.printing = !1;
             });
           }
-        }), j ? CA.track($.FEATURE, {
+        }), j ? gA.track(CA.FEATURE, {
           name: _.CA_SAVE_REGEN,
           file: j
-        }) : CA.track($.FEATURE, { name: _.F_SAVE });
+        }) : gA.track(CA.FEATURE, { name: _.F_SAVE });
       }
     }
     function u(j) {
-      CA.track($.FEATURE, {
+      gA.track(CA.FEATURE, {
         name: _.CA_SAVE_DOWNLOAD,
         file: j
       });
     }
     function t() {
-      U.value = !U.value, U.value && CA.track($.FEATURE, { name: _.F_MORE });
+      U.value = !U.value, U.value && gA.track(CA.FEATURE, { name: _.F_MORE });
     }
     function K() {
       if (g != null && g.value) {
         if (!g.value.age || g.value.age === "0") {
-          aA.error("请先在人物卡中填写年龄"), CA.track($.FEATURE, {
+          aA.error("请先在人物卡中填写年龄"), gA.track(CA.FEATURE, {
             name: _.MORE_AGE,
             success: !1
           });
@@ -8327,17 +8327,17 @@ const ng = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4T+rRXhpZgAATU0AK
         g.value.attributes = Sn(
           g.value.attributes,
           Number(g.value.age || 0)
-        ), aA.success("已为您进行年龄修正！"), CA.track($.FEATURE, { name: _.MORE_AGE, success: !0 });
+        ), aA.success("已为您进行年龄修正！"), gA.track(CA.FEATURE, { name: _.MORE_AGE, success: !0 });
       }
     }
     function R() {
-      !g || !I || (g.value = yA(Sg()), jo(I), aA.info("已重置人物卡"), U.value = !1, CA.track($.FEATURE, { name: _.MORE_RESET }));
+      !g || !I || (g.value = yA(Sg()), jo(I), aA.info("已重置人物卡"), U.value = !1, gA.track(CA.FEATURE, { name: _.MORE_RESET }));
     }
     function b() {
-      c.value = !0, CA.track($.FEATURE, { name: _.MORE_INOUT });
+      c.value = !0, gA.track(CA.FEATURE, { name: _.MORE_INOUT });
     }
     function m() {
-      Yg(o.value), aA.success("已复制到剪贴板"), CA.track($.FEATURE, { name: _.CA_INOUT_EXPORT });
+      Yg(o.value), aA.success("已复制到剪贴板"), gA.track(CA.FEATURE, { name: _.CA_INOUT_EXPORT });
     }
     function X() {
       const j = $M.decompressFromEncodedURIComponent(v.value), d = JSON.parse(j);
@@ -8353,21 +8353,21 @@ const ng = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4T+rRXhpZgAATU0AK
         }
       else
         aA.error("数据有误，无法导入");
-      CA.track($.FEATURE, { name: _.CA_INOUT_IMPORT });
+      gA.track(CA.FEATURE, { name: _.CA_INOUT_IMPORT });
     }
     function H() {
-      qg(cc, "【TRPG 赛高】空白卡.pdf"), CA.track($.FEATURE, { name: _.MORE_EMPTY });
+      qg(cc, "【TRPG 赛高】空白卡.pdf"), gA.track(CA.FEATURE, { name: _.MORE_EMPTY });
     }
     function x() {
       D && (D.showTotalSeparation = !D.showTotalSeparation, aA.info(
         `已切换成功率显示方式为：${D.showTotalSeparation ? "全面（普通 | 困难 | 极难）" : "极简"}`
-      ), U.value = !1, CA.track($.FEATURE, {
+      ), U.value = !1, gA.track(CA.FEATURE, {
         name: _.MORE_TOTAL_MODE,
         mode: D.showTotalSeparation ? "full" : "simple"
       }));
     }
     function p() {
-      Z.value = !0, CA.track($.FEATURE, { name: _.MORE_REWARD });
+      Z.value = !0, gA.track(CA.FEATURE, { name: _.MORE_REWARD });
     }
     const Q = QA(U, (j) => {
       if (j) {
@@ -8378,7 +8378,7 @@ const ng = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4T+rRXhpZgAATU0AK
       }
     });
     return (j, d) => {
-      const T = cA("el-tab-pane"), s = cA("el-tabs"), W = cA("el-input"), wA = cA("el-button");
+      const T = cA("el-tab-pane"), s = cA("el-tabs"), W = cA("el-input"), AA = cA("el-button");
       return L(), a("div", Zc, [
         i("div", Uc, [
           e(Gi),
@@ -8398,11 +8398,11 @@ const ng = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4T+rRXhpZgAATU0AK
             onClick: t
           }, null, 8, ["icon"])
         ]),
-        U.value ? (L(), gA(s, {
+        U.value ? (L(), MA(s, {
           key: 0,
           class: "more-container",
           modelValue: r.value,
-          "onUpdate:modelValue": d[1] || (d[1] = (AA) => r.value = AA),
+          "onUpdate:modelValue": d[1] || (d[1] = ($) => r.value = $),
           onTabChange: z
         }, {
           default: E(() => [
@@ -8484,7 +8484,7 @@ const ng = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4T+rRXhpZgAATU0AK
         }, 8, ["modelValue"])) : h("", !0),
         e(AC, {
           modelValue: l.value,
-          "onUpdate:modelValue": d[7] || (d[7] = (AA) => l.value = AA),
+          "onUpdate:modelValue": d[7] || (d[7] = ($) => l.value = $),
           title: "下载图片/数据"
         }, {
           default: E(() => [
@@ -8531,9 +8531,9 @@ const ng = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4T+rRXhpZgAATU0AK
         }, 8, ["modelValue"]),
         e(AC, {
           modelValue: c.value,
-          "onUpdate:modelValue": d[9] || (d[9] = (AA) => c.value = AA),
+          "onUpdate:modelValue": d[9] || (d[9] = ($) => c.value = $),
           title: "导入/导出数据",
-          onClosed: d[10] || (d[10] = (AA) => v.value = "")
+          onClosed: d[10] || (d[10] = ($) => v.value = "")
         }, {
           default: E(() => [
             i("div", zc, [
@@ -8545,7 +8545,7 @@ const ng = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4T+rRXhpZgAATU0AK
                   readonly: !0,
                   resize: "none"
                 }, null, 8, ["value"]),
-                e(wA, {
+                e(AA, {
                   type: "primary",
                   onClick: m
                 }, {
@@ -8559,12 +8559,12 @@ const ng = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4T+rRXhpZgAATU0AK
                 e(W, {
                   type: "textarea",
                   modelValue: v.value,
-                  "onUpdate:modelValue": d[8] || (d[8] = (AA) => v.value = AA),
+                  "onUpdate:modelValue": d[8] || (d[8] = ($) => v.value = $),
                   rows: 16,
                   placeholder: "将文本粘贴到这里",
                   resize: "none"
                 }, null, 8, ["modelValue"]),
-                e(wA, {
+                e(AA, {
                   type: "primary",
                   onClick: X
                 }, {
@@ -8580,7 +8580,7 @@ const ng = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4T+rRXhpZgAATU0AK
         }, 8, ["modelValue"]),
         e(AC, {
           modelValue: Z.value,
-          "onUpdate:modelValue": d[11] || (d[11] = (AA) => Z.value = AA),
+          "onUpdate:modelValue": d[11] || (d[11] = ($) => Z.value = $),
           title: "投喂作者"
         }, {
           default: E(() => [
@@ -8662,13 +8662,13 @@ const ng = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4T+rRXhpZgAATU0AK
   emits: ["select"],
   setup(C) {
     return (A, w) => (L(), a("div", sc, [
-      (L(!0), a(k, null, MA(A.tree, (M) => (L(), a("div", {
+      (L(!0), a(k, null, wA(A.tree, (M) => (L(), a("div", {
         class: "group",
         key: M.key
       }, [
         i("div", yc, y(M.label), 1),
         i("div", Qc, [
-          (L(!0), a(k, null, MA(M.children, (g) => (L(), a("a", {
+          (L(!0), a(k, null, wA(M.children, (g) => (L(), a("a", {
             class: "option",
             key: g.key,
             onClick: (I) => A.$emit("select", g, M)
@@ -8720,12 +8720,12 @@ const ng = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4T+rRXhpZgAATU0AK
       }, []);
     });
     function n(c) {
-      A && (A.value.job = c, v(), CA.track($.FEATURE, {
+      A && (A.value.job = c, v(), gA.track(CA.FEATURE, {
         name: _.PAPER_USE_JOB,
         job: c
       }));
     }
-    return (c, l) => F(A) ? (L(), gA(KA, {
+    return (c, l) => F(A) ? (L(), MA(KA, {
       key: 0,
       title: "调查员",
       subTitle: "Investigator"
@@ -8842,7 +8842,7 @@ const ng = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4T+rRXhpZgAATU0AK
       ])
     ]));
   }
-}), qc = /* @__PURE__ */ S(Oc, [["__scopeId", "data-v-26098dd1"]]), KM = (C) => (UA("data-v-9ff233f7"), C = C(), lA(), C), _c = { class: "info-section" }, $c = { class: "attributes-group" }, A2 = /* @__PURE__ */ KM(() => /* @__PURE__ */ i("div", { class: "dice-hint" }, "🎲 3D6×5", -1)), C2 = /* @__PURE__ */ KM(() => /* @__PURE__ */ i("div", { class: "divider" }, null, -1)), w2 = { class: "attributes-group" }, M2 = /* @__PURE__ */ KM(() => /* @__PURE__ */ i("div", { class: "dice-hint" }, "🎲 (2D6+6)×5", -1)), g2 = { class: "attributes-actions" }, I2 = {
+}), qc = /* @__PURE__ */ S(Oc, [["__scopeId", "data-v-26098dd1"]]), KM = (C) => (UA("data-v-bd5ea270"), C = C(), lA(), C), _c = { class: "info-section" }, $c = { class: "attributes-group" }, A2 = /* @__PURE__ */ KM(() => /* @__PURE__ */ i("div", { class: "dice-hint" }, "🎲 3D6×5", -1)), C2 = /* @__PURE__ */ KM(() => /* @__PURE__ */ i("div", { class: "divider" }, null, -1)), w2 = { class: "attributes-group" }, M2 = /* @__PURE__ */ KM(() => /* @__PURE__ */ i("div", { class: "dice-hint" }, "🎲 (2D6+6)×5", -1)), g2 = { class: "attributes-actions" }, I2 = {
   key: 0,
   class: "ponits-sum"
 }, D2 = { class: "web-only" }, v2 = /* @__PURE__ */ V({
@@ -8874,9 +8874,9 @@ const ng = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4T+rRXhpZgAATU0AK
       const o = Array.from({
         length: D.value % 3 + 1
       }).map(() => Jw()).sort((n, c) => GC(c) - GC(n))[0];
-      A.value.attributes = o, aA.success("已为您生成一组数据，看看符不符合心意吧！"), D.value++, CA.track($.FEATURE, { name: _.F_ROLL }), CA.track($.FEATURE, { name: _.PAPER_ROLL });
+      A.value.attributes = o, aA.success("已为您生成一组数据，看看符不符合心意吧！"), D.value++, gA.track(CA.FEATURE, { name: _.PAPER_ROLL });
     }
-    return (o, n) => F(A) ? (L(), gA(KA, {
+    return (o, n) => F(A) ? (L(), MA(KA, {
       key: 0,
       title: "属性",
       subTitle: "Characteristics"
@@ -8885,7 +8885,7 @@ const ng = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4T+rRXhpZgAATU0AK
         i("div", _c, [
           i("div", $c, [
             A2,
-            (L(), a(k, null, MA(w, (c) => {
+            (L(), a(k, null, wA(w, (c) => {
               var l;
               return e(nA, {
                 key: c.key,
@@ -8899,7 +8899,7 @@ const ng = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4T+rRXhpZgAATU0AK
           C2,
           i("div", w2, [
             M2,
-            (L(), a(k, null, MA(M, (c) => {
+            (L(), a(k, null, wA(M, (c) => {
               var l;
               return e(nA, {
                 key: c.key,
@@ -8926,12 +8926,12 @@ const ng = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4T+rRXhpZgAATU0AK
       _: 1
     })) : h("", !0);
   }
-}), o2 = /* @__PURE__ */ S(v2, [["__scopeId", "data-v-9ff233f7"]]), n2 = "data:image/png;base64,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", i2 = (C) => (UA("data-v-998d3c68"), C = C(), lA(), C), c2 = { class: "luck-section-group" }, Z2 = { class: "luck-section" }, U2 = /* @__PURE__ */ i2(() => /* @__PURE__ */ i("div", { class: "qr-section-header" }, "扫码车卡", -1)), l2 = { class: "qr-container" }, t2 = ["src"], e2 = /* @__PURE__ */ V({
+}), o2 = /* @__PURE__ */ S(v2, [["__scopeId", "data-v-bd5ea270"]]), n2 = "data:image/png;base64,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", i2 = (C) => (UA("data-v-998d3c68"), C = C(), lA(), C), c2 = { class: "luck-section-group" }, Z2 = { class: "luck-section" }, U2 = /* @__PURE__ */ i2(() => /* @__PURE__ */ i("div", { class: "qr-section-header" }, "扫码车卡", -1)), l2 = { class: "qr-container" }, t2 = ["src"], e2 = /* @__PURE__ */ V({
   __name: "LuckSection",
   setup(C) {
     const A = oA();
     return (w, M) => (L(), a("div", c2, [
-      F(A) ? (L(), gA(KA, {
+      F(A) ? (L(), MA(KA, {
         key: 0,
         title: "幸运",
         subTitle: "Luck"
@@ -9386,15 +9386,15 @@ var tI = { exports: {} };
           const T = [null, null];
           for (let W = 1; W <= 7; W++) {
             j = yield o(Q, d, x);
-            const wA = 0.75 * j.length;
+            const AA = 0.75 * j.length;
             if (W === 7) {
-              (R < wA || m > wA) && (j = [j, ...T].filter((AA) => AA).sort((AA, NA) => Math.abs(0.75 * AA.length - b) - Math.abs(0.75 * NA.length - b))[0]);
+              (R < AA || m > AA) && (j = [j, ...T].filter(($) => $).sort(($, NA) => Math.abs(0.75 * $.length - b) - Math.abs(0.75 * NA.length - b))[0]);
               break;
             }
-            if (R < wA)
+            if (R < AA)
               T[1] = j, d -= Math.pow(0.5, W + 1);
             else {
-              if (!(m > wA))
+              if (!(m > AA))
                 break;
               T[0] = j, d += Math.pow(0.5, W + 1);
             }
@@ -9586,7 +9586,7 @@ const a2 = ["for"], r2 = ["id"], mw = 132 * 2, sw = 172 * 2, N2 = /* @__PURE__ *
             E2
           ])) : h("", !0),
           i("div", V2, [
-            (L(!0), a(k, null, MA(D.value, (B) => (L(), a("div", {
+            (L(!0), a(k, null, wA(D.value, (B) => (L(), a("div", {
               key: B.name,
               class: "sd-avatar-container",
               onClick: (u) => o(B)
@@ -9819,7 +9819,7 @@ const YC = /* @__PURE__ */ S(CZ, [["render", DZ], ["__scopeId", "data-v-cde0e4cc
       }, [
         (D = F(A)) != null && D.text ? (L(), a("div", KZ, [
           RZ,
-          (L(!0), a(k, null, MA(F(A).multiSkillTexts, (v) => (L(), a(k, { key: v }, [
+          (L(!0), a(k, null, wA(F(A).multiSkillTexts, (v) => (L(), a(k, { key: v }, [
             i("span", fZ, y(v), 1),
             FZ
           ], 64))), 128)),
@@ -9852,8 +9852,8 @@ const YC = /* @__PURE__ */ S(CZ, [["render", DZ], ["__scopeId", "data-v-cde0e4cc
       return L(), a("label", NZ, [
         e(o, { size: "0.9em" }, {
           default: E(() => [
-            g.value ? (L(), gA(F(Kn), { key: 0 })) : h("", !0),
-            !g.value && D.xOnFalse ? (L(), gA(F($o), { key: 1 })) : h("", !0)
+            g.value ? (L(), MA(F(Kn), { key: 0 })) : h("", !0),
+            !g.value && D.xOnFalse ? (L(), MA(F($o), { key: 1 })) : h("", !0)
           ]),
           _: 1
         }),
@@ -9951,7 +9951,7 @@ const YC = /* @__PURE__ */ S(CZ, [["render", DZ], ["__scopeId", "data-v-cde0e4cc
               onFocus: r[1] || (r[1] = (f) => D.value = !0)
             }, null, 40, uZ),
             (P = U.childSkillData.list) != null && P.length ? MC((L(), a("div", xZ, [
-              (L(!0), a(k, null, MA(U.childSkillData.list, (f) => {
+              (L(!0), a(k, null, wA(U.childSkillData.list, (f) => {
                 var G;
                 return L(), a("div", {
                   key: f.name,
@@ -10003,7 +10003,7 @@ const YC = /* @__PURE__ */ S(CZ, [["render", DZ], ["__scopeId", "data-v-cde0e4cc
   emits: ["input", "check"],
   setup(C) {
     return (A, w) => (L(), a("div", pZ, [
-      A.checkable ? (L(), gA(RM, {
+      A.checkable ? (L(), MA(RM, {
         key: 0,
         class: "skill-td-input-checkbox",
         checked: A.checked,
@@ -10093,25 +10093,25 @@ const YC = /* @__PURE__ */ S(CZ, [["render", DZ], ["__scopeId", "data-v-cde0e4cc
               const j = f.group.show.length, d = p.find((T) => T.isGroupStart) || x;
               d.groupSize += j - 1, Q = f.group.show.map((T, s) => {
                 var DC, VA, xA;
-                const W = ((DC = M == null ? void 0 : M.showingChildSkills.get(f.name)) == null ? void 0 : DC[s]) ?? T, wA = (VA = f.group) == null ? void 0 : VA.skills.find(
+                const W = ((DC = M == null ? void 0 : M.showingChildSkills.get(f.name)) == null ? void 0 : DC[s]) ?? T, AA = (VA = f.group) == null ? void 0 : VA.skills.find(
                   ({ name: bA }) => bA === W
                 );
-                let AA = (wA == null ? void 0 : wA.init) ?? x.init;
+                let $ = (AA == null ? void 0 : AA.init) ?? x.init;
                 const NA = [
                   f.name,
                   W,
                   s
                 ], tA = v(NA), uA = (tA == null ? void 0 : tA[1]) || {};
-                return w && !f.name && (AA = uA.b || 0), {
+                return w && !f.name && ($ = uA.b || 0), {
                   ...x,
                   // group info
                   isGroupStart: s ? !1 : x.isGroupStart,
                   // skill info
                   key: `${f.name}:_:${s}`,
                   skillKey: NA,
-                  init: AA,
+                  init: $,
                   points: uA,
-                  total: n(uA, AA),
+                  total: n(uA, $),
                   // child skill info
                   childSkillData: {
                     name: W,
@@ -10159,7 +10159,7 @@ const YC = /* @__PURE__ */ S(CZ, [["render", DZ], ["__scopeId", "data-v-cde0e4cc
     return (c, l) => (L(), a("table", XZ, [
       WZ,
       i("tbody", null, [
-        (L(!0), a(k, null, MA(D.value, (Z, U) => {
+        (L(!0), a(k, null, wA(D.value, (Z, U) => {
           var r;
           return L(), a("tr", {
             key: Z.skillName
@@ -10194,7 +10194,7 @@ const YC = /* @__PURE__ */ S(CZ, [["render", DZ], ["__scopeId", "data-v-cde0e4cc
             }, [
               !Z.init && Z.initPlaceholder ? (L(), a("div", kZ, [
                 i("span", YZ, y(Z.initPlaceholder), 1)
-              ])) : Z.groupName !== "其它" ? (L(), a("span", JZ, y(Z.init), 1)) : (L(), gA(JC, {
+              ])) : Z.groupName !== "其它" ? (L(), a("span", JZ, y(Z.init), 1)) : (L(), MA(JC, {
                 key: 2,
                 value: `${Z.points.b ?? ""}`,
                 onInput: (z) => o(Z.skillKey, "b", z)
@@ -10243,7 +10243,7 @@ const YC = /* @__PURE__ */ S(CZ, [["render", DZ], ["__scopeId", "data-v-cde0e4cc
               }])
             }, [
               (r = F(g)) != null && r.showTotalSeparation ? (L(), a("span", OZ, [
-                (L(!0), a(k, null, MA(Z.totalSeparation, (z, P) => (L(), a("span", {
+                (L(!0), a(k, null, wA(Z.totalSeparation, (z, P) => (L(), a("span", {
                   key: P,
                   class: "total-sep"
                 }, y(z), 1))), 128))
@@ -10332,7 +10332,7 @@ const YC = /* @__PURE__ */ S(CZ, [["render", DZ], ["__scopeId", "data-v-cde0e4cc
       { deep: !0 }
     ), (l, Z) => {
       var U;
-      return L(), gA(KA, {
+      return L(), MA(KA, {
         class: DA(["skill-section", {
           "printing-image": (U = F(M)) == null ? void 0 : U.printing
         }])
@@ -10422,7 +10422,7 @@ const YC = /* @__PURE__ */ S(CZ, [["render", DZ], ["__scopeId", "data-v-cde0e4cc
       onChange: w[0] || (w[0] = (M) => A.$emit("change", M.target.value))
     }, [
       eU,
-      (L(!0), a(k, null, MA(A.options, (M) => (L(), a("option", {
+      (L(!0), a(k, null, wA(A.options, (M) => (L(), a("option", {
         key: M.value,
         value: M.value
       }, y(M.label), 9, LU))), 128))
@@ -10515,7 +10515,7 @@ const fU = { class: "weapon-section-row" }, FU = { class: "weapon-td-name" }, aU
       const { price: f, time: G, ...N } = P;
       U({
         ...N
-      }), l(), CA.track($.FEATURE, {
+      }), l(), gA.track(CA.FEATURE, {
         name: _.PAPER_USE_WEAPON,
         weapon: z
       });
@@ -10647,14 +10647,14 @@ const fU = { class: "weapon-section-row" }, FU = { class: "weapon-td-name" }, aU
   __name: "WeaponSection",
   setup(C) {
     const A = oA(), w = IA(() => Array.from({ length: 5 }).map((M, g) => (A == null ? void 0 : A.value.weapons[g]) || void 0));
-    return (M, g) => (L(), gA(KA, {
+    return (M, g) => (L(), MA(KA, {
       title: "武器",
       subTitle: "Weapons"
     }, {
       default: E(() => [
         i("div", TU, [
           GU,
-          (L(!0), a(k, null, MA(w.value, (I, D) => (L(), gA(PU, {
+          (L(!0), a(k, null, wA(w.value, (I, D) => (L(), MA(PU, {
             class: "weapon-section-row",
             key: D,
             index: D,
@@ -10705,7 +10705,7 @@ const fU = { class: "weapon-section-row" }, FU = { class: "weapon-td-name" }, aU
         }
       },
       { deep: !0 }
-    ), (w, M) => (L(), gA(KA, {
+    ), (w, M) => (L(), MA(KA, {
       title: "战斗",
       subTitle: "Combat"
     }, {
@@ -10768,7 +10768,7 @@ const SU = /* @__PURE__ */ S(sU, [["render", HU], ["__scopeId", "data-v-a4a36abd
     setRef: {}
   },
   setup(C) {
-    return (A, w) => (L(), gA(oI, { setRef: A.setRef }, {
+    return (A, w) => (L(), MA(oI, { setRef: A.setRef }, {
       default: E(() => [
         i("div", XU, [
           e(Yc),
@@ -10823,7 +10823,7 @@ const SU = /* @__PURE__ */ S(sU, [["render", HU], ["__scopeId", "data-v-a4a36abd
         }, null, 44, YU),
         i("div", JU, [
           OU,
-          (L(!0), a(k, null, MA(w.rows, (D) => (L(), a("div", {
+          (L(!0), a(k, null, wA(w.rows, (D) => (L(), a("div", {
             class: "line-row",
             key: D
           }, [
@@ -10853,7 +10853,7 @@ const SU = /* @__PURE__ */ S(sU, [["render", HU], ["__scopeId", "data-v-a4a36abd
       { label: "伤口与疤痕", fieldName: "scar", rows: 3 },
       { label: "精神症状", fieldName: "mad", rows: 3 }
     ], M = [], g = w.reduce((I, D) => I + D.rows, 0) - M.reduce((I, D) => I + D.rows, 0);
-    return (I, D) => F(A) ? (L(), gA(KA, {
+    return (I, D) => F(A) ? (L(), MA(KA, {
       key: 0,
       title: "背景故事",
       subTitle: "Story"
@@ -10861,7 +10861,7 @@ const SU = /* @__PURE__ */ S(sU, [["render", HU], ["__scopeId", "data-v-a4a36abd
       default: E(() => [
         i("div", $U, [
           i("div", Al, [
-            (L(), a(k, null, MA(w, (v) => e(rA, {
+            (L(), a(k, null, wA(w, (v) => e(rA, {
               key: v.fieldName,
               label: v.label,
               modelValue: F(A).stories[v.fieldName],
@@ -10871,7 +10871,7 @@ const SU = /* @__PURE__ */ S(sU, [["render", HU], ["__scopeId", "data-v-a4a36abd
             }, null, 8, ["label", "modelValue", "onUpdate:modelValue", "rows", "maxlength"])), 64))
           ]),
           i("div", Cl, [
-            (L(), a(k, null, MA(M, (v) => e(rA, {
+            (L(), a(k, null, wA(M, (v) => e(rA, {
               key: v.fieldName,
               label: v.label,
               modelValue: F(A).stories[v.fieldName],
@@ -10903,7 +10903,7 @@ const SU = /* @__PURE__ */ S(sU, [["render", HU], ["__scopeId", "data-v-a4a36abd
       const { p: g = 0, i: I = 0, g: D = 0 } = M;
       return `${g + I + D}`;
     });
-    return (M, g) => F(A) ? (L(), gA(KA, {
+    return (M, g) => F(A) ? (L(), MA(KA, {
       key: 0,
       title: "资产",
       subTitle: "Cash & Assets"
@@ -10946,7 +10946,7 @@ const SU = /* @__PURE__ */ S(sU, [["render", HU], ["__scopeId", "data-v-a4a36abd
   __name: "ItemSection",
   setup(C) {
     const A = oA();
-    return (w, M) => F(A) ? (L(), gA(KA, {
+    return (w, M) => F(A) ? (L(), MA(KA, {
       key: 0,
       title: "物品与装备",
       subTitle: "Possessions"
@@ -10969,7 +10969,7 @@ const SU = /* @__PURE__ */ S(sU, [["render", HU], ["__scopeId", "data-v-a4a36abd
   __name: "MythosSection",
   setup(C) {
     const A = oA();
-    return (w, M) => F(A) ? (L(), gA(KA, {
+    return (w, M) => F(A) ? (L(), MA(KA, {
       key: 0,
       title: "克苏鲁神话",
       subTitle: "Cthulu Mythos"
@@ -11006,7 +11006,7 @@ const SU = /* @__PURE__ */ S(sU, [["render", HU], ["__scopeId", "data-v-a4a36abd
   __name: "FriendSection",
   setup(C) {
     const A = oA();
-    return (w, M) => F(A) ? (L(), gA(KA, {
+    return (w, M) => F(A) ? (L(), MA(KA, {
       key: 0,
       title: "人物关系",
       subTitle: "Relationships"
@@ -11029,7 +11029,7 @@ const SU = /* @__PURE__ */ S(sU, [["render", HU], ["__scopeId", "data-v-a4a36abd
   __name: "ExperienceSection",
   setup(C) {
     const A = oA();
-    return (w, M) => F(A) ? (L(), gA(KA, {
+    return (w, M) => F(A) ? (L(), MA(KA, {
       key: 0,
       title: "经历过的模组",
       subTitle: "Experienced Scenarios"
@@ -11057,7 +11057,7 @@ const SU = /* @__PURE__ */ S(sU, [["render", HU], ["__scopeId", "data-v-a4a36abd
     setRef: {}
   },
   setup(C) {
-    return (A, w) => (L(), gA(oI, { setRef: A.setRef }, {
+    return (A, w) => (L(), MA(oI, { setRef: A.setRef }, {
       default: E(() => [
         e(Ml),
         i("div", Rl, [
@@ -11093,8 +11093,8 @@ const SU = /* @__PURE__ */ S(sU, [["render", HU], ["__scopeId", "data-v-a4a36abd
         i("div", Tl, [
           e(_w, { name: "swipe-paper" }, {
             default: E(() => [
-              (L(), gA(RI, null, [
-                I.value ? (L(), gA(lg, { key: 0 })) : (L(), gA(tg, { key: 1 }))
+              (L(), MA(RI, null, [
+                I.value ? (L(), MA(lg, { key: 0 })) : (L(), MA(tg, { key: 1 }))
               ], 1024))
             ]),
             _: 1
