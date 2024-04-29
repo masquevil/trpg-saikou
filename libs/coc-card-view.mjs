@@ -6783,7 +6783,7 @@ const ig = sn();
 function yn(C) {
   const A = ig.getItem("autoSaved"), { lastModified: w, pc: M } = A || {}, { timeAgo: g } = un(w || Date.now());
   NA(
-    C.value,
+    () => C.value,
     () => {
       ig.setItem("autoSaved", {
         pc: C.value,
