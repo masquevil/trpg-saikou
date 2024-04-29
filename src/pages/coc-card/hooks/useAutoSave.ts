@@ -15,7 +15,7 @@ export default function useAutoSave(pcRef: Ref<COCPlayerCharacter>) {
   const { timeAgo } = useZhTimeAgo(lastModified || Date.now());
 
   watch(
-    pcRef.value,
+    () => pcRef.value,
     () => {
       ls.setItem('autoSaved', {
         pc: pcRef.value,
