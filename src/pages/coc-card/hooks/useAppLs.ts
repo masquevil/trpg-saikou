@@ -1,19 +1,28 @@
 import useLocalStorage from '@/hooks/useLocalStorage';
-import { LSApp } from '@/types/ls';
 
-interface Store {}
+import { LSApp } from '@/types/ls';
+import type { COCPlayerCharacter } from '../types/character';
+
+interface Store {
+  autoSaved?: {
+    pc: COCPlayerCharacter;
+    lastModified: number; // number of date
+  };
+}
 
 const ls = useLocalStorage<Store>({
   app: LSApp.COCCard,
   versionChecker() {
-    return 0;
+    return 1;
   },
 });
 
 if (import.meta.env.DEV) {
-  console.log('ls', ls);
+  console.log(`ls:${ls.appName}:${ls.version}`, ls);
   // @ts-ignore
   window.ls = ls;
 }
 
-export default ls;
+export default function () {
+  return ls;
+}

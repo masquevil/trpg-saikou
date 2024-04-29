@@ -11,6 +11,7 @@ import type { PageData } from './types/pageData';
 
 import useDerives from './hooks/useDerives';
 import useSuggestion from './hooks/useSuggestion';
+import useAutoSave from './hooks/useAutoSave';
 
 import ControlSection from './sections/ControlSection.vue';
 import PaperFront from './PaperFront.vue';
@@ -27,6 +28,8 @@ const paperInFront = ref(qsObject.turn === 'back' ? false : true);
 
 useDerives(pcRef);
 const suggestion = useSuggestion(pcRef, viewData);
+
+useAutoSave(pcRef);
 
 provide('pc', pcRef);
 provide('viewData', viewData);

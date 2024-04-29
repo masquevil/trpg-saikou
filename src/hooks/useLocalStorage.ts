@@ -22,7 +22,7 @@ export default function useLocalStorage<Store extends object>(options: LocalStor
   const storage = window.localStorage;
 
   const baseKey = `${namespace}#${app}`;
-  const versionCheckerKey = `${baseKey}##versionChecker`;
+  const versionCheckerKey = `${namespace}##versionChecker`;
 
   const store = useStorage<Store>(baseKey, defaults, storage, {
     mergeDefaults: true,
@@ -31,7 +31,7 @@ export default function useLocalStorage<Store extends object>(options: LocalStor
   const versionStore = useStorage<Record<string, number>>(versionCheckerKey, {}, storage);
   const storedVersion = versionStore.value[baseKey];
   const currentVersion = versionChecker(storedVersion, store);
-  versionStore.value[baseKey] = currentVersion;
+  versionStore.value[app] = currentVersion;
 
   function listItems() {
     return store.value;
@@ -59,6 +59,15 @@ export default function useLocalStorage<Store extends object>(options: LocalStor
 
   return {
     store,
+    get namespace() {
+      return namespace;
+    },
+    get appName() {
+      return app;
+    },
+    get version() {
+      return currentVersion;
+    },
     listItems,
     countItems,
     getItem,

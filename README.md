@@ -13,7 +13,7 @@
 
 ### 车卡工具
 
-https://masquevil.github.io/trpg-saikou/#/coc-card
+[https://masquevil.github.io/trpg-saikou/#/coc-card](https://masquevil.github.io/trpg-saikou/#/coc-card)
 
 ![截图](./src/assets/images/readme-preview/coc-card.png)
 
