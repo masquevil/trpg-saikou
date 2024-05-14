@@ -47,9 +47,7 @@ function onCloseModal() {
 const actionKeadeChoice = ref<COCAttributes>(withDefaultAttributes({}));
 const actionKeadeDoing = ref<boolean>(false);
 const actionKeadeGenerateCount = ref(0);
-const actionKeadeSelectedKeysMap = ref<
-  Partial<Record<COCAttributesKey, COCAttributesKey>>
->({});
+const actionKeadeSelectedKeysMap = ref<Partial<Record<COCAttributesKey, COCAttributesKey>>>({});
 function actionKeadeHandler() {
   resetStates();
   actionKeadeChoice.value = generateRandomAttributes();
@@ -57,7 +55,7 @@ function actionKeadeHandler() {
   actionKeadeDoing.value = true;
   actionKeadeGenerateCount.value++;
   // 统计
-  LA.track(LAEventID.FEATURE, { name: FeatureNames.PM_GEN_KAEDE });
+  LA?.track(LAEventID.FEATURE, { name: FeatureNames.PM_GEN_KAEDE });
 }
 function actionKeadeApplyHandler() {
   const picked = Object.values(actionKeadeSelectedKeysMap.value).filter(
@@ -68,15 +66,13 @@ function actionKeadeApplyHandler() {
     return;
   }
   const result: COCAttributes = withDefaultAttributes({});
-  Object.entries(actionKeadeSelectedKeysMap.value).forEach(
-    ([key, pickedKey]) => {
-      if (pickedKey) {
-        result[key as COCAttributesKey] = actionKeadeChoice.value[pickedKey];
-      }
-    },
-  );
+  Object.entries(actionKeadeSelectedKeysMap.value).forEach(([key, pickedKey]) => {
+    if (pickedKey) {
+      result[key as COCAttributesKey] = actionKeadeChoice.value[pickedKey];
+    }
+  });
   applyPoints(result);
-  LA.track(LAEventID.FEATURE, { name: FeatureNames.PM_USE_KAEDE });
+  LA?.track(LAEventID.FEATURE, { name: FeatureNames.PM_USE_KAEDE });
 }
 function actionKeadeCheckOptionDisabled(optionKey: COCAttributesKey) {
   return Object.values(actionKeadeSelectedKeysMap.value).some(
@@ -95,11 +91,11 @@ function actionRollHandler() {
   );
   actionRollGenerateCount.value++;
   // 统计
-  LA.track(LAEventID.FEATURE, { name: FeatureNames.PM_GEN_ROLL });
+  LA?.track(LAEventID.FEATURE, { name: FeatureNames.PM_GEN_ROLL });
 }
 function actionRollApplyHandler(result: COCAttributes) {
   applyPoints(result);
-  LA.track(LAEventID.FEATURE, { name: FeatureNames.PM_USE_ROLL });
+  LA?.track(LAEventID.FEATURE, { name: FeatureNames.PM_USE_ROLL });
 }
 
 // 购点式相关
@@ -107,20 +103,18 @@ const actionBuyTotalPoints = ref(460);
 const actionBuyDoing = ref<boolean>(false);
 const actionBuyResult = ref<COCAttributes>(withDefaultAttributes({}));
 const actionBuyRemainingPoints = computed(() => {
-  return (
-    actionBuyTotalPoints.value - getLuckAttributesSum(actionBuyResult.value)
-  );
+  return actionBuyTotalPoints.value - getLuckAttributesSum(actionBuyResult.value);
 });
 function actionBuyHandler() {
   resetStates();
   actionBuyDoing.value = true;
   actionBuyResult.value = withDefaultAttributes({});
   // 统计
-  LA.track(LAEventID.FEATURE, { name: FeatureNames.PM_GEN_BUY });
+  LA?.track(LAEventID.FEATURE, { name: FeatureNames.PM_GEN_BUY });
 }
 function actionBuyApplyHandler() {
   applyPoints(actionBuyResult.value);
-  LA.track(LAEventID.FEATURE, { name: FeatureNames.PM_USE_BUY });
+  LA?.track(LAEventID.FEATURE, { name: FeatureNames.PM_USE_BUY });
 }
 
 // shared
@@ -147,9 +141,7 @@ const rightList: RenderListItem[] = [
   { key: 'edu', label: '教育', hint: '知识 EDU' },
   { key: 'int', label: '智力', hint: '灵感 INT' },
 ];
-const hiddenList: RenderListItem[] = [
-  { key: 'luc', label: '幸运', hint: 'Luck' },
-];
+const hiddenList: RenderListItem[] = [{ key: 'luc', label: '幸运', hint: 'Luck' }];
 </script>
 
 <template>
@@ -340,9 +332,7 @@ const hiddenList: RenderListItem[] = [
               @click="actionBuyHandler"
             >
               购点
-              <template v-if="actionBuyDoing">
-                (剩余 {{ actionBuyRemainingPoints }})
-              </template>
+              <template v-if="actionBuyDoing"> (剩余 {{ actionBuyRemainingPoints }}) </template>
             </el-button>
           </div>
         </div>
@@ -359,9 +349,7 @@ const hiddenList: RenderListItem[] = [
                 :label="item.label"
                 :hint="item.hint"
                 :modelValue="`${actionBuyResult[item.key] ?? ''}`"
-                @update:modelValue="
-                  (newValue) => (actionBuyResult[item.key] = Number(newValue))
-                "
+                @update:modelValue="(newValue) => (actionBuyResult[item.key] = Number(newValue))"
               />
             </div>
             <div class="column-section-content-column">
@@ -371,9 +359,7 @@ const hiddenList: RenderListItem[] = [
                 :label="item.label"
                 :hint="item.hint"
                 :modelValue="`${actionBuyResult[item.key] ?? ''}`"
-                @update:modelValue="
-                  (newValue) => (actionBuyResult[item.key] = Number(newValue))
-                "
+                @update:modelValue="(newValue) => (actionBuyResult[item.key] = Number(newValue))"
               />
               <WritableRow
                 v-for="item in hiddenList"
@@ -382,9 +368,7 @@ const hiddenList: RenderListItem[] = [
                 :hint="item.hint"
                 :modelValue="`${actionBuyResult[item.key] || ''}`"
                 placeholder="不含运请忽略"
-                @update:modelValue="
-                  (newValue) => (actionBuyResult[item.key] = Number(newValue))
-                "
+                @update:modelValue="(newValue) => (actionBuyResult[item.key] = Number(newValue))"
               />
               <div class="column-section-content-column-actions">
                 <el-button
@@ -404,36 +388,6 @@ const hiddenList: RenderListItem[] = [
 </template>
 
 <style scoped lang="scss">
-.ponits-button {
-  --color-button-border: #b2b2b2;
-  --color-button-border-hover: #9a9a9a;
-  --color-button-bg: #fff;
-  --color-button-bg-hover: #fafafa;
-  --color-button-bg-active: #f5f5f5;
-  --color-button-text: #4b4e53;
-  --color-button-text-hover: #2e2e2e;
-}
-.ponits-button {
-  border: 1px solid var(--color-button-border);
-  padding: 0.2em 0.3em;
-  border-radius: 0.2em;
-  line-height: 1;
-  color: var(--color-button-text);
-  background-color: var(--color-button-bg);
-  cursor: pointer;
-  &:hover {
-    border-color: var(--color-button-border-hover);
-    background-color: var(--color-button-bg-hover);
-    color: var(--color-button-text-hover);
-  }
-  &:active {
-    background-color: var(--color-button-bg-active);
-  }
-}
-.ponits-button-text {
-  transform: scale(0.88);
-}
-
 .modal-body {
   display: flex;
   flex-direction: column;

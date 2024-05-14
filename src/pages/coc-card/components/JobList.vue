@@ -28,8 +28,7 @@ const list = computed(() => {
         const suggestion = getJobSuggestion(job.name);
 
         const skillText =
-          suggestion.multiSkillTexts.map((t) => `${t}、`).join('') +
-          suggestion.text;
+          suggestion.multiSkillTexts.map((t) => `${t}、`).join('') + suggestion.text;
 
         const { point: pointValue, text: pointText } = getProPointByJobAndAttrs(
           job.name,
@@ -51,7 +50,7 @@ const list = computed(() => {
 function applyJob(jobName: string) {
   if (!pc) return;
   pc.value.job = jobName;
-  LA.track(LAEventID.FEATURE, {
+  LA?.track(LAEventID.FEATURE, {
     name: FeatureNames.PANE_USE_JOB,
     job: jobName,
   });
@@ -91,9 +90,7 @@ function applyJob(jobName: string) {
             </div>
             <div class="job-card-row">
               <span>职业点数：{{ item.pointText }}</span>
-              <span v-if="item.pointValue">
-                (当前结果: {{ item.pointValue }})
-              </span>
+              <span v-if="item.pointValue"> (当前结果: {{ item.pointValue }}) </span>
             </div>
             <div class="job-card-row">本职技能：{{ item.skillText }}</div>
           </div>

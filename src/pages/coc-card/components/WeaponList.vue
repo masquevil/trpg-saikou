@@ -34,10 +34,7 @@ const list = computed<listItem[]>(() => {
       weapon.name,
       {
         ...weapon,
-        range:
-          `${Number(weapon.range)}` === weapon.range
-            ? `${weapon.range}m`
-            : weapon.range,
+        range: `${Number(weapon.range)}` === weapon.range ? `${weapon.range}m` : weapon.range,
       },
     ]),
   );
@@ -75,7 +72,7 @@ function onHideApplyPopover() {
 function applyWeapon(index: number, weapon?: Weapon) {
   if (!pc || !weapon) return;
   pc.value.weapons[index] = weapon;
-  LA.track(LAEventID.FEATURE, {
+  LA?.track(LAEventID.FEATURE, {
     name: FeatureNames.PANE_USE_WEAPON,
     weapon: weapon.name,
   });

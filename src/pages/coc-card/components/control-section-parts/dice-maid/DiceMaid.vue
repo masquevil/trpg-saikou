@@ -14,15 +14,14 @@ import LA, { LAEventID, FeatureNames } from '@/plugins/51la';
 const pc = usePC();
 const viewData = useViewData();
 const str = computed(
-  () =>
-    '.st ' + (pc && viewData ? getDiceMaidStString(pc.value, viewData) : ''),
+  () => '.st ' + (pc && viewData ? getDiceMaidStString(pc.value, viewData) : ''),
 );
 
 const visible = ref(false);
 
 function onButtonClick() {
   visible.value = true;
-  LA.track(LAEventID.FEATURE, { name: FeatureNames.MORE_DICE_MAID });
+  LA?.track(LAEventID.FEATURE, { name: FeatureNames.MORE_DICE_MAID });
 }
 
 function onFocus(event: FocusEvent) {
@@ -31,7 +30,7 @@ function onFocus(event: FocusEvent) {
 function onCopyButtonClick() {
   copy(str.value);
   ElMessage.success('已复制录卡指令');
-  LA.track(LAEventID.FEATURE, { name: FeatureNames.CA_DICE_MAID_COPY });
+  LA?.track(LAEventID.FEATURE, { name: FeatureNames.CA_DICE_MAID_COPY });
 }
 </script>
 

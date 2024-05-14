@@ -9,10 +9,7 @@ import AttrSectionButton from '../components/AttrSectionButton.vue';
 
 // models
 import LA, { LAEventID, FeatureNames } from '@/plugins/51la';
-import {
-  generateRandomAttributes,
-  getAttributesSum,
-} from '../models/attribute';
+import { generateRandomAttributes, getAttributesSum } from '../models/attribute';
 import type { COCAttributesKey } from '../types/character';
 
 import { usePC } from '../hooks/useProviders';
@@ -65,7 +62,7 @@ function actRoll() {
   pc.value.attributes = attrs;
   ElMessage.success('已为您生成一组数据，看看符不符合心意吧！');
   generateTimes.value++;
-  LA.track(LAEventID.FEATURE, { name: FeatureNames.PAPER_ROLL });
+  LA?.track(LAEventID.FEATURE, { name: FeatureNames.PAPER_ROLL });
 }
 </script>
 

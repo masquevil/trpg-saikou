@@ -1,4 +1,4 @@
-import { watch, h, Fragment } from 'vue';
+import { watch, h, Fragment, nextTick } from 'vue';
 import type { Ref } from 'vue';
 import { ElMessageBox } from 'element-plus';
 
@@ -28,17 +28,22 @@ export default function useAutoSave(pcRef: Ref<COCPlayerCharacter>) {
   );
 
   if (autoSaved) {
-    ElMessageBox.confirm(
-      h(Fragment, null, [
-        '是否加载您',
-        h('b', { style: { fontWeight: 'bold' } }, timeAgo.value),
-        '编辑的人物卡',
-        savedPC?.name ? `：${savedPC.name}` : '',
-      ]),
-      '检测到编辑过的人物卡',
-      { showClose: false },
-    ).then(() => {
-      pcRef.value = savedPC!;
+    nextTick(() => {
+      let vnode;
+      // 不知道为什么 timeAgo.value 可能会报错
+      try {
+        vnode = h(Fragment, null, [
+          '是否加载您',
+          h('b', { style: { fontWeight: 'bold' } }, timeAgo.value),
+          '编辑的人物卡',
+          savedPC?.name ? `：${savedPC.name}` : '',
+        ]);
+      } catch (e) {
+        return;
+      }
+      ElMessageBox.confirm(vnode, '检测到编辑过的人物卡', { showClose: false }).then(() => {
+        pcRef.value = savedPC!;
+      });
     });
   }
 }

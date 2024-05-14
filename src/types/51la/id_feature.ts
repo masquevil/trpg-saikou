@@ -28,6 +28,7 @@ export enum FeatureNames {
   MORE_EMPTY = 'MORE_EMPTY',
   MORE_TOTAL_MODE = 'MORE_TOTAL_MODE',
   MORE_REWARD = 'MORE_REWARD',
+  MORE_NOTICE_BOARD = 'MORE_NOTICE_BOARD',
 
   // controls 内部的 actions - CA
   // 保存 -> 下载/重新生成

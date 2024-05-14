@@ -72,7 +72,7 @@ function onSelectJob(jobName: string) {
   if (!pc) return;
   pc.value.job = jobName;
   closeJobSelector();
-  LA.track(LAEventID.FEATURE, {
+  LA?.track(LAEventID.FEATURE, {
     name: FeatureNames.PAPER_USE_JOB,
     job: jobName,
   });

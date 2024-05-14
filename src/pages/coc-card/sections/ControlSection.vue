@@ -26,6 +26,7 @@ import QunSection from '../components/QunSection.vue';
 import JobList from '../components/JobList.vue';
 import WeaponList from '../components/WeaponList.vue';
 import DiceMaid from '../components/control-section-parts/dice-maid/DiceMaid.vue';
+// import NoticeBoardButton from '../components/control-section-parts/notice-board/NoticeBoardButton.vue';
 
 // models
 import { modifyAttributesByAge } from '../models/attribute';
@@ -93,12 +94,12 @@ function onTabChange(tabName: string | number) {
     weapons: FeatureNames.TAB_WEAPON_LIST,
     guide: FeatureNames.TAB_GUIDE,
   };
-  LA.track(LAEventID.FEATURE, { name: map[tabName as keyof typeof map] });
+  LA?.track(LAEventID.FEATURE, { name: map[tabName as keyof typeof map] });
 }
 
 function actSwitchPaper() {
   emit('switch-paper');
-  LA.track(LAEventID.FEATURE, { name: FeatureNames.F_SWITCH_PAPER });
+  LA?.track(LAEventID.FEATURE, { name: FeatureNames.F_SWITCH_PAPER });
 }
 
 const { paperImages, printPaper } = usePrintPaper(props.paperEls);
@@ -128,16 +129,16 @@ function actPrintPaper(paperKey?: 'front' | 'back') {
   });
 
   if (!paperKey) {
-    LA.track(LAEventID.FEATURE, { name: FeatureNames.F_SAVE });
+    LA?.track(LAEventID.FEATURE, { name: FeatureNames.F_SAVE });
   } else {
-    LA.track(LAEventID.FEATURE, {
+    LA?.track(LAEventID.FEATURE, {
       name: FeatureNames.CA_SAVE_REGEN,
       file: paperKey,
     });
   }
 }
 function onDownloadFile(name: string) {
-  LA.track(LAEventID.FEATURE, {
+  LA?.track(LAEventID.FEATURE, {
     name: FeatureNames.CA_SAVE_DOWNLOAD,
     file: name,
   });
@@ -146,7 +147,7 @@ function onDownloadFile(name: string) {
 function actToggleMorePanel() {
   morePanelVisible.value = !morePanelVisible.value;
   if (morePanelVisible.value) {
-    LA.track(LAEventID.FEATURE, { name: FeatureNames.F_MORE });
+    LA?.track(LAEventID.FEATURE, { name: FeatureNames.F_MORE });
   }
 }
 
@@ -154,18 +155,15 @@ function actAgeGrow() {
   if (!pc?.value) return;
   if (!pc.value.age || pc.value.age === '0') {
     ElMessage.error('请先在人物卡中填写年龄');
-    LA.track(LAEventID.FEATURE, {
+    LA?.track(LAEventID.FEATURE, {
       name: FeatureNames.MORE_AGE,
       success: false,
     });
     return;
   }
-  pc.value.attributes = modifyAttributesByAge(
-    pc.value.attributes,
-    Number(pc.value.age || 0),
-  );
+  pc.value.attributes = modifyAttributesByAge(pc.value.attributes, Number(pc.value.age || 0));
   ElMessage.success('已为您进行年龄修正！');
-  LA.track(LAEventID.FEATURE, { name: FeatureNames.MORE_AGE, success: true });
+  LA?.track(LAEventID.FEATURE, { name: FeatureNames.MORE_AGE, success: true });
 }
 
 function actResetCard() {
@@ -177,17 +175,17 @@ function actResetCard() {
 
   ElMessage.info('已重置人物卡');
   morePanelVisible.value = false;
-  LA.track(LAEventID.FEATURE, { name: FeatureNames.MORE_RESET });
+  LA?.track(LAEventID.FEATURE, { name: FeatureNames.MORE_RESET });
 }
 
 function actOpenInOutModal() {
   inOutModalVisible.value = true;
-  LA.track(LAEventID.FEATURE, { name: FeatureNames.MORE_INOUT });
+  LA?.track(LAEventID.FEATURE, { name: FeatureNames.MORE_INOUT });
 }
 function copyOutData() {
   copy(outData.value);
   ElMessage.success('已复制到剪贴板');
-  LA.track(LAEventID.FEATURE, { name: FeatureNames.CA_INOUT_EXPORT });
+  LA?.track(LAEventID.FEATURE, { name: FeatureNames.CA_INOUT_EXPORT });
 }
 function applyInData() {
   const json = LZString.decompressFromEncodedURIComponent(inData.value);
@@ -195,9 +193,7 @@ function applyInData() {
   if (data && data.viewData && data.pc && viewData && pc) {
     try {
       pc.value = data.pc;
-      viewData.showingChildSkills = new Map(
-        Object.entries(data.viewData.showingChildSkills),
-      );
+      viewData.showingChildSkills = new Map(Object.entries(data.viewData.showingChildSkills));
       const restKeys: (keyof COCCardViewData)[] = ['jobSkills', 'skillLimits'];
       restKeys.forEach((key) => {
         viewData[key] = data.viewData[key];
@@ -211,12 +207,12 @@ function applyInData() {
   } else {
     ElMessage.error('数据有误，无法导入');
   }
-  LA.track(LAEventID.FEATURE, { name: FeatureNames.CA_INOUT_IMPORT });
+  LA?.track(LAEventID.FEATURE, { name: FeatureNames.CA_INOUT_IMPORT });
 }
 
 function actDownloadEmptyCard() {
   downloadFile(cardPdf, '【TRPG 赛高】空白卡.pdf');
-  LA.track(LAEventID.FEATURE, { name: FeatureNames.MORE_EMPTY });
+  LA?.track(LAEventID.FEATURE, { name: FeatureNames.MORE_EMPTY });
 }
 
 function switchTotalMode() {
@@ -228,7 +224,7 @@ function switchTotalMode() {
     }`,
   );
   morePanelVisible.value = false;
-  LA.track(LAEventID.FEATURE, {
+  LA?.track(LAEventID.FEATURE, {
     name: FeatureNames.MORE_TOTAL_MODE,
     mode: pageData.showTotalSeparation ? 'full' : 'simple',
   });
@@ -236,7 +232,7 @@ function switchTotalMode() {
 
 function actReward() {
   rewardModalVisible.value = true;
-  LA.track(LAEventID.FEATURE, { name: FeatureNames.MORE_REWARD });
+  LA?.track(LAEventID.FEATURE, { name: FeatureNames.MORE_REWARD });
 }
 
 // preload qr codes when more panel is opened
@@ -316,6 +312,7 @@ const cleanPreloadFn = watch(morePanelVisible, (visible) => {
             :icon="IceCream"
             @click="actReward"
           />
+          <!-- <NoticeBoardButton /> -->
         </div>
         <!-- <IssueRow /> -->
         <QunSection />

@@ -4,7 +4,11 @@ import groupQrWechat from '../assets/group-qr-wechat.jpg';
 
 <template>
   <div class="qun-section">
-    <div class="qun-section-title">扫码加入交流群，报 Bug，提需求，约团！</div>
+    <div class="qun-section-title">
+      扫码加我企业微信，加入交流群
+      <br />
+      报 Bug，提需求，约团！
+    </div>
     <div class="qun-list">
       <div class="qun-item">
         <img
@@ -17,12 +21,10 @@ import groupQrWechat from '../assets/group-qr-wechat.jpg';
 </template>
 
 <style scoped lang="scss">
-.qun-section {
-  margin-top: 16px;
-}
 .qun-section-title {
-  margin-bottom: 16px;
-  line-height: 1;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  line-height: 1.5;
   text-align: center;
 }
 .qun-list {

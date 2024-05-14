@@ -9,12 +9,7 @@ import FlattenTree from '../components/FlattenTree.vue';
 import type { Weapon } from '../types/weapon';
 import type { FlattenTreeData } from '../types/flattenTree';
 
-import {
-  createWeapon,
-  weapons,
-  weaponGroups,
-  weaponGroupOrders,
-} from '../models/weapon';
+import { createWeapon, weapons, weaponGroups, weaponGroupOrders } from '../models/weapon';
 import { skillGroups } from '../models/skill';
 import LA, { LAEventID, FeatureNames } from '@/plugins/51la';
 
@@ -123,8 +118,7 @@ const weaponTree = computed<FlattenTreeData>(() => {
 
 function updatePCWeapon(updates: Partial<Weapon>) {
   if (!pc) return;
-  if (!pc.value.weapons[props.index])
-    pc.value.weapons[props.index] = createWeapon();
+  if (!pc.value.weapons[props.index]) pc.value.weapons[props.index] = createWeapon();
   const weapon = pc.value.weapons[props.index];
   Object.assign(weapon, updates);
 }
@@ -137,7 +131,7 @@ function onSelectWeapon(name: string) {
     ...rest,
   });
   hideWeaponSeletor();
-  LA.track(LAEventID.FEATURE, {
+  LA?.track(LAEventID.FEATURE, {
     name: FeatureNames.PAPER_USE_WEAPON,
     weapon: name,
   });
