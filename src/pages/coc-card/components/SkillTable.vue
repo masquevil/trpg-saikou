@@ -45,11 +45,9 @@ interface TableRowData {
 }
 
 function getTableData(data: SkillGroups, suggestion?: Suggestion) {
-  const tableData = data.reduce<TableRowData[]>(
-    (result: any, skillGroup: SkillGroup) => {
-      const rows: TableRowData[] = skillGroup.groupSkills.reduce<
-        TableRowData[]
-      >((rows, skill, index) => {
+  const tableData = data.reduce<TableRowData[]>((result: any, skillGroup: SkillGroup) => {
+    const rows: TableRowData[] = skillGroup.groupSkills.reduce<TableRowData[]>(
+      (rows, skill, index) => {
         const isSpecialGroup = skillGroup.groupName === '特殊';
         let init = skill.init;
         if (pc && skill.name in dynamicInitFormulas) {
@@ -62,8 +60,7 @@ function getTableData(data: SkillGroups, suggestion?: Suggestion) {
         const points = skillPoint?.[1] || {};
         // 信用评级范围
         const [w0, w1] = suggestion?.wealth ?? [-1, -1];
-        const comments =
-          skillKey === '信用评级' && w0 >= 0 && w1 >= 0 ? `(${w0}~${w1})` : '';
+        const comments = skillKey === '信用评级' && w0 >= 0 && w1 >= 0 ? `(${w0}~${w1})` : '';
         const total = getTotal(points, init);
         let rowData: TableRowData = {
           key: skill.name,
@@ -89,25 +86,18 @@ function getTableData(data: SkillGroups, suggestion?: Suggestion) {
         // multi skill rows
         if (skill.group) {
           const length = skill.group.show.length;
-          const groupRow =
-            resultRows.find((row) => row.isGroupStart) || rowData;
+          const groupRow = resultRows.find((row) => row.isGroupStart) || rowData;
           // increase groupSize
           groupRow.groupSize! += length - 1;
           added = skill.group.show.map((placeName, childIndex) => {
             const childSkillName =
-              viewData?.showingChildSkills.get(skill.name)?.[childIndex] ??
-              placeName;
-            const childSkill = skill.group?.skills.find(
-              ({ name }) => name === childSkillName,
-            );
+              viewData?.showingChildSkills.get(skill.name)?.[childIndex] ?? placeName;
+            const childSkill = skill.group?.skills.find(({ name }) => name === childSkillName);
             let init = childSkill?.init ?? rowData.init;
-            const skillKey: COCPCSkill = [
-              skill.name,
-              childSkillName,
-              childIndex,
-            ];
+            const skillKey: COCPCSkill = [skill.name, childSkillName, childIndex];
             const skillPoint = findSkillPoints(skillKey);
             const points = skillPoint?.[1] || {};
+            const total = getTotal(points, init);
             if (pc && !skill.name) {
               init = points.b || 0;
             }
@@ -120,7 +110,8 @@ function getTableData(data: SkillGroups, suggestion?: Suggestion) {
               skillKey,
               init,
               points,
-              total: getTotal(points, init),
+              total,
+              totalSeparation: [total, ~~(total / 2), ~~(total / 5)],
               // child skill info
               childSkillData: {
                 name: childSkillName,
@@ -131,15 +122,16 @@ function getTableData(data: SkillGroups, suggestion?: Suggestion) {
           });
         }
         return [...resultRows, ...added];
-      }, []);
-      return [...result, ...rows];
-    },
-    [],
-  );
+      },
+      [],
+    );
+    return [...result, ...rows];
+  }, []);
   return tableData;
 }
 
 const tableData = computed(() => getTableData(props.data, props.suggestion));
+console.log('xxx tableData', tableData);
 
 function findSkillPoints(skillInfo: COCPCSkill) {
   if (!pc) return;
@@ -162,8 +154,7 @@ function updateSkillPoint(
   if (!pc) return;
   let skillPoint = findSkillPoints(skillKey);
   if (!skillPoint) {
-    const key =
-      typeof skillKey === 'string' ? skillKey : ([...skillKey] as COCPCSkill);
+    const key = typeof skillKey === 'string' ? skillKey : ([...skillKey] as COCPCSkill);
     skillPoint = [key, {}];
     pc.value.skillPoints.push(skillPoint);
   }

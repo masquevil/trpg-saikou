@@ -4,6 +4,7 @@ import { LSApp } from '@/types/ls';
 import type { COCPlayerCharacter } from '../types/character';
 
 interface Store {
+  showTotalSeparation?: boolean;
   autoSaved?: {
     pc: COCPlayerCharacter;
     lastModified: number; // number of date

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, provide, ref } from 'vue';
+import { reactive, provide, ref, watch } from 'vue';
 import qs from 'qs';
 
 import { createPC } from './models/character';
@@ -12,6 +12,7 @@ import type { PageData } from './types/pageData';
 import useDerives from './hooks/useDerives';
 import useSuggestion from './hooks/useSuggestion';
 import useAutoSave from './hooks/useAutoSave';
+import useAppLs from './hooks/useAppLs';
 
 import ControlSection from './sections/ControlSection.vue';
 import PaperFront from './PaperFront.vue';
@@ -19,12 +20,20 @@ import PaperBack from './PaperBack.vue';
 
 const qsObject = qs.parse(location.search.slice(1));
 const pcRef = ref<COCPlayerCharacter>(createPC());
+const ls = useAppLs();
 const viewData = reactive<COCCardViewData>(createViewData(qsObject));
 const pageData = reactive<PageData>({
   printing: qsObject.debug === 'true',
-  showTotalSeparation: qsObject.sep === 'true',
+  showTotalSeparation: qsObject.sep === 'true' || ls.getItem('showTotalSeparation') || false,
 });
 const paperInFront = ref(qsObject.turn === 'back' ? false : true);
+
+watch(
+  () => pageData.showTotalSeparation,
+  (value) => {
+    ls.setItem('showTotalSeparation', value);
+  },
+);
 
 useDerives(pcRef);
 const suggestion = useSuggestion(pcRef, viewData);
