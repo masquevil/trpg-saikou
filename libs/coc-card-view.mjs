@@ -1,4 +1,4 @@
-import { watch as rA, computed as gA, unref as b, onMounted as mI, nextTick as dC, ref as Y, readonly as Tg, getCurrentInstance as xI, isRef as sI, getCurrentScope as yI, onScopeDispose as EI, shallowRef as VI, h as Bw, Fragment as J, defineComponent as H, openBlock as z, createElementBlock as r, createElementVNode as c, createBlock as IA, resolveDynamicComponent as Gg, normalizeClass as vA, withCtx as S, renderSlot as wC, resolveComponent as cA, createVNode as l, createTextVNode as DA, toDisplayString as V, createCommentVNode as k, inject as mC, reactive as VA, normalizeStyle as jC, renderList as wA, pushScopeId as eA, popScopeId as tA, createStaticVNode as pI, withDirectives as gC, Transition as Iw, vModelText as QI, vShow as Bg, provide as SC, KeepAlive as SI } from "vue";
+import { watch as rA, computed as wA, unref as b, onMounted as mI, nextTick as dC, ref as Y, readonly as Tg, getCurrentInstance as xI, isRef as sI, getCurrentScope as yI, onScopeDispose as EI, shallowRef as VI, h as Bw, Fragment as J, defineComponent as H, openBlock as z, createElementBlock as r, createElementVNode as c, createBlock as gA, resolveDynamicComponent as Gg, normalizeClass as vA, withCtx as S, renderSlot as wC, resolveComponent as cA, createVNode as l, createTextVNode as DA, toDisplayString as V, createCommentVNode as k, inject as mC, reactive as VA, normalizeStyle as jC, renderList as MA, pushScopeId as eA, popScopeId as tA, createStaticVNode as pI, withDirectives as gC, Transition as Iw, vModelText as QI, vShow as Bg, provide as SC, KeepAlive as SI } from "vue";
 import { ElMessageBox as HI, ElMessage as fA, ClickOutside as XI } from "element-plus";
 var jg = typeof globalThis < "u" ? globalThis : typeof window < "u" ? window : typeof global < "u" ? global : typeof self < "u" ? self : {};
 function Dw(C) {
@@ -662,8 +662,8 @@ function QD() {
       var h = m("%AsyncGeneratorFunction%");
       h && (y = h.prototype);
     } else if (j === "%AsyncIteratorPrototype%") {
-      var CA = m("%AsyncGenerator%");
-      CA && L && (y = L(CA.prototype));
+      var IA = m("%AsyncGenerator%");
+      IA && L && (y = L(IA.prototype));
     }
     return G[j] = y, y;
   }, x = {
@@ -725,18 +725,18 @@ function QD() {
       throw new I("invalid intrinsic syntax, expected closing `%`");
     if (h === "%" && y !== "%")
       throw new I("invalid intrinsic syntax, expected opening `%`");
-    var CA = [];
+    var IA = [];
     return B(j, s, function(AA, PA, UA, mA) {
-      CA[CA.length] = UA ? B(mA, X, "$1") : PA || AA;
-    }), CA;
+      IA[IA.length] = UA ? B(mA, X, "$1") : PA || AA;
+    }), IA;
   }, d = function(j, y) {
-    var h = j, CA;
-    if (K(x, h) && (CA = x[h], h = "%" + CA[0] + "%"), K(G, h)) {
+    var h = j, IA;
+    if (K(x, h) && (IA = x[h], h = "%" + IA[0] + "%"), K(G, h)) {
       var AA = G[h];
       if (AA === f && (AA = T(h)), typeof AA > "u" && !y)
         throw new D("intrinsic " + j + " exists, but is not available. Please file an issue!");
       return {
-        alias: CA,
+        alias: IA,
         name: h,
         value: AA
       };
@@ -750,13 +750,13 @@ function QD() {
       throw new D('"allowMissing" argument must be a boolean');
     if (p(/^%?[^%]*%?$/, j) === null)
       throw new I("`%` may not be present anywhere but at the beginning and end of the intrinsic name");
-    var h = Q(j), CA = h.length > 0 ? h[0] : "", AA = d("%" + CA + "%", y), PA = AA.name, UA = AA.value, mA = !1, xA = AA.alias;
-    xA && (CA = xA[0], P(h, a([0, 1], xA)));
+    var h = Q(j), IA = h.length > 0 ? h[0] : "", AA = d("%" + IA + "%", y), PA = AA.name, UA = AA.value, mA = !1, xA = AA.alias;
+    xA && (IA = xA[0], P(h, a([0, 1], xA)));
     for (var QA = 1, sA = !0; QA < h.length; QA += 1) {
       var NA = h[QA], vC = E(NA, 0, 1), pC = E(NA, -1);
       if ((vC === '"' || vC === "'" || vC === "`" || pC === '"' || pC === "'" || pC === "`") && vC !== pC)
         throw new I("property names with quotes must have matching quotes");
-      if ((NA === "constructor" || !sA) && (mA = !0), CA += "." + NA, PA = "%" + CA + "%", K(G, PA))
+      if ((NA === "constructor" || !sA) && (mA = !0), IA += "." + NA, PA = "%" + IA + "%", K(G, PA))
         UA = G[PA];
       else if (UA != null) {
         if (!(NA in UA)) {
@@ -4170,8 +4170,8 @@ function $n(C, A) {
           return;
         const X = `${U}-${s}`, Q = T[X];
         if (U && (P = ((j = (m = x.group) == null ? void 0 : m.skills.find((y) => y.name === s)) == null ? void 0 : j.init) || P), Q) {
-          const { b: y = U ? P : 0, p: h = 0, i: CA = 0, g: AA = 0 } = Q;
-          p = y + h + CA + AA;
+          const { b: y = U ? P : 0, p: h = 0, i: IA = 0, g: AA = 0 } = Q;
+          p = y + h + IA + AA;
         } else
           a.show.includes(s) && (p = P);
         N += `${s}${p}`;
@@ -6293,7 +6293,7 @@ function no(C) {
   });
 }
 function oo(C, A) {
-  const { jobs: M } = VC, w = gA(() => II(C.value.job));
+  const { jobs: M } = VC, w = wA(() => II(C.value.job));
   return rA(
     () => C.value.job,
     () => {
@@ -6655,7 +6655,7 @@ function jo(C, A = {}) {
   const {
     controls: M = !1,
     updateInterval: w = 3e4
-  } = A, { now: g, ...I } = Po({ interval: w, controls: !0 }), D = gA(() => uo(new Date(fC(C)), A, fC(g)));
+  } = A, { now: g, ...I } = Po({ interval: w, controls: !0 }), D = wA(() => uo(new Date(fC(C)), A, fC(g)));
   return M ? {
     timeAgo: D,
     ...I
@@ -7299,7 +7299,7 @@ const zi = /* @__PURE__ */ H({
   },
   emits: ["click"],
   setup(C) {
-    return (A, M) => (z(), IA(Gg(A.tag), {
+    return (A, M) => (z(), gA(Gg(A.tag), {
       class: vA(["action-button", {
         "action-button-full-width": A.fullWidth
       }]),
@@ -7327,14 +7327,14 @@ const zi = /* @__PURE__ */ H({
   setup(C) {
     return (A, M) => {
       const w = cA("el-icon");
-      return z(), IA(Cw, {
+      return z(), gA(Cw, {
         class: "control-button",
         onClick: M[0] || (M[0] = (g) => A.$emit("click", g))
       }, {
         default: S(() => [
           l(w, { size: "0.9em" }, {
             default: S(() => [
-              (z(), IA(Gg(A.icon)))
+              (z(), gA(Gg(A.icon)))
             ]),
             _: 1
           }),
@@ -7354,7 +7354,7 @@ const zi = /* @__PURE__ */ H({
   setup(C) {
     return (A, M) => {
       const w = cA("el-dialog");
-      return z(), IA(w, {
+      return z(), gA(w, {
         class: "coc-card-control-dialog",
         "append-to-body": "",
         "align-center": "",
@@ -7401,7 +7401,7 @@ const ai = { class: "downloader-item" }, Fi = { class: "downloader-item-preview"
   },
   emits: ["refresh", "downloaded"],
   setup(C, { emit: A }) {
-    const M = C, w = A, g = Y(!1), I = gA(() => {
+    const M = C, w = A, g = Y(!1), I = wA(() => {
       if (!M.download)
         return "";
       const { name: n, type: o } = M.download;
@@ -7581,8 +7581,8 @@ function hA(C, A, M) {
     }
   }), w;
 }
-var MA = /* @__PURE__ */ ((C) => (C.FEATURE = "feature", C))(MA || {}), $ = /* @__PURE__ */ ((C) => (C.F_POINT = "F_POINT", C.F_SWITCH_PAPER = "F_SWITCH_PAPER", C.F_SAVE = "F_SAVE", C.F_MORE = "F_MORE", C.TAB_MORE = "TAB_MORE", C.TAB_JOB_LIST = "TAB_JOB_LIST", C.TAB_WEAPON_LIST = "TAB_WEAPON_LIST", C.TAB_GUIDE = "TAB_GUIDE", C.PAPER_ROLL = "PAPER_ROLL", C.PAPER_USE_JOB = "PAPER_USE_JOB", C.PAPER_USE_WEAPON = "PAPER_USE_WEAPON", C.PANE_USE_JOB = "PANE_USE_JOB", C.PANE_USE_WEAPON = "PANE_USE_WEAPON", C.MORE_AGE = "MORE_AGE", C.MORE_RESET = "MORE_RESET", C.MORE_INOUT = "MORE_INOUT", C.MORE_DICE_MAID = "MORE_DICE_MAID", C.MORE_EMPTY = "MORE_EMPTY", C.MORE_TOTAL_MODE = "MORE_TOTAL_MODE", C.MORE_REWARD = "MORE_REWARD", C.MORE_NOTICE_BOARD = "MORE_NOTICE_BOARD", C.CA_SAVE_DOWNLOAD = "CA_SAVE_DOWNLOAD", C.CA_SAVE_REGEN = "CA_SAVE_REGEN", C.CA_INOUT_IMPORT = "CA_INOUT_IMPORT", C.CA_INOUT_EXPORT = "CA_INOUT_EXPORT", C.CA_DICE_MAID_COPY = "CA_DICE_MAID_COPY", C.PM_GEN_KAEDE = "PM_GEN_KAEDE", C.PM_GEN_ROLL = "PM_GEN_ROLL", C.PM_GEN_BUY = "PM_GEN_BUY", C.PM_USE_KAEDE = "PM_USE_KAEDE", C.PM_USE_ROLL = "PM_USE_ROLL", C.PM_USE_BUY = "PM_USE_BUY", C))($ || {});
-const u = window.LA, DC = (C) => (eA("data-v-d38e6f66"), C = C(), tA(), C), pi = { class: "modal-body" }, Qi = { class: "method-section" }, Si = { class: "method-section-header" }, Hi = /* @__PURE__ */ DC(() => /* @__PURE__ */ c("div", { class: "method-section-title" }, "枫笛式", -1)), Xi = { class: "header-action" }, Wi = { class: "method-section-content" }, hi = { class: "kaede-desc-row" }, ki = { class: "kaede-desc-col" }, Yi = {
+var CA = /* @__PURE__ */ ((C) => (C.FEATURE = "feature", C))(CA || {}), $ = /* @__PURE__ */ ((C) => (C.F_POINT = "F_POINT", C.F_SWITCH_PAPER = "F_SWITCH_PAPER", C.F_SAVE = "F_SAVE", C.F_MORE = "F_MORE", C.TAB_MORE = "TAB_MORE", C.TAB_JOB_LIST = "TAB_JOB_LIST", C.TAB_WEAPON_LIST = "TAB_WEAPON_LIST", C.TAB_GUIDE = "TAB_GUIDE", C.PAPER_ROLL = "PAPER_ROLL", C.PAPER_USE_JOB = "PAPER_USE_JOB", C.PAPER_USE_WEAPON = "PAPER_USE_WEAPON", C.PANE_USE_JOB = "PANE_USE_JOB", C.PANE_USE_WEAPON = "PANE_USE_WEAPON", C.MORE_AGE = "MORE_AGE", C.MORE_RESET = "MORE_RESET", C.MORE_INOUT = "MORE_INOUT", C.MORE_DICE_MAID = "MORE_DICE_MAID", C.MORE_EMPTY = "MORE_EMPTY", C.MORE_TOTAL_MODE = "MORE_TOTAL_MODE", C.MORE_REWARD = "MORE_REWARD", C.MORE_NOTICE_BOARD = "MORE_NOTICE_BOARD", C.CA_SAVE_DOWNLOAD = "CA_SAVE_DOWNLOAD", C.CA_SAVE_REGEN = "CA_SAVE_REGEN", C.CA_INOUT_IMPORT = "CA_INOUT_IMPORT", C.CA_INOUT_EXPORT = "CA_INOUT_EXPORT", C.CA_DICE_MAID_COPY = "CA_DICE_MAID_COPY", C.PM_GEN_KAEDE = "PM_GEN_KAEDE", C.PM_GEN_ROLL = "PM_GEN_ROLL", C.PM_GEN_BUY = "PM_GEN_BUY", C.PM_USE_KAEDE = "PM_USE_KAEDE", C.PM_USE_ROLL = "PM_USE_ROLL", C.PM_USE_BUY = "PM_USE_BUY", C))($ || {});
+const u = window.LA, DC = (C) => (eA("data-v-1fec4c3b"), C = C(), tA(), C), pi = { class: "modal-body" }, Qi = { class: "method-section" }, Si = { class: "method-section-header" }, Hi = /* @__PURE__ */ DC(() => /* @__PURE__ */ c("div", { class: "method-section-title" }, "枫笛式", -1)), Xi = { class: "header-action" }, Wi = { class: "method-section-content" }, hi = { class: "kaede-desc-row" }, ki = { class: "kaede-desc-col" }, Yi = {
   key: 0,
   class: "kaede-value-column"
 }, Ji = { class: "kaede-desc-col" }, Oi = {
@@ -7612,7 +7612,7 @@ const u = window.LA, DC = (C) => (eA("data-v-d38e6f66"), C = C(), tA(), C), pi =
     }
     const D = Y(PC({})), v = Y(!1), n = Y(0), o = Y({});
     function i() {
-      a(), D.value = Mw(), o.value.luc = "luc", v.value = !0, n.value++, u == null || u.track(MA.FEATURE, { name: $.PM_GEN_KAEDE });
+      a(), D.value = Mw(), o.value.luc = "luc", v.value = !0, n.value++, u == null || u.track(CA.FEATURE, { name: $.PM_GEN_KAEDE });
     }
     function t() {
       if (Object.values(o.value).filter(
@@ -7624,7 +7624,7 @@ const u = window.LA, DC = (C) => (eA("data-v-d38e6f66"), C = C(), tA(), C), pi =
       const s = PC({});
       Object.entries(o.value).forEach(([X, Q]) => {
         Q && (s[X] = D.value[Q]);
-      }), g(s), u == null || u.track(MA.FEATURE, { name: $.PM_USE_KAEDE });
+      }), g(s), u == null || u.track(CA.FEATURE, { name: $.PM_USE_KAEDE });
     }
     function Z(p) {
       return Object.values(o.value).some(
@@ -7636,17 +7636,17 @@ const u = window.LA, DC = (C) => (eA("data-v-d38e6f66"), C = C(), tA(), C), pi =
       a(), L.value = Array.from(
         { length: e.value },
         () => Mw()
-      ), F.value++, u == null || u.track(MA.FEATURE, { name: $.PM_GEN_ROLL });
+      ), F.value++, u == null || u.track(CA.FEATURE, { name: $.PM_GEN_ROLL });
     }
     function R(p) {
-      g(p), u == null || u.track(MA.FEATURE, { name: $.PM_USE_ROLL });
+      g(p), u == null || u.track(CA.FEATURE, { name: $.PM_USE_ROLL });
     }
-    const G = Y(460), N = Y(!1), T = Y(PC({})), x = gA(() => G.value - EM(T.value));
+    const G = Y(460), N = Y(!1), T = Y(PC({})), x = wA(() => G.value - EM(T.value));
     function U() {
-      a(), N.value = !0, T.value = PC({}), u == null || u.track(MA.FEATURE, { name: $.PM_GEN_BUY });
+      a(), N.value = !0, T.value = PC({}), u == null || u.track(CA.FEATURE, { name: $.PM_GEN_BUY });
     }
     function K() {
-      g(T.value), u == null || u.track(MA.FEATURE, { name: $.PM_USE_BUY });
+      g(T.value), u == null || u.track(CA.FEATURE, { name: $.PM_USE_BUY });
     }
     function a() {
       v.value = !1, L.value = [], N.value = !1;
@@ -7664,7 +7664,7 @@ const u = window.LA, DC = (C) => (eA("data-v-d38e6f66"), C = C(), tA(), C), pi =
     ], E = [{ key: "luc", label: "幸运", hint: "Luck" }];
     return (p, s) => {
       const X = cA("el-button"), Q = cA("el-option"), d = cA("el-select"), m = cA("el-input");
-      return z(), IA(CC, {
+      return z(), gA(CC, {
         title: "花式加点",
         modelValue: p.isOpen,
         "onUpdate:modelValue": I
@@ -7696,7 +7696,7 @@ const u = window.LA, DC = (C) => (eA("data-v-d38e6f66"), C = C(), tA(), C), pi =
                     DA(" 分配 5组 3D6×5 到左侧 "),
                     v.value ? (z(), r("span", Yi, [
                       DA(" · "),
-                      (z(), r(J, null, wA(P, (j) => c("span", {
+                      (z(), r(J, null, MA(P, (j) => c("span", {
                         key: j.key
                       }, V(D.value[j.key]), 1)), 64))
                     ])) : k("", !0)
@@ -7705,7 +7705,7 @@ const u = window.LA, DC = (C) => (eA("data-v-d38e6f66"), C = C(), tA(), C), pi =
                     DA(" 分配 3组 (2D6+6)×5 到右侧 "),
                     v.value ? (z(), r("span", Oi, [
                       DA(" · "),
-                      (z(), r(J, null, wA(B, (j) => c("span", {
+                      (z(), r(J, null, MA(B, (j) => c("span", {
                         key: j.key
                       }, V(D.value[j.key]), 1)), 64))
                     ])) : k("", !0)
@@ -7713,7 +7713,7 @@ const u = window.LA, DC = (C) => (eA("data-v-d38e6f66"), C = C(), tA(), C), pi =
                 ]),
                 v.value ? (z(), r("div", qi, [
                   c("div", _i, [
-                    (z(), r(J, null, wA(P, (j) => c("div", {
+                    (z(), r(J, null, MA(P, (j) => c("div", {
                       key: j.key,
                       class: "kaede-choice-row"
                     }, [
@@ -7726,7 +7726,7 @@ const u = window.LA, DC = (C) => (eA("data-v-d38e6f66"), C = C(), tA(), C), pi =
                         clearable: ""
                       }, {
                         default: S(() => [
-                          (z(), r(J, null, wA(P, (y) => l(Q, {
+                          (z(), r(J, null, MA(P, (y) => l(Q, {
                             key: y.key,
                             label: D.value[y.key],
                             value: y.key,
@@ -7738,7 +7738,7 @@ const u = window.LA, DC = (C) => (eA("data-v-d38e6f66"), C = C(), tA(), C), pi =
                     ])), 64))
                   ]),
                   c("div", A9, [
-                    (z(), r(J, null, wA(B, (j) => c("div", {
+                    (z(), r(J, null, MA(B, (j) => c("div", {
                       key: j.key,
                       class: "kaede-choice-row"
                     }, [
@@ -7751,7 +7751,7 @@ const u = window.LA, DC = (C) => (eA("data-v-d38e6f66"), C = C(), tA(), C), pi =
                         clearable: ""
                       }, {
                         default: S(() => [
-                          (z(), r(J, null, wA(B, (y) => l(Q, {
+                          (z(), r(J, null, MA(B, (y) => l(Q, {
                             key: y.key,
                             label: D.value[y.key],
                             value: y.key,
@@ -7811,17 +7811,17 @@ const u = window.LA, DC = (C) => (eA("data-v-d38e6f66"), C = C(), tA(), C), pi =
               ]),
               c("div", n9, [
                 o9,
-                (z(!0), r(J, null, wA(L.value, (j, y) => (z(), r("div", {
+                (z(!0), r(J, null, MA(L.value, (j, y) => (z(), r("div", {
                   key: y,
-                  class: "action-roll-result"
+                  class: "action-roll-result",
+                  onClick: (h) => R(j)
                 }, [
-                  (z(!0), r(J, null, wA([...P, ...B, ...E], (h) => (z(), r("div", {
+                  (z(!0), r(J, null, MA([...P, ...B, ...E], (h) => (z(), r("div", {
                     key: h.key,
-                    class: "action-roll-result-item",
-                    onClick: (CA) => R(j)
-                  }, V(h.label) + " " + V(j[h.key]), 9, i9))), 128)),
+                    class: "action-roll-result-item"
+                  }, V(h.label) + " " + V(j[h.key]), 1))), 128)),
                   c("div", c9, " 总点数 " + V(b(uC)(j)) + " / 含运 " + V(b(EM)(j)), 1)
-                ]))), 128))
+                ], 8, i9))), 128))
               ])
             ]),
             c("div", Z9, [
@@ -7856,7 +7856,7 @@ const u = window.LA, DC = (C) => (eA("data-v-d38e6f66"), C = C(), tA(), C), pi =
                 L9,
                 N.value ? (z(), r("div", R9, [
                   c("div", K9, [
-                    (z(), r(J, null, wA(P, (j) => l(oA, {
+                    (z(), r(J, null, MA(P, (j) => l(oA, {
                       key: j.key,
                       label: j.label,
                       hint: j.hint,
@@ -7865,14 +7865,14 @@ const u = window.LA, DC = (C) => (eA("data-v-d38e6f66"), C = C(), tA(), C), pi =
                     }, null, 8, ["label", "hint", "modelValue", "onUpdate:modelValue"])), 64))
                   ]),
                   c("div", a9, [
-                    (z(), r(J, null, wA(B, (j) => l(oA, {
+                    (z(), r(J, null, MA(B, (j) => l(oA, {
                       key: j.key,
                       label: j.label,
                       hint: j.hint,
                       modelValue: `${T.value[j.key] ?? ""}`,
                       "onUpdate:modelValue": (y) => T.value[j.key] = Number(y)
                     }, null, 8, ["label", "hint", "modelValue", "onUpdate:modelValue"])), 64)),
-                    (z(), r(J, null, wA(E, (j) => l(oA, {
+                    (z(), r(J, null, MA(E, (j) => l(oA, {
                       key: j.key,
                       label: j.label,
                       hint: j.hint,
@@ -7902,12 +7902,12 @@ const u = window.LA, DC = (C) => (eA("data-v-d38e6f66"), C = C(), tA(), C), pi =
       }, 8, ["modelValue"]);
     };
   }
-}), b9 = /* @__PURE__ */ W(f9, [["__scopeId", "data-v-d38e6f66"]]), r9 = /* @__PURE__ */ H({
+}), b9 = /* @__PURE__ */ W(f9, [["__scopeId", "data-v-1fec4c3b"]]), r9 = /* @__PURE__ */ H({
   __name: "BuyPointsButton",
   setup(C) {
     const A = Y(!1);
     function M() {
-      A.value = !0, u == null || u.track(MA.FEATURE, { name: $.F_POINT });
+      A.value = !0, u == null || u.track(CA.FEATURE, { name: $.F_POINT });
     }
     return (w, g) => (z(), r(J, null, [
       l(TA, {
@@ -7968,7 +7968,7 @@ const u9 = /* @__PURE__ */ W(N9, [["render", j9], ["__scopeId", "data-v-38603e1a
     label: {}
   },
   setup(C) {
-    const { jobGroups: A, jobs: M } = VC, w = nA(), g = Y([]), I = gA(() => A.map((v) => ({
+    const { jobGroups: A, jobs: M } = VC, w = nA(), g = Y([]), I = wA(() => A.map((v) => ({
       name: v.name,
       items: v.jobs.map((n) => {
         const o = M.get(n.name), i = II(o.name), t = i.multiSkillTexts.map((F) => `${F}、`).join("") + i.text, { point: Z, text: e } = gI(
@@ -7985,7 +7985,7 @@ const u9 = /* @__PURE__ */ W(N9, [["render", j9], ["__scopeId", "data-v-38603e1a
       })
     })));
     function D(v) {
-      w && (w.value.job = v, u == null || u.track(MA.FEATURE, {
+      w && (w.value.job = v, u == null || u.track(CA.FEATURE, {
         name: $.PANE_USE_JOB,
         job: v
       }));
@@ -7999,14 +7999,14 @@ const u9 = /* @__PURE__ */ W(N9, [["render", j9], ["__scopeId", "data-v-38603e1a
           "onUpdate:modelValue": n[0] || (n[0] = (Z) => g.value = Z)
         }, {
           default: S(() => [
-            (z(!0), r(J, null, wA(I.value, (Z) => (z(), IA(i, {
+            (z(!0), r(J, null, MA(I.value, (Z) => (z(), gA(i, {
               key: Z.name,
               title: Z.name,
               name: Z.name
             }, {
               default: S(() => [
                 c("div", W9, [
-                  (z(!0), r(J, null, wA(Z.items, (e) => (z(), r("div", {
+                  (z(!0), r(J, null, MA(Z.items, (e) => (z(), r("div", {
                     key: e.name,
                     class: "job-card"
                   }, [
@@ -8048,7 +8048,7 @@ const u9 = /* @__PURE__ */ W(N9, [["render", j9], ["__scopeId", "data-v-38603e1a
     label: {}
   },
   setup(C) {
-    const A = XI, M = nA(), w = Y([]), g = gA(() => {
+    const A = XI, M = nA(), w = Y([]), g = wA(() => {
       const Z = new Map(
         Kw.map((e) => [
           e.name,
@@ -8076,7 +8076,7 @@ const u9 = /* @__PURE__ */ W(N9, [["render", j9], ["__scopeId", "data-v-38603e1a
       n.value = !1;
     }
     function t(Z, e) {
-      !M || !e || (M.value.weapons[Z] = e, u == null || u.track(MA.FEATURE, {
+      !M || !e || (M.value.weapons[Z] = e, u == null || u.track(CA.FEATURE, {
         name: $.PANE_USE_WEAPON,
         weapon: e.name
       }));
@@ -8091,14 +8091,14 @@ const u9 = /* @__PURE__ */ W(N9, [["render", j9], ["__scopeId", "data-v-38603e1a
           "onUpdate:modelValue": e[0] || (e[0] = (N) => w.value = N)
         }, {
           default: S(() => [
-            (z(!0), r(J, null, wA(g.value, (N) => (z(), IA(L, {
+            (z(!0), r(J, null, MA(g.value, (N) => (z(), gA(L, {
               key: N.groupKey,
               title: N.name,
               name: N.groupKey
             }, {
               default: S(() => [
                 c("div", $9, [
-                  (z(!0), r(J, null, wA(N.items, (T) => (z(), r("div", {
+                  (z(!0), r(J, null, MA(N.items, (T) => (z(), r("div", {
                     key: T.name,
                     class: "weapon-card"
                   }, [
@@ -8161,7 +8161,7 @@ const u9 = /* @__PURE__ */ W(N9, [["render", j9], ["__scopeId", "data-v-38603e1a
           "virtual-ref": (G = D.value[v.value]) == null ? void 0 : G.el
         }, {
           default: S(() => [
-            (z(), r(J, null, wA(5, (N) => c("a", {
+            (z(), r(J, null, MA(5, (N) => c("a", {
               key: N,
               class: "job-card-action",
               onClick: (T) => {
@@ -8178,18 +8178,18 @@ const u9 = /* @__PURE__ */ W(N9, [["render", j9], ["__scopeId", "data-v-38603e1a
 }), Dc = /* @__PURE__ */ W(Ic, [["__scopeId", "data-v-62aae94c"]]), vc = (C) => (eA("data-v-8a1595a8"), C = C(), tA(), C), nc = { class: "modal-body" }, oc = { class: "group" }, ic = /* @__PURE__ */ vc(() => /* @__PURE__ */ c("div", null, "录卡指令", -1)), cc = /* @__PURE__ */ H({
   __name: "DiceMaid",
   setup(C) {
-    const A = nA(), M = LM(), w = gA(
+    const A = nA(), M = LM(), w = wA(
       () => ".st " + (A && M ? $n(A.value, M) : "")
     ), g = Y(!1);
     function I() {
-      g.value = !0, u == null || u.track(MA.FEATURE, { name: $.MORE_DICE_MAID });
+      g.value = !0, u == null || u.track(CA.FEATURE, { name: $.MORE_DICE_MAID });
     }
     function D(n) {
       var o;
       (o = n.target) == null || o.select();
     }
     function v() {
-      iI(w.value), fA.success("已复制录卡指令"), u == null || u.track(MA.FEATURE, { name: $.CA_DICE_MAID_COPY });
+      iI(w.value), fA.success("已复制录卡指令"), u == null || u.track(CA.FEATURE, { name: $.CA_DICE_MAID_COPY });
     }
     return (n, o) => {
       const i = cA("el-input");
@@ -8735,7 +8735,7 @@ const ag = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4T+rRXhpZgAATU0AK
   },
   emits: ["switch-paper"],
   setup(C, { emit: A }) {
-    const M = C, w = A, g = nA(), I = LM(), D = dA(), v = Y(""), n = gA(() => {
+    const M = C, w = A, g = nA(), I = LM(), D = dA(), v = Y(""), n = wA(() => {
       const d = {};
       I == null || I.showingChildSkills.forEach((y, h) => {
         d[h] = y;
@@ -8748,7 +8748,7 @@ const ag = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4T+rRXhpZgAATU0AK
         }
       });
       return cg.compressToEncodedURIComponent(m);
-    }), o = gA(() => {
+    }), o = wA(() => {
       const d = new Blob([n.value], { type: "text/plain;charset=utf-8" });
       return URL.createObjectURL(d);
     }), i = Y(!1), t = Y(!1), Z = Y(!1), e = Y(!1), F = Y("features");
@@ -8759,12 +8759,12 @@ const ag = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4T+rRXhpZgAATU0AK
         weapons: $.TAB_WEAPON_LIST,
         guide: $.TAB_GUIDE
       };
-      u == null || u.track(MA.FEATURE, { name: m[d] });
+      u == null || u.track(CA.FEATURE, { name: m[d] });
     }
     function f() {
-      w("switch-paper"), u == null || u.track(MA.FEATURE, { name: $.F_SWITCH_PAPER });
+      w("switch-paper"), u == null || u.track(CA.FEATURE, { name: $.F_SWITCH_PAPER });
     }
-    const { paperImages: R, printPaper: G } = I2(M.paperEls), N = gA(() => {
+    const { paperImages: R, printPaper: G } = I2(M.paperEls), N = wA(() => {
       const { name: d, playerName: m } = (g == null ? void 0 : g.value) || {}, j = "【TRPG赛高】", y = [d, m].filter((h) => h).join("-");
       return `${j}${y}${y ? "-" : ""}`;
     });
@@ -8782,41 +8782,41 @@ const ag = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4T+rRXhpZgAATU0AK
               t.value = !0, D.printing = !1;
             });
           }
-        }), d ? u == null || u.track(MA.FEATURE, {
+        }), d ? u == null || u.track(CA.FEATURE, {
           name: $.CA_SAVE_REGEN,
           file: d
-        }) : u == null || u.track(MA.FEATURE, { name: $.F_SAVE });
+        }) : u == null || u.track(CA.FEATURE, { name: $.F_SAVE });
       }
     }
     function x(d) {
-      u == null || u.track(MA.FEATURE, {
+      u == null || u.track(CA.FEATURE, {
         name: $.CA_SAVE_DOWNLOAD,
         file: d
       });
     }
     function U() {
-      e.value = !e.value, e.value && (u == null || u.track(MA.FEATURE, { name: $.F_MORE }));
+      e.value = !e.value, e.value && (u == null || u.track(CA.FEATURE, { name: $.F_MORE }));
     }
     function K() {
       if (g != null && g.value) {
         if (!g.value.age || g.value.age === "0") {
-          fA.error("请先在人物卡中填写年龄"), u == null || u.track(MA.FEATURE, {
+          fA.error("请先在人物卡中填写年龄"), u == null || u.track(CA.FEATURE, {
             name: $.MORE_AGE,
             success: !1
           });
           return;
         }
-        g.value.attributes = Vi(g.value.attributes, Number(g.value.age || 0)), fA.success("已为您进行年龄修正！"), u == null || u.track(MA.FEATURE, { name: $.MORE_AGE, success: !0 });
+        g.value.attributes = Vi(g.value.attributes, Number(g.value.age || 0)), fA.success("已为您进行年龄修正！"), u == null || u.track(CA.FEATURE, { name: $.MORE_AGE, success: !0 });
       }
     }
     function a() {
-      !g || !I || (g.value = VA(CI()), Co(I), fA.info("已重置人物卡"), e.value = !1, u == null || u.track(MA.FEATURE, { name: $.MORE_RESET }));
+      !g || !I || (g.value = VA(CI()), Co(I), fA.info("已重置人物卡"), e.value = !1, u == null || u.track(CA.FEATURE, { name: $.MORE_RESET }));
     }
     function P() {
-      i.value = !0, u == null || u.track(MA.FEATURE, { name: $.MORE_INOUT });
+      i.value = !0, u == null || u.track(CA.FEATURE, { name: $.MORE_INOUT });
     }
     function B() {
-      iI(n.value), fA.success("已复制到剪贴板"), u == null || u.track(MA.FEATURE, { name: $.CA_INOUT_EXPORT });
+      iI(n.value), fA.success("已复制到剪贴板"), u == null || u.track(CA.FEATURE, { name: $.CA_INOUT_EXPORT });
     }
     function E() {
       const d = cg.decompressFromEncodedURIComponent(v.value), m = JSON.parse(d);
@@ -8830,21 +8830,21 @@ const ag = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4T+rRXhpZgAATU0AK
         }
       else
         fA.error("数据有误，无法导入");
-      u == null || u.track(MA.FEATURE, { name: $.CA_INOUT_IMPORT });
+      u == null || u.track(CA.FEATURE, { name: $.CA_INOUT_IMPORT });
     }
     function p() {
-      eI(D2, "【TRPG 赛高】空白卡.pdf"), u == null || u.track(MA.FEATURE, { name: $.MORE_EMPTY });
+      eI(D2, "【TRPG 赛高】空白卡.pdf"), u == null || u.track(CA.FEATURE, { name: $.MORE_EMPTY });
     }
     function s() {
       D && (D.showTotalSeparation = !D.showTotalSeparation, fA.info(
         `已切换成功率显示方式为：${D.showTotalSeparation ? "全面（普通 | 困难 | 极难）" : "极简"}`
-      ), e.value = !1, u == null || u.track(MA.FEATURE, {
+      ), e.value = !1, u == null || u.track(CA.FEATURE, {
         name: $.MORE_TOTAL_MODE,
         mode: D.showTotalSeparation ? "full" : "simple"
       }));
     }
     function X() {
-      Z.value = !0, u == null || u.track(MA.FEATURE, { name: $.MORE_REWARD });
+      Z.value = !0, u == null || u.track(CA.FEATURE, { name: $.MORE_REWARD });
     }
     const Q = rA(e, (d) => {
       if (d) {
@@ -8855,7 +8855,7 @@ const ag = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4T+rRXhpZgAATU0AK
       }
     });
     return (d, m) => {
-      const j = cA("el-tab-pane"), y = cA("el-tabs"), h = cA("el-input"), CA = cA("el-button");
+      const j = cA("el-tab-pane"), y = cA("el-tabs"), h = cA("el-input"), IA = cA("el-button");
       return z(), r("div", v2, [
         c("div", n2, [
           l(r9),
@@ -8875,7 +8875,7 @@ const ag = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4T+rRXhpZgAATU0AK
             onClick: U
           }, null, 8, ["icon"])
         ]),
-        e.value ? (z(), IA(y, {
+        e.value ? (z(), gA(y, {
           key: 0,
           class: "more-container",
           modelValue: F.value,
@@ -9022,7 +9022,7 @@ const ag = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4T+rRXhpZgAATU0AK
                   readonly: !0,
                   resize: "none"
                 }, null, 8, ["value"]),
-                l(CA, {
+                l(IA, {
                   type: "primary",
                   onClick: B
                 }, {
@@ -9041,7 +9041,7 @@ const ag = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4T+rRXhpZgAATU0AK
                   placeholder: "将文本粘贴到这里",
                   resize: "none"
                 }, null, 8, ["modelValue"]),
-                l(CA, {
+                l(IA, {
                   type: "primary",
                   onClick: E
                 }, {
@@ -9139,13 +9139,13 @@ const ag = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4T+rRXhpZgAATU0AK
   emits: ["select"],
   setup(C) {
     return (A, M) => (z(), r("div", j2, [
-      (z(!0), r(J, null, wA(A.tree, (w) => (z(), r("div", {
+      (z(!0), r(J, null, MA(A.tree, (w) => (z(), r("div", {
         class: "group",
         key: w.key
       }, [
         c("div", u2, V(w.label), 1),
         c("div", d2, [
-          (z(!0), r(J, null, wA(w.children, (g) => (z(), r("a", {
+          (z(!0), r(J, null, MA(w.children, (g) => (z(), r("a", {
             class: "option",
             key: g.key,
             onClick: (I) => A.$emit("select", g, w)
@@ -9182,7 +9182,7 @@ const ag = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4T+rRXhpZgAATU0AK
         I.value = "";
       }
     );
-    const n = gA(() => {
+    const n = wA(() => {
       const i = I.value;
       return w.reduce((Z, e) => {
         const { name: F, pinyin: L, jobs: f } = e, R = f.reduce(
@@ -9197,12 +9197,12 @@ const ag = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4T+rRXhpZgAATU0AK
       }, []);
     });
     function o(i) {
-      A && (A.value.job = i, v(), u == null || u.track(MA.FEATURE, {
+      A && (A.value.job = i, v(), u == null || u.track(CA.FEATURE, {
         name: $.PAPER_USE_JOB,
         job: i
       }));
     }
-    return (i, t) => b(A) ? (z(), IA(RA, {
+    return (i, t) => b(A) ? (z(), gA(RA, {
       key: 0,
       title: "调查员",
       subTitle: "Investigator"
@@ -9335,7 +9335,7 @@ const ag = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4T+rRXhpZgAATU0AK
       { key: "siz", label: "体型", hint: "SIZ" },
       { key: "edu", label: "教育", hint: "知识 EDU" },
       { key: "int", label: "智力", hint: "灵感 INT" }
-    ], g = gA(() => {
+    ], g = wA(() => {
       if (!A)
         return 0;
       const { str: n, con: o, dex: i, app: t, pow: Z, siz: e, edu: F, int: L } = A.value.attributes, f = [n, o, i, t, Z, e, F, L];
@@ -9351,9 +9351,9 @@ const ag = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4T+rRXhpZgAATU0AK
       const n = Array.from({
         length: D.value % 3 + 1
       }).map(() => Mw()).sort((o, i) => uC(i) - uC(o))[0];
-      A.value.attributes = n, fA.success("已为您生成一组数据，看看符不符合心意吧！"), D.value++, u == null || u.track(MA.FEATURE, { name: $.PAPER_ROLL });
+      A.value.attributes = n, fA.success("已为您生成一组数据，看看符不符合心意吧！"), D.value++, u == null || u.track(CA.FEATURE, { name: $.PAPER_ROLL });
     }
-    return (n, o) => b(A) ? (z(), IA(RA, {
+    return (n, o) => b(A) ? (z(), gA(RA, {
       key: 0,
       title: "属性",
       subTitle: "Characteristics"
@@ -9362,7 +9362,7 @@ const ag = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4T+rRXhpZgAATU0AK
         c("div", k2, [
           c("div", Y2, [
             J2,
-            (z(), r(J, null, wA(M, (i) => {
+            (z(), r(J, null, MA(M, (i) => {
               var t;
               return l(oA, {
                 key: i.key,
@@ -9376,7 +9376,7 @@ const ag = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4T+rRXhpZgAATU0AK
           O2,
           c("div", q2, [
             _2,
-            (z(), r(J, null, wA(w, (i) => {
+            (z(), r(J, null, MA(w, (i) => {
               var t;
               return l(oA, {
                 key: i.key,
@@ -9408,7 +9408,7 @@ const ag = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4T+rRXhpZgAATU0AK
   setup(C) {
     const A = nA();
     return (M, w) => (z(), r("div", DZ, [
-      b(A) ? (z(), IA(RA, {
+      b(A) ? (z(), gA(RA, {
         key: 0,
         title: "幸运",
         subTitle: "Luck"
@@ -9863,15 +9863,15 @@ var jI = { exports: {} };
           const j = [null, null];
           for (let h = 1; h <= 7; h++) {
             d = yield n(Q, m, s);
-            const CA = 0.75 * d.length;
+            const IA = 0.75 * d.length;
             if (h === 7) {
-              (a < CA || B > CA) && (d = [d, ...j].filter((AA) => AA).sort((AA, PA) => Math.abs(0.75 * AA.length - P) - Math.abs(0.75 * PA.length - P))[0]);
+              (a < IA || B > IA) && (d = [d, ...j].filter((AA) => AA).sort((AA, PA) => Math.abs(0.75 * AA.length - P) - Math.abs(0.75 * PA.length - P))[0]);
               break;
             }
-            if (a < CA)
+            if (a < IA)
               j[1] = d, m -= Math.pow(0.5, h + 1);
             else {
-              if (!(B > CA))
+              if (!(B > IA))
                 break;
               j[0] = d, m += Math.pow(0.5, h + 1);
             }
@@ -9954,7 +9954,7 @@ const LZ = ["for"], RZ = ["id"], QM = 132 * 2, SM = 172 * 2, KZ = /* @__PURE__ *
   setup(C, { emit: A }) {
     const M = A, w = nA();
     BI();
-    const g = Y([]), I = Y(0), D = gA(() => g.value.slice(
+    const g = Y([]), I = Y(0), D = wA(() => g.value.slice(
       I.value,
       I.value + 6
     ));
@@ -9971,14 +9971,14 @@ const LZ = ["for"], RZ = ["id"], QM = 132 * 2, SM = 172 * 2, KZ = /* @__PURE__ *
         o.value--, o.value <= 0 && clearInterval(R);
       }, 1e3);
     }
-    const t = gA(() => {
+    const t = wA(() => {
       const { gender: R, age: G, stories: N } = (w == null ? void 0 : w.value) || {};
       return {
         sex: R,
         age: G,
         description: N == null ? void 0 : N.app
       };
-    }), Z = gA(() => JSON.stringify(t.value)), e = Y(""), F = gA(() => !!g.value.length && e.value !== Z.value);
+    }), Z = wA(() => JSON.stringify(t.value)), e = Y(""), F = wA(() => !!g.value.length && e.value !== Z.value);
     function L() {
       e.value = Z.value, lZ(t.value).then((R) => {
         g.value = R, I.value = 0;
@@ -10063,7 +10063,7 @@ const LZ = ["for"], RZ = ["id"], QM = 132 * 2, SM = 172 * 2, KZ = /* @__PURE__ *
             mZ
           ])) : k("", !0),
           c("div", xZ, [
-            (z(!0), r(J, null, wA(D.value, (T) => (z(), r("div", {
+            (z(!0), r(J, null, MA(D.value, (T) => (z(), r("div", {
               key: T.name,
               class: "sd-avatar-container",
               onClick: (x) => n(T)
@@ -10086,7 +10086,7 @@ const LZ = ["for"], RZ = ["id"], QM = 132 * 2, SM = 172 * 2, KZ = /* @__PURE__ *
 ], XZ = /* @__PURE__ */ H({
   __name: "AvatarSection",
   setup(C) {
-    const A = nA(), M = dA(), w = Y(!1), g = gA(() => {
+    const A = nA(), M = dA(), w = Y(!1), g = wA(() => {
       const I = A != null && A.value.sdAvatar ? `${gw}${NI}/${A == null ? void 0 : A.value.sdAvatar}.jpg` : "";
       return (A == null ? void 0 : A.value.avatar) || I || "";
     });
@@ -10168,7 +10168,7 @@ const _C = /* @__PURE__ */ W(OZ, [["render", Ce], ["__scopeId", "data-v-cde0e4cc
     function M(g, I, D) {
       !A || !A.value.deriveAttributes || (A.value.deriveAttributes[g][I] = D || void 0);
     }
-    const w = gA(() => {
+    const w = wA(() => {
       var o;
       if (!A || !A.value.attributes.pow)
         return "";
@@ -10296,7 +10296,7 @@ const _C = /* @__PURE__ */ W(OZ, [["render", Ce], ["__scopeId", "data-v-cde0e4cc
       }, [
         (D = b(A)) != null && D.text ? (z(), r("div", te, [
           Ue,
-          (z(!0), r(J, null, wA(b(A).multiSkillTexts, (v) => (z(), r(J, { key: v }, [
+          (z(!0), r(J, null, MA(b(A).multiSkillTexts, (v) => (z(), r(J, { key: v }, [
             c("span", le, V(v), 1),
             ze
           ], 64))), 128)),
@@ -10329,8 +10329,8 @@ const _C = /* @__PURE__ */ W(OZ, [["render", Ce], ["__scopeId", "data-v-cde0e4cc
       return z(), r("label", Ke, [
         l(n, { size: "0.9em" }, {
           default: S(() => [
-            g.value ? (z(), IA(b(Ui), { key: 0 })) : k("", !0),
-            !g.value && D.xOnFalse ? (z(), IA(b(Oo), { key: 1 })) : k("", !0)
+            g.value ? (z(), gA(b(Ui), { key: 0 })) : k("", !0),
+            !g.value && D.xOnFalse ? (z(), gA(b(Oo), { key: 1 })) : k("", !0)
           ]),
           _: 1
         }),
@@ -10361,12 +10361,12 @@ const _C = /* @__PURE__ */ W(OZ, [["render", Ce], ["__scopeId", "data-v-cde0e4cc
   },
   emits: ["selectChildSkill"],
   setup(C, { emit: A }) {
-    const M = C, w = nA(), g = mC("viewData"), I = A, D = Y(!1), v = gA(
+    const M = C, w = nA(), g = mC("viewData"), I = A, D = Y(!1), v = wA(
       () => g == null ? void 0 : g.showingChildSkills.get(M.skillName)
-    ), n = gA(() => ["母语", "外语"].includes(M.skillName) ? [
+    ), n = wA(() => ["母语", "外语"].includes(M.skillName) ? [
       ...(g == null ? void 0 : g.showingChildSkills.get("母语")) || [],
       ...(g == null ? void 0 : g.showingChildSkills.get("外语")) || []
-    ] : v.value), o = gA(() => !w || !g ? !1 : w.value.proSkills.some((e) => {
+    ] : v.value), o = wA(() => !w || !g ? !1 : w.value.proSkills.some((e) => {
       var R;
       if (typeof e == "string")
         return e === M.skillName;
@@ -10428,7 +10428,7 @@ const _C = /* @__PURE__ */ W(OZ, [["render", Ce], ["__scopeId", "data-v-cde0e4cc
               onFocus: F[1] || (F[1] = (R) => D.value = !0)
             }, null, 40, Te),
             (f = e.childSkillData.list) != null && f.length ? gC((z(), r("div", Ge, [
-              (z(!0), r(J, null, wA(e.childSkillData.list, (R) => {
+              (z(!0), r(J, null, MA(e.childSkillData.list, (R) => {
                 var G;
                 return z(), r("div", {
                   key: R.name,
@@ -10480,7 +10480,7 @@ const _C = /* @__PURE__ */ W(OZ, [["render", Ce], ["__scopeId", "data-v-cde0e4cc
   emits: ["input", "check"],
   setup(C) {
     return (A, M) => (z(), r("div", se, [
-      A.checkable ? (z(), IA(Pw, {
+      A.checkable ? (z(), gA(Pw, {
         key: 0,
         class: "skill-td-input-checkbox",
         checked: A.checked,
@@ -10570,8 +10570,8 @@ const _C = /* @__PURE__ */ W(OZ, [["render", Ce], ["__scopeId", "data-v-cde0e4cc
               const d = R.group.show.length, m = X.find((j) => j.isGroupStart) || s;
               m.groupSize += d - 1, Q = R.group.show.map((j, y) => {
                 var QA, sA, NA;
-                const h = ((QA = w == null ? void 0 : w.showingChildSkills.get(R.name)) == null ? void 0 : QA[y]) ?? j, CA = (sA = R.group) == null ? void 0 : sA.skills.find(({ name: vC }) => vC === h);
-                let AA = (CA == null ? void 0 : CA.init) ?? s.init;
+                const h = ((QA = w == null ? void 0 : w.showingChildSkills.get(R.name)) == null ? void 0 : QA[y]) ?? j, IA = (sA = R.group) == null ? void 0 : sA.skills.find(({ name: vC }) => vC === h);
+                let AA = (IA == null ? void 0 : IA.init) ?? s.init;
                 const PA = [R.name, h, y], UA = v(PA), mA = (UA == null ? void 0 : UA[1]) || {}, xA = o(mA, AA);
                 return M && !R.name && (AA = mA.b || 0), {
                   ...s,
@@ -10600,7 +10600,7 @@ const _C = /* @__PURE__ */ W(OZ, [["render", Ce], ["__scopeId", "data-v-cde0e4cc
         return [...e, ...L];
       }, []);
     }
-    const D = gA(() => I(A.data, A.suggestion));
+    const D = wA(() => I(A.data, A.suggestion));
     console.log("xxx tableData", D);
     function v(i) {
       if (M)
@@ -10632,7 +10632,7 @@ const _C = /* @__PURE__ */ W(OZ, [["render", Ce], ["__scopeId", "data-v-cde0e4cc
     return (i, t) => (z(), r("table", Ve, [
       pe,
       c("tbody", null, [
-        (z(!0), r(J, null, wA(D.value, (Z, e) => {
+        (z(!0), r(J, null, MA(D.value, (Z, e) => {
           var F;
           return z(), r("tr", {
             key: Z.skillName
@@ -10667,7 +10667,7 @@ const _C = /* @__PURE__ */ W(OZ, [["render", Ce], ["__scopeId", "data-v-cde0e4cc
             }, [
               !Z.init && Z.initPlaceholder ? (z(), r("div", Se, [
                 c("span", He, V(Z.initPlaceholder), 1)
-              ])) : Z.groupName !== "其它" ? (z(), r("span", Xe, V(Z.init), 1)) : (z(), IA($C, {
+              ])) : Z.groupName !== "其它" ? (z(), r("span", Xe, V(Z.init), 1)) : (z(), gA($C, {
                 key: 2,
                 value: `${Z.points.b ?? ""}`,
                 onInput: (L) => n(Z.skillKey, "b", L)
@@ -10716,7 +10716,7 @@ const _C = /* @__PURE__ */ W(OZ, [["render", Ce], ["__scopeId", "data-v-cde0e4cc
               }])
             }, [
               (F = b(g)) != null && F.showTotalSeparation ? (z(), r("span", We, [
-                (z(!0), r(J, null, wA(Z.totalSeparation, (L, f) => (z(), r("span", {
+                (z(!0), r(J, null, MA(Z.totalSeparation, (L, f) => (z(), r("span", {
                   key: f,
                   class: "total-sep"
                 }, V(L), 1))), 128))
@@ -10753,7 +10753,7 @@ const _C = /* @__PURE__ */ W(OZ, [["render", Ce], ["__scopeId", "data-v-cde0e4cc
         }
       };
     }
-    const D = VA(I()), v = gA(() => {
+    const D = VA(I()), v = wA(() => {
       let t = 0, Z = 0;
       return A == null || A.value.skillPoints.forEach(([e, F]) => {
         t += F.p || 0, Z += F.i || 0;
@@ -10805,7 +10805,7 @@ const _C = /* @__PURE__ */ W(OZ, [["render", Ce], ["__scopeId", "data-v-cde0e4cc
       { deep: !0 }
     ), (t, Z) => {
       var e;
-      return z(), IA(RA, {
+      return z(), gA(RA, {
         class: vA(["skill-section", {
           "printing-image": (e = b(w)) == null ? void 0 : e.printing
         }])
@@ -10895,7 +10895,7 @@ const _C = /* @__PURE__ */ W(OZ, [["render", Ce], ["__scopeId", "data-v-cde0e4cc
       onChange: M[0] || (M[0] = (w) => A.$emit("change", w.target.value))
     }, [
       ct,
-      (z(!0), r(J, null, wA(A.options, (w) => (z(), r("option", {
+      (z(!0), r(J, null, MA(A.options, (w) => (z(), r("option", {
         key: w.value,
         value: w.value
       }, V(w.label), 9, Zt))), 128))
@@ -10953,20 +10953,20 @@ const lt = { class: "weapon-section-row" }, zt = { class: "weapon-td-name" }, Lt
         result: N ? `${G + N}` : ""
       };
     }
-    const I = gA(() => A.weapon || qM()), D = gA(() => g(I.value.skill)), v = gA(() => _M.find(({ groupName: f }) => f === "战斗").groupSkills.filter(({ name: f }) => f !== "闪避").reduce((f, R) => {
+    const I = wA(() => A.weapon || qM()), D = wA(() => g(I.value.skill)), v = wA(() => _M.find(({ groupName: f }) => f === "战斗").groupSkills.filter(({ name: f }) => f !== "闪避").reduce((f, R) => {
       const { name: G, init: N, group: T } = R, x = T ? T.skills.map((U) => ({
         name: `${G}(${U.name})`,
         init: U.init || N
       })) : [{ name: G, init: N }];
       return [...f, ...x];
-    }, [])), n = gA(() => v.value.map(({ name: L }) => ({
+    }, [])), n = wA(() => v.value.map(({ name: L }) => ({
       value: L,
       label: L
     }))), {
       value: o,
       setTrue: i,
       setFalse: t
-    } = Ut(), Z = gA(() => AI.map(([L, f]) => ({
+    } = Ut(), Z = wA(() => AI.map(([L, f]) => ({
       key: L,
       label: f,
       children: $g[L].map((R) => ({
@@ -10988,7 +10988,7 @@ const lt = { class: "weapon-section-row" }, zt = { class: "weapon-td-name" }, Lt
       const { price: R, time: G, ...N } = f;
       e({
         ...N
-      }), t(), u == null || u.track(MA.FEATURE, {
+      }), t(), u == null || u.track(CA.FEATURE, {
         name: $.PAPER_USE_WEAPON,
         weapon: L
       });
@@ -11119,15 +11119,15 @@ const lt = { class: "weapon-section-row" }, zt = { class: "weapon-td-name" }, Lt
 ], -1)), Nt = /* @__PURE__ */ H({
   __name: "WeaponSection",
   setup(C) {
-    const A = nA(), M = gA(() => Array.from({ length: 5 }).map((w, g) => (A == null ? void 0 : A.value.weapons[g]) || void 0));
-    return (w, g) => (z(), IA(RA, {
+    const A = nA(), M = wA(() => Array.from({ length: 5 }).map((w, g) => (A == null ? void 0 : A.value.weapons[g]) || void 0));
+    return (w, g) => (z(), gA(RA, {
       title: "武器",
       subTitle: "Weapons"
     }, {
       default: S(() => [
         c("div", bt, [
           rt,
-          (z(!0), r(J, null, wA(M.value, (I, D) => (z(), IA(Ft, {
+          (z(!0), r(J, null, MA(M.value, (I, D) => (z(), gA(Ft, {
             class: "weapon-section-row",
             key: D,
             index: D,
@@ -11178,7 +11178,7 @@ const lt = { class: "weapon-section-row" }, zt = { class: "weapon-td-name" }, Lt
         }
       },
       { deep: !0 }
-    ), (M, w) => (z(), IA(RA, {
+    ), (M, w) => (z(), gA(RA, {
       title: "战斗",
       subTitle: "Combat"
     }, {
@@ -11241,7 +11241,7 @@ const Et = /* @__PURE__ */ W(jt, [["render", yt], ["__scopeId", "data-v-a4a36abd
     setRef: {}
   },
   setup(C) {
-    return (A, M) => (z(), IA(bI, { setRef: A.setRef }, {
+    return (A, M) => (z(), gA(bI, { setRef: A.setRef }, {
       default: S(() => [
         c("div", Vt, [
           l(H2),
@@ -11296,7 +11296,7 @@ const Et = /* @__PURE__ */ W(jt, [["render", yt], ["__scopeId", "data-v-a4a36abd
         }, null, 44, Ht),
         c("div", Xt, [
           Wt,
-          (z(!0), r(J, null, wA(M.rows, (D) => (z(), r("div", {
+          (z(!0), r(J, null, MA(M.rows, (D) => (z(), r("div", {
             class: "line-row",
             key: D
           }, [
@@ -11326,7 +11326,7 @@ const Et = /* @__PURE__ */ W(jt, [["render", yt], ["__scopeId", "data-v-a4a36abd
       { label: "伤口与疤痕", fieldName: "scar", rows: 3 },
       { label: "精神症状", fieldName: "mad", rows: 3 }
     ], w = [], g = M.reduce((I, D) => I + D.rows, 0) - w.reduce((I, D) => I + D.rows, 0);
-    return (I, D) => b(A) ? (z(), IA(RA, {
+    return (I, D) => b(A) ? (z(), gA(RA, {
       key: 0,
       title: "背景故事",
       subTitle: "Story"
@@ -11334,7 +11334,7 @@ const Et = /* @__PURE__ */ W(jt, [["render", yt], ["__scopeId", "data-v-a4a36abd
       default: S(() => [
         c("div", Yt, [
           c("div", Jt, [
-            (z(), r(J, null, wA(M, (v) => l(bA, {
+            (z(), r(J, null, MA(M, (v) => l(bA, {
               key: v.fieldName,
               label: v.label,
               modelValue: b(A).stories[v.fieldName],
@@ -11344,7 +11344,7 @@ const Et = /* @__PURE__ */ W(jt, [["render", yt], ["__scopeId", "data-v-a4a36abd
             }, null, 8, ["label", "modelValue", "onUpdate:modelValue", "rows", "maxlength"])), 64))
           ]),
           c("div", Ot, [
-            (z(), r(J, null, wA(w, (v) => l(bA, {
+            (z(), r(J, null, MA(w, (v) => l(bA, {
               key: v.fieldName,
               label: v.label,
               modelValue: b(A).stories[v.fieldName],
@@ -11368,7 +11368,7 @@ const Et = /* @__PURE__ */ W(jt, [["render", yt], ["__scopeId", "data-v-a4a36abd
 }), _t = /* @__PURE__ */ W(qt, [["__scopeId", "data-v-5b80eab2"]]), $t = { class: "section-body" }, AU = /* @__PURE__ */ H({
   __name: "AssetsSection",
   setup(C) {
-    const A = nA(), M = gA(() => {
+    const A = nA(), M = wA(() => {
       var v;
       const w = ((v = A == null ? void 0 : A.value.skillPoints.find(([n]) => n === "信用评级")) == null ? void 0 : v[1]) || {};
       if (Object.keys(w).length === 0)
@@ -11376,7 +11376,7 @@ const Et = /* @__PURE__ */ W(jt, [["render", yt], ["__scopeId", "data-v-a4a36abd
       const { p: g = 0, i: I = 0, g: D = 0 } = w;
       return `${g + I + D}`;
     });
-    return (w, g) => b(A) ? (z(), IA(RA, {
+    return (w, g) => b(A) ? (z(), gA(RA, {
       key: 0,
       title: "资产",
       subTitle: "Cash & Assets"
@@ -11419,7 +11419,7 @@ const Et = /* @__PURE__ */ W(jt, [["render", yt], ["__scopeId", "data-v-a4a36abd
   __name: "ItemSection",
   setup(C) {
     const A = nA();
-    return (M, w) => b(A) ? (z(), IA(RA, {
+    return (M, w) => b(A) ? (z(), gA(RA, {
       key: 0,
       title: "物品与装备",
       subTitle: "Possessions"
@@ -11442,7 +11442,7 @@ const Et = /* @__PURE__ */ W(jt, [["render", yt], ["__scopeId", "data-v-a4a36abd
   __name: "MythosSection",
   setup(C) {
     const A = nA();
-    return (M, w) => b(A) ? (z(), IA(RA, {
+    return (M, w) => b(A) ? (z(), gA(RA, {
       key: 0,
       title: "克苏鲁神话",
       subTitle: "Cthulu Mythos"
@@ -11479,7 +11479,7 @@ const Et = /* @__PURE__ */ W(jt, [["render", yt], ["__scopeId", "data-v-a4a36abd
   __name: "FriendSection",
   setup(C) {
     const A = nA();
-    return (M, w) => b(A) ? (z(), IA(RA, {
+    return (M, w) => b(A) ? (z(), gA(RA, {
       key: 0,
       title: "人物关系",
       subTitle: "Relationships"
@@ -11502,7 +11502,7 @@ const Et = /* @__PURE__ */ W(jt, [["render", yt], ["__scopeId", "data-v-a4a36abd
   __name: "ExperienceSection",
   setup(C) {
     const A = nA();
-    return (M, w) => b(A) ? (z(), IA(RA, {
+    return (M, w) => b(A) ? (z(), gA(RA, {
       key: 0,
       title: "经历过的模组",
       subTitle: "Experienced Scenarios"
@@ -11530,7 +11530,7 @@ const Et = /* @__PURE__ */ W(jt, [["render", yt], ["__scopeId", "data-v-a4a36abd
     setRef: {}
   },
   setup(C) {
-    return (A, M) => (z(), IA(bI, { setRef: A.setRef }, {
+    return (A, M) => (z(), gA(bI, { setRef: A.setRef }, {
       default: S(() => [
         l(_t),
         c("div", UU, [
@@ -11571,8 +11571,8 @@ const Et = /* @__PURE__ */ W(jt, [["render", yt], ["__scopeId", "data-v-a4a36abd
         c("div", bU, [
           l(Iw, { name: "swipe-paper" }, {
             default: S(() => [
-              (z(), IA(SI, null, [
-                D.value ? (z(), IA(Ng, { key: 0 })) : (z(), IA(Pg, { key: 1 }))
+              (z(), gA(SI, null, [
+                D.value ? (z(), gA(Ng, { key: 0 })) : (z(), gA(Pg, { key: 1 }))
               ], 1024))
             ]),
             _: 1
