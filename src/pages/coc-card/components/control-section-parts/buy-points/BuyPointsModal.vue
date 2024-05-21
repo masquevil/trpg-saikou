@@ -297,12 +297,12 @@ const hiddenList: RenderListItem[] = [{ key: 'luc', label: '幸运', hint: 'Luck
             v-for="(result, _i) in actionRollResult"
             :key="_i"
             class="action-roll-result"
+            @click="actionRollApplyHandler(result)"
           >
             <div
               v-for="config in [...leftList, ...rightList, ...hiddenList]"
               :key="config.key"
               class="action-roll-result-item"
-              @click="actionRollApplyHandler(result)"
             >
               {{ config.label }} {{ result[config.key] }}
             </div>
