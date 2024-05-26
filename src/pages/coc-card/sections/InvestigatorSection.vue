@@ -5,6 +5,7 @@ import { ref, computed, watch } from 'vue';
 import PaperSection from '../components/PaperSection.vue';
 import WritableRow from '../components/WritableRow.vue';
 import FlattenTree from '../components/FlattenTree.vue';
+import RandNameRow from '../components/control-section-parts/rand-name/RandNameRow.vue';
 
 // models
 import formattedJobs from '../models/job';
@@ -91,11 +92,16 @@ function onSelectJob(jobName: string) {
         'printing-image': pageData?.printing,
       }"
     >
-      <WritableRow
-        label="姓名"
-        placeholder="角色姓名"
-        v-model="pc.name"
-      />
+      <div class="name-row">
+        <div class="col-0">
+          <WritableRow
+            label="姓名"
+            placeholder="角色姓名"
+            v-model="pc.name"
+          />
+        </div>
+        <RandNameRow />
+      </div>
       <WritableRow
         label="玩家"
         placeholder="玩家昵称"
@@ -189,6 +195,12 @@ function onSelectJob(jobName: string) {
   justify-content: space-between;
   gap: 0.2em;
   padding: 0.4em 0.6em 0.6em;
+}
+
+.name-row {
+  display: flex;
+  gap: 0.6em;
+  align-items: center;
 }
 
 .job-selector {

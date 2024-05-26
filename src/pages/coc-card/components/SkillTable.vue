@@ -131,7 +131,6 @@ function getTableData(data: SkillGroups, suggestion?: Suggestion) {
 }
 
 const tableData = computed(() => getTableData(props.data, props.suggestion));
-console.log('xxx tableData', tableData);
 
 function findSkillPoints(skillInfo: COCPCSkill) {
   if (!pc) return;

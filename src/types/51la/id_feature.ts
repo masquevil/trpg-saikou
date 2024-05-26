@@ -13,6 +13,7 @@ export enum FeatureNames {
 
   // paper actions - 页面上的按钮
   PAPER_ROLL = 'PAPER_ROLL',
+  PAPER_RAND_NAME = 'PAPER_RAND_NAME',
   PAPER_USE_JOB = 'PAPER_USE_JOB',
   PAPER_USE_WEAPON = 'PAPER_USE_WEAPON',
 
