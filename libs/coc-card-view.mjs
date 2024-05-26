@@ -9769,9 +9769,9 @@ function Y2(C = "all", A = "all") {
 }
 function J2() {
   return RI({
-    zh: 4
-    // 'en-zh': 5,
-    // en: 1,
+    zh: 4,
+    "en-zh": 5,
+    en: 1
   });
 }
 function Ng(C, A) {
