@@ -12,7 +12,7 @@ import IssueRow from './IssueRow.vue';
       <li>推荐 PC 端使用，移动端存在性能问题。</li>
       <li>提供了预设的 1000+ 头像，也可以自定义。</li>
     </ol>
-    <div class="guide-group-title">以下为目前已有的功能介绍：</div>
+    <div class="guide-group-title">基础功能：</div>
     <ol class="guide-ol">
       <li>属性点：可以选择“枫笛式”、“天命式”、“购点式”多种方式加点。</li>
       <li>翻面：正面为调查员属性，背面为调查员故事。</li>
@@ -20,9 +20,16 @@ import IssueRow from './IssueRow.vue';
         保存：生成 A4 纸大小的正反面两张图，可以手动保存。 还有当前人物卡全部数据的
         txt，可以通过“导入”再次使用。
       </li>
-      <li>一发入魂：在属性栏中，随机生成一组属性。</li>
-      <li>快速年龄修正：根据你的年龄自动进行教育成长判定，同时按照规则随机调整基础属性。</li>
       <li>重置人物卡：清空当前填写的全部内容。</li>
+    </ol>
+    <div class="guide-group-title">进阶功能或娱乐功能：</div>
+    <ol class="guide-ol">
+      <li>快速年龄修正：根据你的年龄自动进行教育成长判定，同时按照规则随机调整基础属性。</li>
+      <li>
+        随机角色名：在<b>调查员</b>栏中，姓名一行的右边。可以切换中文名、英文名、English
+        Name。提前填好角色性别可以限定生成范围。
+      </li>
+      <li>一发入魂：在<b>属性</b>栏中，随机生成一组属性。</li>
       <li>
         <div>导入/导出数据：</div>
         <ol class="guide-ol">

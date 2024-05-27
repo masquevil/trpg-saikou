@@ -116,10 +116,10 @@ const nameZhMethods: { [key: string]: (sex: SexKey) => string } = {
 
 function randZhMethod(): string {
   const ratio = {
-    ln2: 500,
-    lmn: 320,
+    ln2: 450,
+    lmn: 280,
     lnn: 120,
-    ln1: 50,
+    ln1: 140,
     abmn: 8,
     rare: 2,
   };
