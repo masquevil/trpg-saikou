@@ -56,6 +56,10 @@ table {
 .row {
   display: flex;
 }
+.row-vertical {
+  display: flex;
+  flex-direction: column;
+}
 .col-0 {
   flex: 1;
 }

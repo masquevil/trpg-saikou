@@ -1,25 +1,48 @@
 <script setup lang="ts">
+import type { RouteLocationRaw } from 'vue-router';
+
 // preview images
 import cocCardPreview from '@/assets/images/tools-preview/coc-card.jpg';
 import recordPreview from '@/assets/images/tools-preview/record.png';
+import kpAdsPreview from '@/assets/images/tools-preview/kp-ads.png';
 
-const appsOnline = [
-  {
-    key: 'coc-card',
-    name: 'COC7版车卡工具',
-    path: '/coc-card',
-    preview: cocCardPreview,
-  },
-];
+interface AppConfig {
+  key: string;
+  name: string;
+  to: RouteLocationRaw;
+  preview?: string;
+}
 
-const appsOffline = [
-  {
-    key: 'record',
-    name: '听枫馆模组列表（短期内不再维护）',
-    path: '/stories',
-    preview: recordPreview,
-  },
-];
+const appConfigs: Record<'online' | 'offline', AppConfig[]> = {
+  online: [
+    {
+      key: 'coc-card',
+      name: 'COC7版车卡工具',
+      to: {
+        name: 'coc-card',
+      },
+      preview: cocCardPreview,
+    },
+  ],
+  offline: [
+    {
+      key: 'record',
+      name: '模组列表（短期内不再维护）',
+      to: {
+        name: 'tfg-stories',
+      },
+      preview: recordPreview,
+    },
+    {
+      key: 'kp-ads',
+      name: 'KP招募PL展示器',
+      to: {
+        name: 'kp-ads',
+      },
+      preview: kpAdsPreview,
+    },
+  ],
+};
 </script>
 
 <template>
@@ -28,10 +51,10 @@ const appsOffline = [
     <h2 class="section-title">在线功能</h2>
     <div class="tools">
       <router-link
-        v-for="app in appsOnline"
+        v-for="app in appConfigs.online"
         :key="app.key"
         class="tool-card"
-        :to="app.path"
+        :to="app.to"
       >
         <div class="tool-card-header">{{ app.name }}</div>
         <div class="tool-card-preview">
@@ -44,13 +67,13 @@ const appsOffline = [
       </router-link>
     </div>
 
-    <h2 class="section-title">需要 git clone 在本地修改后才能使用的功能</h2>
-    <div class="tools">
+    <h2 class="section-title">其他功能：需要 git clone 在本地修改后才能使用的，或开发中的功能</h2>
+    <div class="tools tools-offline">
       <router-link
-        v-for="app in appsOffline"
+        v-for="app in appConfigs.offline"
         :key="app.key"
         class="tool-card"
-        :to="app.path"
+        :to="app.to"
       >
         <div class="tool-card-header">{{ app.name }}</div>
         <div class="tool-card-preview">
@@ -87,6 +110,10 @@ const appsOffline = [
 .tools {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+.tools-offline {
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 20px;
 }
 .tool-card {

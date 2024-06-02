@@ -1,8 +1,4 @@
-import {
-  createRouter,
-  createWebHistory,
-  createWebHashHistory,
-} from 'vue-router';
+import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router';
 import { useColorMode } from '@vueuse/core';
 
 declare module 'vue-router' {
@@ -21,25 +17,30 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import('../pages/home/AppView.vue'),
+      component: () => import('../apps/home/AppView.vue'),
     },
     {
       path: '/coc-card',
-      name: 'COCCard',
-      component: () => import('../pages/coc-card/AppView.vue'),
+      name: 'coc-card',
+      component: () => import('../apps/coc-card/AppView.vue'),
       meta: {
         title: 'COC 车卡',
       },
     },
     {
-      path: '/stories',
-      name: 'stories',
-      component: () => import('../pages/record/StoryListView.vue'),
+      path: '/kp',
+      name: 'kp-ads',
+      component: () => import('../apps/kp-ads/AppView.vue'),
+    },
+    {
+      path: '/tfg-stories',
+      name: 'tfg-stories',
+      component: () => import('../apps/record/StoryListView.vue'),
     },
     {
       path: '/self',
       name: 'self',
-      component: () => import('../pages/record/SelfView.vue'),
+      component: () => import('../apps/record/SelfView.vue'),
     },
   ],
 });

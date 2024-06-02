@@ -37,13 +37,11 @@ const periodOrder: Period[] = ['short', 'medium', 'long', 'battle'];
 function sortList(list: listItem[]) {
   const sorters: ((a: listItem, b: listItem) => number)[] = [
     // 玩过的，靠前
-    (a, b) =>
-      Number(b.record?.isPlayed || false) - Number(a.record?.isPlayed || false),
+    (a, b) => Number(b.record?.isPlayed || false) - Number(a.record?.isPlayed || false),
     // 更想玩的，靠前
     (a, b) => (b.record?.prefer || 0) - (a.record?.prefer || 0),
     // 时间短的，靠前
-    (a, b) =>
-      periodOrder.indexOf(a.story.period) - periodOrder.indexOf(b.story.period),
+    (a, b) => periodOrder.indexOf(a.story.period) - periodOrder.indexOf(b.story.period),
     // 年代早的，靠前；同年代，按具体时间排序，没有具体时间的靠后
     (a, b) => {
       const da = a.story.decade.decade;
@@ -62,9 +60,7 @@ function sortList(list: listItem[]) {
       const ca = a.story.area[0].country;
       const cb = b.story.area[0].country;
       if (ca !== cb) return ca > cb ? -1 : 1;
-      return (a.story.area[0].city || '') > (b.story.area[0].city || '')
-        ? -1
-        : 1;
+      return (a.story.area[0].city || '') > (b.story.area[0].city || '') ? -1 : 1;
     },
   ];
   const sorttedList = [...list]
@@ -76,9 +72,7 @@ function sortList(list: listItem[]) {
 
 const list = sortList([...stories.map(getListMapper())]);
 
-const periodOptions = periodOrder.map(
-  (key) => [key, periodTexts[key]] as [Period, string],
-);
+const periodOptions = periodOrder.map((key) => [key, periodTexts[key]] as [Period, string]);
 const countryOptions = computed(() => {
   const countries = new Map<string, number>();
   list.forEach((item) => {
@@ -110,8 +104,7 @@ const computedList = computed(() => {
     if (!showWelcome && story.options?.welcome) return false;
     if (period.size > 0 && !period.has(story.period)) return false;
     if (decade && !story.decade.decade?.startsWith(decade)) return false;
-    if (country && !story.area.some((place) => place.country === country))
-      return false;
+    if (country && !story.area.some((place) => place.country === country)) return false;
     return true;
   });
 });
@@ -120,7 +113,7 @@ const computedList = computed(() => {
 <template>
   <main class="page">
     <div class="header">
-      <h1 class="title">听枫馆打卡记录</h1>
+      <h1 class="title">我的模组列表</h1>
       <RouterLink
         class="link"
         to="/self"
@@ -172,9 +165,7 @@ const computedList = computed(() => {
         </select>
         <div class="filter-multi-values">
           <PeriodLabel
-            v-for="selectedPeriod in periodOrder.filter((p) =>
-              filters.period.has(p),
-            )"
+            v-for="selectedPeriod in periodOrder.filter((p) => filters.period.has(p))"
             :key="selectedPeriod"
             class="period-label-filter-value"
             :period="selectedPeriod"
@@ -241,9 +232,7 @@ const computedList = computed(() => {
             <div class="item-comments-panel">
               <div>
                 <span>
-                  模组{{ experience.storyScore }}分/体验{{
-                    experience.experienceScore
-                  }}分
+                  模组{{ experience.storyScore }}分/体验{{ experience.experienceScore }}分
                 </span>
                 <span>{{ experience.comments }}</span>
               </div>

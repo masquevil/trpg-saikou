@@ -20,14 +20,8 @@ const wantedList = list
   .sort((a, b) => (b.record?.prefer || 0) - (a.record?.prefer || 0));
 const playedList = list
   .filter((item) => item.record?.isPlayed || item.experience)
-  .sort(
-    (a, b) =>
-      (b.experience?.experienceScore || 0) -
-      (a.experience?.experienceScore || 0),
-  )
-  .sort(
-    (a, b) => (b.experience?.storyScore || 0) - (a.experience?.storyScore || 0),
-  );
+  .sort((a, b) => (b.experience?.experienceScore || 0) - (a.experience?.experienceScore || 0))
+  .sort((a, b) => (b.experience?.storyScore || 0) - (a.experience?.storyScore || 0));
 </script>
 
 <template>
@@ -70,7 +64,7 @@ const playedList = list
               type="checkbox"
               v-model="privateMode"
             />
-            隐藏主观评价
+            {{ privateMode ? '显示' : '隐藏' }}主观评价
           </label>
         </div>
         <div>
