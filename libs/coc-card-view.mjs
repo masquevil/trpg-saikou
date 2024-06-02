@@ -6714,6 +6714,7 @@ function Vo(C, A) {
           minute: "{0}分钟",
           hour: "{0}小时",
           day: "{0}天",
+          week: "{0}周",
           month: "{0}个月",
           year: "{0}年"
         }
