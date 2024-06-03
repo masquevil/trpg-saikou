@@ -70,7 +70,7 @@ export const preparingStories: StoryInfoOverrides[] = [
     time: '1920s',
     place: '美国',
     coverUrl: cover芝加哥之王,
-    adds: `繁荣的20年代，是充满暴力与暗算的年代。芝加哥黑帮之间的斗争从未停歇，而你们的到来，让这场纷争变得更加混乱。`,
+    adds: `繁荣的20年代，又充满暴力与暗算。芝加哥黑帮之间的斗争从未停歇，而你们的到来，让这场纷争变得更加混乱。`,
     comments: '黑帮故事',
   },
   {
@@ -99,7 +99,7 @@ export const preparingStories: StoryInfoOverrides[] = [
     place: '中国上海',
     duration: [5, 6],
     coverUrl: cover亲密邂逅,
-    adds: `人人匿名的数字时代，孤独的人们渴望着与陌生人的交流。交友网站的会员接连被杀，留下的是和精神一样空虚的躯壳。`,
+    adds: `人人匿名的数字时代，孤独的人们渴望与陌生人的交流。交友网站会员接连被杀，留下的是和精神一样空虚的躯壳。`,
     comments: '涉及交友网站内容，不适者请勿游玩',
   },
   {
@@ -109,7 +109,7 @@ export const preparingStories: StoryInfoOverrides[] = [
     place: '中国or日本',
     duration: [4, 6],
     coverUrl: cover只有猫知道的世界,
-    adds: `那个天才一般的少年失踪了？去找找看吧，还好上海到这个小镇不算太远。不过，是不是哪里有一点点古怪？喵？喵喵喵？喵！`,
+    adds: `那个天才少年失踪了？去找找看吧，还好到这个小镇不算太远。不过，是不是哪里有一点点古怪？喵？喵喵喵？喵！`,
     comments: '轻松愉快，猫猫贴贴',
     labels: ['适合新手'],
   },

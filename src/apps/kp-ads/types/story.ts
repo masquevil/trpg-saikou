@@ -11,6 +11,7 @@ export interface Story {
   labels?: string[];
   isDicecho: boolean;
   rateAvg?: number;
+  validRateCount?: number;
   cnmodsAliaseId?: number;
   tags?: string[];
 }

@@ -60,7 +60,11 @@ defineProps<Props>();
         v-if="story.isDicecho"
         class="dicecho-row"
       >
-        <a class="dicecho-banner dicecho-link">
+        <a
+          class="dicecho-banner dicecho-link"
+          href="https://www.dicecho.com/"
+          target="_blank"
+        >
           <img
             class="dicecho-icon"
             src="https://www.dicecho.com/favicon.ico"
@@ -71,6 +75,7 @@ defineProps<Props>();
         <a
           class="dicecho-link"
           :href="`https://www.dicecho.com/module/${story.id}`"
+          target="_blank"
         >
           链接
         </a>

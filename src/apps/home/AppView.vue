@@ -26,20 +26,20 @@ const appConfigs: Record<'online' | 'offline', AppConfig[]> = {
   ],
   offline: [
     {
-      key: 'record',
-      name: '模组列表（短期内不再维护）',
-      to: {
-        name: 'tfg-stories',
-      },
-      preview: recordPreview,
-    },
-    {
       key: 'kp-ads',
       name: 'KP招募PL展示器',
       to: {
         name: 'kp-ads',
       },
       preview: kpAdsPreview,
+    },
+    {
+      key: 'record',
+      name: '模组列表（短期内不再维护）',
+      to: {
+        name: 'tfg-stories',
+      },
+      preview: recordPreview,
     },
   ],
 };

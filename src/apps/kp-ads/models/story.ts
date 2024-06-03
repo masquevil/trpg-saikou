@@ -16,7 +16,7 @@ function getStoriesByOverrides(storyOverrides: StoryInfoOverrides[]): Story[] {
       playerNumber = [4, 6],
     } = storyOverride;
     const dicechoStory = dicechoStoryInfos.find((info) => info._id === id);
-    const { cnmodsAliaseId, tags, rateAvg } = dicechoStory || {};
+    const { cnmodsAliaseId, tags, rateAvg, validRateCount } = dicechoStory || {};
     return {
       id,
       title: title || dicechoStory?.title || '',
@@ -30,6 +30,7 @@ function getStoriesByOverrides(storyOverrides: StoryInfoOverrides[]): Story[] {
       labels,
       isDicecho: !id.startsWith('sox-id-'),
       rateAvg,
+      validRateCount,
       cnmodsAliaseId,
       tags,
     };
