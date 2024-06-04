@@ -10,7 +10,7 @@ declare module 'vue-router' {
 
 const router = createRouter({
   history:
-    import.meta.env.MODE !== 'production'
+    import.meta.env.BASE_URL === '/'
       ? createWebHistory(import.meta.env.BASE_URL)
       : createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
