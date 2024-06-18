@@ -10555,7 +10555,7 @@ const VZ = ["for"], QZ = ["id"], WM = 132 * 2, hM = 172 * 2, SZ = /* @__PURE__ *
       }, null, 44, hZ)
     ]));
   }
-}), kM = /* @__PURE__ */ W(kZ, [["__scopeId", "data-v-5c542be9"]]), YZ = (C) => (eA("data-v-bb217c8e"), C = C(), tA(), C), JZ = { class: "avatar-modal-content" }, OZ = { class: "action-buttons" }, qZ = { key: 0 }, _Z = {
+}), kM = /* @__PURE__ */ W(kZ, [["__scopeId", "data-v-5c542be9"]]), YZ = (C) => (eA("data-v-2da41645"), C = C(), tA(), C), JZ = { class: "avatar-modal-content" }, OZ = { class: "action-buttons" }, qZ = { key: 0 }, _Z = {
   key: 0,
   class: "avatar-input-rows"
 }, $Z = { class: "refresh-row" }, Ae = { class: "refresh-row-inputs" }, Ce = ["disabled"], Me = /* @__PURE__ */ YZ(() => /* @__PURE__ */ c("div", { class: "avatar-input-rows-hint" }, "* 目前预设形象库中只有年轻女性", -1)), we = { class: "sd-avatars" }, ge = ["onClick"], Ie = ["src"], De = /* @__PURE__ */ E({
@@ -10564,10 +10564,7 @@ const VZ = ["for"], QZ = ["id"], WM = 132 * 2, hM = 172 * 2, SZ = /* @__PURE__ *
   setup(C, { emit: A }) {
     const M = A, w = nA();
     xI();
-    const g = k([]), I = k(0), D = MA(() => g.value.slice(
-      I.value,
-      I.value + 6
-    ));
+    const g = k([]), I = k(0), D = MA(() => g.value.slice(I.value, I.value + 6));
     function v(R) {
       w && (w.value.avatar = R, w.value.sdAvatar = "", M("finished"));
     }
@@ -10666,7 +10663,7 @@ const VZ = ["for"], QZ = ["id"], WM = 132 * 2, hM = 172 * 2, SZ = /* @__PURE__ *
             ]),
             U(kM, {
               label: "形象描述",
-              placeholder: "修改",
+              placeholder: "示例：红发 马尾 黑色眼睛",
               modelValue: b(w).stories.app,
               "onUpdate:modelValue": G[2] || (G[2] = (T) => b(w).stories.app = T)
             }, null, 8, ["modelValue"]),
@@ -10688,7 +10685,7 @@ const VZ = ["for"], QZ = ["id"], WM = 132 * 2, hM = 172 * 2, SZ = /* @__PURE__ *
       ]);
     };
   }
-}), ve = /* @__PURE__ */ W(De, [["__scopeId", "data-v-bb217c8e"]]), ne = (C) => (eA("data-v-ff2e3b4b"), C = C(), tA(), C), oe = {
+}), ve = /* @__PURE__ */ W(De, [["__scopeId", "data-v-2da41645"]]), ne = (C) => (eA("data-v-ff2e3b4b"), C = C(), tA(), C), oe = {
   key: 0,
   class: "avatar-placeholder"
 }, ie = /* @__PURE__ */ ne(() => /* @__PURE__ */ c("div", null, "设置形象", -1)), ce = [
