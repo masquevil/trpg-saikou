@@ -60,9 +60,6 @@ export const preparedStories: StoryInfoOverrides[] = [
     adds: `充满神秘的土地上，口口相传着吓唬淘气孩子的鬼故事。当古老的夜晚再次降临，孩子们究竟会迎来怎样的未来？`,
     comments: '包含对儿童的暴力内容，请酌情游玩',
   },
-];
-
-export const preparingStories: StoryInfoOverrides[] = [
   {
     id: '607ff8b885cecc0028fd2eca',
     title: '芝加哥之王',
@@ -70,9 +67,12 @@ export const preparingStories: StoryInfoOverrides[] = [
     time: '1920s',
     place: '美国',
     coverUrl: cover芝加哥之王,
-    adds: `繁荣的20年代，又充满暴力与暗算。芝加哥黑帮之间的斗争从未停歇，而你们的到来，让这场纷争变得更加混乱。`,
-    comments: '黑帮故事',
+    adds: `禁酒令禁不住人们的欲望与野心，大萧条更催生阴谋与背叛。黑帮之间的斗争从未停歇，深陷漩涡的你们是否还能全身而退？`,
+    comments: '黑帮故事！芝加哥打字机！',
   },
+];
+
+export const preparingStories: StoryInfoOverrides[] = [
   {
     id: '6007fcc8bb660b024e511788',
     title: '周而复始',

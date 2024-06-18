@@ -22,10 +22,7 @@ initSdAvatars();
 const sdImages = ref<SdImageData[]>([]);
 const poolSDImageIndex = ref(0);
 const showingSDImages = computed(() => {
-  return sdImages.value.slice(
-    poolSDImageIndex.value,
-    poolSDImageIndex.value + 6,
-  );
+  return sdImages.value.slice(poolSDImageIndex.value, poolSDImageIndex.value + 6);
 });
 
 function onUploaded(url: string) {
@@ -63,10 +60,7 @@ const matchSource = computed(() => {
 const matchSourcePhrase = computed(() => JSON.stringify(matchSource.value));
 const savedMatchSourcePhrase = ref('');
 const shouldUpdateMatch = computed(() => {
-  return (
-    !!sdImages.value.length &&
-    savedMatchSourcePhrase.value !== matchSourcePhrase.value
-  );
+  return !!sdImages.value.length && savedMatchSourcePhrase.value !== matchSourcePhrase.value;
 });
 function matchSdImages() {
   savedMatchSourcePhrase.value = matchSourcePhrase.value;
@@ -142,7 +136,7 @@ function refreshSDImages() {
         </div>
         <AvatarInputRow
           label="形象描述"
-          placeholder="修改"
+          placeholder="示例：红发 马尾 黑色眼睛"
           v-model="pc.stories.app"
         />
         <div class="avatar-input-rows-hint">* 目前预设形象库中只有年轻女性</div>
