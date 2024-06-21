@@ -24,6 +24,7 @@ const ls = useAppLs();
 const viewData = reactive<COCCardViewData>(createViewData(qsObject));
 const pageData = reactive<PageData>({
   printing: qsObject.debug === 'true',
+  importing: false,
   showTotalSeparation: qsObject.sep === 'true' || ls.getItem('showTotalSeparation') || false,
 });
 const paperInFront = ref(qsObject.turn === 'back' ? false : true);
@@ -36,7 +37,10 @@ watch(
 );
 
 useDerives(pcRef);
-const suggestion = useSuggestion(pcRef, viewData);
+const suggestion = useSuggestion(pcRef, {
+  viewData,
+  pageData,
+});
 
 useAutoSave(pcRef);
 

@@ -190,6 +190,7 @@ function copyOutData() {
 function applyInData() {
   const json = LZString.decompressFromEncodedURIComponent(inData.value);
   const data = JSON.parse(json);
+  pageData && (pageData.importing = true);
   if (data && data.viewData && data.pc && viewData && pc) {
     try {
       pc.value = data.pc;
@@ -208,6 +209,7 @@ function applyInData() {
     ElMessage.error('数据有误，无法导入');
   }
   LA?.track(LAEventID.FEATURE, { name: FeatureNames.CA_INOUT_IMPORT });
+  pageData && (pageData.importing = false);
 }
 
 function actDownloadEmptyCard() {

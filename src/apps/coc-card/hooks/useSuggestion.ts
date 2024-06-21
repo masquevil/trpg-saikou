@@ -7,14 +7,19 @@ import { resetShowingChildSkills } from '../models/skill';
 
 import type { COCPlayerCharacter } from '../types/character';
 import type { COCCardViewData } from '../types/viewData';
+import type { PageData } from '../types/pageData';
 import type { Suggestion } from '../types/suggestion';
 
 // calculate suggestion: pro skills, wealth
 export default function useSuggestion(
   pc: Ref<COCPlayerCharacter>,
-  viewData: COCCardViewData,
+  options: {
+    viewData: COCCardViewData;
+    pageData: PageData;
+  },
 ): ComputedRef<Suggestion> {
   const { jobs } = formattedJobs;
+  const { viewData, pageData } = options;
 
   const suggestion = computed(() => {
     return getJobSuggestion(pc.value.job);
@@ -24,7 +29,7 @@ export default function useSuggestion(
     () => pc.value.job,
     () => {
       const job = jobs.get(pc.value.job);
-      if (!job) return;
+      if (!job || pageData.importing) return;
       // pick skills
       viewData.jobSkills = [...job.skills];
       resetShowingChildSkills(viewData);
