@@ -11953,8 +11953,8 @@ const nl = /* @__PURE__ */ W(Cl, [["render", vl], ["__scopeId", "data-v-fa6373e1
       { label: "伤口与疤痕", fieldName: "scar" },
       { label: "精神症状", fieldName: "mad" }
     ]), g = GA([]), I = GA({ fieldName: "desc", size: "base" }), D = AA(() => {
-      const o = w.length - g.length;
-      return o * ~~(I.size === "base" ? YM : JM) + ~~(o / 6);
+      const o = w.length - g.length, i = o * ~~(I.size === "base" ? YM : JM), e = I.size === "base" ? 0 : ~~(o / 6);
+      return i + e;
     }), v = k();
     function n(o) {
       var i;
@@ -12011,7 +12011,7 @@ const nl = /* @__PURE__ */ W(Cl, [["render", vl], ["__scopeId", "data-v-fa6373e1
       _: 1
     })) : Y("", !0);
   }
-}), Kl = /* @__PURE__ */ W(al, [["__scopeId", "data-v-fc173609"]]), Fl = { class: "section-body" }, fl = /* @__PURE__ */ p({
+}), Kl = /* @__PURE__ */ W(al, [["__scopeId", "data-v-8aa0af46"]]), Fl = { class: "section-body" }, fl = /* @__PURE__ */ p({
   __name: "AssetsSection",
   setup(C) {
     const A = nA(), M = AA(() => {
