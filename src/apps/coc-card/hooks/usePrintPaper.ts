@@ -51,8 +51,7 @@ export default function usePrintPaper(paperEls: Partial<PaperEls>) {
   });
 
   async function printPaper(paperKey?: PaperKey) {
-    if (!paperEls.front || !paperEls.back)
-      throw 'Setup Error: `paperEls` not exists';
+    if (!paperEls.front || !paperEls.back) throw 'Setup Error: `paperEls` not exists';
 
     return printPaperImage({
       paperEls: paperEls as PaperEls,

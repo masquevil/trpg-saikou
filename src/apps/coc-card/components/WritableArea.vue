@@ -1,26 +1,54 @@
 <script setup lang="ts">
+import { ref, computed, nextTick, watch } from 'vue';
 import { usePageData } from '../hooks/useProviders';
 
 interface Props {
   label: string;
+  modelValue?: string;
+  size?: 'small' | 'base';
   rows?: number;
   placeholder?: string;
-  modelValue?: string;
   maxlength?: number;
   readonly?: boolean;
 }
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   rows: 3,
   modelValue: '',
+  size: 'base',
   readonly: false,
 });
 
 interface Emits {
   (event: 'update:modelValue', modelValue: string): void;
+  (event: 'oversize'): void;
 }
-defineEmits<Emits>();
+const emit = defineEmits<Emits>();
 
 const pageData = usePageData();
+
+const inputStyle = computed(() => {
+  const labelLength = props.label.length;
+  const indent = props.size === 'small' ? labelLength / 0.8 : labelLength;
+  return {
+    textIndent: indent ? `${indent + 0.4}em` : undefined,
+  };
+});
+
+const inputEl = ref<HTMLTextAreaElement | null>(null);
+function checkOverSize(stop: boolean = false) {
+  const el = inputEl.value;
+  if (!el) return;
+  nextTick(() => {
+    if (el.scrollHeight > el.clientHeight) {
+      emit('oversize');
+      if (!stop) checkOverSize(true);
+    }
+  });
+}
+watch(
+  () => [props.modelValue, pageData?.printing],
+  () => checkOverSize(),
+);
 </script>
 
 <template>
@@ -33,19 +61,24 @@ const pageData = usePageData();
     <div class="label">{{ label }}</div>
     <textarea
       class="input"
-      :style="{
-        textIndent: label.length ? `${label.length + 0.4}em` : undefined,
+      :class="{
+        'input-size-small': props.size === 'small',
       }"
+      ref="inputEl"
+      :style="inputStyle"
       :rows="rows"
       :placeholder="pageData?.printing ? '' : placeholder"
       :value="modelValue"
       :maxlength="maxlength"
       :readonly="readonly"
-      @input="
-        $emit('update:modelValue', ($event.target as HTMLInputElement).value)
-      "
+      @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
     ></textarea>
-    <div class="lines">
+    <div
+      class="lines"
+      :class="{
+        'lines-size-small': props.size === 'small',
+      }"
+    >
       <div class="line-row"></div>
       <div
         class="line-row"
@@ -93,7 +126,7 @@ const pageData = usePageData();
   font-size: 1em;
   line-height: var(--line-height);
   color: var(--color-text);
-  overflow: hidden;
+  overflow: auto;
   font-family: inherit;
   word-break: break-all;
 
@@ -102,6 +135,11 @@ const pageData = usePageData();
     border-color: var(--color-black);
     outline: none;
   }
+}
+.input-size-small {
+  font-size: 0.8em;
+  padding-top: 0.25em;
+  line-height: 1.48em;
 }
 
 .lines {
@@ -114,6 +152,10 @@ const pageData = usePageData();
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+.lines-size-small {
+  padding-top: 0.25em;
+  transform: none;
 }
 .line-row {
   display: flex;
