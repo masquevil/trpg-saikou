@@ -34,9 +34,9 @@ const rightConfigs: AreaConfig[] = reactive([]);
 const restConfig = reactive<Partial<AreaConfig>>({ fieldName: 'desc', size: 'base' });
 const restRows = computed(() => {
   const configLength = leftConfigs.length - rightConfigs.length;
-  return (
-    configLength * ~~(restConfig.size === 'base' ? BASE_ROWS : SMALL_ROWS) + ~~(configLength / 6)
-  );
+  const basic = configLength * ~~(restConfig.size === 'base' ? BASE_ROWS : SMALL_ROWS);
+  const additional = restConfig.size === 'base' ? 0 : ~~(configLength / 6);
+  return basic + additional;
 });
 
 const showingAlert = ref<MessageHandler>();
