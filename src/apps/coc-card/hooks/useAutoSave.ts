@@ -3,16 +3,23 @@ import type { Ref } from 'vue';
 import { ElMessageBox } from 'element-plus';
 
 import type { COCPlayerCharacter } from '../types/character';
+import type { PageData } from '../types/pageData';
 
 import useZhTimeAgo from '@/hooks/useZhTimeAgo';
 import useAppLs from './useAppLs';
 
 const ls = useAppLs();
 
-export default function useAutoSave(pcRef: Ref<COCPlayerCharacter>) {
+export default function useAutoSave(
+  pcRef: Ref<COCPlayerCharacter>,
+  options: {
+    pageData: PageData;
+  },
+) {
   const autoSaved = ls.getItem('autoSaved');
   const { lastModified, pc: savedPC } = autoSaved || {};
   const { timeAgo } = useZhTimeAgo(lastModified || Date.now());
+  const { pageData } = options;
 
   watch(
     () => pcRef.value,
@@ -42,7 +49,11 @@ export default function useAutoSave(pcRef: Ref<COCPlayerCharacter>) {
         return;
       }
       ElMessageBox.confirm(vnode, '检测到编辑过的人物卡', { showClose: false }).then(() => {
+        pageData.importing = true;
         pcRef.value = savedPC!;
+        nextTick(() => {
+          pageData.importing = false;
+        });
       });
     });
   }
