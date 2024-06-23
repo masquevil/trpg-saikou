@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, nextTick, watch } from 'vue';
+import { ref, computed, nextTick, watch, onActivated } from 'vue';
 import { usePageData } from '../hooks/useProviders';
 
 interface Props {
@@ -49,6 +49,9 @@ watch(
   () => [props.modelValue, pageData?.printing],
   () => checkOverSize(),
 );
+onActivated(() => {
+  checkOverSize();
+});
 </script>
 
 <template>

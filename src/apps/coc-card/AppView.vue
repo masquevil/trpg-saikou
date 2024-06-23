@@ -23,11 +23,11 @@ const pcRef = ref<COCPlayerCharacter>(createPC());
 const ls = useAppLs();
 const viewData = reactive<COCCardViewData>(createViewData(qsObject));
 const pageData = reactive<PageData>({
+  paperInFront: qsObject.turn === 'back' ? false : true,
   printing: qsObject.debug === 'true',
   importing: false,
   showTotalSeparation: qsObject.sep === 'true' || ls.getItem('showTotalSeparation') || false,
 });
-const paperInFront = ref(qsObject.turn === 'back' ? false : true);
 
 watch(
   () => pageData.showTotalSeparation,
@@ -63,7 +63,7 @@ const paperEls = reactive<{ front?: HTMLElement; back?: HTMLElement }>({});
       <div class="papers-animation-container papers-editing web-only">
         <Transition name="swipe-paper">
           <KeepAlive>
-            <PaperFront v-if="paperInFront" />
+            <PaperFront v-if="pageData.paperInFront" />
             <PaperBack v-else />
           </KeepAlive>
         </Transition>
@@ -93,7 +93,7 @@ const paperEls = reactive<{ front?: HTMLElement; back?: HTMLElement }>({});
     <div class="sticky-footer web-only">
       <ControlSection
         :paperEls="paperEls"
-        @switch-paper="() => (paperInFront = !paperInFront)"
+        @switch-paper="() => (pageData.paperInFront = !pageData.paperInFront)"
       />
     </div>
   </main>
