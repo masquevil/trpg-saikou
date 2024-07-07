@@ -25,7 +25,6 @@ export default function speak(text: string, config: VoiceConfig = {}) {
   // 选择语音
   const listArr = window.speechSynthesis.getVoices();
   const preferredVoice = listArr.find((item) => item.name === 'Google 普通话（中国大陆）');
-  console.log('xxx', preferredVoice, listArr);
   if (preferredVoice) {
     instance.voice = preferredVoice;
   }

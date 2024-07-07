@@ -4,7 +4,7 @@ import { useIntervalFn } from '@vueuse/core';
 import speak from './speak';
 
 const settingMinute = ref();
-const settingSecond = ref(0);
+const settingSecond = ref();
 const workingTime = ref(0);
 const speedUpSecond = ref();
 const stopTip = ref();
@@ -48,11 +48,11 @@ const { isActive, pause, resume } = useIntervalFn(
       speak(stopTip.value || '计时结束', { rate: speakSpeeds.normal });
       pause();
     } else if (workingTime.value % 60 === 0) {
-      speak(`剩余${speekWorkingTime.value}`, { rate: speakSpeeds.fast });
+      speak(`剩余${speekWorkingTime.value}`, { rate: speakSpeeds.normal });
     } else if (workingTime.value === 30) {
-      speak(`${speekWorkingTime.value}`, { rate: speakSpeeds.fast });
+      speak(`剩余${speekWorkingTime.value}`, { rate: speakSpeeds.normal });
     } else if (workingTime.value === 10) {
-      speak(`${speekWorkingTime.value}`, { rate: speakSpeeds.fast });
+      speak(`${speekWorkingTime.value}`, { rate: speakSpeeds.normal });
     } else if (workingTime.value <= 3) {
       speak(`${workingTime.value}`, { rate: speakSpeeds.fast });
     }
@@ -195,7 +195,9 @@ function onStop() {
 }
 
 .timer {
-  --timer-height: calc(100vh - 100px - 48px);
+  --timer-wide-height: calc(100vh - 100px - 48px);
+  --timer-compact-height: calc(80vw - 40px);
+  --timer-height: min(var(--timer-wide-height), var(--timer-compact-height));
 
   margin-bottom: 12px;
   width: 100%;
@@ -229,5 +231,16 @@ function onStop() {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+@media screen and (max-width: 720px) {
+  .action-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .action-card {
+    max-width: 100%;
+  }
 }
 </style>
