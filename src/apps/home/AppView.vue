@@ -5,6 +5,7 @@ import type { RouteLocationRaw } from 'vue-router';
 import cocCardPreview from '@/assets/images/tools-preview/coc-card.jpg';
 import recordPreview from '@/assets/images/tools-preview/record.png';
 import kpAdsPreview from '@/assets/images/tools-preview/kp-ads.png';
+import timerPreview from '@/assets/images/tools-preview/timer.png';
 
 interface AppConfig {
   key: string;
@@ -22,6 +23,14 @@ const appConfigs: Record<'online' | 'offline', AppConfig[]> = {
         name: 'coc-card',
       },
       preview: cocCardPreview,
+    },
+    {
+      key: 'timer',
+      name: '计时器',
+      to: {
+        name: 'timer',
+      },
+      preview: timerPreview,
     },
   ],
   offline: [

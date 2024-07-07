@@ -33,6 +33,11 @@ const router = createRouter({
       component: () => import('../apps/kp-ads/AppView.vue'),
     },
     {
+      path: '/timer',
+      name: 'timer',
+      component: () => import('../apps/timer/AppView.vue'),
+    },
+    {
       path: '/tfg-stories',
       name: 'tfg-stories',
       component: () => import('../apps/record/StoryListView.vue'),
