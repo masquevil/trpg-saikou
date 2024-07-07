@@ -62,10 +62,10 @@ const { isActive, pause, resume } = useIntervalFn(
 );
 
 function onSetMinute() {
-  if (isNaN(settingMinute.value) && isNaN(settingSecond.value)) {
+  if (isNaN(Number(settingMinute.value)) && isNaN(Number(settingSecond.value))) {
     return speak('请输入数字', { rate: speakSpeeds.normal });
   }
-  const time = (settingMinute.value || 0) * 60 + (settingSecond.value || 0);
+  const time = Number(settingMinute.value || 0) * 60 + Number(settingSecond.value || 0);
   if (time <= 0) {
     return speak('请大于0', { rate: speakSpeeds.normal });
   }
