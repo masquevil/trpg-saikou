@@ -6,7 +6,8 @@ import speak from './speak';
 const settingMinute = ref();
 const settingSecond = ref();
 const workingTime = ref(0);
-const speedUpSecond = ref();
+const adjustType = ref(false);
+const adjustSecond = ref();
 const stopTip = ref();
 
 const speakSpeeds = {
@@ -75,13 +76,22 @@ function onSetMinute() {
   workingTime.value = time;
   resume();
 }
-function onSpeedUp() {
-  const time = Number(speedUpSecond.value);
+function onAdjustTime() {
+  const time = Number(adjustSecond.value);
   if (isNaN(time)) {
     return speak('请输入数字', { rate: speakSpeeds.normal });
   }
-  workingTime.value -= time;
-  speak(`剩余${speekWorkingTime.value}`, { rate: speakSpeeds.fast });
+  if (adjustType.value) {
+    workingTime.value += time;
+    speak(`延长${time}秒，剩余${speekWorkingTime.value}`, { rate: speakSpeeds.fast });
+  } else {
+    workingTime.value -= time;
+    if (workingTime.value < 0) {
+      workingTime.value = 0;
+    } else {
+      speak(`剩余${speekWorkingTime.value}`, { rate: speakSpeeds.fast });
+    }
+  }
 }
 function onPauseOrResume() {
   if (isActive.value) {
@@ -134,14 +144,22 @@ function onStop() {
       </form>
       <form
         class="action-card"
-        @submit.prevent="onSpeedUp"
+        @submit.prevent="onAdjustTime"
       >
-        <div class="action-card-title">为倒计时加速</div>
+        <div class="action-card-title">
+          <span>调整倒计时</span>
+          <el-switch
+            v-model="adjustType"
+            inline-prompt
+            active-text="延长"
+            inactive-text="缩短"
+          />
+        </div>
         <div class="action-card-action">
           <el-input
             type="number"
             size="large"
-            v-model="speedUpSecond"
+            v-model="adjustSecond"
             placeholder="输入秒数"
           />
           <el-button
@@ -149,7 +167,7 @@ function onStop() {
             size="large"
             nativeType="submit"
           >
-            立刻加速
+            {{ adjustType ? '延长' : '缩短' }}计时
           </el-button>
         </div>
       </form>
@@ -226,6 +244,13 @@ function onStop() {
 }
 .action-card-title {
   font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .el-switch {
+    height: auto;
+  }
 }
 .action-card-action {
   display: flex;
