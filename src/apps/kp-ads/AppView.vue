@@ -31,7 +31,7 @@ const preparingStories = ref<Story[]>(StoryModel.getPreparingStories());
         <div class="stories">
           <StoryCard
             v-for="story in preparedStories"
-            :key="story.id"
+            :key="`${story.id}-${story.title}`"
             :story="story"
           />
         </div>
@@ -41,7 +41,7 @@ const preparingStories = ref<Story[]>(StoryModel.getPreparingStories());
         <div class="stories">
           <StoryCard
             v-for="story in preparingStories"
-            :key="story.id"
+            :key="`${story.id}-${story.title}`"
             :story="story"
           />
         </div>

@@ -62,7 +62,7 @@ defineProps<Props>();
       >
         <a
           class="dicecho-banner dicecho-link"
-          href="https://www.dicecho.com/"
+          :href="`https://www.dicecho.com/module/${story.id}`"
           target="_blank"
         >
           <img
@@ -72,13 +72,6 @@ defineProps<Props>();
           骰声回响
         </a>
         <div>评分：{{ story.rateAvg }}</div>
-        <a
-          class="dicecho-link"
-          :href="`https://www.dicecho.com/module/${story.id}`"
-          target="_blank"
-        >
-          链接
-        </a>
       </div>
     </div>
   </div>
