@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router';
 import { useColorMode } from '@vueuse/core';
+import { ElMessageBox } from 'element-plus';
 
 declare module 'vue-router' {
   interface RouteMeta {
@@ -69,6 +70,7 @@ router.beforeEach((to) => {
 router.afterEach((to) => {
   const colorMode = useColorMode();
   colorMode.value = to.meta.theme || 'dark';
+  ElMessageBox.close();
 });
 
 export default router;
