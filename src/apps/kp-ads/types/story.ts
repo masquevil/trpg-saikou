@@ -15,9 +15,11 @@ export interface Story {
   cnmodsAliaseId?: number;
   tags?: string[];
 }
+
 export interface StoryInfoOverrides {
   id: string;
   title: string;
+  // owner: string;
   adds: string;
   comments?: string;
   time: string;

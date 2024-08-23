@@ -3,50 +3,40 @@ import { ref, computed } from 'vue';
 
 import StoryCard from './components/StoryCard.vue';
 
-import StoryModel from './models/story';
-import type { Story } from './types/story';
+import keeperGroupTable from './tables/keeperGroup';
+import KeeperGroupModel from './models/keeperGroup';
 
-const kpGroups = [
-  {
-    key: 'sox',
-    type: 'personal',
-    name: '侠小然',
-  },
-];
-const currentGroupIndex = ref(0);
-const currentGroup = computed(() => kpGroups[currentGroupIndex.value]);
+const currentKey = ref('sox');
 
-const preparedStories = ref<Story[]>(StoryModel.getPreparedStories());
-const preparingStories = ref<Story[]>(StoryModel.getPreparingStories());
+const keeperGroup = computed(() => {
+  const keeperGroupRow = keeperGroupTable.find((row) => row.key === currentKey.value);
+  return keeperGroupRow && new KeeperGroupModel(keeperGroupRow);
+});
 </script>
 
 <template>
   <main class="page">
-    <h1 class="heading">
-      找 <b>{{ currentGroup.name }}</b> 跑团！
-    </h1>
-    <div class="sections">
-      <div class="section">
-        <div class="section-title">随时能带的</div>
-        <div class="stories">
-          <StoryCard
-            v-for="story in preparedStories"
-            :key="`${story.id}-${story.title}`"
-            :story="story"
-          />
+    <template v-if="keeperGroup">
+      <h1 class="heading">
+        找 <b>{{ keeperGroup.name }}</b> 跑团！
+      </h1>
+      <div class="sections">
+        <div
+          class="section"
+          v-for="list in keeperGroup.lists"
+          :key="list.key"
+        >
+          <div class="section-title">{{ list.title }}</div>
+          <div class="stories">
+            <StoryCard
+              v-for="story in list.stories"
+              :key="`${story.id}-${story.title}`"
+              :story="story"
+            />
+          </div>
         </div>
       </div>
-      <div class="section">
-        <div class="section-title">在考虑带的</div>
-        <div class="stories">
-          <StoryCard
-            v-for="story in preparingStories"
-            :key="`${story.id}-${story.title}`"
-            :story="story"
-          />
-        </div>
-      </div>
-    </div>
+    </template>
   </main>
 </template>
 

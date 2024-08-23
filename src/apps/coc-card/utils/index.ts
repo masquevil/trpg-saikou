@@ -1,4 +1,4 @@
-export function throwDice(dice: number, times: number = 1, plus: number = 0) {
+export function throwDice(dice: number, times: number = 1, plus: number = 0): number {
   return Array.from({ length: times }).reduce((sum: number) => {
     const value = Math.floor(Math.random() * dice) + 1;
     return sum + value;

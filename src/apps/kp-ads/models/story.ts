@@ -1,48 +1,32 @@
-import { Story, StoryInfoOverrides } from '../types/story';
-import { preparedStories, preparingStories, dicechoStoryInfos } from '../constants/story';
-
-function getStoriesByOverrides(storyOverrides: StoryInfoOverrides[]): Story[] {
-  return storyOverrides.map((storyOverride) => {
-    const {
-      id,
-      title,
-      duration,
-      time,
-      place,
-      coverUrl,
-      adds,
-      comments,
-      labels,
-      playerNumber = [4, 6],
-    } = storyOverride;
-    const dicechoStory = dicechoStoryInfos.find((info) => info._id === id);
-    const { cnmodsAliaseId, tags, rateAvg, validRateCount } = dicechoStory || {};
-    return {
-      id,
-      title: title || dicechoStory?.title || '',
-      time,
-      place,
-      coverUrl: coverUrl || dicechoStory?.coverUrl || '',
-      adds: adds || '',
-      comments: comments || '',
-      duration,
-      playerNumber,
-      labels,
-      isDicecho: !id.startsWith('sox-id-'),
-      rateAvg,
-      validRateCount,
-      cnmodsAliaseId,
-      tags,
-    };
-  });
-}
+import type { Story } from '../types/story';
+import { storyInfoOverrides } from '../tables/storyInfoOverrides';
+import { dicechoStoryInfos } from '../tables/dicechoStory';
 
 export default class StoryModel {
-  static getPreparedStories(): Story[] {
-    return getStoriesByOverrides(preparedStories);
-  }
+  static getStoriesByKeyOrTitle(list: [string?, string?][]): Story[] {
+    return list
+      .map((item) => {
+        const [idMatcher, titleMatcher] = item;
+        const storyOverride = storyInfoOverrides.find((info) => {
+          return info.id === idMatcher || info.title === titleMatcher;
+        });
+        if (!storyOverride) return;
 
-  static getPreparingStories(): Story[] {
-    return getStoriesByOverrides(preparingStories);
+        const { id, coverUrl, playerNumber = [4, 6], ...rest } = storyOverride;
+        const dicechoStory = dicechoStoryInfos.find((info) => info._id === id);
+        const { cnmodsAliaseId, rateAvg, tags, validRateCount } = dicechoStory || {};
+        return {
+          id,
+          coverUrl: coverUrl || dicechoStory?.coverUrl || '',
+          playerNumber,
+          ...rest,
+          isDicecho: !id.startsWith('sox-id-'),
+          cnmodsAliaseId,
+          rateAvg,
+          tags,
+          validRateCount,
+        };
+      })
+      .filter((story) => !!story);
   }
 }
