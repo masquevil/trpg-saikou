@@ -41,7 +41,13 @@ function randNameEn(langIndex: 0 | 1, sex: SexKey): string {
 }
 
 function getRandomLastName(lastNames: string[]): string {
-  return lastNames[Math.floor(Math.pow(Math.random(), 1.4) * lastNames.length)];
+  // 6 行常见姓 + 2 行比较好听的姓，每行 25 个，总共 200 个优先
+  const priorityCount = 200;
+  const index =
+    Math.random() < 0.75
+      ? Math.floor(Math.random() * priorityCount)
+      : Math.floor(Math.random() * lastNames.length);
+  return lastNames[index];
 }
 
 const nameZhMethods: { [key: string]: (sex: SexKey) => string } = {
@@ -116,10 +122,10 @@ const nameZhMethods: { [key: string]: (sex: SexKey) => string } = {
 
 function randZhMethod(): string {
   const ratio = {
-    ln2: 450,
-    lmn: 280,
-    lnn: 120,
-    ln1: 140,
+    ln2: 320,
+    ln1: 250,
+    lmn: 240,
+    lnn: 180,
     abmn: 8,
     rare: 2,
   };
