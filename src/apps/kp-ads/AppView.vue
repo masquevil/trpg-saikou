@@ -1,16 +1,47 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
+import qs from 'qs';
 
 import StoryCard from './components/StoryCard.vue';
 
 import keeperGroupTable from './tables/keeperGroup';
 import KeeperGroupModel from './models/keeperGroup';
+import type { KeeperGroupTableField_List } from './types/keeperGroup';
+import { storyInfoOverrides } from './tables/storyInfoOverrides';
 
+interface QsObjectByDynamicList {
+  'dl-t'?: string;
+  // overrides index list, format: `0-1-2`
+  'dl-oil'?: string;
+}
+
+const qsObject = qs.parse(location.search.slice(1));
 const currentKey = ref('sox');
+
+// TODO: move to model
+const dynamicList = computed(() => {
+  const { 'dl-t': title, 'dl-oil': overridesIndexListStr } = qsObject as QsObjectByDynamicList;
+  if (!title || !overridesIndexListStr) return;
+  const overridesIndexList = overridesIndexListStr.split('-').map(Number) as number[];
+  const dynamicList: KeeperGroupTableField_List = {
+    key: '$dynamic',
+    title,
+    stories: overridesIndexList.map((index) => ['', storyInfoOverrides[index].title]),
+  };
+  return dynamicList;
+});
 
 const keeperGroup = computed(() => {
   const keeperGroupRow = keeperGroupTable.find((row) => row.key === currentKey.value);
-  return keeperGroupRow && new KeeperGroupModel(keeperGroupRow);
+  return (
+    keeperGroupRow &&
+    new KeeperGroupModel({
+      ...keeperGroupRow,
+      lists: dynamicList.value
+        ? [dynamicList.value, ...keeperGroupRow.lists]
+        : keeperGroupRow.lists,
+    })
+  );
 });
 </script>
 

@@ -36,6 +36,7 @@ import LA, { LAEventID, FeatureNames } from '@/plugins/51la';
 
 import { usePC, useViewData, usePageData } from '../hooks/useProviders';
 import usePrintPaper from '../hooks/usePrintPaper';
+import useAppLs from '../hooks/useAppLs';
 import { downloadFile } from '@/utils/file';
 
 import type { COCCardViewData } from '../types/viewData';
@@ -56,6 +57,7 @@ interface Emits {
 }
 const emit = defineEmits<Emits>();
 
+const ls = useAppLs();
 const pc = usePC();
 const viewData = useViewData();
 const pageData = usePageData();
@@ -172,6 +174,10 @@ function actResetCard() {
   pc.value = reactive(createPC());
   // reset viewData
   resetViewData(viewData);
+  // remove auto saved
+  nextTick(() => {
+    ls.removeItem('autoSaved');
+  });
 
   ElMessage.info('已重置人物卡');
   morePanelVisible.value = false;

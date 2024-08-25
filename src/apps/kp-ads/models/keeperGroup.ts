@@ -1,16 +1,11 @@
-import type { Story } from '../types/story';
-import type { KeeperGroupTableRow } from '../types/keeperGroup';
+import type { KeeperGroupTableRow, KeeperGroupField_List } from '../types/keeperGroup';
 import StoryModel from './story';
 
 export default class KeeperGroupModel {
   key?: string;
   type?: string;
   name?: string;
-  lists?: {
-    key: string;
-    title: string;
-    stories: Story[];
-  }[];
+  lists?: KeeperGroupField_List[];
 
   constructor(row: KeeperGroupTableRow) {
     this.key = row.key;
