@@ -52,7 +52,7 @@ export const storyInfoOverrides: StoryInfoOverrides[] = [
     place: '中国北京',
     duration: [4, 6],
     coverUrl: cover醒来,
-    adds: `雨后的街道上闪烁着霓虹，车流如织。你们被相熟的警察喊去喝酒，却发现自己早已卷入一连串离奇事件的漩涡。迷雾越来越重，该醒了。`,
+    adds: `雨后的街道上，霓虹闪烁，车流如织。后海的美景总是让人流连忘返，酒杯中罪恶的倒影却愈加看不清。深陷漩涡中心的你们，该醒了。`,
   },
   {
     id: '6007fcc8bb660b024e51174d',
@@ -60,7 +60,7 @@ export const storyInfoOverrides: StoryInfoOverrides[] = [
     time: '1920s',
     place: '美国',
     duration: [6, 10],
-    adds: `充满神秘的土地上，口口相传着吓唬淘气孩子的鬼故事。当古老的夜晚再次降临，孩子们究竟会迎来怎样的未来？`,
+    adds: `小孩子不要乱跑哦~ 会被怪物吃掉！古老的传说，早被文明的列车碾碎。黑暗的夜再次降临，孩子们是否还有依靠？`,
     comments: '包含对儿童的暴力内容，请酌情游玩',
   },
   {
