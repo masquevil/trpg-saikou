@@ -39,6 +39,11 @@ const router = createRouter({
       component: () => import('../apps/timer/AppView.vue'),
     },
     {
+      path: '/roll',
+      name: 'roll',
+      component: () => import('../apps/roll/AppView.vue'),
+    },
+    {
       path: '/tfg-stories',
       name: 'tfg-stories',
       component: () => import('../apps/record/StoryListView.vue'),

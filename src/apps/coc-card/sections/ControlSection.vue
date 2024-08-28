@@ -26,6 +26,7 @@ import QunSection from '../components/QunSection.vue';
 import JobList from '../components/JobList.vue';
 import WeaponList from '../components/WeaponList.vue';
 import DiceMaid from '../components/control-section-parts/dice-maid/DiceMaid.vue';
+import SimpleRollButton from '../components/control-section-parts/simple-roll/SimpleRollButton.vue';
 // import NoticeBoardButton from '../components/control-section-parts/notice-board/NoticeBoardButton.vue';
 
 // models
@@ -315,6 +316,7 @@ const cleanPreloadFn = watch(morePanelVisible, (visible) => {
             :icon="Mug"
             @click="switchTotalMode"
           />
+          <SimpleRollButton />
           <ControlButton
             label="投喂作者"
             :icon="IceCream"

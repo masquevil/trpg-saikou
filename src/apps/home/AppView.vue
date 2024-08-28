@@ -6,6 +6,7 @@ import cocCardPreview from '@/assets/images/tools-preview/coc-card.jpg';
 import recordPreview from '@/assets/images/tools-preview/record.png';
 import kpAdsPreview from '@/assets/images/tools-preview/kp-ads.png';
 import timerPreview from '@/assets/images/tools-preview/timer.png';
+import rollPreview from '@/assets/images/tools-preview/roll.png';
 
 interface AppConfig {
   key: string;
@@ -32,6 +33,14 @@ const appConfigs: Record<'online' | 'offline', AppConfig[]> = {
       },
       preview: timerPreview,
     },
+    {
+      key: 'roll',
+      name: '投掷工具',
+      to: {
+        name: 'roll',
+      },
+      preview: rollPreview,
+    },
   ],
   offline: [
     {
@@ -44,7 +53,7 @@ const appConfigs: Record<'online' | 'offline', AppConfig[]> = {
     },
     {
       key: 'record',
-      name: '模组列表（短期内不再维护）',
+      name: '模组列表（待重构）',
       to: {
         name: 'tfg-stories',
       },
@@ -118,11 +127,11 @@ const appConfigs: Record<'online' | 'offline', AppConfig[]> = {
 
 .tools {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 20px;
 }
 .tools-offline {
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 20px;
 }
 .tool-card {

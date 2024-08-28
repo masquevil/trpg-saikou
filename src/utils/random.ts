@@ -1,4 +1,4 @@
-import { ThrowDiceDetail, GroupThrowDiceDetail } from '../types/dice';
+import { ThrowDiceDetailOptions, ThrowDiceDetail, GroupThrowDiceDetail } from '../types/dice';
 
 export function shuffleArray<T>(array: T[]) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -7,31 +7,111 @@ export function shuffleArray<T>(array: T[]) {
   }
   return array;
 }
+export function throwDice(dice: number, times: number = 1): number {
+  return Array.from({ length: times }).reduce((sum: number) => {
+    const value = Math.floor(Math.random() * dice) + 1;
+    return sum + value;
+  }, 0);
+}
 
-// (5)d(6)+(3)
-export function throwDiceDetail(times: number, dice: number, plus: number = 0): ThrowDiceDetail {
+function alignNumberText(number: number, max: number) {
+  const maxStrLength = max.toString().length;
+  const numberStr = number.toString();
+  return (
+    numberStr +
+    Array.from({ length: maxStrLength - numberStr.length })
+      .map((_) => ' ')
+      .join('')
+  );
+}
+
+export function throwDiceDetail(options: ThrowDiceDetailOptions): ThrowDiceDetail {
+  const numberOptions = {
+    dice: Number(options.dice),
+    times: Number(options.times),
+    pick: Number(options.pick || options.times),
+    plus: Number(options.plus ?? 0),
+    align: options.align,
+  };
+  const { dice, times, pick = times, plus = 0, align = true } = numberOptions;
+  const pickTimes = pick ? Math.min(Math.abs(pick), times) : times;
   const detail = Array.from({ length: times }).map(() => {
     return Math.floor(Math.random() * dice) + 1;
   });
-  const result = detail.reduce((sum: number, cur: number) => sum + cur, plus);
+
+  // 计算结果
+  const removeCount = times - pickTimes;
+  const usedDetail = [...detail];
+  const removedDetail = [];
+  for (let i = 0; i < removeCount; i++) {
+    const index = usedDetail.indexOf(Math[pick > 0 ? 'min' : 'max'](...detail));
+    removedDetail.push(...usedDetail.splice(index, 1));
+  }
+  const result = usedDetail.reduce((sum: number, cur: number) => sum + cur, plus);
+
+  // 生成文本
+  const totalMax = dice * pickTimes + plus;
+  const text = [
+    `${align ? alignNumberText(result, totalMax) : result} =`,
+    removeCount
+      ? `(${detail.map((d) => `${align ? alignNumberText(d, dice) : d}`).join(',')})`
+      : '',
+    usedDetail.join(' + '),
+    plus ? `(+ ${plus})` : '',
+  ]
+    .filter((t) => t)
+    .join(' ');
+
   return {
     result,
+    text,
     detail,
-    text: `${detail.join(' + ')}${plus ? ` (+ ${plus})` : ''} = ${result}`,
+    detailUsed: usedDetail,
+    detailRemoved: removedDetail,
   };
 }
 
-export function groupThrowDiceDetail(
-  nickName: string,
+export function getGroupThrowDiceTitle(
+  nickName: string = '',
   groupCount: number,
-  ...args: Parameters<typeof throwDiceDetail>
+  options: ThrowDiceDetailOptions,
+) {
+  const numberOptions = {
+    dice: Number(options.dice),
+    times: Number(options.times),
+    pick: Number(options.pick),
+    plus: Number(options.plus ?? 0),
+  };
+  const { times, dice, pick, plus } = numberOptions;
+  return [
+    nickName ? `${nickName}的` : '',
+    `${groupCount}次`,
+    [`${times}d`, dice, pick ? `p${pick}` : '', plus ? ` + ${plus}` : ''].join(''),
+  ]
+    .filter((t) => t)
+    .join(' ');
+}
+
+export function groupThrowDiceDetail(
+  groupCount: number,
+  options: ThrowDiceDetailOptions,
+  groupOptions?: {
+    sort?: 'asc' | 'desc';
+  },
 ): GroupThrowDiceDetail {
   const details = Array.from({ length: groupCount }).map(() => {
-    return throwDiceDetail(...args);
+    return throwDiceDetail(options);
   });
-  const title = `${nickName}的 ${groupCount} 次 ${args[0]}D${args[1]}${args[2] ? ` + ${args[2]}` : ''}：`;
+  const { sort = 'desc' } = groupOptions || {};
+  if (sort) {
+    details.sort((a, b) => {
+      return sort === 'asc' ? a.result - b.result : b.result - a.result;
+    });
+  }
+
+  const text = details.map((detail) => detail.text).join('\n');
   return {
-    text: `${title}\n${details.map((detail) => detail.text).join('\n')}`,
+    text,
     details,
   };
 }
