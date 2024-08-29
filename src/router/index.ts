@@ -29,6 +29,14 @@ const router = createRouter({
       },
     },
     {
+      path: '/erp-card',
+      name: 'erp-card',
+      component: () => import('../apps/erp-card/AppView.vue'),
+      meta: {
+        title: 'ERP 车卡',
+      },
+    },
+    {
       path: '/kp',
       name: 'kp-ads',
       component: () => import('../apps/kp-ads/AppView.vue'),

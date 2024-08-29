@@ -52,6 +52,14 @@ const appConfigs: Record<'online' | 'offline', AppConfig[]> = {
       preview: kpAdsPreview,
     },
     {
+      key: 'erp-card',
+      name: 'ERP 车卡工具（开发中）',
+      to: {
+        name: 'erp-card',
+      },
+      preview: cocCardPreview,
+    },
+    {
       key: 'record',
       name: '模组列表（待重构）',
       to: {
