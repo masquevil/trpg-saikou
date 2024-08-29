@@ -1,67 +1,29 @@
 <script setup lang="ts">
-import { ref, reactive, computed } from 'vue';
-
-import { RefreshLeft } from '@element-plus/icons-vue';
+import { ref, computed } from 'vue';
+import { Plus } from '@element-plus/icons-vue';
 
 import { ThrowDiceDetailOptions } from '../../types/dice';
-import { groupThrowDiceDetail, getGroupThrowDiceTitle, throwDice } from '../../utils/random';
+import { throwDice } from '../../utils/random';
+
+import ActionCard from './ActionCard.vue';
+import DiyActionCard from './DiyActionCard.vue';
+import { diceList } from './constants';
+import type { DiyRollResult } from './types';
 
 interface Props {
   hideDiy?: boolean;
 }
 defineProps<Props>();
 
-interface Result {
-  title: string;
-  content?: string;
-  time: string;
-  timestamp: number;
-}
-
 interface GroupForm {
-  // input
-  groupCount: number;
-  options: ThrowDiceDetailOptions;
-  // view data
-  diceListIndex: number;
-  // action
-  onDiceListIndexChange: (delta: number) => void;
-  onRoll: () => void;
+  groupCount?: number;
+  options?: ThrowDiceDetailOptions;
 }
 
-const diceList = [2, 3, 4, 6, 8, 10, 12, 20, 100];
-
-const results = ref<Result[]>([]);
+const results = ref<DiyRollResult[]>([]);
 const lastResult = computed(() => results.value[0]);
 
-const group = reactive<GroupForm>({
-  groupCount: 5,
-  options: {
-    dice: 6,
-    times: 3,
-  },
-  diceListIndex: 3,
-  onDiceListIndexChange(delta: number) {
-    group.diceListIndex = (group.diceListIndex + delta + diceList.length) % diceList.length;
-  },
-  onRoll() {
-    const resultContent = groupThrowDiceDetail(this.groupCount, this.options).text;
-    results.value = [
-      {
-        title: getGroupThrowDiceTitle('', this.groupCount, this.options),
-        content: resultContent,
-        time: new Date().toLocaleTimeString(),
-        timestamp: Date.now(),
-      },
-      ...results.value,
-    ];
-  },
-});
-
-const optionTitle = computed(() => {
-  return getGroupThrowDiceTitle('', group.groupCount, group.options);
-});
-
+/* part: simple roll */
 function onSimpleRoll(dice: number) {
   const result = throwDice(dice);
   results.value = [
@@ -72,6 +34,24 @@ function onSimpleRoll(dice: number) {
     },
     ...results.value,
   ];
+}
+
+/* part: diy roll */
+const groups = ref<GroupForm[]>([{}]);
+const diyContainer = ref<HTMLElement | null>(null);
+const diyCardRefs = ref<HTMLElement[]>([]);
+const cardWidth = computed(() => diyCardRefs.value[0]?.offsetWidth || 0);
+const gapWidth = 8;
+
+function onDiyRoll(result: DiyRollResult) {
+  results.value = [result, ...results.value];
+}
+function onDiyScroll(delta: number) {
+  if (!diyContainer.value) return;
+  diyContainer.value.scrollTo({
+    left: diyContainer.value.scrollLeft + delta * (cardWidth.value + gapWidth),
+    behavior: 'smooth',
+  });
 }
 </script>
 
@@ -106,8 +86,7 @@ function onSimpleRoll(dice: number) {
         </div>
       </div>
     </div>
-    <div class="action-card">
-      <div class="action-card-title">简单投掷（点击即骰）</div>
+    <ActionCard title="简单投掷（点击即骰）">
       <div class="simple-dice-container">
         <div
           v-for="dice in diceList"
@@ -116,84 +95,27 @@ function onSimpleRoll(dice: number) {
           <el-button @click="onSimpleRoll(dice)"> D{{ dice }} </el-button>
         </div>
       </div>
-    </div>
+    </ActionCard>
     <div
-      class="action-card"
+      class="diy-container"
       v-if="!hideDiy"
+      ref="diyContainer"
     >
-      <div class="action-card-title">自定义投掷（当前：{{ optionTitle }}）</div>
-      <el-form
-        label-width="auto"
-        :model="group"
-        @submit.prevent="() => group.onRoll()"
+      <DiyActionCard
+        v-for="(group, index) in groups"
+        :key="index"
+        :setRef="(el) => diyCardRefs.push(el as HTMLElement)"
+        :defaultGroupCount="group.groupCount"
+        :defaultOptions="group.options"
+        @roll="onDiyRoll"
+        @scroll="onDiyScroll"
+      />
+      <div
+        class="add-diy-button"
+        @click="groups.push({})"
       >
-        <el-form-item label="几组">
-          <div class="action-card-row">
-            <el-input
-              class="col-1"
-              type="number"
-              v-model="group.groupCount"
-              :min="1"
-            />
-            <el-button-group v-model="group.groupCount">
-              <el-button @click="group.groupCount = 1"> 1 </el-button>
-              <el-button @click="group.groupCount = 5"> 5 </el-button>
-              <el-button @click="group.groupCount -= 1"> -1 </el-button>
-              <el-button @click="group.groupCount += 1"> +1 </el-button>
-            </el-button-group>
-          </div>
-        </el-form-item>
-        <el-form-item label="D">
-          <div class="action-card-row">
-            <el-button @click="group.onDiceListIndexChange(-3)"> ← </el-button>
-            <el-radio-group v-model="group.options.dice">
-              <el-radio-button
-                v-for="dice in diceList.slice(group.diceListIndex, group.diceListIndex + 3)"
-                :key="dice"
-                :label="`D${dice}`"
-                :value="dice"
-              />
-            </el-radio-group>
-            <el-button @click="group.onDiceListIndexChange(3)"> → </el-button>
-          </div>
-        </el-form-item>
-        <el-form-item label="几颗">
-          <div class="action-card-row">
-            <el-input
-              type="number"
-              v-model="group.options.times"
-              :min="1"
-            >
-              <template #append>
-                <el-button
-                  :icon="RefreshLeft"
-                  @click="group.options.times = 1"
-                />
-              </template>
-            </el-input>
-            选
-            <el-input
-              type="number"
-              placeholder="几颗最 +大/-小 的"
-              :modelValue="group.options.pick"
-              @update:modelValue="group.options.pick = Number($event)"
-            />
-          </div>
-        </el-form-item>
-        <el-form-item label="加值">
-          <el-input
-            type="number"
-            v-model="group.options.plus"
-          />
-        </el-form-item>
-        <el-button
-          type="default"
-          size="large"
-          nativeType="submit"
-        >
-          投掷
-        </el-button>
-      </el-form>
+        <el-icon><Plus /></el-icon>
+      </div>
     </div>
   </div>
 </template>
@@ -250,33 +172,6 @@ function onSimpleRoll(dice: number) {
   opacity: 0.8;
 }
 
-.action-card {
-  width: 100%;
-  max-width: 600px;
-  flex: 0 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 12px;
-  border: 1px solid var(--color-border);
-  border-radius: 4px;
-  background-color: var(--color-bg);
-
-  .el-form-item {
-    margin-bottom: 12px;
-  }
-}
-.action-card-title {
-  font-size: 16px;
-}
-.action-card-row {
-  width: 100%;
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  justify-content: space-between;
-}
-
 .simple-dice-container {
   display: flex;
   flex-wrap: wrap;
@@ -284,9 +179,34 @@ function onSimpleRoll(dice: number) {
   justify-content: space-between;
 }
 
-@media screen and (max-width: 720px) {
-  .action-card {
-    max-width: 100%;
+.diy-container {
+  flex: 0 0 auto;
+  width: fit-content;
+  max-width: 100%;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+}
+.add-diy-button {
+  --color-bg-hover: rgba(0, 0, 0, 0.1);
+  --color-bg-active: rgba(0, 0, 0, 0.18);
+  flex: 0 0 auto;
+  width: 80px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: var(--color-bg-hover);
+  }
+  &:active {
+    background-color: var(--color-bg-active);
   }
 }
 </style>
