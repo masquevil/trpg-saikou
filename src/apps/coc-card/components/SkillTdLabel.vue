@@ -29,14 +29,12 @@ interface Emits {
 const emit = defineEmits<Emits>();
 
 const isOptionsShowing = ref(false);
-const currentData = computed(() =>
-  viewData?.showingChildSkills.get(props.skillName),
-);
+const currentData = computed(() => viewData?.showingChildSkills[props.skillName]);
 const existedData = computed(() => {
   if (['母语', '外语'].includes(props.skillName)) {
     return [
-      ...(viewData?.showingChildSkills.get('母语') || []),
-      ...(viewData?.showingChildSkills.get('外语') || []),
+      ...(viewData?.showingChildSkills['母语'] || []),
+      ...(viewData?.showingChildSkills['外语'] || []),
     ];
   }
   return currentData.value;
@@ -52,10 +50,7 @@ const isProSkill = computed(() => {
     }
     // 二级技能
     const [skillName, _, childSkillPlace] = skillInfo;
-    return (
-      skillName === props.skillName &&
-      childSkillPlace === props.childSkillData?.place
-    );
+    return skillName === props.skillName && childSkillPlace === props.childSkillData?.place;
   });
 });
 
@@ -63,14 +58,9 @@ function updateCurrentData(value: string) {
   if (!props.childSkillData || !currentData.value) return;
   // update pro data
   if (isProSkill.value && pc) {
-    const skillInfo = pc.value.proSkills.find(
-      ([skillName, _, childSkillPlace]) => {
-        return (
-          skillName === props.skillName &&
-          childSkillPlace === props.childSkillData?.place
-        );
-      },
-    );
+    const skillInfo = pc.value.proSkills.find(([skillName, _, childSkillPlace]) => {
+      return skillName === props.skillName && childSkillPlace === props.childSkillData?.place;
+    });
     if (skillInfo && typeof skillInfo !== 'string') {
       skillInfo[1] = value;
     }
@@ -89,20 +79,13 @@ function changeProSkill(value: boolean) {
   if (value) {
     let skillInfo: COCPCSkill = props.skillName;
     if (props.childSkillData)
-      skillInfo = [
-        props.skillName,
-        props.childSkillData.name,
-        props.childSkillData.place,
-      ];
+      skillInfo = [props.skillName, props.childSkillData.name, props.childSkillData.place];
     pc.value.proSkills.push(skillInfo);
   } else {
     pc.value.proSkills = pc.value.proSkills.filter((skillInfo) => {
       if (!props.childSkillData) return skillInfo !== props.skillName;
       const [skillName, _, childSkillPlace] = skillInfo;
-      return (
-        skillName !== props.skillName ||
-        childSkillPlace !== props.childSkillData.place
-      );
+      return skillName !== props.skillName || childSkillPlace !== props.childSkillData.place;
     });
   }
 }
@@ -143,9 +126,7 @@ function changeProSkill(value: boolean) {
             :key="childSkill.name"
             class="child-skill-option"
             :class="{
-              'child-skill-option-existed': existedData?.includes(
-                childSkill.name,
-              ),
+              'child-skill-option-existed': existedData?.includes(childSkill.name),
             }"
             @click="selectChildSkill(childSkill)"
           >

@@ -43,6 +43,7 @@ const suggestion = useSuggestion(pcRef, {
 });
 
 useAutoSave(pcRef, {
+  viewData,
   pageData,
 });
 

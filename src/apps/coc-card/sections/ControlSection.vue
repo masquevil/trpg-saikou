@@ -65,15 +65,15 @@ const pageData = usePageData();
 
 const inData = ref('');
 const outData = computed(() => {
-  const showingChildSkills: Record<string, string[]> = {};
-  viewData?.showingChildSkills.forEach((value, key) => {
-    showingChildSkills[key] = value;
-  });
+  // const showingChildSkills: Record<string, string[]> = {};
+  // viewData?.showingChildSkills.forEach((value, key) => {
+  //   showingChildSkills[key] = value;
+  // });
   const json = JSON.stringify({
     pc: pc?.value,
     viewData: {
       ...viewData,
-      showingChildSkills,
+      // showingChildSkills,
     },
   });
   const str = LZString.compressToEncodedURIComponent(json);
@@ -201,10 +201,9 @@ function applyInData() {
   if (data && data.viewData && data.pc && viewData && pc) {
     try {
       pc.value = data.pc;
-      viewData.showingChildSkills = new Map(Object.entries(data.viewData.showingChildSkills));
-      const restKeys: (keyof COCCardViewData)[] = ['jobSkills', 'skillLimits'];
-      restKeys.forEach((key) => {
-        viewData[key] = data.viewData[key];
+      Object.keys(data.viewData).forEach((key) => {
+        const k = key as keyof COCCardViewData;
+        viewData[k] = data.viewData[k];
       });
       ElMessage.success('已成功导入');
       inOutModalVisible.value = false;

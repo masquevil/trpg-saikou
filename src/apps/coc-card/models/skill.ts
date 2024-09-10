@@ -5,10 +5,7 @@ import type { COCPlayerCharacter, SkillPoint } from '../types/character';
 import type { COCCardViewData } from '../types/viewData';
 
 import { skills, skillNameAlias } from '../constants/skill';
-import {
-  skillGroups as groups,
-  skillGroupOrder,
-} from '../constants/skillGroup';
+import { skillGroups as groups, skillGroupOrder } from '../constants/skillGroup';
 
 function getFormattedSkillGroups({
   skills,
@@ -43,19 +40,16 @@ export const skillGroups = getFormattedSkillGroups({
   groupOrder: skillGroupOrder,
 });
 
-export const dynamicInitFormulas: Record<
-  string,
-  (pc: COCPlayerCharacter) => number
-> = {
+export const dynamicInitFormulas: Record<string, (pc: COCPlayerCharacter) => number> = {
   母语: (pc) => pc.attributes.edu || 0,
   闪避: (pc) => Math.floor((pc.attributes.dex || 0) / 2),
 };
 
 export function resetShowingChildSkills(viewData?: COCCardViewData) {
-  const map = new Map<string, string[]>();
+  const map: Record<string, string[]> = {};
   skills.forEach((skill) => {
     if (!skill.group) return;
-    map.set(skill.name, [...skill.group.show]);
+    map[skill.name] = [...skill.group.show];
   });
   if (viewData) {
     viewData.showingChildSkills = map;
@@ -67,10 +61,7 @@ export function resetShowingChildSkills(viewData?: COCCardViewData) {
 // 第一部分——属性：力量60str60敏捷60dex60……
 // 第二部分——衍生属性：hp12体力12mp12魔法12san60理智60san值60
 // 第三部分——技能：母语60英语60日语40汽车驾驶25……
-export function getDiceMaidStString(
-  pc: COCPlayerCharacter,
-  viewData: COCCardViewData,
-) {
+export function getDiceMaidStString(pc: COCPlayerCharacter, viewData: COCCardViewData) {
   const { attributes, deriveAttributes, skillPoints } = pc;
   const {
     str = 0,
@@ -100,22 +91,17 @@ export function getDiceMaidStString(
     let childSkillPosition: number | undefined;
     if (Array.isArray(fullName)) {
       [skillName, , childSkillPosition] = fullName;
-      childSkillName =
-        viewData.showingChildSkills.get(skillName)?.[childSkillPosition];
+      childSkillName = viewData.showingChildSkills[skillName]?.[childSkillPosition];
     } else {
       skillName = fullName;
     }
-    const mapKey = childSkillName
-      ? `${skillName}-${childSkillName}`
-      : skillName;
+    const mapKey = childSkillName ? `${skillName}-${childSkillName}` : skillName;
     pcPointsMap[mapKey] = skillPoint;
   });
 
   skills.forEach((skill) => {
     const { name, init, group } = skill;
-    let realInit = dynamicInitFormulas[name]
-      ? dynamicInitFormulas[name](pc)
-      : init;
+    let realInit = dynamicInitFormulas[name] ? dynamicInitFormulas[name](pc) : init;
     const displayName = name.includes('Ω') ? name.slice(0, -1) : name;
 
     if (!group) {
@@ -137,14 +123,12 @@ export function getDiceMaidStString(
     } else {
       let total = 0;
       // viewData
-      viewData.showingChildSkills.get(name)?.forEach((childSkillName) => {
+      viewData.showingChildSkills[name]?.forEach((childSkillName) => {
         if (!childSkillName) return;
         const mapKey = `${name}-${childSkillName}`;
         const point = pcPointsMap[mapKey];
         if (name) {
-          realInit =
-            skill.group?.skills.find((s) => s.name === childSkillName)?.init ||
-            realInit;
+          realInit = skill.group?.skills.find((s) => s.name === childSkillName)?.init || realInit;
         }
         if (point) {
           const { b = name ? realInit : 0, p = 0, i = 0, g = 0 } = point;

@@ -36,6 +36,7 @@ interface TableRowData {
   points: SkillPoint;
   total: number;
   totalSeparation: [number, number, number]; // 100/50/20
+  showTotal: boolean;
   // child skill info
   childSkillData?: {
     name: string;
@@ -72,6 +73,7 @@ function getTableData(data: SkillGroups, suggestion?: Suggestion) {
           points,
           total,
           totalSeparation: [total, ~~(total / 2), ~~(total / 5)],
+          showTotal: total > 0 && (total !== init || total === points.b),
           ...(isGroupStart
             ? {
                 isGroupStart,
@@ -91,7 +93,7 @@ function getTableData(data: SkillGroups, suggestion?: Suggestion) {
           groupRow.groupSize! += length - 1;
           added = skill.group.show.map((placeName, childIndex) => {
             const childSkillName =
-              viewData?.showingChildSkills.get(skill.name)?.[childIndex] ?? placeName;
+              viewData?.showingChildSkills[skill.name]?.[childIndex] ?? placeName;
             const childSkill = skill.group?.skills.find(({ name }) => name === childSkillName);
             let init = childSkill?.init ?? rowData.init;
             const skillKey: COCPCSkill = [skill.name, childSkillName, childIndex];
@@ -112,6 +114,7 @@ function getTableData(data: SkillGroups, suggestion?: Suggestion) {
               points,
               total,
               totalSeparation: [total, ~~(total / 2), ~~(total / 5)],
+              showTotal: total > 0 && (total !== init || total === points.b),
               // child skill info
               childSkillData: {
                 name: childSkillName,
@@ -171,8 +174,8 @@ function updateSkillPoint(
 }
 
 function getTotal(points: SkillPoint, init: number) {
-  const { p = 0, i = 0, g = 0 } = points;
-  return init + Number(p) + Number(i) + Number(g);
+  const { b, p = 0, i = 0, g = 0 } = points;
+  return (b ?? init) + Number(p) + Number(i) + Number(g);
 }
 </script>
 
@@ -338,7 +341,7 @@ function getTotal(points: SkillPoint, init: number) {
               {{ sep }}
             </span>
           </span>
-          <span v-else-if="row.total !== row.init">{{ row.total }}</span>
+          <span v-else-if="row.showTotal">{{ row.total }}</span>
         </td>
       </tr>
     </tbody>

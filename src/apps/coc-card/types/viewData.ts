@@ -1,7 +1,7 @@
 import type { JobSkills } from './job';
 
 export interface COCCardViewData {
-  showingChildSkills: Map<string, string[]>;
+  showingChildSkills: Record<string, string[]>;
   jobSkills?: JobSkills;
   skillLimits: {
     pro: number;
