@@ -48,7 +48,7 @@ export default function useSuggestion(
             skillName = skillName.split('(')[0];
           }
           // set view data (suggested child skill names)
-          const currentData = viewData.showingChildSkills.get(skillName);
+          const currentData = viewData.showingChildSkills[skillName];
           if (!currentData) return;
           let cIndex = -1;
           if (childSkillName) {
