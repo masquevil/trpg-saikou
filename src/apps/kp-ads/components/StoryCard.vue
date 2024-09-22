@@ -1,11 +1,18 @@
 <script setup lang="ts">
+import { computed } from 'vue';
+
 import type { Story } from '../types/story';
 
 interface Props {
   story: Story;
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
+const durationLabel = computed(() => {
+  if (props.story.duration[1] <= 6) return { text: '短篇', color: 'duration-label-short' };
+  if (props.story.duration[0] <= 10) return { text: '中篇', color: 'duration-label-middle' };
+  return { text: '长篇', color: 'duration-label-long' };
+});
 </script>
 
 <template>
@@ -48,7 +55,15 @@ defineProps<Props>();
 
     <div class="story-card-infos">
       <div class="story-card-tags">
-        <div>时长：{{ `${story.duration[0]}-${story.duration[1]}` }}小时</div>
+        <div class="tag-duration">
+          <div
+            class="duration-label"
+            :class="durationLabel.color"
+          >
+            {{ durationLabel.text }}
+          </div>
+          {{ `${story.duration[0]}-${story.duration[1]}` }}小时
+        </div>
         <div
           v-for="tag in story.labels"
           :key="tag"
@@ -138,6 +153,31 @@ defineProps<Props>();
 .story-card-tags {
   display: flex;
   gap: 8px;
+}
+
+.tag-duration {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+.duration-label {
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 700;
+  padding: 2px 4px;
+  margin: -1px 0;
+  border-radius: 2px;
+  background-color: var(--color-label-bg);
+
+  &.duration-label-short {
+    --color-label-bg: var(--el-color-success-light-5);
+  }
+  &.duration-label-middle {
+    --color-label-bg: var(--el-color-warning-light-5);
+  }
+  &.duration-label-long {
+    --color-label-bg: var(--el-color-error-light-5);
+  }
 }
 
 .dicecho-row {
