@@ -10,6 +10,7 @@ import cover小瓢虫快回家 from '../assets/img/小瓢虫快回家.jpg';
 import cover亲密邂逅 from '../assets/img/亲密邂逅.jpg';
 import cover只有猫知道的世界 from '../assets/img/只有猫知道的世界.jpg';
 import cover死光 from '../assets/img/死光.jpg';
+import cover大幕山 from '../assets/img/大幕山.jpg';
 import cover燃烧的星辰 from '../assets/img/燃烧的星辰.jpg';
 import cover不夜城的苍白之颜 from '../assets/img/不夜城的苍白之颜.jpg';
 import cover狂气山脉 from '../assets/img/狂气山脉.jpg';
@@ -144,6 +145,16 @@ export const storyInfoOverrides: StoryInfoOverrides[] = [
     coverUrl: cover疯狂嘉年华,
     adds: `万圣节前夜，充满了南瓜、奇装异服、苹果酒、彩色树叶、木材烟熏的时刻，当然，更少不了毛骨悚然的恐惧！`,
     labels: ['节日特供'],
+  },
+  {
+    id: '60d1a00fe5668100285ab2e6',
+    title: '大幕山',
+    time: '2002',
+    place: '中国乡村',
+    duration: [4, 6],
+    coverUrl: cover大幕山,
+    adds: `湖南的小山村，没有稀奇古怪的陋习，也没有骇人听闻的阴谋，来一场愉快的乡村之旅吧！`,
+    comments: '中式民俗',
   },
   {
     id: '607f44aa082ac000286d953c',
