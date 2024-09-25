@@ -32,6 +32,7 @@ const keeperGroupTable: KeeperGroupTableRow[] = [
           ['', '大幕山'],
           ['', '燃烧的星辰'],
           ['', '不夜城的苍白之颜'],
+          ['', '不息的渴望'],
         ],
       },
     ],

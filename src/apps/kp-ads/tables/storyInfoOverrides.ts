@@ -185,4 +185,12 @@ export const storyInfoOverrides: StoryInfoOverrides[] = [
     adds: `普通的女高中生离家出走，消失在东京著名的红灯区——歌舞伎町。不要陷入这片日本最迷乱的景色，在万圣节的夜幕降临之前，将她找回来吧。`,
     comments: '日式偏交涉，可无战斗',
   },
+  {
+    id: '6007fcc8bb660b024e511742',
+    title: '不息的渴望',
+    time: '1920s',
+    place: '英国',
+    duration: [4, 6],
+    adds: `走私犯、偷渡客与海关。新年将至，风暴将会带你回到钟声响起的古老传说之中。`,
+  },
 ];
