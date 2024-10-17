@@ -38,7 +38,10 @@ const inputStyle = reactive({
       'printing-image': pageData?.printing,
     }"
   >
-    <div class="label">
+    <div
+      class="label"
+      v-if="label"
+    >
       <div class="label-title">{{ label }}</div>
       <div
         v-if="hint"
@@ -54,9 +57,7 @@ const inputStyle = reactive({
       :placeholder="pageData?.printing ? '' : placeholder"
       :readonly="readonly"
       :value="modelValue"
-      @input="
-        $emit('update:modelValue', ($event.target as HTMLInputElement).value)
-      "
+      @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
       @focus="$emit('focus')"
       @blur="$emit('blur')"
     />

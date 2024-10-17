@@ -5,12 +5,13 @@ import vClickOutside from '@/directives/clickOutside';
 import { usePC } from '../hooks/useProviders';
 import type { ChildSkill } from '../types/skill';
 import type { COCCardViewData } from '../types/viewData';
-import type { COCPCSkill } from '../types/character';
+// import type { COCPCSkill } from '../types/character';
 
 import SoxCheckbox from '@/components/SoxCheckbox.vue';
 
 interface Props {
   skillName: string;
+  showCheckbox?: boolean;
   comments?: string;
   childSkillData?: {
     name: string;
@@ -29,9 +30,7 @@ interface Emits {
 const emit = defineEmits<Emits>();
 
 const isOptionsShowing = ref(false);
-const currentData = computed(() =>
-  viewData?.showingChildSkills.get(props.skillName),
-);
+const currentData = computed(() => viewData?.showingChildSkills.get(props.skillName));
 const existedData = computed(() => {
   if (['母语', '外语'].includes(props.skillName)) {
     return [
@@ -52,10 +51,7 @@ const isProSkill = computed(() => {
     }
     // 二级技能
     const [skillName, _, childSkillPlace] = skillInfo;
-    return (
-      skillName === props.skillName &&
-      childSkillPlace === props.childSkillData?.place
-    );
+    return skillName === props.skillName && childSkillPlace === props.childSkillData?.place;
   });
 });
 
@@ -63,20 +59,16 @@ function updateCurrentData(value: string) {
   if (!props.childSkillData || !currentData.value) return;
   // update pro data
   if (isProSkill.value && pc) {
-    const skillInfo = pc.value.proSkills.find(
-      ([skillName, _, childSkillPlace]) => {
-        return (
-          skillName === props.skillName &&
-          childSkillPlace === props.childSkillData?.place
-        );
-      },
-    );
+    const skillInfo = pc.value.proSkills.find(([skillName, _, childSkillPlace]) => {
+      return skillName === props.skillName && childSkillPlace === props.childSkillData?.place;
+    });
     if (skillInfo && typeof skillInfo !== 'string') {
       skillInfo[1] = value;
     }
   }
   // update view data
   currentData.value[props.childSkillData.place] = value;
+  viewData!.showingChildSkills.set(props.skillName, currentData.value);
 }
 function selectChildSkill(childSkill: ChildSkill) {
   updateCurrentData(childSkill.name);
@@ -84,39 +76,36 @@ function selectChildSkill(childSkill: ChildSkill) {
   isOptionsShowing.value = false;
 }
 
-function changeProSkill(value: boolean) {
-  if (!pc) return;
-  if (value) {
-    let skillInfo: COCPCSkill = props.skillName;
-    if (props.childSkillData)
-      skillInfo = [
-        props.skillName,
-        props.childSkillData.name,
-        props.childSkillData.place,
-      ];
-    pc.value.proSkills.push(skillInfo);
-  } else {
-    pc.value.proSkills = pc.value.proSkills.filter((skillInfo) => {
-      if (!props.childSkillData) return skillInfo !== props.skillName;
-      const [skillName, _, childSkillPlace] = skillInfo;
-      return (
-        skillName !== props.skillName ||
-        childSkillPlace !== props.childSkillData.place
-      );
-    });
-  }
-}
+// function changeProSkill(value: boolean) {
+//   if (!pc) return;
+//   if (value) {
+//     let skillInfo: COCPCSkill = props.skillName;
+//     if (props.childSkillData)
+//       skillInfo = [props.skillName, props.childSkillData.name, props.childSkillData.place];
+//     pc.value.proSkills.push(skillInfo);
+//   } else {
+//     pc.value.proSkills = pc.value.proSkills.filter((skillInfo) => {
+//       if (!props.childSkillData) return skillInfo !== props.skillName;
+//       const [skillName, _, childSkillPlace] = skillInfo;
+//       return skillName !== props.skillName || childSkillPlace !== props.childSkillData.place;
+//     });
+//   }
+// }
 </script>
 
 <template>
   <div class="skill-td-label">
-    <label class="skill-td-checkbox-label">
-      <SoxCheckbox
+    <label
+      class="skill-td-checkbox-label"
+      v-if="showCheckbox"
+    >
+      <SoxCheckbox :checked="isProSkill" />
+      <!-- <SoxCheckbox
         :checked="isProSkill"
         @check="changeProSkill"
-      />
+      /> -->
     </label>
-    <div>{{ skillName }}</div>
+    <div v-if="skillName || !showCheckbox">{{ skillName || '&nbsp;' }}</div>
     <div
       v-if="!!childSkillData"
       class="child-skill-display"
@@ -143,9 +132,7 @@ function changeProSkill(value: boolean) {
             :key="childSkill.name"
             class="child-skill-option"
             :class="{
-              'child-skill-option-existed': existedData?.includes(
-                childSkill.name,
-              ),
+              'child-skill-option-existed': existedData?.includes(childSkill.name),
             }"
             @click="selectChildSkill(childSkill)"
           >
@@ -167,6 +154,7 @@ function changeProSkill(value: boolean) {
 .skill-td-label {
   display: flex;
   align-items: center;
+  margin-left: 0.4em;
   margin-right: 0.6em;
   white-space: nowrap;
 

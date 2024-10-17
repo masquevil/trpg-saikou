@@ -149,7 +149,7 @@ watch(
           <div class="point-container">
             <WritableRow
               class="point-writer"
-              label="职业点数"
+              label="技能点数"
               :placeholder="pc?.job ? '问KP' : ''"
               :char="3"
               :modelValue="values.pro.str"
@@ -162,21 +162,6 @@ watch(
               剩余: {{ rests.proPoint }}
             </div>
           </div>
-          <div class="point-container">
-            <WritableRow
-              class="point-writer"
-              label="兴趣点数"
-              :char="3"
-              :modelValue="values.interest.str"
-              @update:modelValue="(v) => updatePointValue('interest', v)"
-            />
-            <div
-              v-if="values.interest.point > 0"
-              class="point-rest"
-            >
-              剩余: {{ rests.interestPoint }}
-            </div>
-          </div>
         </div>
         <h1 class="heading">
           <span class="title">技能表</span>
@@ -187,19 +172,10 @@ watch(
           <div class="point-container">
             <WritableRow
               class="point-writer"
-              label="本职"
+              label=""
               :char="2"
               :modelValue="`${viewData?.skillLimits.pro || ''}`"
               @update:modelValue="(v) => updateLimit('pro', v)"
-            />
-          </div>
-          <div class="point-container">
-            <WritableRow
-              class="point-writer"
-              label="其它"
-              :char="2"
-              :modelValue="`${viewData?.skillLimits.interest || ''}`"
-              @update:modelValue="(v) => updateLimit('interest', v)"
             />
           </div>
         </div>
@@ -211,7 +187,10 @@ watch(
         :suggestion="suggestion"
       />
       <div class="divider"></div>
-      <SkillTable :data="skillGroupLayout.right" />
+      <SkillTable
+        :data="skillGroupLayout.right"
+        :autoFillCount="Math.abs(skillGroupLayout.gap)"
+      />
     </div>
   </PaperSection>
 </template>

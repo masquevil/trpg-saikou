@@ -82,8 +82,8 @@ function onSelectJob(jobName: string) {
 
 <template>
   <PaperSection
-    title="调查员"
-    subTitle="Investigator"
+    title="角色"
+    subTitle="Character"
     v-if="pc"
   >
     <div
@@ -151,6 +151,7 @@ function onSelectJob(jobName: string) {
           label="种族"
           :char="6"
           v-model="pc.location"
+          placeholder="仅架空世界"
         />
         <WritableRow
           label="阵营"

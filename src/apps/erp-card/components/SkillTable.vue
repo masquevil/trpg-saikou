@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, nextTick } from 'vue';
 import type { ChildSkill } from '../types/skill';
 import type { SkillGroup, SkillGroups } from '../types/formattedSkill';
 import type { COCPCSkill, SkillPoint } from '../types/character';
@@ -12,6 +12,7 @@ import SkillTdInput from './SkillTdInput.vue';
 
 interface Props {
   data: SkillGroups<string>;
+  autoFillCount?: number;
   suggestion?: Suggestion;
 }
 const props = defineProps<Props>();
@@ -36,15 +37,21 @@ interface TableRowData {
   points: SkillPoint;
   total: number;
   totalSeparation: [number, number, number]; // 100/50/20
+  showTotal: boolean;
   // child skill info
   childSkillData?: {
     name: string;
     place: number;
     list?: ChildSkill[];
   };
+  // combine
+  combine?: {
+    name: string;
+    init?: number;
+  }[];
 }
 
-function getTableData(data: SkillGroups<string>, suggestion?: Suggestion) {
+function getTableData(data: SkillGroups<string>, autoFillCount?: number, suggestion?: Suggestion) {
   const tableData = data.reduce<TableRowData[]>((result: any, skillGroup: SkillGroup<string>) => {
     const rows: TableRowData[] = skillGroup.groupSkills.reduce<TableRowData[]>(
       (rows, skill, index) => {
@@ -62,6 +69,11 @@ function getTableData(data: SkillGroups<string>, suggestion?: Suggestion) {
         const [w0, w1] = suggestion?.wealth ?? [-1, -1];
         const comments = skillKey === '信用评级' && w0 >= 0 && w1 >= 0 ? `(${w0}~${w1})` : '';
         const total = getTotal(points, init);
+        const combine =
+          skill.combine &&
+          Array.from({ length: 4 }).map((_, i) => {
+            return skill.combine!.show[i] || { name: '', index: 20 };
+          });
         let rowData: TableRowData = {
           key: skill.name,
           skillName: skill.name,
@@ -72,6 +84,7 @@ function getTableData(data: SkillGroups<string>, suggestion?: Suggestion) {
           points,
           total,
           totalSeparation: [total, ~~(total / 2), ~~(total / 5)],
+          showTotal: total > 0 && (total !== init || total === points.b),
           ...(isGroupStart
             ? {
                 isGroupStart,
@@ -80,16 +93,22 @@ function getTableData(data: SkillGroups<string>, suggestion?: Suggestion) {
               }
             : {}),
           ...(isSpecialGroup ? { isSpecialGroup, groupSize: 1 } : {}),
+          ...(skill.combine ? { combine } : {}),
         };
         let resultRows: TableRowData[] = [...rows];
         let added = [rowData];
         // multi skill rows
         if (skill.group) {
-          const length = skill.group.show.length;
+          let length = skill.group.show.length;
+          let show = skill.group.show;
+          if (!skill.name && autoFillCount) {
+            length += autoFillCount;
+            show = show.concat(Array(autoFillCount).fill(''));
+          }
           const groupRow = resultRows.find((row) => row.isGroupStart) || rowData;
           // increase groupSize
           groupRow.groupSize! += length - 1;
-          added = skill.group.show.map((placeName, childIndex) => {
+          added = show.map((placeName, childIndex) => {
             const childSkillName =
               viewData?.showingChildSkills.get(skill.name)?.[childIndex] ?? placeName;
             const childSkill = skill.group?.skills.find(({ name }) => name === childSkillName);
@@ -112,6 +131,7 @@ function getTableData(data: SkillGroups<string>, suggestion?: Suggestion) {
               points,
               total,
               totalSeparation: [total, ~~(total / 2), ~~(total / 5)],
+              showTotal: total > 0 && (total !== init || total === points.b),
               // child skill info
               childSkillData: {
                 name: childSkillName,
@@ -130,8 +150,7 @@ function getTableData(data: SkillGroups<string>, suggestion?: Suggestion) {
   return tableData;
 }
 
-const tableData = computed(() => getTableData(props.data, props.suggestion));
-console.log('tableData', tableData.value, viewData);
+const tableData = computed(() => getTableData(props.data, props.autoFillCount, props.suggestion));
 
 function findSkillPoints(skillInfo: COCPCSkill) {
   if (!pc) return;
@@ -164,7 +183,14 @@ function updateSkillPoint(
   } else {
     const name = pointName as Exclude<keyof SkillPoint, 'c'>;
     if (value) {
-      points[name] = Number(value);
+      if (!Number.isNaN(Number(value))) {
+        points[name] = Number(value);
+      } else {
+        points[name] = 0;
+        nextTick(() => {
+          delete points[name];
+        });
+      }
     } else {
       delete points[name];
     }
@@ -172,8 +198,8 @@ function updateSkillPoint(
 }
 
 function getTotal(points: SkillPoint, init: number) {
-  const { p = 0, i = 0, g = 0 } = points;
-  return init + Number(p) + Number(i) + Number(g);
+  const { b, p = 0, i = 0, g = 0 } = points;
+  return (b ?? init) + Number(p) + Number(i) + Number(g);
 }
 </script>
 
@@ -182,44 +208,13 @@ function getTotal(points: SkillPoint, init: number) {
     <thead>
       <tr>
         <th class="skill-th th-deep"></th>
-        <th class="skill-th th-deep th-skill">
-          <div class="th-skill-label">
-            <div class="th-skill-label-pro">
-              <span
-                class="th-skill-label-pro-text"
-                style="transform-origin: 50% 40%"
-              >
-                本
-              </span>
-              <span
-                class="th-skill-label-pro-text"
-                style="transform-origin: 0% 40%"
-              >
-                职
-              </span>
-              <span
-                class="th-skill-label-pro-text"
-                style="transform-origin: 50% 10%"
-              >
-                技
-              </span>
-              <span
-                class="th-skill-label-pro-text"
-                style="transform-origin: 0% 10%"
-              >
-                能
-              </span>
-            </div>
-            技能
-          </div>
+        <th class="skill-th th-deep">技能</th>
+        <th class="skill-th th-light">基础</th>
+        <th class="skill-th th-deep">分配</th>
+        <th class="skill-th th-light">
+          <div class="th-grow">成长</div>
         </th>
-        <th class="skill-th th-light">基础%</th>
-        <th class="skill-th th-deep">职业%</th>
-        <th class="skill-th th-light">兴趣%</th>
-        <th class="skill-th th-deep">
-          <div class="th-grow">成长%</div>
-        </th>
-        <th class="skill-th th-light">成功率%</th>
+        <th class="skill-th th-deep">成功率%</th>
       </tr>
     </thead>
     <tbody>
@@ -240,107 +235,121 @@ function getTotal(points: SkillPoint, init: number) {
           {{ row.isSpecialGroup ? '' : row.groupName }}
         </td>
         <td
-          class="skill-td td-skill-name"
-          :class="{
-            'td-skill-name-special': row.isSpecialGroup,
-            'td-color-1': index % 2,
-            'td-color-2': (index + 1) % 2,
-          }"
-        >
-          <SkillTdLabel
-            :skillName="row.skillName"
-            :comments="row.comments"
-            :childSkillData="row.childSkillData"
-          />
-        </td>
-        <td
-          class="skill-td"
+          v-if="row.combine"
+          colspan="5"
+          class="skill-td td-combine"
           :class="{
             'td-color-0': index % 2,
             'td-color-1': (index + 1) % 2,
           }"
         >
-          <div
-            v-if="!row.init && row.initPlaceholder"
-            class="init-placeholder"
-          >
-            <span class="init-placeholder-content">
-              {{ row.initPlaceholder }}
-            </span>
+          <div class="td-combine-row">
+            <!-- <SkillTdInput
+              v-for="cSkill in row.combine"
+              :key="cSkill.name"
+              checkable
+              :value="cSkill.name ? `${cSkill.name}(${cSkill.init || 20})` : ''"
+            /> -->
+            <SkillTdLabel
+              v-for="cSkill in row.combine"
+              showCheckbox
+              :key="cSkill.name"
+              :skillName="cSkill.name ? `${cSkill.name}(${cSkill.init || 20})` : ''"
+              :childSkillData="cSkill.name ? undefined : { name: '', place: 0 }"
+            />
           </div>
-          <span v-else-if="row.groupName !== '其它'">
-            {{ row.init }}
-          </span>
-          <!-- pro point -->
-          <SkillTdInput
-            v-else
-            :value="`${row.points.b ?? ''}`"
-            @input="(v) => updateSkillPoint(row.skillKey, 'b', v)"
-          />
         </td>
-        <td
-          class="skill-td"
-          :class="{
-            'td-color-1': index % 2,
-            'td-color-2': (index + 1) % 2,
-          }"
-        >
-          <!-- pro point -->
-          <SkillTdInput
-            :value="`${row.points.p ?? ''}`"
-            @input="(v) => updateSkillPoint(row.skillKey, 'p', v)"
-          />
-        </td>
-        <td
-          class="skill-td"
-          :class="{
-            'td-color-0': index % 2,
-            'td-color-1': (index + 1) % 2,
-          }"
-        >
-          <!-- interests point -->
-          <SkillTdInput
-            :value="`${row.points.i ?? ''}`"
-            @input="(v) => updateSkillPoint(row.skillKey, 'i', v)"
-          />
-        </td>
-        <td
-          class="skill-td"
-          :class="{
-            'td-color-1': index % 2,
-            'td-color-2': (index + 1) % 2,
-          }"
-        >
-          <!-- grow point -->
-          <SkillTdInput
-            :checkable="true"
-            :checked="row.points.c"
-            :value="`${row.points.g ?? ''}`"
-            @input="(v) => updateSkillPoint(row.skillKey, 'g', v)"
-            @check="(v) => updateSkillPoint(row.skillKey, 'c', v)"
-          />
-        </td>
-        <td
-          class="skill-td"
-          :class="{
-            'td-color-0': index % 2,
-            'td-color-1': (index + 1) % 2,
-          }"
-        >
-          <span
-            v-if="pageData?.showTotalSeparation"
-            class="total-separation"
+        <template v-else>
+          <td
+            class="skill-td td-skill-name"
+            :class="{
+              'td-skill-name-special': row.isSpecialGroup,
+              'td-color-1': index % 2,
+              'td-color-2': (index + 1) % 2,
+            }"
+          >
+            <SkillTdLabel
+              :skillName="row.skillName"
+              :comments="row.comments"
+              :childSkillData="row.childSkillData"
+            />
+          </td>
+          <td
+            class="skill-td"
+            :class="{
+              'td-color-0': index % 2,
+              'td-color-1': (index + 1) % 2,
+            }"
+          >
+            <div
+              v-if="!row.init && row.initPlaceholder"
+              class="init-placeholder"
+            >
+              <span class="init-placeholder-content">
+                {{ row.initPlaceholder }}
+              </span>
+            </div>
+            <span v-else-if="row.skillName !== ''">
+              {{ row.init }}
+            </span>
+            <!-- pro point -->
+            <SkillTdInput
+              v-else
+              :value="`${row.points.b ?? ''}`"
+              @input="(v) => updateSkillPoint(row.skillKey, 'b', v)"
+            />
+          </td>
+          <td
+            class="skill-td"
+            :class="{
+              'td-color-1': index % 2,
+              'td-color-2': (index + 1) % 2,
+            }"
+          >
+            <!-- pro point -->
+            <SkillTdInput
+              :value="`${row.points.p ?? ''}`"
+              @input="(v) => updateSkillPoint(row.skillKey, 'p', v)"
+            />
+          </td>
+          <td
+            class="skill-td"
+            :class="{
+              'td-color-0': index % 2,
+              'td-color-1': (index + 1) % 2,
+            }"
+          >
+            <!-- grow point -->
+            <SkillTdInput
+              :checkable="true"
+              :checked="row.points.c"
+              :value="`${row.points.g ?? ''}`"
+              @input="(v) => updateSkillPoint(row.skillKey, 'g', v)"
+              @check="(v) => updateSkillPoint(row.skillKey, 'c', v)"
+            />
+          </td>
+          <td
+            class="skill-td"
+            :class="{
+              'td-color-1': index % 2,
+              'td-color-2': (index + 1) % 2,
+            }"
           >
             <span
-              v-for="(sep, i) in row.totalSeparation"
-              :key="i"
-              class="total-sep"
+              v-if="pageData?.showTotalSeparation"
+              class="total-separation"
             >
-              {{ sep }}
+              <span
+                v-for="(sep, i) in row.totalSeparation"
+                :key="i"
+                class="total-sep"
+              >
+                {{ sep }}
+              </span>
             </span>
-          </span>
-          <span v-else-if="row.total !== row.init">{{ row.total }}</span>
-        </td>
+            <span v-else-if="row.showTotal">{{ row.total }}</span>
+          </td>
+        </template>
       </tr>
     </tbody>
   </table>
@@ -421,7 +430,7 @@ function getTotal(points: SkillPoint, init: number) {
 }
 .td-group-name {
   border-style: none;
-  width: 1.4em;
+  width: 2.8em;
   padding: 0.2em;
   line-height: 1.6em;
 }
@@ -437,6 +446,15 @@ function getTotal(points: SkillPoint, init: number) {
 .td-skill-name-special :deep(.skill-td-checkbox-label) {
   visibility: hidden;
   pointer-events: none;
+}
+.td-combine-row {
+  height: var(--td-line-height);
+  padding: 0 0.2em;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  .skill-td-label {
+    margin: 0 0.1em;
+  }
 }
 
 .init-placeholder {

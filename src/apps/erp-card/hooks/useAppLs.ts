@@ -12,7 +12,7 @@ interface Store {
 }
 
 const ls = useLocalStorage<Store>({
-  app: LSApp.COCCard,
+  app: LSApp.ERPCard,
   versionChecker() {
     return 1;
   },

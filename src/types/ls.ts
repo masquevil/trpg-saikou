@@ -5,4 +5,5 @@ export enum LSNamespace {
 export enum LSApp {
   Home = '$home',
   COCCard = '$coc-card',
+  ERPCard = '$erp-card',
 }

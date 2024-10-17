@@ -1,3 +1,4 @@
+// FIXME: 重构，view data 和 pc 都需要保存，考虑一下是合并还是怎么处理
 import { watch, h, Fragment, nextTick } from 'vue';
 import type { Ref } from 'vue';
 import { ElMessageBox } from 'element-plus';

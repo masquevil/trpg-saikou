@@ -55,18 +55,15 @@ export function splitSkillGroups<SkillGroupName extends string>(
   for (let i = 0; i < skillGroups.length - 1; i++) {
     leftCount += groupRowCounts[i];
     rightCount -= groupRowCounts[i];
-    const gapNew = Math.abs(rightCount - leftCount);
-    if (gapNew < gap) {
-      gap = gapNew;
-      splitIndex = i + 1;
-    } else {
-      break;
-    }
+    gap = rightCount - leftCount;
+    splitIndex = i + 1;
+    if (gap <= 0) break;
   }
 
   return {
     left: skillGroups.slice(0, splitIndex),
     right: skillGroups.slice(splitIndex),
+    gap,
   };
 }
 
@@ -77,8 +74,8 @@ export const skillGroups = getFormattedSkillGroups({
 });
 
 export const dynamicInitFormulas: Record<string, (pc: COCPlayerCharacter) => number> = {
-  母语: (pc) => pc.attributes.edu || 0,
-  闪避: (pc) => Math.floor((pc.attributes.dex || 0) / 2),
+  // 母语: (pc) => pc.attributes.edu || 0,
+  // 闪避: (pc) => Math.floor((pc.attributes.dex || 0) / 2),
 };
 
 export function resetShowingChildSkills(viewData?: COCCardViewData, skillsInUse = skills) {

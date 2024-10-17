@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
-import { ElMessage } from 'element-plus';
+// import { ref, computed } from 'vue';
+// import { ElMessage } from 'element-plus';
 
 // components
 import PaperSection from '../components/PaperSection.vue';
 import WritableRow from '../components/WritableRow.vue';
-import AttrSectionButton from '../components/AttrSectionButton.vue';
+// import AttrSectionButton from '../components/AttrSectionButton.vue';
 
 // models
-import LA, { LAEventID, FeatureNames } from '@/plugins/51la';
-import { generateRandomAttributes, getAttributesSum } from '../models/attribute';
+// import LA, { LAEventID, FeatureNames } from '@/plugins/51la';
+// import { generateRandomAttributes, getAttributesSum } from '../models/attribute';
 import type { COCAttributesKey } from '../types/character';
 
 import { usePC } from '../hooks/useProviders';
@@ -25,23 +25,23 @@ const leftList: RenderListItem[] = [
   { key: 'str', label: '力量', hint: 'STR' },
   { key: 'con', label: '体质', hint: 'CON' },
   { key: 'dex', label: '敏捷', hint: 'DEX' },
-  { key: 'app', label: '外貌', hint: 'APP' },
-  { key: 'pow', label: '意志', hint: 'POW' },
+  { key: 'edu', label: '名利', hint: 'CRE' },
 ];
 const rightList: RenderListItem[] = [
-  { key: 'siz', label: '体型', hint: 'SIZ' },
-  { key: 'edu', label: '教育', hint: '知识 EDU' },
-  { key: 'int', label: '智力', hint: '灵感 INT' },
+  { key: 'app', label: '外貌', hint: 'APP' },
+  { key: 'pow', label: '意志', hint: 'POW' },
+  { key: 'int', label: '智力', hint: 'INT' },
+  { key: 'luc', label: '幸运', hint: 'LUC' },
 ];
 
-const sum = computed(() => {
-  if (!pc) return 0;
-  const { str, con, dex, app, pow, siz, edu, int } = pc.value.attributes;
-  const vals = [str, con, dex, app, pow, siz, edu, int];
-  const filled = vals.every((v) => v);
-  if (!filled) return 0;
-  return vals.reduce<number>((sum, cur) => sum + (cur || 0), 0);
-});
+// const sum = computed(() => {
+//   if (!pc) return 0;
+//   const { str, con, dex, app, pow, siz, edu, int } = pc.value.attributes;
+//   const vals = [str, con, dex, app, pow, siz, edu, int];
+//   const filled = vals.every((v) => v);
+//   if (!filled) return 0;
+//   return vals.reduce<number>((sum, cur) => sum + (cur || 0), 0);
+// });
 
 function updateAttr(key: COCAttributesKey, value: string) {
   if (!pc) return;
@@ -49,21 +49,21 @@ function updateAttr(key: COCAttributesKey, value: string) {
 }
 
 // 一发入魂
-const generateTimes = ref(0);
-function actRoll() {
-  if (!pc) return;
+// const generateTimes = ref(0);
+// function actRoll() {
+//   if (!pc) return;
 
-  // 多次 roll 点取最高，增加 roll 点体验
-  const attrs = Array.from({
-    length: (generateTimes.value % 3) + 1,
-  })
-    .map(() => generateRandomAttributes())
-    .sort((a, b) => getAttributesSum(b) - getAttributesSum(a))[0];
-  pc.value.attributes = attrs;
-  ElMessage.success('已为您生成一组数据，看看符不符合心意吧！');
-  generateTimes.value++;
-  LA?.track(LAEventID.FEATURE, { name: FeatureNames.PAPER_ROLL });
-}
+//   // 多次 roll 点取最高，增加 roll 点体验
+//   const attrs = Array.from({
+//     length: (generateTimes.value % 3) + 1,
+//   })
+//     .map(() => generateRandomAttributes())
+//     .sort((a, b) => getAttributesSum(b) - getAttributesSum(a))[0];
+//   pc.value.attributes = attrs;
+//   ElMessage.success('已为您生成一组数据，看看符不符合心意吧！');
+//   generateTimes.value++;
+//   LA?.track(LAEventID.FEATURE, { name: FeatureNames.PAPER_ROLL });
+// }
 </script>
 
 <template>
@@ -74,7 +74,7 @@ function actRoll() {
   >
     <div class="info-section">
       <div class="attributes-group">
-        <div class="dice-hint">🎲 3D6×5</div>
+        <!-- <div class="dice-hint">🎲 3D6×5</div> -->
         <WritableRow
           v-for="item in leftList"
           :key="item.key"
@@ -86,7 +86,7 @@ function actRoll() {
       </div>
       <div class="divider"></div>
       <div class="attributes-group">
-        <div class="dice-hint">🎲 (2D6+6)×5</div>
+        <!-- <div class="dice-hint">🎲 (2D6+6)×5</div> -->
         <WritableRow
           v-for="item in rightList"
           :key="item.key"
@@ -95,15 +95,18 @@ function actRoll() {
           :modelValue="`${pc?.attributes[item.key] ?? ''}`"
           @update:modelValue="(newValue) => updateAttr(item.key, newValue)"
         />
-        <div class="attributes-actions">
+        <!-- <div class="attributes-actions">
           <template v-if="sum">
             <div class="ponits-sum">总点数 {{ sum }}</div>
           </template>
           <div class="web-only">
             <AttrSectionButton @click="actRoll">一发入魂</AttrSectionButton>
           </div>
-        </div>
+        </div> -->
       </div>
+    </div>
+    <div class="dice-section">
+      <div class="dice-hint">分配 🎲 4(3D6×5) & 4(4D6P3×5)</div>
     </div>
   </PaperSection>
 </template>
@@ -127,6 +130,14 @@ function actRoll() {
   & :deep(.label) {
     flex: 0 1 2.8em;
   }
+}
+
+.dice-section {
+  margin-top: 0.4em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #4b4e53;
 }
 .dice-hint {
   align-self: flex-start;

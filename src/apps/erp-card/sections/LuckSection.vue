@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import PaperSection from '../components/PaperSection.vue';
-import WritableRow from '../components/WritableRow.vue';
+// import WritableRow from '../components/WritableRow.vue';
 
-import { usePC } from '../hooks/useProviders';
+// import { usePC } from '../hooks/useProviders';
 
 import qr from '../assets/coc-card-qr.png';
 
-const pc = usePC();
+// const pc = usePC();
 </script>
 
 <template>
   <div class="luck-section-group">
-    <PaperSection
+    <!-- <PaperSection
       v-if="pc"
       title="幸运"
       subTitle="Luck"
@@ -24,7 +24,7 @@ const pc = usePC();
           @update:modelValue="(newValue) => (pc!.attributes.luc = +newValue)"
         />
       </div>
-    </PaperSection>
+    </PaperSection> -->
     <PaperSection class="qr-section">
       <template v-slot:header>
         <div class="qr-section-header">扫码车卡</div>
