@@ -106,7 +106,11 @@ function updateAttr(key: COCAttributesKey, value: string) {
       </div>
     </div>
     <div class="dice-section">
-      <div class="dice-hint">分配 🎲 4(3D6×5) & 4(4D6P3×5)</div>
+      <div class="dice-hint">
+        分配 🎲 4组 3D6×5 🎲 4组 (2D6+6)×5
+        <br />
+        可选：选一项 -20 使另一项 +10
+      </div>
     </div>
   </PaperSection>
 </template>
@@ -142,6 +146,8 @@ function updateAttr(key: COCAttributesKey, value: string) {
 .dice-hint {
   align-self: flex-start;
   font-size: 0.8em;
+  line-height: 1.2;
+  text-align: center;
   margin: 0 0 -0.3em 0.6em;
 }
 
