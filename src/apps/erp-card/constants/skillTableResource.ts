@@ -159,7 +159,6 @@ export const mySkillResource1: SkillTableResource<GroupName1> = {
         skills: [
           { name: '信息安全' },
           { name: '编程' },
-          { name: '密码学' },
           { name: '影像处理' },
           { name: '社会工程' },
           { name: '网络传播' },

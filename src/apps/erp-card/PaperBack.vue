@@ -7,6 +7,7 @@ import AssetsSection from './sections/AssetsSection.vue';
 import ItemSection from './sections/ItemSection.vue';
 import MythosSection from './sections/MythosSection.vue';
 import FriendSection from './sections/FriendSection.vue';
+import RuleSection from './sections/RuleSection.vue';
 import ExperienceSection from './sections/ExperienceSection.vue';
 
 interface Props {
@@ -19,27 +20,18 @@ defineProps<Props>();
   <PaperLayout :setRef="setRef">
     <StorySection />
     <div class="section-row">
-      <div class="section-row col-2">
-        <ItemSection class="col-0" />
-        <AssetsSection class="col-0" />
-      </div>
+      <ItemSection class="col-1" />
+      <AssetsSection class="col-1" />
       <MythosSection class="col-1" />
     </div>
     <div class="section-row">
-      <FriendSection class="col-2" />
-      <!-- TODO: FriendSection 留出一半空间，给可选规则/村规 -->
+      <FriendSection class="col-1" />
+      <RuleSection class="col-1" />
       <ExperienceSection class="col-1" />
     </div>
     <div class="inspiration-row">
-      <div class="inspiration-item special-thanks">
-        Special Thanks 听枫馆·枫笛(北京)
-      </div>
-      <div class="inspiration-item inspiration">
-        Inspired By 猫爷TRPG 人格解体
-      </div>
-      <div class="inspiration-item copyright">
-        「克苏鲁的呼唤」7版人物卡 Copyright 侠小然
-      </div>
+      <div class="inspiration-item special-thanks">Special Thanks 听枫馆·枫笛(北京)</div>
+      <div class="inspiration-item copyright">「克苏鲁的呼唤」7版人物卡 Copyright 侠小然</div>
     </div>
   </PaperLayout>
 </template>
