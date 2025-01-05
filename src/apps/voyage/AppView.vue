@@ -122,7 +122,7 @@ function handleDice(pkey: string, result: number, text?: string) {
   if (ventureData.host.isSelf) {
     applyUnit(mm.dice(pkey, result, text));
   } else {
-    peerModel.sendMessageToHost(mm.dice(pkey, result));
+    peerModel.sendMessageToHost(mm.dice(pkey, result, text));
   }
 }
 </script>

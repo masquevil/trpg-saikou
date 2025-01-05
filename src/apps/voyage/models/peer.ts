@@ -93,8 +93,9 @@ export default class PeerModel {
       let tryTimes = 0;
       const interval = setInterval(() => {
         tryTimes++;
+        if (tryTimes === 1) return;
         this.sendMessageToHost({ type: 'landing' });
-        if (tryTimes > 5 || this.hostMetadata?.ventureName) {
+        if (tryTimes > 6 || this.hostMetadata?.ventureName) {
           clearInterval(interval);
         }
       }, 1000);
