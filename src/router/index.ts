@@ -29,6 +29,14 @@ const router = createRouter({
       },
     },
     {
+      path: '/voyage',
+      name: 'voyage',
+      component: () => import('../apps/voyage/AppView.vue'),
+      meta: {
+        title: '维哲枢纽·在线跑团',
+      },
+    },
+    {
       path: '/erp-card',
       name: 'erp-card',
       component: () => import('../apps/erp-card/AppView.vue'),

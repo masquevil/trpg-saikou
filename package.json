@@ -40,5 +40,8 @@
     "vue": "^3.4.21",
     "vue-router": "^4.3.0",
     "vue-tsc": "^2.0.6"
+  },
+  "dependencies": {
+    "peerjs": "^1.5.4"
   }
 }

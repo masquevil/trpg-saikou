@@ -240,7 +240,6 @@ function onStop() {
   padding: 12px;
   border: 1px solid var(--color-border);
   border-radius: 4px;
-  background-color: var(--color-bg);
 }
 .action-card-title {
   font-size: 16px;

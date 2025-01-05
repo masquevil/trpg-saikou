@@ -26,6 +26,13 @@ const appConfigs: Record<'online' | 'offline', AppConfig[]> = {
       preview: cocCardPreview,
     },
     {
+      key: 'voyage',
+      name: '维哲枢纽·在线跑团（开发版）',
+      to: {
+        name: 'voyage',
+      },
+    },
+    {
       key: 'timer',
       name: '计时器',
       to: {
@@ -85,10 +92,17 @@ const appConfigs: Record<'online' | 'offline', AppConfig[]> = {
         <div class="tool-card-header">{{ app.name }}</div>
         <div class="tool-card-preview">
           <img
+            v-if="app.preview"
             class="tool-card-preview-image"
             :src="app.preview"
             :alt="app.name"
           />
+          <div
+            v-else
+            class="tool-card-preview-text"
+          >
+            {{ app.name }}
+          </div>
         </div>
       </router-link>
     </div>
@@ -104,10 +118,17 @@ const appConfigs: Record<'online' | 'offline', AppConfig[]> = {
         <div class="tool-card-header">{{ app.name }}</div>
         <div class="tool-card-preview">
           <img
+            v-if="app.preview"
             class="tool-card-preview-image"
             :src="app.preview"
             :alt="app.name"
           />
+          <div
+            v-else
+            class="tool-card-preview-text"
+          >
+            {{ app.name }}
+          </div>
         </div>
       </router-link>
     </div>
@@ -173,5 +194,8 @@ const appConfigs: Record<'online' | 'offline', AppConfig[]> = {
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+.tool-card-preview-text {
+  font-size: 32px;
 }
 </style>
