@@ -6,7 +6,7 @@ import type { SdImageData } from '@/libs/sdAvatar/type';
 import ControlDialog from '@/components/ControlDialog.vue';
 import AvatarModal from '@/components/AvatarModal/AvatarModal.vue';
 
-import type { HostForm, GuestForm } from './type';
+import type { HostForm, GuestForm } from './types';
 
 interface Emits {
   (event: 'setupHost', data: HostForm): void;
