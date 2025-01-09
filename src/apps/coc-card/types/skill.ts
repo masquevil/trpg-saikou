@@ -1,6 +1,8 @@
 export interface Skill {
   // 技能名
   name: string;
+  // 如果没有技能名，需要一个 key
+  hidden?: string;
   // 文本介绍
   intro: string;
   // 初始值

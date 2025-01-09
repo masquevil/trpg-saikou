@@ -60,6 +60,14 @@ const router = createRouter({
       component: () => import('../apps/roll/AppView.vue'),
     },
     {
+      path: '/infinity-skill-table',
+      name: 'infinity-skill-table',
+      component: () => import('../apps/infinity-skill-table/AppView.vue'),
+      meta: {
+        title: '无限技能表',
+      },
+    },
+    {
       path: '/tfg-stories',
       name: 'tfg-stories',
       component: () => import('../apps/record/StoryListView.vue'),

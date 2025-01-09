@@ -24,7 +24,8 @@ function getFormattedSkillGroups({
   const table = groupOrder.map((groupName) => {
     const groupSkillNames = groups[groupName];
     const groupSkills = groupSkillNames.map((skillName) => {
-      return skillsMap.get(skillName)!;
+      // 不认识的技能名字，返回最后一个技能（“其它”）
+      return skillsMap.get(skillName) || skills[skills.length - 1];
     });
     return {
       groupName,

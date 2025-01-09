@@ -11,7 +11,7 @@ interface PaperImages {
 }
 type PaperKey = keyof PaperEls;
 
-async function printEl(el: HTMLElement) {
+export async function printEl(el: HTMLElement) {
   if (!el) return '';
   return await toJpeg(el, {
     canvasWidth: 210 * 8,

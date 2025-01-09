@@ -11,6 +11,7 @@ import SoxCheckbox from '@/components/SoxCheckbox.vue';
 
 interface Props {
   skillName: string;
+  hiddenKey?: string;
   comments?: string;
   childSkillData?: {
     name: string;
@@ -29,7 +30,9 @@ interface Emits {
 const emit = defineEmits<Emits>();
 
 const isOptionsShowing = ref(false);
-const currentData = computed(() => viewData?.showingChildSkills[props.skillName]);
+const currentData = computed(
+  () => viewData?.showingChildSkills[props.hiddenKey || props.skillName],
+);
 const existedData = computed(() => {
   if (['母语', '外语'].includes(props.skillName)) {
     return [
@@ -46,11 +49,14 @@ const isProSkill = computed(() => {
   return pc.value.proSkills.some((skillInfo) => {
     // 基础技能
     if (typeof skillInfo === 'string') {
-      return skillInfo === props.skillName;
+      return skillInfo === (props.hiddenKey ?? props.skillName);
     }
     // 二级技能
     const [skillName, _, childSkillPlace] = skillInfo;
-    return skillName === props.skillName && childSkillPlace === props.childSkillData?.place;
+    return (
+      skillName === (props.hiddenKey ?? props.skillName) &&
+      childSkillPlace === props.childSkillData?.place
+    );
   });
 });
 
@@ -79,7 +85,11 @@ function changeProSkill(value: boolean) {
   if (value) {
     let skillInfo: COCPCSkill = props.skillName;
     if (props.childSkillData)
-      skillInfo = [props.skillName, props.childSkillData.name, props.childSkillData.place];
+      skillInfo = [
+        props.hiddenKey ?? props.skillName,
+        props.childSkillData.name,
+        props.childSkillData.place,
+      ];
     pc.value.proSkills.push(skillInfo);
   } else {
     pc.value.proSkills = pc.value.proSkills.filter((skillInfo) => {

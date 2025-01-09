@@ -30,6 +30,7 @@ interface TableRowData {
   key: string;
   skillName: string;
   skillKey: COCPCSkill;
+  hiddenKey?: string;
   comments?: string;
   init: number;
   initPlaceholder?: string;
@@ -66,7 +67,8 @@ function getTableData(data: SkillGroups, suggestion?: Suggestion) {
         let rowData: TableRowData = {
           key: skill.name,
           skillName: skill.name,
-          skillKey: skill.name,
+          skillKey: skill.hidden ?? skill.name,
+          hiddenKey: skill.hidden,
           comments,
           init,
           initPlaceholder: skill.initPlaceholder,
@@ -96,7 +98,7 @@ function getTableData(data: SkillGroups, suggestion?: Suggestion) {
               viewData?.showingChildSkills[skill.name]?.[childIndex] ?? placeName;
             const childSkill = skill.group?.skills.find(({ name }) => name === childSkillName);
             let init = childSkill?.init ?? rowData.init;
-            const skillKey: COCPCSkill = [skill.name, childSkillName, childIndex];
+            const skillKey: COCPCSkill = [skill.hidden ?? skill.name, childSkillName, childIndex];
             const skillPoint = findSkillPoints(skillKey);
             const points = skillPoint?.[1] || {};
             const total = getTotal(points, init);
@@ -110,6 +112,7 @@ function getTableData(data: SkillGroups, suggestion?: Suggestion) {
               // skill info
               key: `${skill.name}:_:${childIndex}`,
               skillKey,
+              hiddenKey: skill.hidden,
               init,
               points,
               total,
@@ -251,6 +254,7 @@ function getTotal(points: SkillPoint, init: number) {
         >
           <SkillTdLabel
             :skillName="row.skillName"
+            :hiddenKey="row.hiddenKey"
             :comments="row.comments"
             :childSkillData="row.childSkillData"
           />
@@ -270,7 +274,7 @@ function getTotal(points: SkillPoint, init: number) {
               {{ row.initPlaceholder }}
             </span>
           </div>
-          <span v-else-if="row.groupName !== '其它'">
+          <span v-else-if="row.skillName !== ''">
             {{ row.init }}
           </span>
           <!-- pro point -->
