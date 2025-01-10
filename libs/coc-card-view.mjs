@@ -11998,10 +11998,7 @@ const oo = /* @__PURE__ */ V(Ra, [["render", ca], ["__scopeId", "data-v-be8afd85
       }, 8, ["class"]);
     };
   }
-}), G8 = /* @__PURE__ */ V(j8, [["__scopeId", "data-v-7b675b2e"]]), p8 = (w) => (vA("data-v-a1be0140"), w = w(), lA(), w), Z8 = ["value"], N8 = /* @__PURE__ */ p8(() => /* @__PURE__ */ f("option", {
-  value: "",
-  disabled: ""
-}, null, -1)), H8 = ["value"], h8 = /* @__PURE__ */ h({
+}), G8 = /* @__PURE__ */ V(j8, [["__scopeId", "data-v-7b675b2e"]]), p8 = (w) => (vA("data-v-01f6d946"), w = w(), lA(), w), Z8 = ["value"], N8 = /* @__PURE__ */ p8(() => /* @__PURE__ */ f("option", { value: "" }, null, -1)), H8 = ["value"], h8 = /* @__PURE__ */ h({
   __name: "BaseTdSelect",
   props: {
     value: { default: "" },
@@ -12021,7 +12018,7 @@ const oo = /* @__PURE__ */ V(Ra, [["render", ca], ["__scopeId", "data-v-be8afd85
       }, x(i.label), 9, H8))), 128))
     ], 40, Z8));
   }
-}), x8 = /* @__PURE__ */ V(h8, [["__scopeId", "data-v-a1be0140"]]);
+}), x8 = /* @__PURE__ */ V(h8, [["__scopeId", "data-v-01f6d946"]]);
 function T8(w = !1) {
   const A = k(w);
   return {
