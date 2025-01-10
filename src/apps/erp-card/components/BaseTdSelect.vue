@@ -22,10 +22,7 @@ defineEmits<Emits>();
     :value="value"
     @change="$emit('change', ($event.target as HTMLInputElement).value)"
   >
-    <option
-      value=""
-      disabled
-    ></option>
+    <option value=""></option>
     <option
       v-for="option in options"
       :key="option.value"
