@@ -11,7 +11,7 @@ export default function useDerives(pc: Ref<COCPlayerCharacter>) {
       let MPMax = '';
       const { con, siz, pow } = pc.value.attributes || {};
       if (con && siz) HPMax = `${Math.floor((con + siz) / 10)}`;
-      if (pow) MPMax = `${pow / 5}`;
+      if (pow) MPMax = `${Math.floor(pow / 5)}`;
       pc.value.deriveAttributes = {
         sanity: {
           start: `${pow || ''}`,

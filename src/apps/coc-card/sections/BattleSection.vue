@@ -9,7 +9,7 @@ import { usePC } from '../hooks/useProviders';
 const pc = usePC();
 
 watch(
-  () => pc?.value.attributes,
+  () => [pc?.value.attributes, pc?.value.age],
   () => {
     if (!pc) return;
     const { str, siz, dex } = pc.value.attributes;
@@ -44,8 +44,9 @@ watch(
       if (str < siz && dex < siz) move = 7;
       else if (str > siz && dex > siz) move = 9;
       else move = 8;
-      if (age >= 40) {
-        const rate = Math.floor((age - 40) / 10) + 1;
+      if (age > 40) {
+        let rate = Math.ceil((age - 40) / 10);
+        rate = rate > 5 ? 5 : rate;
         move -= rate;
       }
       pc.value.battleAttributes.mov = `${move}`;

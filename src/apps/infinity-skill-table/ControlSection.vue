@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, ref, watch, reactive } from 'vue';
+import { computed, nextTick, ref, reactive } from 'vue';
 import { ElMessage } from 'element-plus';
 import LZString from 'lz-string';
 import copy from 'copy-to-clipboard';
@@ -20,8 +20,6 @@ import { printEl } from '../coc-card/hooks/usePrintPaper';
 import useAppLs from '../coc-card/hooks/useAppLs';
 
 import type { COCCardViewData } from '../coc-card/types/viewData';
-import qrWechat from '@/assets/images/qr-wechat.jpg';
-import qrAlipay from '@/assets/images/qr-alipay.jpg';
 
 interface Props {
   paperEls: HTMLElement[];
@@ -158,18 +156,6 @@ function applyInData() {
   }
   pageData && (pageData.importing = false);
 }
-
-// preload qr codes when more panel is opened
-const cleanPreloadFn = watch(morePanelVisible, (visible) => {
-  if (visible) {
-    const img = new Image();
-    img.src = qrWechat;
-    nextTick(() => {
-      img.src = qrAlipay;
-    });
-    cleanPreloadFn();
-  }
-});
 </script>
 
 <template>
