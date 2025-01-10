@@ -4227,7 +4227,7 @@ function rC(w) {
     () => {
       let A = "", o = "";
       const { con: i, siz: g, pow: e } = w.value.attributes || {};
-      i && g && (A = `${Math.floor((i + g) / 10)}`), e && (o = `${e / 5}`), w.value.deriveAttributes = {
+      i && g && (A = `${Math.floor((i + g) / 10)}`), e && (o = `${Math.floor(e / 5)}`), w.value.deriveAttributes = {
         sanity: {
           start: `${e || ""}`
         },
@@ -12263,7 +12263,7 @@ const Q8 = { class: "weapon-section-row" }, X8 = { class: "weapon-td-name" }, y8
   setup(w) {
     const A = nA();
     return cA(
-      () => A == null ? void 0 : A.value.attributes,
+      () => [A == null ? void 0 : A.value.attributes, A == null ? void 0 : A.value.age],
       () => {
         if (!A)
           return;
@@ -12287,9 +12287,9 @@ const Q8 = { class: "weapon-section-row" }, X8 = { class: "weapon-td-name" }, y8
         }
         if (o && i && g) {
           let D = 8;
-          if (o < i && g < i ? D = 7 : o > i && g > i ? D = 9 : D = 8, e >= 40) {
-            const M = Math.floor((e - 40) / 10) + 1;
-            D -= M;
+          if (o < i && g < i ? D = 7 : o > i && g > i ? D = 9 : D = 8, e > 40) {
+            let M = Math.ceil((e - 40) / 10);
+            M = M > 5 ? 5 : M, D -= M;
           }
           A.value.battleAttributes.mov = `${D}`;
         }
@@ -12331,7 +12331,7 @@ const Q8 = { class: "weapon-section-row" }, X8 = { class: "weapon-td-name" }, y8
       _: 1
     }));
   }
-}), _8 = /* @__PURE__ */ V(q8, [["__scopeId", "data-v-80efd85f"]]), $8 = {}, Qi = (w) => (vA("data-v-fa6373e1"), w = w(), lA(), w), Ar = { class: "copyright-section" }, wr = /* @__PURE__ */ Qi(() => /* @__PURE__ */ f("div", { class: "commercial-info" }, [
+}), _8 = /* @__PURE__ */ V(q8, [["__scopeId", "data-v-c2464d73"]]), $8 = {}, Qi = (w) => (vA("data-v-fa6373e1"), w = w(), lA(), w), Ar = { class: "copyright-section" }, wr = /* @__PURE__ */ Qi(() => /* @__PURE__ */ f("div", { class: "commercial-info" }, [
   /* @__PURE__ */ O(" 商业合作请联系: "),
   /* @__PURE__ */ f("a", {
     class: "link commercial-link",
