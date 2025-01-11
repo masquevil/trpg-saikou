@@ -22,7 +22,7 @@
 
     // my custom
     "baseUrl": ".",
-    "types": ["element-plus/global"],
+    "types": ["element-plus/global", "node"],
     "paths": {
       "@/*": ["./src/*"]
     }
