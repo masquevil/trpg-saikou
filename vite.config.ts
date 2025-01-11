@@ -4,8 +4,8 @@ import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 
 function getBase() {
-  const { TARGET_ENV } = process.env;
-  switch (TARGET_ENV) {
+  const { VITE_TARGET_ENV } = process.env;
+  switch (VITE_TARGET_ENV) {
     case 'pages':
       return '/trpg-saikou/';
     default:

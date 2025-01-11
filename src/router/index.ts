@@ -9,8 +9,8 @@ declare module 'vue-router' {
   }
 }
 
-const { TARGET_ENV = '' } = process.env;
-const isHashMode = ['pages', 'hash'].includes(TARGET_ENV);
+const { VITE_TARGET_ENV = '' } = import.meta.env;
+const isHashMode = ['pages', 'hash'].includes(VITE_TARGET_ENV);
 
 const router = createRouter({
   history:
