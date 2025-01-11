@@ -24,7 +24,7 @@ jobs:
         run: sh ./shell/copy.sh
 
       - name: Build project
-        run: yarn build
+        run: TARGET_ENV=pages yarn build
 
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v3

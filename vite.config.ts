@@ -4,12 +4,12 @@ import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 
 function getBase() {
-  const { TARGET_ENV, NODE_ENV } = process.env;
+  const { TARGET_ENV } = process.env;
   switch (TARGET_ENV) {
-    case 'sox-mini':
-      return '/';
+    case 'pages':
+      return '/trpg-saikou/';
     default:
-      return NODE_ENV === 'production' ? '/trpg-saikou/' : '/';
+      return '/';
   }
 }
 

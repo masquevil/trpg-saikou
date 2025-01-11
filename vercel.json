@@ -1,0 +1,12 @@
+{
+  "installCommand": "yarn install && sh ./shell/copy.sh",
+  "buildCommand": "yarn build",
+  "outputDirectory": "dist",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ],
+  "trailingSlash": false
+}
