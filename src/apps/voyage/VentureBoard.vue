@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
+import LA, { LAEventID, VoyageEventNames } from '@/plugins/51la';
+
 import MessageCard from './components/MessageCard.vue';
 import SailorCard from './components/SailorCard.vue';
 import VentureActionSection from './components/VentureActionSection.vue';
@@ -70,6 +72,16 @@ const guestMap = computed(() => {
     {} as Record<string, FormattedSailer>,
   );
 });
+
+function sendMessage(message: string) {
+  emit('message', message);
+  LA?.track(LAEventID.VOYAGE, { voya: VoyageEventNames.V_MES });
+}
+function sendDice(pkey: string, result: number, text?: string) {
+  // TODO: PL 的投掷应该发送请求给 KP，在 KP 的客户端进行投掷
+  emit('dice', pkey, result, text);
+  LA?.track(LAEventID.VOYAGE, { voya: VoyageEventNames.V_ROLL });
+}
 </script>
 
 <template>
@@ -98,8 +110,8 @@ const guestMap = computed(() => {
     </div>
     <VentureActionSection
       class="action-section"
-      @message="(message) => $emit('message', message)"
-      @dice="(pkey, res, text) => $emit('dice', pkey, res, text)"
+      @message="sendMessage"
+      @dice="sendDice"
     />
   </div>
 </template>

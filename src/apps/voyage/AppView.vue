@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
-// import { Peer, DataConnection } from 'peerjs';
 
 import VoyageEntrance from './VoyageEntrance.vue';
 import VentureBoard from './VentureBoard.vue';

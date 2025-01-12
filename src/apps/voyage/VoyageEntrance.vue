@@ -5,6 +5,7 @@ import { ElMessage } from 'element-plus';
 import type { SdImageData } from '@/libs/sdAvatar/type';
 import ControlDialog from '@/components/ControlDialog.vue';
 import AvatarModal from '@/components/AvatarModal/AvatarModal.vue';
+import LA, { LAEventID, VoyageEventNames } from '@/plugins/51la';
 
 import type { HostForm, GuestForm } from './types';
 
@@ -47,6 +48,7 @@ function handleSubmitHost() {
   }
   emit('setupHost', hostForm);
   isHostModalShown.value = false;
+  LA?.track(LAEventID.VOYAGE, { voya: VoyageEventNames.E_CROOM });
 }
 function handleSubmitGuest() {
   if (!guestForm.roomId || !guestForm.player) {
@@ -55,6 +57,7 @@ function handleSubmitGuest() {
   }
   emit('setupGuest', guestForm);
   isGuestModalShown.value = false;
+  LA?.track(LAEventID.VOYAGE, { voya: VoyageEventNames.E_JROOM });
 }
 </script>
 
