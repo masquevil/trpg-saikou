@@ -1,0 +1,1 @@
+import{R as e}from"./RollTool-BmUQzRqq.js";import{d as o,c as t,k as a,o as s}from"./index-CG3uZOVe.js";import{_ as p}from"./_plugin-vue_export-helper-DlAUqK2U.js";import"./random-D7cEhbNa.js";const r={class:"page"},c=o({__name:"AppView",setup(_){return(n,m)=>(s(),t("main",r,[a(e)]))}}),u=p(c,[["__scopeId","data-v-e922e64a"]]);export{u as default};
