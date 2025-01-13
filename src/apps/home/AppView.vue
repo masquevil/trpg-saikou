@@ -3,6 +3,7 @@ import type { RouteLocationRaw } from 'vue-router';
 
 // preview images
 import cocCardPreview from '@/assets/images/tools-preview/coc-card.jpg';
+import voyagePreview from '@/assets/images/tools-preview/voyage.jpg';
 import recordPreview from '@/assets/images/tools-preview/record.png';
 import kpAdsPreview from '@/assets/images/tools-preview/kp-ads.png';
 import timerPreview from '@/assets/images/tools-preview/timer.png';
@@ -31,6 +32,7 @@ const appConfigs: Record<'online' | 'offline', AppConfig[]> = {
       to: {
         name: 'voyage',
       },
+      preview: voyagePreview,
     },
     {
       key: 'timer',
