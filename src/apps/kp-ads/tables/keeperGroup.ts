@@ -18,6 +18,7 @@ const keeperGroupTable: KeeperGroupTableRow[] = [
           ['', '湖之仆从'],
           ['', '失落的缴款'],
           ['', '死光'],
+          ['', '入我厅来'],
         ],
       },
       {
