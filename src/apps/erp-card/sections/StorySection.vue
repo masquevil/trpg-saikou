@@ -7,11 +7,11 @@ import WritableArea from '../components/WritableArea.vue';
 
 import { usePC, usePageData } from '../hooks/useProviders';
 
-import type { COCPlayerCharacter } from '../types/character';
+import type { ERPPlayerCharacter } from '../types/character';
 
 interface AreaConfig {
   label: string;
-  fieldName: keyof COCPlayerCharacter['stories'];
+  fieldName: keyof ERPPlayerCharacter['stories'];
   size?: 'small' | 'base';
 }
 
