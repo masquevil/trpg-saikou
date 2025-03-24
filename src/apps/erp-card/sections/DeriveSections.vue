@@ -6,30 +6,36 @@ import WritableUnit from '../components/WritableUnit.vue';
 import WritableDivider from '../components/WritableDivider.vue';
 import StatusCheckbox from '../components/StatusCheckbox.vue';
 // models
-import type { COCDeriveAttributes } from '../types/character';
+import type { ERPDeriveAttributes } from '../types/character';
 
 import { usePC } from '../hooks/useProviders';
 
 const pc = usePC();
 
-function updateAttr(
-  key: keyof COCDeriveAttributes,
-  cKey: 'now' | 'start',
-  value: string,
-): void {
+function updateAttr(key: keyof ERPDeriveAttributes, cKey: string, value: string): void {
   if (!pc || !pc.value.deriveAttributes) return;
   pc.value.deriveAttributes[key][cKey] = value ? value : undefined;
 }
 
-const sanMax = computed(() => {
+const divinity = computed(() => {
   if (!pc) return '';
-  if (!pc.value.attributes.pow) return '';
-  const cthulu = pc.value.skillPoints.find(([name]) => {
-    return name === '克苏鲁神话';
-  })?.[1];
-  const { p = 0, i = 0, g = 0 } = cthulu || {};
-  const cthuluPoint = cthulu ? p + i + g : 0;
-  return `${99 - cthuluPoint}`;
+  const source = pc.value.deriveAttributes?.sanity?.divinity;
+  if (source !== undefined) return source;
+  return '';
+});
+const humanity = computed(() => {
+  if (!pc) return '';
+  const source = pc.value.deriveAttributes?.sanity?.humanity;
+  if (source !== undefined) return source;
+  if (`${Number(divinity.value)}` !== divinity.value) return '';
+  return `${99 - Number(divinity.value)}`;
+});
+const level = computed(() => {
+  if (!pc) return '';
+  const source = pc.value.deriveAttributes?.sanity?.level;
+  if (source !== undefined) return source;
+  if (`${Number(divinity.value)}` !== divinity.value) return '';
+  return `${Math.floor(Number(divinity.value) / 5)}`;
 });
 </script>
 
@@ -56,9 +62,23 @@ const sanMax = computed(() => {
         />
         <WritableDivider />
         <WritableUnit
-          label="最大理智"
-          :modelValue="sanMax"
-          readonly
+          label="人性"
+          :modelValue="humanity"
+          @update:modelValue="(val) => updateAttr('sanity', 'humanity', val)"
+          placeholder="99 - 神性"
+        />
+        <WritableDivider />
+        <WritableUnit
+          label="神性"
+          :modelValue="divinity"
+          @update:modelValue="(val) => updateAttr('sanity', 'divinity', val)"
+        />
+        <WritableDivider />
+        <WritableUnit
+          label="神格"
+          :modelValue="level"
+          @update:modelValue="(val) => updateAttr('sanity', 'level', val)"
+          placeholder="神性 / 5"
         />
       </div>
     </PaperSection>
@@ -98,21 +118,14 @@ const sanMax = computed(() => {
         />
       </div>
     </PaperSection>
-    <PaperSection title="身体状态">
-      <div class="body-status-section">
-        <StatusCheckbox label="重伤" />
-        <StatusCheckbox label="昏迷" />
-        <StatusCheckbox label="濒死" />
-        <StatusCheckbox label="死亡" />
-      </div>
-    </PaperSection>
     <PaperSection
-      title="精神状态"
+      title="特殊状态"
       class="col-0"
     >
-      <div class="san-status-section">
+      <div class="status-section">
+        <StatusCheckbox label="重伤" />
+        <StatusCheckbox label="濒死" />
         <StatusCheckbox label="临时疯狂" />
-        <StatusCheckbox label="永久疯狂" />
         <StatusCheckbox label="不定期疯狂" />
       </div>
     </PaperSection>
@@ -134,31 +147,20 @@ const sanMax = computed(() => {
   justify-content: space-around;
 }
 
-.body-status-section {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+.status-section {
+  max-height: 4em;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
   color: var(--color-black);
 
   & > .status-checkbox {
+    flex: 1 1 fit-content;
     background-color: hsl(0, 0%, 96%);
-    &:nth-child(2),
-    &:nth-child(3) {
+    &:nth-child(4n + 2),
+    &:nth-child(4n + 3) {
       background-color: hsl(0, 0%, 82%);
-    }
-  }
-}
-.san-status-section {
-  display: grid;
-  grid-template:
-    '1 2'
-    '3 .' / 6fr 5fr;
-  color: var(--color-black);
-
-  & > .status-checkbox {
-    background-color: #f5f5f5;
-    &:nth-child(2),
-    &:nth-child(3) {
-      background-color: #ddd;
     }
   }
 }

@@ -3,11 +3,11 @@ import type { Ref, ComputedRef } from 'vue';
 
 import type { Suggestion } from '../types/suggestion';
 import type { PageData } from '../types/pageData';
-import type { COCPlayerCharacter } from '../types/character';
-import type { COCCardViewData } from '../types/viewData';
+import type { ERPPlayerCharacter } from '../types/character';
+import type { ERPCardViewData } from '../types/viewData';
 
 export function usePC() {
-  const pc = inject<Ref<COCPlayerCharacter>>('pc');
+  const pc = inject<Ref<ERPPlayerCharacter>>('pc');
   return pc;
 }
 
@@ -17,7 +17,7 @@ export function usePageData() {
 }
 
 export function useViewData() {
-  const viewData = inject<COCCardViewData>('viewData');
+  const viewData = inject<ERPCardViewData>('viewData');
   return viewData;
 }
 

@@ -10,12 +10,6 @@
       >
         masquevil@gmail.com (侠小然)
       </a>
-      <a
-        class="link commercial-link"
-        href="mailto:705422032@qq.com"
-      >
-        705422032@qq.com (听枫馆·枫笛)
-      </a>
     </div>
     <div class="copyright">
       <span>©「克苏鲁的呼唤」7版人物卡</span>

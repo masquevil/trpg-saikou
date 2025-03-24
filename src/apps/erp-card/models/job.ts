@@ -1,6 +1,6 @@
 import type { JobGroup } from '../types/jobGroup';
 import type { Job } from '../types/job';
-import type { COCAttributes } from '../types/character';
+import type { ERPAttributes } from '../types/character';
 
 import { jobs } from '../constants/job';
 import { jobGroups } from '../constants/jobGroup';
@@ -32,37 +32,29 @@ function formatJobs(jobs: Job[], jobGroups: JobGroup[]) {
 
 const jobsData = formatJobs(jobs, jobGroups);
 
-export function getProPointByJobAndAttrs(
-  jobName?: string,
-  attrs?: Partial<COCAttributes>,
-) {
+export function getProPointByJobAndAttrs(jobName?: string, attrs?: Partial<ERPAttributes>) {
   const result = {
-    text: '',
+    text: '任选两项属性×2。',
     point: 0,
   };
+
+  // 职业点数计算，取最高的两项属性
+  const attrValues = Object.values(attrs || {}).sort();
+  const point = attrValues.slice(-2).reduce((acc, cur) => acc + cur * 2, 0);
+  result.point = point;
+
+  // 职业技能推荐
   const job = jobsData.jobs.get(jobName || '');
-  if (!job) return result;
-  // 职业点数的公式和计算
   const pointTexts: string[] = [];
-  job.point.forEach((formula) => {
-    const textParts: string[] = [];
-    const valueParts: number[] = [];
-
-    formula.forEach(([key, rate]) => {
-      textParts.push(`${pointAttrTexts[key]}×${rate}`);
-      if (attrs) {
-        valueParts.push((attrs[key] || 0) * rate);
-      }
+  job?.point.forEach((formula) => {
+    formula.forEach(([key]) => {
+      pointTexts.push(`${pointAttrTexts[key]}`);
     });
-
-    let partsText = textParts.join(' 或 ');
-    if (textParts.length > 1) partsText = `(${partsText})`;
-    pointTexts.push(partsText);
-
-    result.point += Math.max(...valueParts);
   });
 
-  result.text = pointTexts.join(' + ');
+  if (pointTexts.length) {
+    result.text += `推荐：${pointTexts.join('、')}`;
+  }
 
   return result;
 }

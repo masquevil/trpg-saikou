@@ -1,6 +1,6 @@
 import type { Weapon } from './weapon';
 
-export interface COCPlayerCharacter {
+export interface ERPPlayerCharacter {
   // basic infos
   name: string;
   playerName: string;
@@ -13,16 +13,16 @@ export interface COCPlayerCharacter {
   avatar?: string;
   sdAvatar?: string;
   // attributes
-  attributes: Partial<COCAttributes>;
-  deriveAttributes?: COCDeriveAttributes;
-  battleAttributes: COCBattleAttributes;
+  attributes: Partial<ERPAttributes>;
+  deriveAttributes?: ERPDeriveAttributes;
+  battleAttributes: ERPBattleAttributes;
   // 技能与点数
   pointValues: {
     pro?: string;
     interest?: string;
   };
-  proSkills: COCPCSkill[];
-  skillPoints: [COCPCSkill, SkillPoint][];
+  proSkills: ERPPCSkill[];
+  skillPoints: [ERPPCSkill, SkillPoint][];
   // weapons
   weapons: Weapon[];
   // stories
@@ -53,36 +53,26 @@ export interface COCPlayerCharacter {
   friends: string;
 }
 
-export interface COCAttributes {
+export interface ERPAttributes {
   str: number;
   dex: number;
   con: number;
   app: number;
   pow: number;
-  siz: number;
-  edu: number;
+  cre: number;
   int: number;
   luc: number;
 }
 
-export type COCAttributesKey = keyof COCAttributes;
+export type ERPAttributesKey = keyof ERPAttributes;
 
-export interface COCDeriveAttributes {
-  sanity: {
-    now?: string;
-    start?: string;
-  };
-  hp: {
-    now?: string;
-    start?: string;
-  };
-  mp: {
-    now?: string;
-    start?: string;
-  };
+export interface ERPDeriveAttributes {
+  sanity: Record<string, string | undefined>;
+  hp: Record<string, string | undefined>;
+  mp: Record<string, string | undefined>;
 }
 
-export interface COCBattleAttributes {
+export interface ERPBattleAttributes {
   db?: string;
   size?: string;
   armor?: string;
@@ -91,7 +81,7 @@ export interface COCBattleAttributes {
 
 // 技能名 | 技能名, 子技能名, 子技能位置
 // 子技能名 仅作为占位，实际使用 viewData 作为 source of truth
-export type COCPCSkill = string | [string, string, number];
+export type ERPPCSkill = string | [string, string, number];
 
 export interface SkillPoint {
   // 初始点数

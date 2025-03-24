@@ -1,11 +1,12 @@
 import type { Skill } from '../types/skill';
 // import type { SkillGroupName } from '../types/skillGroup';
 import type { SkillGroups } from '../types/formattedSkill';
-import type { COCPlayerCharacter, SkillPoint } from '../types/character';
-import type { COCCardViewData } from '../types/viewData';
+import type { ERPPlayerCharacter, SkillPoint } from '../types/character';
+import type { ERPCardViewData } from '../types/viewData';
 
 import { skills, skillNameAlias } from '../constants/skill';
 import { skillGroups as groups, skillGroupOrder } from '../constants/skillGroup';
+import { mySkillResource1 } from '../constants/skillTableResource';
 
 export function getFormattedSkillGroups<SkillGroupName extends string>({
   skills,
@@ -73,16 +74,19 @@ export const skillGroups = getFormattedSkillGroups({
   groupOrder: skillGroupOrder,
 });
 
-export const dynamicInitFormulas: Record<string, (pc: COCPlayerCharacter) => number> = {
+export const dynamicInitFormulas: Record<string, (pc: ERPPlayerCharacter) => number> = {
   // 母语: (pc) => pc.attributes.edu || 0,
   // 闪避: (pc) => Math.floor((pc.attributes.dex || 0) / 2),
 };
 
-export function resetShowingChildSkills(viewData?: COCCardViewData, skillsInUse = skills) {
-  const map = new Map<string, string[]>();
+export function resetShowingChildSkills(
+  viewData?: ERPCardViewData,
+  skillsInUse = mySkillResource1.skills,
+) {
+  const map: Record<string, string[]> = {};
   skillsInUse.forEach((skill) => {
     if (!skill.group) return;
-    map.set(skill.name, [...skill.group.show]);
+    map[skill.name] = [...skill.group.show];
   });
   if (viewData) {
     viewData.showingChildSkills = map;
@@ -94,26 +98,16 @@ export function resetShowingChildSkills(viewData?: COCCardViewData, skillsInUse 
 // 第一部分——属性：力量60str60敏捷60dex60……
 // 第二部分——衍生属性：hp12体力12mp12魔法12san60理智60san值60
 // 第三部分——技能：母语60英语60日语40汽车驾驶25……
-export function getDiceMaidStString(pc: COCPlayerCharacter, viewData: COCCardViewData) {
+export function getDiceMaidStString(pc: ERPPlayerCharacter, viewData: ERPCardViewData) {
   const { attributes, deriveAttributes, skillPoints } = pc;
-  const {
-    str = 0,
-    con = 0,
-    siz = 0,
-    dex = 0,
-    app = 0,
-    int = 0,
-    pow = 0,
-    edu = 0,
-    luc = 0,
-  } = attributes;
+  const { str = 0, con = 0, dex = 0, app = 0, int = 0, pow = 0, cre = 0, luc = 0 } = attributes;
   const {
     hp = { start: 0 },
     mp = { start: 0 },
     sanity: san = { start: 0 },
   } = deriveAttributes || {};
 
-  const attributesString = `力量${str}str${str}敏捷${dex}dex${dex}体质${con}con${con}外貌${app}app${app}智力${int}灵感${int}int${int}意志${pow}pow${pow}体型${siz}siz${siz}教育${edu}edu${edu}幸运${luc}运气${luc}luck${luc}`;
+  const attributesString = `力量${str}str${str}敏捷${dex}dex${dex}体质${con}con${con}外貌${app}app${app}智力${int}灵感${int}int${int}意志${pow}pow${pow}名利${cre}cre${cre}幸运${luc}运气${luc}luck${luc}`;
   const deriveAttributesString = `hp${hp.start}体力${hp.start}mp${mp.start}魔法${mp.start}san${san.start}理智${san.start}理智值${san.start}san值${san.start}`;
   let skillString = '';
 
@@ -124,7 +118,7 @@ export function getDiceMaidStString(pc: COCPlayerCharacter, viewData: COCCardVie
     let childSkillPosition: number | undefined;
     if (Array.isArray(fullName)) {
       [skillName, , childSkillPosition] = fullName;
-      childSkillName = viewData.showingChildSkills.get(skillName)?.[childSkillPosition];
+      childSkillName = viewData.showingChildSkills[skillName]?.[childSkillPosition];
     } else {
       skillName = fullName;
     }
@@ -156,7 +150,7 @@ export function getDiceMaidStString(pc: COCPlayerCharacter, viewData: COCCardVie
     } else {
       let total = 0;
       // viewData
-      viewData.showingChildSkills.get(name)?.forEach((childSkillName) => {
+      viewData.showingChildSkills[name]?.forEach((childSkillName) => {
         if (!childSkillName) return;
         const mapKey = `${name}-${childSkillName}`;
         const point = pcPointsMap[mapKey];

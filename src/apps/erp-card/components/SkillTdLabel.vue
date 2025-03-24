@@ -4,7 +4,7 @@ import { ref, inject, computed } from 'vue';
 import vClickOutside from '@/directives/clickOutside';
 import { usePC } from '../hooks/useProviders';
 import type { ChildSkill } from '../types/skill';
-import type { COCCardViewData } from '../types/viewData';
+import type { ERPCardViewData } from '../types/viewData';
 // import type { COCPCSkill } from '../types/character';
 
 import SoxCheckbox from '@/components/SoxCheckbox.vue';
@@ -22,7 +22,7 @@ interface Props {
 const props = defineProps<Props>();
 
 const pc = usePC();
-const viewData = inject<COCCardViewData>('viewData');
+const viewData = inject<ERPCardViewData>('viewData');
 
 interface Emits {
   (event: 'selectChildSkill', childSkill: ChildSkill): void;
@@ -30,12 +30,12 @@ interface Emits {
 const emit = defineEmits<Emits>();
 
 const isOptionsShowing = ref(false);
-const currentData = computed(() => viewData?.showingChildSkills.get(props.skillName));
+const currentData = computed(() => viewData?.showingChildSkills[props.skillName]);
 const existedData = computed(() => {
   if (['母语', '外语'].includes(props.skillName)) {
     return [
-      ...(viewData?.showingChildSkills.get('母语') || []),
-      ...(viewData?.showingChildSkills.get('外语') || []),
+      ...(viewData?.showingChildSkills['母语'] || []),
+      ...(viewData?.showingChildSkills['外语'] || []),
     ];
   }
   return currentData.value;
@@ -68,7 +68,7 @@ function updateCurrentData(value: string) {
   }
   // update view data
   currentData.value[props.childSkillData.place] = value;
-  viewData!.showingChildSkills.set(props.skillName, currentData.value);
+  viewData!.showingChildSkills[props.skillName] = currentData.value;
 }
 function selectChildSkill(childSkill: ChildSkill) {
   updateCurrentData(childSkill.name);

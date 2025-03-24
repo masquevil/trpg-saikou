@@ -7,11 +7,10 @@ import ControlDialog from '../../ControlDialog.vue';
 import WritableRow from '../../WritableRow.vue';
 
 // models
-import type { COCAttributesKey, COCAttributes } from '../../../types/character';
+import type { ERPAttributesKey, ERPAttributes } from '../../../types/character';
 import {
   generateRandomAttributes,
   getAttributesSum,
-  getLuckAttributesSum,
   withDefaultAttributes,
 } from '../../../models/attribute';
 import LA, { LAEventID, FeatureNames } from '@/plugins/51la';
@@ -30,10 +29,10 @@ const emit = defineEmits<Emits>();
 
 const pc = usePC();
 
-function applyPoints(attributes: COCAttributes) {
+function applyPoints(attributes: ERPAttributes) {
   if (!pc?.value) return;
   Object.entries(attributes).forEach(([key, value]) => {
-    pc.value.attributes[key as COCAttributesKey] = value || undefined;
+    pc.value.attributes[key as ERPAttributesKey] = value || undefined;
   });
   onCloseModal();
 }
@@ -43,39 +42,45 @@ function onCloseModal() {
   resetStates();
 }
 
-// 枫笛式相关
-const actionKeadeChoice = ref<COCAttributes>(withDefaultAttributes({}));
-const actionKeadeDoing = ref<boolean>(false);
-const actionKeadeGenerateCount = ref(0);
-const actionKeadeSelectedKeysMap = ref<Partial<Record<COCAttributesKey, COCAttributesKey>>>({});
-function actionKeadeHandler() {
+// 分配式相关
+const actionAllotChoice = ref<ERPAttributes>(withDefaultAttributes({}));
+const actionAllotFullList = computed(() => {
+  return Object.entries(actionAllotChoice.value)
+    .sort((a, b) => {
+      return a[1] === b[1] ? 0 : a[1] < b[1] ? -1 : 1;
+    })
+    .map(([key, value]) => ({ key, value })) as { key: ERPAttributesKey; value: number }[];
+});
+const actionAllotDoing = ref<boolean>(false);
+const actionAllotGenerateCount = ref(0);
+const actionAllotSelectedKeysMap = ref<Partial<Record<ERPAttributesKey, ERPAttributesKey>>>({});
+function actionAllotHandler() {
   resetStates();
-  actionKeadeChoice.value = generateRandomAttributes();
-  actionKeadeSelectedKeysMap.value.luc = 'luc';
-  actionKeadeDoing.value = true;
-  actionKeadeGenerateCount.value++;
+  actionAllotChoice.value = generateRandomAttributes();
+  actionAllotDoing.value = true;
+  actionAllotGenerateCount.value++;
   // 统计
   LA?.track(LAEventID.FEATURE, { name: FeatureNames.PM_GEN_KAEDE });
 }
-function actionKeadeApplyHandler() {
-  const picked = Object.values(actionKeadeSelectedKeysMap.value).filter(
+function actionAllotApplyHandler() {
+  const picked = Object.values(actionAllotSelectedKeysMap.value).filter(
     (pickedKey) => pickedKey,
   ).length;
-  if (picked < 9) {
+  if (picked < 8) {
     ElMessage.error('请完成所有选择');
     return;
   }
-  const result: COCAttributes = withDefaultAttributes({});
-  Object.entries(actionKeadeSelectedKeysMap.value).forEach(([key, pickedKey]) => {
+  const result: ERPAttributes = withDefaultAttributes({});
+  Object.entries(actionAllotSelectedKeysMap.value).forEach(([key, pickedKey]) => {
     if (pickedKey) {
-      result[key as COCAttributesKey] = actionKeadeChoice.value[pickedKey];
+      result[key as ERPAttributesKey] = actionAllotChoice.value[pickedKey];
     }
   });
   applyPoints(result);
   LA?.track(LAEventID.FEATURE, { name: FeatureNames.PM_USE_KAEDE });
 }
-function actionKeadeCheckOptionDisabled(optionKey: COCAttributesKey) {
-  return Object.values(actionKeadeSelectedKeysMap.value).some(
+function actionAllotCheckOptionDisabled(optionKey: ERPAttributesKey) {
+  return Object.values(actionAllotSelectedKeysMap.value).some(
     (pickedKey) => pickedKey === optionKey,
   );
 }
@@ -83,7 +88,7 @@ function actionKeadeCheckOptionDisabled(optionKey: COCAttributesKey) {
 // 天命式相关
 const actionRollCount = ref(5);
 const actionRollGenerateCount = ref(0);
-const actionRollResult = ref<COCAttributes[]>([]);
+const actionRollResult = ref<ERPAttributes[]>([]);
 function actionRollHandler() {
   resetStates();
   actionRollResult.value = Array.from({ length: actionRollCount.value }, () =>
@@ -93,17 +98,17 @@ function actionRollHandler() {
   // 统计
   LA?.track(LAEventID.FEATURE, { name: FeatureNames.PM_GEN_ROLL });
 }
-function actionRollApplyHandler(result: COCAttributes) {
+function actionRollApplyHandler(result: ERPAttributes) {
   applyPoints(result);
   LA?.track(LAEventID.FEATURE, { name: FeatureNames.PM_USE_ROLL });
 }
 
 // 购点式相关
-const actionBuyTotalPoints = ref(460);
+const actionBuyTotalPoints = ref(480);
 const actionBuyDoing = ref<boolean>(false);
-const actionBuyResult = ref<COCAttributes>(withDefaultAttributes({}));
+const actionBuyResult = ref<ERPAttributes>(withDefaultAttributes({}));
 const actionBuyRemainingPoints = computed(() => {
-  return actionBuyTotalPoints.value - getLuckAttributesSum(actionBuyResult.value);
+  return actionBuyTotalPoints.value - getAttributesSum(actionBuyResult.value);
 });
 function actionBuyHandler() {
   resetStates();
@@ -119,13 +124,13 @@ function actionBuyApplyHandler() {
 
 // shared
 function resetStates() {
-  actionKeadeDoing.value = false;
+  actionAllotDoing.value = false;
   actionRollResult.value = [];
   actionBuyDoing.value = false;
 }
 
 interface RenderListItem {
-  key: COCAttributesKey;
+  key: ERPAttributesKey;
   label: string;
   hint: string;
 }
@@ -133,15 +138,15 @@ const leftList: RenderListItem[] = [
   { key: 'str', label: '力量', hint: 'STR' },
   { key: 'con', label: '体质', hint: 'CON' },
   { key: 'dex', label: '敏捷', hint: 'DEX' },
-  { key: 'app', label: '外貌', hint: 'APP' },
-  { key: 'pow', label: '意志', hint: 'POW' },
+  { key: 'cre', label: '名利', hint: 'CRE' },
 ];
 const rightList: RenderListItem[] = [
-  { key: 'siz', label: '体型', hint: 'SIZ' },
-  { key: 'edu', label: '教育', hint: '知识 EDU' },
+  { key: 'app', label: '外貌', hint: 'APP' },
+  { key: 'pow', label: '意志', hint: 'POW' },
   { key: 'int', label: '智力', hint: '灵感 INT' },
+  { key: 'luc', label: '幸运', hint: 'LUC' },
 ];
-const hiddenList: RenderListItem[] = [{ key: 'luc', label: '幸运', hint: 'Luck' }];
+const fullList: RenderListItem[] = [...leftList, ...rightList];
 </script>
 
 <template>
@@ -153,56 +158,47 @@ const hiddenList: RenderListItem[] = [{ key: 'luc', label: '幸运', hint: 'Luck
     <div class="modal-body">
       <div class="method-section">
         <div class="method-section-header">
-          <div class="method-section-title">枫笛式</div>
+          <div class="method-section-title">分配式</div>
           <div class="header-action">
             <el-button
               size="small"
               type="default"
-              @click="actionKeadeHandler"
+              @click="actionAllotHandler"
             >
               生成
-              <template v-if="actionKeadeGenerateCount">
-                (已生成 {{ actionKeadeGenerateCount }} 次)
+              <template v-if="actionAllotGenerateCount">
+                (已生成 {{ actionAllotGenerateCount }} 次)
               </template>
             </el-button>
+            <span
+              class="header-hint"
+              v-if="actionAllotDoing"
+            >
+              总点数 {{ getAttributesSum(actionAllotChoice) }}
+            </span>
           </div>
         </div>
         <div class="method-section-content">
           <div class="kaede-desc-row">
             <div class="kaede-desc-col">
-              分配 5组 3D6×5 到左侧
+              分配 8 组 4D6k3
               <span
-                v-if="actionKeadeDoing"
+                v-if="actionAllotDoing"
                 class="kaede-value-column"
               >
                 ·
                 <span
-                  v-for="config in leftList"
-                  :key="config.key"
+                  v-for="{ key, value } in actionAllotFullList"
+                  :key="key"
                 >
-                  {{ actionKeadeChoice[config.key] }}
-                </span>
-              </span>
-            </div>
-            <div class="kaede-desc-col">
-              分配 3组 (2D6+6)×5 到右侧
-              <span
-                v-if="actionKeadeDoing"
-                class="kaede-value-column"
-              >
-                ·
-                <span
-                  v-for="config in rightList"
-                  :key="config.key"
-                >
-                  {{ actionKeadeChoice[config.key] }}
+                  {{ value }}
                 </span>
               </span>
             </div>
           </div>
           <div
             class="column-section-content"
-            v-if="actionKeadeDoing"
+            v-if="actionAllotDoing"
           >
             <div class="column-section-content-column">
               <div
@@ -212,17 +208,17 @@ const hiddenList: RenderListItem[] = [{ key: 'luc', label: '幸运', hint: 'Luck
               >
                 <div class="kaede-choice-row-label">{{ config.label }}</div>
                 <el-select
-                  v-model="actionKeadeSelectedKeysMap[config.key]"
+                  v-model="actionAllotSelectedKeysMap[config.key]"
                   placeholder="请选择"
                   size="small"
                   clearable
                 >
                   <el-option
-                    v-for="optionConfig in leftList"
+                    v-for="optionConfig in actionAllotFullList"
                     :key="optionConfig.key"
-                    :label="actionKeadeChoice[optionConfig.key]"
+                    :label="optionConfig.value"
                     :value="optionConfig.key"
-                    :disabled="actionKeadeCheckOptionDisabled(optionConfig.key)"
+                    :disabled="actionAllotCheckOptionDisabled(optionConfig.key)"
                   />
                 </el-select>
               </div>
@@ -235,31 +231,27 @@ const hiddenList: RenderListItem[] = [{ key: 'luc', label: '幸运', hint: 'Luck
               >
                 <div class="kaede-choice-row-label">{{ config.label }}</div>
                 <el-select
-                  v-model="actionKeadeSelectedKeysMap[config.key]"
+                  v-model="actionAllotSelectedKeysMap[config.key]"
                   placeholder="请选择"
                   size="small"
                   clearable
                 >
                   <el-option
-                    v-for="optionConfig in rightList"
+                    v-for="optionConfig in actionAllotFullList"
                     :key="optionConfig.key"
-                    :label="actionKeadeChoice[optionConfig.key]"
+                    :label="optionConfig.value"
                     :value="optionConfig.key"
-                    :disabled="actionKeadeCheckOptionDisabled(optionConfig.key)"
+                    :disabled="actionAllotCheckOptionDisabled(optionConfig.key)"
                   />
                 </el-select>
-              </div>
-              <div>
-                <span>总点数 {{ getAttributesSum(actionKeadeChoice) }}</span>
-                <span>({{ getLuckAttributesSum(actionKeadeChoice) }})</span>
               </div>
               <div class="column-section-content-column-actions">
                 <el-button
                   size="small"
                   type="default"
-                  @click="actionKeadeApplyHandler"
+                  @click="actionAllotApplyHandler"
                 >
-                  应用 (幸运 {{ actionKeadeChoice.luc }})
+                  应用
                 </el-button>
               </div>
             </div>
@@ -300,15 +292,14 @@ const hiddenList: RenderListItem[] = [{ key: 'luc', label: '幸运', hint: 'Luck
             @click="actionRollApplyHandler(result)"
           >
             <div
-              v-for="config in [...leftList, ...rightList, ...hiddenList]"
+              v-for="config in fullList"
               :key="config.key"
               class="action-roll-result-item"
             >
               {{ config.label }} {{ result[config.key] }}
             </div>
             <div class="action-roll-result-item action-roll-result-item-sum">
-              总点数 {{ getAttributesSum(result) }} / 含运
-              {{ getLuckAttributesSum(result) }}
+              总点数 {{ getAttributesSum(result) }}
             </div>
           </div>
         </div>
@@ -361,15 +352,6 @@ const hiddenList: RenderListItem[] = [{ key: 'luc', label: '幸运', hint: 'Luck
                 :modelValue="`${actionBuyResult[item.key] ?? ''}`"
                 @update:modelValue="(newValue) => (actionBuyResult[item.key] = Number(newValue))"
               />
-              <WritableRow
-                v-for="item in hiddenList"
-                :key="item.key"
-                :label="item.label"
-                :hint="item.hint"
-                :modelValue="`${actionBuyResult[item.key] || ''}`"
-                placeholder="不含运请忽略"
-                @update:modelValue="(newValue) => (actionBuyResult[item.key] = Number(newValue))"
-              />
               <div class="column-section-content-column-actions">
                 <el-button
                   size="small"
@@ -417,6 +399,11 @@ const hiddenList: RenderListItem[] = [{ key: 'luc', label: '幸运', hint: 'Luck
 .header-action-label {
   flex: 0 0 auto;
 }
+.header-hint {
+  margin-left: 0.4em;
+  font-size: 0.88em;
+  opacity: 0.8;
+}
 
 /* 通用双列布局 */
 .column-section-content {
@@ -438,7 +425,7 @@ const hiddenList: RenderListItem[] = [{ key: 'luc', label: '幸运', hint: 'Luck
   padding: 0 10%;
 }
 
-/* 枫笛式相关 */
+/* 分配式相关 */
 .kaede-desc-row {
   display: flex;
   flex-wrap: wrap;

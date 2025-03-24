@@ -31,7 +31,7 @@ watch(
   () => {
     resetShowingChildSkills(viewData, mySkillResource1.skills);
   },
-  { deep: true, immediate: true },
+  { deep: true },
 );
 
 function getValues() {

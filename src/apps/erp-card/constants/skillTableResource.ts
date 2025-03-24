@@ -52,11 +52,11 @@ export const mySkillResource1: SkillTableResource<GroupName1> = {
     { name: '攀爬', init: 10 },
     { name: '跳跃', init: 10 },
     { name: '游泳', init: 10 },
-    { name: '通用医学', init: 1 },
-    { name: '精神分析', init: 1 },
+    { name: '通用医学', init: 0 },
+    { name: '精神分析', init: 0 },
     {
       name: '医疗',
-      init: 1,
+      init: 0,
       group: {
         show: [''],
         skills: [
@@ -68,15 +68,16 @@ export const mySkillResource1: SkillTableResource<GroupName1> = {
         ],
       },
     },
-    { name: '语言学(20)', init: 1 },
+    { name: '语言学(20)', init: 0 },
     {
       name: '人文',
-      init: 1,
+      init: 0,
       group: {
         show: ['考古学', '人类学', ''],
         skills: [
           { name: '考古学' },
           { name: '人类学' },
+          { name: '犯罪学' },
           { name: '写作', init: 5 },
           { name: '书法', init: 5 },
         ],
@@ -84,7 +85,7 @@ export const mySkillResource1: SkillTableResource<GroupName1> = {
     },
     {
       name: '外语',
-      init: 1,
+      init: 0,
       combine: {
         show: [{ name: '', init: 20 }],
         // show: [...skillsCoC.find((skill) => skill.name === '外语')!.group!.skills],
@@ -92,7 +93,7 @@ export const mySkillResource1: SkillTableResource<GroupName1> = {
     },
     {
       name: '科学',
-      init: 1,
+      init: 0,
       group: {
         show: ['', ''],
         skills: [
@@ -110,7 +111,7 @@ export const mySkillResource1: SkillTableResource<GroupName1> = {
     { name: '野外生存', init: 5 },
     {
       name: '自然',
-      init: 1,
+      init: 0,
       group: {
         show: ['', ''],
         skills: [
@@ -123,10 +124,10 @@ export const mySkillResource1: SkillTableResource<GroupName1> = {
         ],
       },
     },
-    { name: '锁匠', init: 1 },
+    { name: '锁匠', init: 0 },
     {
       name: '技艺',
-      init: 1,
+      init: 0,
       group: {
         show: ['', ''],
         skills: [
@@ -153,7 +154,7 @@ export const mySkillResource1: SkillTableResource<GroupName1> = {
     { name: '信息检索', init: 20 },
     {
       name: '网络',
-      init: 1,
+      init: 0,
       group: {
         show: ['', ''],
         skills: [
@@ -168,7 +169,7 @@ export const mySkillResource1: SkillTableResource<GroupName1> = {
     { name: '驾驶', init: 20 },
     {
       name: '操纵',
-      init: 1,
+      init: 0,
       combine: {
         show: [
           { name: '汽车', init: 20 },

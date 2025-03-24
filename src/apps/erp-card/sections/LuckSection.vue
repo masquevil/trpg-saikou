@@ -4,36 +4,22 @@ import PaperSection from '../components/PaperSection.vue';
 
 // import { usePC } from '../hooks/useProviders';
 
-import qr from '../assets/coc-card-qr.png';
+import qr from '../assets/erp-card-qr.png';
 
 // const pc = usePC();
 </script>
 
 <template>
   <div class="luck-section-group">
-    <!-- <PaperSection
-      v-if="pc"
-      title="幸运"
-      subTitle="Luck"
+    <PaperSection
+      class="qr-section"
+      title="扫码车卡"
     >
-      <div class="luck-section">
-        <WritableRow
-          label="幸运"
-          :modelValue="`${pc.attributes.luc ?? ''}`"
-          placeholder="3D6×5"
-          @update:modelValue="(newValue) => (pc!.attributes.luc = +newValue)"
-        />
-      </div>
-    </PaperSection> -->
-    <PaperSection class="qr-section">
-      <template v-slot:header>
-        <div class="qr-section-header">扫码车卡</div>
-      </template>
       <div class="qr-container">
         <img
           class="qr-code"
           :src="qr"
-          alt="二维码渲染失败，请手动访问 https://masquevil.github.io/trpg-saikou/#/coc-card"
+          alt="二维码渲染失败，请手动访问 https://masquevil.github.io/trpg-saikou/#/erp-card"
         />
       </div>
     </PaperSection>
@@ -51,15 +37,15 @@ import qr from '../assets/coc-card-qr.png';
 }
 .qr-section {
   flex: 1;
-  display: flex;
-  flex-direction: row;
+  /* display: flex; */
+  /* flex-direction: row; */
 }
 .qr-section-header {
-  word-break: break-all;
-  width: 1.8em;
+  /* word-break: break-all; */
+  /* width: 1.8em; */
   padding: 0.4em;
-  display: flex;
-  align-items: center;
+  /* display: flex; */
+  /* align-items: center; */
 }
 .qr-container {
   height: 100%;

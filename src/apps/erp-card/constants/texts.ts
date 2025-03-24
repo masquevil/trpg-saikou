@@ -15,7 +15,7 @@ export const pointAttrTexts: Record<PointAttr, string> = {
   con: '体质',
   app: '外貌',
   pow: '意志',
-  siz: '体型',
-  edu: '教育',
+  cre: '名利',
   int: '智力',
+  luc: '幸运',
 };

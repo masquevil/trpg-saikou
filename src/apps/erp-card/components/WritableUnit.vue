@@ -3,6 +3,7 @@ interface Props {
   label: string;
   modelValue?: string;
   readonly?: boolean;
+  placeholder?: string;
 }
 withDefaults(defineProps<Props>(), {
   modelValue: '',
@@ -22,10 +23,9 @@ defineEmits<Emits>();
       type="text"
       class="input"
       :value="modelValue"
+      :placeholder="placeholder"
       :readonly="readonly"
-      @input="
-        $emit('update:modelValue', ($event.target as HTMLInputElement).value)
-      "
+      @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
     />
   </div>
 </template>
@@ -59,6 +59,10 @@ defineEmits<Emits>();
   &:hover,
   &:focus {
     border-color: var(--color-black);
+  }
+
+  &::placeholder {
+    font-size: 0.88em;
   }
 }
 </style>

@@ -6,8 +6,8 @@ import qs from 'qs';
 import { createPC } from './models/character';
 import { createViewData } from './models/viewData';
 
-import type { COCPlayerCharacter } from './types/character';
-import type { COCCardViewData } from './types/viewData';
+import type { ERPPlayerCharacter } from './types/character';
+import type { ERPCardViewData } from './types/viewData';
 import type { PageData } from './types/pageData';
 
 import useDerives from './hooks/useDerives';
@@ -20,9 +20,9 @@ import PaperFront from './PaperFront.vue';
 import PaperBack from './PaperBack.vue';
 
 const qsObject = qs.parse(location.search.slice(1));
-const pcRef = ref<COCPlayerCharacter>(createPC());
+const pcRef = ref<ERPPlayerCharacter>(createPC());
 const ls = useAppLs();
-const viewData = reactive<COCCardViewData>(createViewData(qsObject));
+const viewData = reactive<ERPCardViewData>(createViewData(qsObject));
 const pageData = reactive<PageData>({
   paperInFront: qsObject.turn === 'back' ? false : true,
   printing: qsObject.debug === 'true',
@@ -44,6 +44,7 @@ const suggestion = useSuggestion(pcRef, {
 });
 
 useAutoSave(pcRef, {
+  viewData,
   pageData,
 });
 

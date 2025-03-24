@@ -1,4 +1,6 @@
-import type { COCCardViewData } from '../types/viewData';
+import { resetShowingChildSkills } from '../models/skill';
+
+import type { ERPCardViewData } from '../types/viewData';
 
 interface ViewDataCreateOption {
   limitp: number;
@@ -10,9 +12,9 @@ const storedOption: ViewDataCreateOption = {
   limiti: 50,
 };
 
-function defaultViewData(): COCCardViewData {
+function defaultViewData(): ERPCardViewData {
   return {
-    showingChildSkills: new Map(),
+    showingChildSkills: resetShowingChildSkills(),
     skillLimits: {
       pro: storedOption.limitp,
       interest: storedOption.limiti,
@@ -20,11 +22,11 @@ function defaultViewData(): COCCardViewData {
   };
 }
 
-export function createViewData(option?: Partial<ViewDataCreateOption>): COCCardViewData {
+export function createViewData(option?: Partial<ViewDataCreateOption>): ERPCardViewData {
   Object.assign(storedOption, option);
   return defaultViewData();
 }
 
-export function resetViewData(viewData: COCCardViewData) {
+export function resetViewData(viewData: ERPCardViewData) {
   Object.assign(viewData, defaultViewData());
 }

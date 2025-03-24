@@ -73,6 +73,7 @@ function updateCurrentData(value: string) {
   }
   // update view data
   currentData.value[props.childSkillData.place] = value;
+  viewData!.showingChildSkills[props.skillName] = currentData.value;
 }
 function selectChildSkill(childSkill: ChildSkill) {
   updateCurrentData(childSkill.name);

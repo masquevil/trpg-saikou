@@ -5,16 +5,16 @@ import formattedJobs from '../models/job';
 import { getJobSuggestion } from '../models/suggestion';
 import { resetShowingChildSkills } from '../models/skill';
 
-import type { COCPlayerCharacter } from '../types/character';
-import type { COCCardViewData } from '../types/viewData';
+import type { ERPPlayerCharacter } from '../types/character';
+import type { ERPCardViewData } from '../types/viewData';
 import type { PageData } from '../types/pageData';
 import type { Suggestion } from '../types/suggestion';
 
 // calculate suggestion: pro skills, wealth
 export default function useSuggestion(
-  pc: Ref<COCPlayerCharacter>,
+  pc: Ref<ERPPlayerCharacter>,
   options: {
-    viewData: COCCardViewData;
+    viewData: ERPCardViewData;
     pageData: PageData;
   },
 ): ComputedRef<Suggestion> {
@@ -48,7 +48,7 @@ export default function useSuggestion(
             skillName = skillName.split('(')[0];
           }
           // set view data (suggested child skill names)
-          const currentData = viewData.showingChildSkills.get(skillName);
+          const currentData = viewData.showingChildSkills[skillName];
           if (!currentData) return;
           let cIndex = -1;
           if (childSkillName) {

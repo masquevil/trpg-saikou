@@ -2,7 +2,7 @@
 import { computed, nextTick } from 'vue';
 import type { ChildSkill } from '../types/skill';
 import type { SkillGroup, SkillGroups } from '../types/formattedSkill';
-import type { COCPCSkill, SkillPoint } from '../types/character';
+import type { ERPPCSkill, SkillPoint } from '../types/character';
 import type { Suggestion } from '../types/suggestion';
 import { dynamicInitFormulas } from '../models/skill';
 import { usePC, useViewData, usePageData } from '../hooks/useProviders';
@@ -30,7 +30,7 @@ interface TableRowData {
   // skill info
   key: string;
   skillName: string;
-  skillKey: COCPCSkill;
+  skillKey: ERPPCSkill;
   comments?: string;
   init: number;
   initPlaceholder?: string;
@@ -110,10 +110,10 @@ function getTableData(data: SkillGroups<string>, autoFillCount?: number, suggest
           groupRow.groupSize! += length - 1;
           added = show.map((placeName, childIndex) => {
             const childSkillName =
-              viewData?.showingChildSkills.get(skill.name)?.[childIndex] ?? placeName;
+              viewData?.showingChildSkills[skill.name]?.[childIndex] ?? placeName;
             const childSkill = skill.group?.skills.find(({ name }) => name === childSkillName);
             let init = childSkill?.init ?? rowData.init;
-            const skillKey: COCPCSkill = [skill.name, childSkillName, childIndex];
+            const skillKey: ERPPCSkill = [skill.name, childSkillName, childIndex];
             const skillPoint = findSkillPoints(skillKey);
             const points = skillPoint?.[1] || {};
             const total = getTotal(points, init);
@@ -152,7 +152,7 @@ function getTableData(data: SkillGroups<string>, autoFillCount?: number, suggest
 
 const tableData = computed(() => getTableData(props.data, props.autoFillCount, props.suggestion));
 
-function findSkillPoints(skillInfo: COCPCSkill) {
+function findSkillPoints(skillInfo: ERPPCSkill) {
   if (!pc) return;
   return pc.value.skillPoints.find((skillPoint) => {
     const [pointSkill] = skillPoint;
@@ -166,14 +166,14 @@ function findSkillPoints(skillInfo: COCPCSkill) {
 }
 
 function updateSkillPoint(
-  skillKey: COCPCSkill,
+  skillKey: ERPPCSkill,
   pointName: keyof SkillPoint,
   value: string | boolean,
 ) {
   if (!pc) return;
   let skillPoint = findSkillPoints(skillKey);
   if (!skillPoint) {
-    const key = typeof skillKey === 'string' ? skillKey : ([...skillKey] as COCPCSkill);
+    const key = typeof skillKey === 'string' ? skillKey : ([...skillKey] as ERPPCSkill);
     skillPoint = [key, {}];
     pc.value.skillPoints.push(skillPoint);
   }

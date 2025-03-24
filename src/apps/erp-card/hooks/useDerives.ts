@@ -1,17 +1,17 @@
 import { watch } from 'vue';
 import type { Ref } from 'vue';
-import type { COCPlayerCharacter } from '../types/character';
+import type { ERPPlayerCharacter } from '../types/character';
 
 // calculate derive attributes
-export default function useDerives(pc: Ref<COCPlayerCharacter>) {
+export default function useDerives(pc: Ref<ERPPlayerCharacter>) {
   watch(
     () => pc.value.attributes,
     () => {
       let HPMax = '';
       let MPMax = '';
-      const { con, siz, pow } = pc.value.attributes || {};
-      if (con && siz) HPMax = `${Math.floor((con + siz) / 10)}`;
-      if (pow) MPMax = `${pow / 5}`;
+      const { con, pow } = pc.value.attributes || {};
+      if (con) HPMax = `${Math.floor(con / 2)}`;
+      if (pow) MPMax = `${Math.floor(pow / 5)}`;
       pc.value.deriveAttributes = {
         sanity: {
           start: `${pow || ''}`,

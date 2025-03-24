@@ -10,14 +10,14 @@ import WritableRow from '../components/WritableRow.vue';
 // models
 // import LA, { LAEventID, FeatureNames } from '@/plugins/51la';
 // import { generateRandomAttributes, getAttributesSum } from '../models/attribute';
-import type { COCAttributesKey } from '../types/character';
+import type { ERPAttributesKey } from '../types/character';
 
 import { usePC } from '../hooks/useProviders';
 
 const pc = usePC();
 
 interface RenderListItem {
-  key: COCAttributesKey;
+  key: ERPAttributesKey;
   label: string;
   hint: string;
 }
@@ -25,7 +25,7 @@ const leftList: RenderListItem[] = [
   { key: 'str', label: '力量', hint: 'STR' },
   { key: 'con', label: '体质', hint: 'CON' },
   { key: 'dex', label: '敏捷', hint: 'DEX' },
-  { key: 'edu', label: '名利', hint: 'CRE' },
+  { key: 'cre', label: '名利', hint: 'CRE' },
 ];
 const rightList: RenderListItem[] = [
   { key: 'app', label: '外貌', hint: 'APP' },
@@ -43,7 +43,7 @@ const rightList: RenderListItem[] = [
 //   return vals.reduce<number>((sum, cur) => sum + (cur || 0), 0);
 // });
 
-function updateAttr(key: COCAttributesKey, value: string) {
+function updateAttr(key: ERPAttributesKey, value: string) {
   if (!pc) return;
   pc.value.attributes[key] = value ? +value : undefined;
 }
@@ -74,7 +74,6 @@ function updateAttr(key: COCAttributesKey, value: string) {
   >
     <div class="info-section">
       <div class="attributes-group">
-        <!-- <div class="dice-hint">🎲 3D6×5</div> -->
         <WritableRow
           v-for="item in leftList"
           :key="item.key"
@@ -86,7 +85,6 @@ function updateAttr(key: COCAttributesKey, value: string) {
       </div>
       <div class="divider"></div>
       <div class="attributes-group">
-        <!-- <div class="dice-hint">🎲 (2D6+6)×5</div> -->
         <WritableRow
           v-for="item in rightList"
           :key="item.key"
@@ -107,7 +105,7 @@ function updateAttr(key: COCAttributesKey, value: string) {
     </div>
     <div class="dice-section">
       <div class="dice-hint">
-        分配 🎲 4组 3D6×5 🎲 4组 (2D6+6)×5
+        购点 480 或 任意分配 🎲 8组 (4D6选3)×5
         <br />
         可选：选一项 -20 使另一项 +10
       </div>

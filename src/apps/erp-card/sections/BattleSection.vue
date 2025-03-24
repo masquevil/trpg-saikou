@@ -12,42 +12,34 @@ watch(
   () => pc?.value.attributes,
   () => {
     if (!pc) return;
-    const { str, siz, dex } = pc.value.attributes;
-    const age = Number(pc.value.age);
+    const { str, dex, con } = pc.value.attributes;
     // calculate DB
-    if (str && siz) {
-      const value = str + siz;
-      if (value < 65) {
-        pc.value.battleAttributes.db = '-2';
+    if (str) {
+      const value = str;
+      if (value < 20) {
+        pc.value.battleAttributes.db = '1';
         pc.value.battleAttributes.size = '-2';
-      } else if (value < 85) {
-        pc.value.battleAttributes.db = '-1';
+      } else if (value < 40) {
+        pc.value.battleAttributes.db = '1d3';
         pc.value.battleAttributes.size = '-1';
-      } else if (value < 125) {
-        pc.value.battleAttributes.db = '0';
+      } else if (value < 60) {
+        pc.value.battleAttributes.db = '2d3';
         pc.value.battleAttributes.size = '0';
-      } else if (value < 165) {
-        pc.value.battleAttributes.db = '1D4';
+      } else if (value < 80) {
+        pc.value.battleAttributes.db = '2D4';
         pc.value.battleAttributes.size = '1';
-      } else if (value < 205) {
-        pc.value.battleAttributes.db = '1D6';
+      } else if (value < 120) {
+        pc.value.battleAttributes.db = '2D6';
         pc.value.battleAttributes.size = '2';
       } else {
-        const rate = Math.floor((value - 205) / 80) + 2;
+        const rate = Math.floor(value / 40);
         pc.value.battleAttributes.db = `${rate}D6`;
-        pc.value.battleAttributes.size = `${rate + 1}`;
+        pc.value.battleAttributes.size = `${rate}`;
       }
     }
     // calculate mov
-    if (str && siz && dex) {
-      let move = 8;
-      if (str < siz && dex < siz) move = 7;
-      else if (str > siz && dex > siz) move = 9;
-      else move = 8;
-      if (age >= 40) {
-        const rate = Math.floor((age - 40) / 10) + 1;
-        move -= rate;
-      }
+    if (str && dex && con) {
+      const move = Math.floor((Math.min(str, dex) + con / 2) / 10);
       pc.value.battleAttributes.mov = `${move}`;
     }
   },

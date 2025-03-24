@@ -1,6 +1,6 @@
-import type { COCAttributesKey } from './character';
+import type { ERPAttributesKey } from './character';
 
-export type PointAttr = Exclude<COCAttributesKey, 'luc'>;
+export type PointAttr = ERPAttributesKey;
 // 属性计算方式的单元。如 ['edu', 2] => 教育×2
 type PointCalculatorUnit = [PointAttr, number];
 // 属性计算方式。如 [[['edu', 2]], [['str', 2], ['dex', 2]]] => 教育×2 + 力量或敏捷×2

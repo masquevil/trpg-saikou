@@ -1,10 +1,8 @@
-import type { COCPlayerCharacter } from '../types/character';
+import type { ERPPlayerCharacter } from '../types/character';
 
 import { weapons, createWeapon } from './weapon';
 
-export function createPC(
-  override?: Partial<COCPlayerCharacter>,
-): COCPlayerCharacter {
+export function createPC(override?: Partial<ERPPlayerCharacter>): ERPPlayerCharacter {
   return {
     name: '',
     playerName: '',
@@ -15,6 +13,11 @@ export function createPC(
     location: '',
     hometown: '',
     attributes: {},
+    deriveAttributes: {
+      sanity: {},
+      hp: {},
+      mp: {},
+    },
     battleAttributes: {},
     pointValues: {},
     proSkills: [],

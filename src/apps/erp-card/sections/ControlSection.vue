@@ -8,7 +8,6 @@ import {
   Reading,
   Download,
   More,
-  Scissor,
   Refresh,
   DocumentCopy,
   IceCream,
@@ -30,7 +29,6 @@ import SimpleRollButton from '../components/control-section-parts/simple-roll/Si
 // import NoticeBoardButton from '../components/control-section-parts/notice-board/NoticeBoardButton.vue';
 
 // models
-import { modifyAttributesByAge } from '../models/attribute';
 import { createPC } from '../models/character';
 import { resetViewData } from '../models/viewData';
 import LA, { LAEventID, FeatureNames } from '@/plugins/51la';
@@ -40,7 +38,7 @@ import usePrintPaper from '../hooks/usePrintPaper';
 import useAppLs from '../hooks/useAppLs';
 import { downloadFile } from '@/utils/file';
 
-import type { COCCardViewData } from '../types/viewData';
+import type { ERPCardViewData } from '../types/viewData';
 import qrWechat from '@/assets/images/qr-wechat.jpg';
 import qrAlipay from '@/assets/images/qr-alipay.jpg';
 import cardPdf from '../assets/coc-card-empty.pdf';
@@ -65,15 +63,10 @@ const pageData = usePageData();
 
 const inData = ref('');
 const outData = computed(() => {
-  const showingChildSkills: Record<string, string[]> = {};
-  viewData?.showingChildSkills.forEach((value, key) => {
-    showingChildSkills[key] = value;
-  });
   const json = JSON.stringify({
     pc: pc?.value,
     viewData: {
       ...viewData,
-      showingChildSkills,
     },
   });
   const str = LZString.compressToEncodedURIComponent(json);
@@ -154,21 +147,6 @@ function actToggleMorePanel() {
   }
 }
 
-function actAgeGrow() {
-  if (!pc?.value) return;
-  if (!pc.value.age || pc.value.age === '0') {
-    ElMessage.error('请先在人物卡中填写年龄');
-    LA?.track(LAEventID.FEATURE, {
-      name: FeatureNames.MORE_AGE,
-      success: false,
-    });
-    return;
-  }
-  pc.value.attributes = modifyAttributesByAge(pc.value.attributes, Number(pc.value.age || 0));
-  ElMessage.success('已为您进行年龄修正！');
-  LA?.track(LAEventID.FEATURE, { name: FeatureNames.MORE_AGE, success: true });
-}
-
 function actResetCard() {
   if (!pc || !viewData) return;
   // reset pc
@@ -201,10 +179,9 @@ function applyInData() {
   if (data && data.viewData && data.pc && viewData && pc) {
     try {
       pc.value = data.pc;
-      viewData.showingChildSkills = new Map(Object.entries(data.viewData.showingChildSkills));
-      const restKeys: (keyof COCCardViewData)[] = ['jobSkills', 'skillLimits'];
-      restKeys.forEach((key) => {
-        viewData[key] = data.viewData[key];
+      Object.keys(data.viewData).forEach((key) => {
+        const k = key as keyof ERPCardViewData;
+        viewData[k] = data.viewData[k];
       });
       ElMessage.success('已成功导入');
       inOutModalVisible.value = false;
@@ -290,11 +267,6 @@ const cleanPreloadFn = watch(morePanelVisible, (visible) => {
         name="features"
       >
         <div class="more-controls">
-          <ControlButton
-            label="快速年龄修正"
-            :icon="Scissor"
-            @click="actAgeGrow"
-          />
           <ControlButton
             label="重置人物卡"
             :icon="Refresh"

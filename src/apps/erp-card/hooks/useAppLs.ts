@@ -1,12 +1,14 @@
 import useLocalStorage from '@/hooks/useLocalStorage';
 
 import { LSApp } from '@/types/ls';
-import type { COCPlayerCharacter } from '../types/character';
+import type { ERPPlayerCharacter } from '../types/character';
+import type { ERPCardViewData } from '../types/viewData';
 
 interface Store {
   showTotalSeparation?: boolean;
   autoSaved?: {
-    pc: COCPlayerCharacter;
+    pc: ERPPlayerCharacter;
+    viewData: ERPCardViewData;
     lastModified: number; // number of date
   };
 }
@@ -14,7 +16,7 @@ interface Store {
 const ls = useLocalStorage<Store>({
   app: LSApp.ERPCard,
   versionChecker() {
-    return 1;
+    return 1.1;
   },
 });
 
