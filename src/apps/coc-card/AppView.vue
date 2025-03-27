@@ -171,4 +171,8 @@ const paperEls = reactive<{ front?: HTMLElement; back?: HTMLElement }>({});
     display: block;
   }
 }
+@page {
+  size: A4;
+  margin: 0;
+}
 </style>
