@@ -12708,7 +12708,7 @@ const Dr = /* @__PURE__ */ V($8, [["render", er], ["__scopeId", "data-v-fa6373e1
       _: 1
     }, 8, ["setRef"]));
   }
-}), Xg = /* @__PURE__ */ V(yr, [["__scopeId", "data-v-a4f8d82e"]]), Er = (w) => (vA("data-v-39902c3d"), w = w(), lA(), w), zr = { class: "page theme-dark" }, Sr = /* @__PURE__ */ Er(() => /* @__PURE__ */ f("h1", { class: "title web-only" }, "COC 7版人物卡 车卡工具", -1)), Lr = { class: "paper-container theme-light" }, Vr = { class: "papers-animation-container papers-editing web-only" }, kr = { class: "sticky-footer web-only" }, Jr = /* @__PURE__ */ h({
+}), Xg = /* @__PURE__ */ V(yr, [["__scopeId", "data-v-a4f8d82e"]]), Er = (w) => (vA("data-v-f9859c2d"), w = w(), lA(), w), zr = { class: "page theme-dark" }, Sr = /* @__PURE__ */ Er(() => /* @__PURE__ */ f("h1", { class: "title web-only" }, "COC 7版人物卡 车卡工具", -1)), Lr = { class: "paper-container theme-light" }, Vr = { class: "papers-animation-container papers-editing web-only" }, kr = { class: "sticky-footer web-only" }, Jr = /* @__PURE__ */ h({
   __name: "AppView",
   setup(w) {
     const A = tC.parse(location.search.slice(1)), o = k(ve()), i = Gi(), g = jA(UC(A)), e = jA({
@@ -12770,7 +12770,7 @@ const Dr = /* @__PURE__ */ V($8, [["render", er], ["__scopeId", "data-v-fa6373e1
       ])
     ]));
   }
-}), Or = /* @__PURE__ */ V(Jr, [["__scopeId", "data-v-39902c3d"]]);
+}), Or = /* @__PURE__ */ V(Jr, [["__scopeId", "data-v-f9859c2d"]]);
 export {
   Or as default
 };
