@@ -11847,7 +11847,7 @@ const wo = /* @__PURE__ */ V(Ra, [["render", ca], ["__scopeId", "data-v-be8afd85
       ])
     ]));
   }
-}), xg = /* @__PURE__ */ V(U8, [["__scopeId", "data-v-e8c75b13"]]), Ti = (w) => (vA("data-v-7b675b2e"), w = w(), lA(), w), a8 = { class: "header" }, r8 = { class: "header-left points-container" }, R8 = { class: "point-container" }, F8 = {
+}), xg = /* @__PURE__ */ V(U8, [["__scopeId", "data-v-e8c75b13"]]), Ti = (w) => (vA("data-v-de696e95"), w = w(), lA(), w), a8 = { class: "header" }, r8 = { class: "header-left points-container" }, R8 = { class: "point-container" }, F8 = {
   key: 0,
   class: "point-rest"
 }, P8 = { class: "point-container" }, K8 = {
@@ -11917,7 +11917,7 @@ const wo = /* @__PURE__ */ V(Ra, [["render", ca], ["__scopeId", "data-v-be8afd85
       }),
       ({ pointValues: v, pro: I, interest: l }, { pointValues: F, pro: a, interest: B }) => {
         if (v !== F) {
-          typeof I < "u" && n("pro", I), typeof l < "u" && n("interest", l);
+          n("pro", I ?? ""), n("interest", l ?? "");
           return;
         }
         I !== a && n("pro", I), l !== B && n("interest", l);
@@ -11998,7 +11998,7 @@ const wo = /* @__PURE__ */ V(Ra, [["render", ca], ["__scopeId", "data-v-be8afd85
       }, 8, ["class"]);
     };
   }
-}), G8 = /* @__PURE__ */ V(j8, [["__scopeId", "data-v-7b675b2e"]]), p8 = (w) => (vA("data-v-01f6d946"), w = w(), lA(), w), Z8 = ["value"], N8 = /* @__PURE__ */ p8(() => /* @__PURE__ */ f("option", { value: "" }, null, -1)), H8 = ["value"], h8 = /* @__PURE__ */ h({
+}), G8 = /* @__PURE__ */ V(j8, [["__scopeId", "data-v-de696e95"]]), p8 = (w) => (vA("data-v-01f6d946"), w = w(), lA(), w), Z8 = ["value"], N8 = /* @__PURE__ */ p8(() => /* @__PURE__ */ f("option", { value: "" }, null, -1)), H8 = ["value"], h8 = /* @__PURE__ */ h({
   __name: "BaseTdSelect",
   props: {
     value: { default: "" },
