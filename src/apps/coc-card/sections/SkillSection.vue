@@ -8,12 +8,7 @@ import WritableRow from '../components/WritableRow.vue';
 import { skillGroups } from '../models/skill';
 import { getProPointByJobAndAttrs } from '../models/job';
 
-import {
-  usePC,
-  useSuggestion,
-  usePageData,
-  useViewData,
-} from '../hooks/useProviders';
+import { usePC, useSuggestion, usePageData, useViewData } from '../hooks/useProviders';
 
 const skillTableSeparateIndex = 6;
 
@@ -107,11 +102,10 @@ watch(
     { pointValues: newPointValues, pro: newPro, interest: newInterest },
     { pointValues: oldPointValues, pro: oldPro, interest: oldInterest },
   ) => {
-    // import from txt
+    // import from txt / reset
     if (newPointValues !== oldPointValues) {
-      if (typeof newPro !== 'undefined') updateLocalValue('pro', newPro);
-      if (typeof newInterest !== 'undefined')
-        updateLocalValue('interest', newInterest);
+      updateLocalValue('pro', newPro ?? '');
+      updateLocalValue('interest', newInterest ?? '');
       return;
     }
     if (newPro !== oldPro) {
