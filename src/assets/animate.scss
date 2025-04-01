@@ -23,6 +23,20 @@
   pointer-events: none;
 }
 
+.drop-down-enter-active,
+.drop-down-leave-active {
+  opacity: 1;
+  overflow: hidden;
+  transition: transform .2s ease, opacity .2s ease;
+  transform-origin: top center;
+}
+.drop-down-enter-from,
+.drop-down-leave-to {
+  transform: scaleY(0%);
+  opacity: 0;
+  pointer-events: none;
+}
+
 .swipe-paper-enter-active,
 .swipe-paper-leave-active {
   z-index: 1;

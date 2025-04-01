@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue';
+import { ref, computed } from 'vue';
 
 // components
 import PaperSection from '../components/PaperSection.vue';
 import WritableRow from '../components/WritableRow.vue';
+import WritableSelect from '../components/WritableSelect.vue';
 import FlattenTree from '../components/FlattenTree.vue';
 import RandNameRow from '../components/control-section-parts/rand-name/RandNameRow.vue';
 
@@ -22,21 +23,7 @@ const pageData = usePageData();
 
 const { jobGroups } = formattedJobs;
 
-const isJobSeletorShowing = ref(false);
 const jobSearchInput = ref('');
-
-function openJobSelector() {
-  isJobSeletorShowing.value = true;
-}
-function closeJobSelector() {
-  isJobSeletorShowing.value = false;
-}
-watch(
-  () => isJobSeletorShowing.value,
-  () => {
-    jobSearchInput.value = '';
-  },
-);
 
 const jobTree = computed(() => {
   const filterText = jobSearchInput.value;
@@ -69,10 +56,10 @@ const jobTree = computed(() => {
   return filteredData;
 });
 
-function onSelectJob(jobName: string) {
+function onSelectJob(jobName: string, closeOptions?: () => void) {
   if (!pc) return;
   pc.value.job = jobName;
-  closeJobSelector();
+  closeOptions?.();
   LA?.track(LAEventID.FEATURE, {
     name: FeatureNames.PAPER_USE_JOB,
     job: jobName,
@@ -108,19 +95,17 @@ function onSelectJob(jobName: string) {
         v-model="pc.playerName"
       />
       <!-- pc job selector -->
-      <div
-        class="rel only-wide"
-        v-click-outside="closeJobSelector"
-      >
-        <WritableRow
-          label="职业"
+      <div class="rel only-wide">
+        <WritableSelect
+          label="人设"
           v-model="pc.job"
-          placeholder="自定义职业或选择预设职业"
-          @focus="openJobSelector"
-        />
-        <Transition name="slide-up">
+          placeholder="关键特征，比如职业和爱好"
+          transitionName="slide-up"
+          v-slot="{ showing, closeOptions }"
+          @closeOptions="jobSearchInput = ''"
+        >
           <div
-            v-if="isJobSeletorShowing"
+            v-if="showing"
             class="job-selector"
           >
             <div class="job-selector-header">
@@ -133,10 +118,10 @@ function onSelectJob(jobName: string) {
             </div>
             <FlattenTree
               :tree="jobTree"
-              @select="(item) => onSelectJob(item.label)"
+              @select="(item) => onSelectJob(item.label, closeOptions)"
             />
           </div>
-        </Transition>
+        </WritableSelect>
       </div>
       <!-- mobile job selector -->
       <div class="only-compact">
@@ -147,14 +132,22 @@ function onSelectJob(jobName: string) {
         />
       </div>
       <div class="info-row">
-        <WritableRow
-          label="种族"
+        <WritableSelect
+          label="世设"
           :char="6"
           v-model="pc.location"
-          placeholder="仅架空世界"
+          :options="[
+            '纯/近现实',
+            '克苏鲁',
+            '西式幻想',
+            '中式幻想',
+            '日式幻想',
+            '东方project',
+            '赛博朋克',
+          ]"
         />
         <WritableRow
-          label="阵营"
+          label="种族"
           :char="6"
           v-model="pc.location"
         />

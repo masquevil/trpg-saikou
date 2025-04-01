@@ -12,7 +12,7 @@
       </a>
     </div>
     <div class="copyright">
-      <span>©「克苏鲁的呼唤」7版人物卡</span>
+      <span>©「自由角色扮演」测试版人物卡</span>
       <span>Copyright 侠小然 {{ new Date().getFullYear() }}</span>
       <span class="footprint">🐾</span>
     </div>

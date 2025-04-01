@@ -25,7 +25,7 @@ const leftList: RenderListItem[] = [
   { key: 'str', label: '力量', hint: 'STR' },
   { key: 'con', label: '体质', hint: 'CON' },
   { key: 'dex', label: '敏捷', hint: 'DEX' },
-  { key: 'cre', label: '名利', hint: 'CRE' },
+  { key: 'cre', label: '资本', hint: 'CRE' },
 ];
 const rightList: RenderListItem[] = [
   { key: 'app', label: '外貌', hint: 'APP' },

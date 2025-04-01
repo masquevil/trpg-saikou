@@ -13,31 +13,35 @@ const pc = usePC();
     subTitle="Room Rules"
   >
     <div class="section-body">
-      <p class="section-line"><b>生命</b>：体质÷2</p>
-      <p class="section-line">
-        <b>DB</b>：1 1d3 2d3 2d4 2d6 <b style="margin-left: 2em">斗殴基础值</b>：0
+      <p class="section-line section-line-parts">
+        <span class="section-line-part"> <b>生命值</b>：体质÷5 </span>
+        <span class="section-line-part"> <b>体格</b>：力量÷20-2 </span>
+        <!-- <span class="section-line-part"> <b>专注力 FP</b>：幸运÷20</span> -->
       </p>
-      <p class="section-line"><b>武器伤害</b>：骰子数量翻倍（比如匕首2d4）</p>
+      <!-- <p class="section-line section-line-parts">
+        <span class="section-line-part"> <b>DB</b>：-2 -1 0 1d4 1d6 </span>
+        <span class="section-line-part"> <b>体格</b>：力量÷20-2 </span>
+      </p> -->
+      <!-- <p class="section-line"><b>专注战斗</b>：每战斗回合限2次，消耗1FP重投</p>
+      <p class="section-line"><b>危险预警</b>：被攻击时，消耗3FP使命中难度+1</p>
+      <p class="section-line"><b>援助之手</b>：消耗全部剩余FP帮队友分摊一半伤害</p> -->
       <p class="section-line">
         <b>准备攻击</b
         >：花一回合进行瞄准/观察，下回合第一次攻击难度变为简单，可以指定部位但不影响伤害
       </p>
       <p class="section-line">
-        <b>越战越勇</b>：每一回合的成功命中都会使你成功率临时+10，直到你转火或失手
-      </p>
-      <p class="section-line">
-        <b>强力打击</b>：攻击命中检定骰出困难成功时，伤害检定可以重骰一次任意数量的骰子
+        <b>强力打击</b>：攻击命中检定骰出困难成功时，伤害检定可以重骰一颗骰子
       </p>
       <p class="section-line">
         <b>代替检定</b>：进行技能检定时，可以使用合理的属性检定代替。但检定完成后，该属性损失1D10
       </p>
       <p class="section-line">
-        <b>花费属性</b>：受到伤害或者损失理智时，花费2倍的体质或者意志可以使伤害减半
-      </p>
-      <p class="section-line">
-        <b>灵能</b>：技能检定极难成功，且小于CM时，可以达成一些超自然效果（如同你释放了一个法术）
+        <b>花费属性</b>：受到伤害或者损失理智时，花费2倍的体质/意志可以使损失减半
       </p>
       <p class="section-line"><b>光荣谢幕</b>：死亡时可以执行一个带有奖励骰的动作</p>
+      <p class="section-line">
+        <b>灵能</b>：（世设：近现实）技能检定极难成功，且小于神性时，可以达成一些超自然效果
+      </p>
     </div>
   </PaperSection>
 </template>
@@ -52,5 +56,17 @@ const pc = usePC();
   margin-left: 1em;
   margin-bottom: 0.4em;
   text-indent: -1em;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+.section-line-parts {
+  display: flex;
+  gap: 2em;
+  justify-content: space-between;
+}
+.section-line-part {
+  flex: 0 1 auto;
 }
 </style>

@@ -10,27 +10,15 @@ const pc = usePC();
 <template>
   <PaperSection
     v-if="pc"
-    title="克苏鲁神话"
-    subTitle="Cthulu Mythos"
+    title="灵能与法术"
+    subTitle="Psionics & Spells"
   >
     <div class="section-body">
       <WritableArea
-        label="魔法物品与典籍"
-        :rows="4"
-        :maxlength="18 * 4 - 8"
+        label=""
+        :rows="12"
+        :maxlength="18 * 12"
         v-model="pc.assets.magicItems"
-      />
-      <WritableArea
-        label="法术"
-        :rows="4"
-        :maxlength="18 * 4 - 3"
-        v-model="pc.assets.magics"
-      />
-      <WritableArea
-        label="第三类接触"
-        :rows="4"
-        :maxlength="18 * 4 - 6"
-        v-model="pc.assets.touches"
       />
     </div>
   </PaperSection>

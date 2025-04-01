@@ -8,7 +8,7 @@ type WeaponWithInfo = Weapon & {
 export const weapons: WeaponWithInfo[] = [
   {
     name: '徒手格斗',
-    skill: '格斗(斗殴)',
+    skill: '近身格斗',
     dam: '1D3+DB',
     tho: 0,
     range: '接触',

@@ -12,34 +12,34 @@ watch(
   () => pc?.value.attributes,
   () => {
     if (!pc) return;
-    const { str, dex, con } = pc.value.attributes;
+    const { str, luc } = pc.value.attributes;
     // calculate DB
     if (str) {
       const value = str;
-      if (value < 20) {
-        pc.value.battleAttributes.db = '1';
+      if (value < 25) {
+        pc.value.battleAttributes.db = '-2';
         pc.value.battleAttributes.size = '-2';
-      } else if (value < 40) {
-        pc.value.battleAttributes.db = '1d3';
+      } else if (value < 45) {
+        pc.value.battleAttributes.db = '-1';
         pc.value.battleAttributes.size = '-1';
-      } else if (value < 60) {
-        pc.value.battleAttributes.db = '2d3';
+      } else if (value < 65) {
+        pc.value.battleAttributes.db = '1';
         pc.value.battleAttributes.size = '0';
-      } else if (value < 80) {
-        pc.value.battleAttributes.db = '2D4';
+      } else if (value < 85) {
+        pc.value.battleAttributes.db = '1D4';
         pc.value.battleAttributes.size = '1';
-      } else if (value < 120) {
-        pc.value.battleAttributes.db = '2D6';
+      } else if (value < 125) {
+        pc.value.battleAttributes.db = '1D6';
         pc.value.battleAttributes.size = '2';
       } else {
-        const rate = Math.floor(value / 40);
-        pc.value.battleAttributes.db = `${rate}D6`;
+        const rate = Math.floor((value - 5) / 40);
+        pc.value.battleAttributes.db = `${rate - 1}D6`;
         pc.value.battleAttributes.size = `${rate}`;
       }
     }
     // calculate mov
-    if (str && dex && con) {
-      const move = Math.floor((Math.min(str, dex) + con / 2) / 10);
+    if (luc) {
+      const move = Math.floor(luc / 10);
       pc.value.battleAttributes.mov = `${move}`;
     }
   },
@@ -73,7 +73,7 @@ watch(
         :char="4"
       />
       <WritableRow
-        label="移动力"
+        label="专注力"
         v-model="pc.battleAttributes.mov"
         :char="4"
       />

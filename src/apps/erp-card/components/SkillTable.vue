@@ -254,7 +254,9 @@ function getTotal(points: SkillPoint, init: number) {
               v-for="cSkill in row.combine"
               showCheckbox
               :key="cSkill.name"
-              :skillName="cSkill.name ? `${cSkill.name}(${cSkill.init || 20})` : ''"
+              :skillName="
+                cSkill.name ? `${cSkill.name}${cSkill.init ? `(${cSkill.init})` : ''}` : ''
+              "
               :childSkillData="cSkill.name ? undefined : { name: '', place: 0 }"
             />
           </div>

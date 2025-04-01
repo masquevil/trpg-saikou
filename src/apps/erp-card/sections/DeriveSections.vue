@@ -75,7 +75,7 @@ const level = computed(() => {
         />
         <WritableDivider />
         <WritableUnit
-          label="神格"
+          label="神格 Lv"
           :modelValue="level"
           @update:modelValue="(val) => updateAttr('sanity', 'level', val)"
           placeholder="神性 / 5"
@@ -120,6 +120,7 @@ const level = computed(() => {
     </PaperSection>
     <PaperSection
       title="特殊状态"
+      subTitle="Debuff"
       class="col-0"
     >
       <div class="status-section">

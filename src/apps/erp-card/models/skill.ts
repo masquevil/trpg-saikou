@@ -107,7 +107,7 @@ export function getDiceMaidStString(pc: ERPPlayerCharacter, viewData: ERPCardVie
     sanity: san = { start: 0 },
   } = deriveAttributes || {};
 
-  const attributesString = `力量${str}str${str}敏捷${dex}dex${dex}体质${con}con${con}外貌${app}app${app}智力${int}灵感${int}int${int}意志${pow}pow${pow}名利${cre}cre${cre}幸运${luc}运气${luc}luck${luc}`;
+  const attributesString = `力量${str}str${str}敏捷${dex}dex${dex}体质${con}con${con}外貌${app}app${app}智力${int}灵感${int}int${int}意志${pow}pow${pow}资本${cre}cre${cre}幸运${luc}运气${luc}luck${luc}`;
   const deriveAttributesString = `hp${hp.start}体力${hp.start}mp${mp.start}魔法${mp.start}san${san.start}理智${san.start}理智值${san.start}san值${san.start}`;
   let skillString = '';
 

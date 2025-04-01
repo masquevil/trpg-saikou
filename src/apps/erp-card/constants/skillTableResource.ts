@@ -4,12 +4,12 @@ import { skills as skillsCoC } from './skill';
 type GroupName1 =
   | '调查 _ 15'
   | '社交 _ 20'
-  | '运动 _ 20'
+  // | '运动 _ 20'
   | '自然 _ 30'
   | '人文 _ 20'
   | '医疗 _ 30'
-  | '格斗 _ 30'
-  | '射击 _ 30'
+  | '战斗 _ 20'
+  // | '射击 _ 30'
   | '才能 40'
   // | '领域'
   // | '复合'
@@ -17,48 +17,57 @@ type GroupName1 =
 export const mySkillResource1: SkillTableResource<GroupName1> = {
   skills: [
     ...skillsCoC,
+    { name: '侦查', init: 25 },
+    { name: '察觉', init: 20 },
+    { name: '犯罪学', init: 0 },
     { name: '躲藏', init: 20 },
     { name: '闪避', init: 20 },
+    { name: '投掷', init: 15 },
+    // {
+    //   name: '格斗',
+    //   init: 10,
+    //   group: {
+    //     show: ['斗殴', '', ''],
+    //     skills: [
+    //       { name: '斗殴', init: 25 },
+    //       { name: '刀剑' },
+    //       { name: '斧' },
+    //       { name: '矛' },
+    //       { name: '双截棍' },
+    //     ],
+    //   },
+    // },
     {
-      name: '格斗',
-      init: 10,
-      group: {
-        show: ['斗殴', '', ''],
-        skills: [
-          { name: '斗殴', init: 25 },
-          { name: '刀剑' },
-          { name: '斧' },
-          { name: '矛' },
-          { name: '双截棍' },
-        ],
-      },
+      name: '近身格斗',
+      init: 20,
     },
-    {
-      name: '射击',
-      init: 10,
-      group: {
-        show: ['手枪', '步/霰', '', ''],
-        skills: [
-          { name: '手枪', init: 20 },
-          { name: '步/霰', init: 25 },
-          { name: '冲锋枪' },
-          { name: '弓弩' },
-          { name: '机枪' },
-          { name: '重武器' },
-        ],
-      },
-    },
-    { name: '弓道/弹弓', init: 15 },
-    { name: '攀爬', init: 10 },
-    { name: '跳跃', init: 10 },
-    { name: '游泳', init: 10 },
+    // {
+    //   name: '射击',
+    //   init: 10,
+    //   group: {
+    //     show: ['手枪', '步/霰', '', ''],
+    //     skills: [
+    //       { name: '手枪', init: 20 },
+    //       { name: '步/霰', init: 25 },
+    //       { name: '冲锋枪' },
+    //       { name: '弓弩' },
+    //       { name: '机枪' },
+    //       { name: '重武器' },
+    //     ],
+    //   },
+    // },
+    { name: '射击', init: 10 },
+    { name: '弓道/弹弓', init: 10 },
+    // { name: '攀爬', init: 10 },
+    // { name: '跳跃', init: 10 },
+    // { name: '游泳', init: 10 },
     { name: '通用医学', init: 0 },
     { name: '精神分析', init: 0 },
     {
       name: '医疗',
       init: 0,
       group: {
-        show: [''],
+        show: ['', ''],
         skills: [
           { name: '药学' },
           { name: '兽医' },
@@ -70,25 +79,33 @@ export const mySkillResource1: SkillTableResource<GroupName1> = {
     },
     { name: '语言学(20)', init: 0 },
     {
-      name: '人文',
-      init: 0,
-      group: {
-        show: ['考古学', '人类学', ''],
-        skills: [
-          { name: '考古学' },
-          { name: '人类学' },
-          { name: '犯罪学' },
-          { name: '写作', init: 5 },
-          { name: '书法', init: 5 },
-        ],
-      },
-    },
-    {
       name: '外语',
       init: 0,
       combine: {
         show: [{ name: '', init: 20 }],
         // show: [...skillsCoC.find((skill) => skill.name === '外语')!.group!.skills],
+      },
+    },
+    { name: '运动(20)', init: 10 },
+    {
+      name: '运动内容',
+      init: 0,
+      combine: {
+        show: [{ name: '攀爬' }, { name: '游泳' }, { name: '跳跃' }, { name: '潜水' }],
+      },
+    },
+    {
+      name: '人文',
+      init: 0,
+      group: {
+        show: ['考古学', '人类学', '', ''],
+        skills: [
+          { name: '考古学' },
+          { name: '人类学' },
+          // { name: '犯罪学' },
+          { name: '写作', init: 5 },
+          { name: '书法', init: 5 },
+        ],
       },
     },
     {
@@ -129,7 +146,7 @@ export const mySkillResource1: SkillTableResource<GroupName1> = {
       name: '技艺',
       init: 0,
       group: {
-        show: ['', ''],
+        show: ['', '', ''],
         skills: [
           { name: '表演' },
           { name: '魔术' },
@@ -189,11 +206,12 @@ export const mySkillResource1: SkillTableResource<GroupName1> = {
     },
   ],
   groups: {
-    '调查 _ 15': ['侦查', '聆听', '查阅', '躲藏', '追踪', '导航', '估价'],
+    '调查 _ 15': ['侦查', '察觉', '查阅', '躲藏', '追踪', '导航', '估价', '犯罪学'],
     '社交 _ 20': ['话术', '说服', '取悦', '恐吓', '心理学'],
-    '运动 _ 20': ['投掷', '弓道/弹弓', '攀爬', '跳跃', '游泳'],
-    '格斗 _ 30': ['闪避', '格斗'],
-    '射击 _ 30': ['射击'],
+    // '运动 _ 20': ['投掷', '弓道/弹弓', '攀爬', '跳跃', '游泳'],
+    '战斗 _ 20': ['闪避', '近身格斗', '投掷', '弓道/弹弓', '射击'],
+    // '格斗 _ 30': ['闪避', '格斗'],
+    // '射击 _ 30': ['射击'],
     '医疗 _ 30': ['急救', '通用医学', '精神分析', '医疗'],
     '人文 _ 20': ['历史', '法律', '神秘学', '人文'],
     '自然 _ 30': ['博物学', '野外生存', '自然'],
@@ -208,6 +226,8 @@ export const mySkillResource1: SkillTableResource<GroupName1> = {
       '技艺',
       '科学',
       '网络',
+      '运动(20)',
+      '运动内容',
       '语言学(20)',
       '外语',
       '驾驶',
@@ -220,12 +240,13 @@ export const mySkillResource1: SkillTableResource<GroupName1> = {
   groupOrder: [
     '调查 _ 15',
     '社交 _ 20',
-    '运动 _ 20',
-    '自然 _ 30',
-    '人文 _ 20',
+    // '运动 _ 20',
+    '战斗 _ 20',
     '医疗 _ 30',
-    '格斗 _ 30',
-    '射击 _ 30',
+    '人文 _ 20',
+    '自然 _ 30',
+    // '格斗 _ 30',
+    // '射击 _ 30',
     '才能 40',
     // '领域',
     // '复合',

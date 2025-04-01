@@ -30,8 +30,8 @@ defineProps<Props>();
       <ExperienceSection class="col-1" />
     </div>
     <div class="inspiration-row">
-      <div class="inspiration-item special-thanks">Special Thanks 听枫馆·枫笛(北京)</div>
-      <div class="inspiration-item copyright">「克苏鲁的呼唤」7版人物卡 Copyright 侠小然</div>
+      <div class="inspiration-item special-thanks"></div>
+      <div class="inspiration-item copyright">「自由角色扮演」测试版人物卡 Copyright 侠小然</div>
     </div>
   </PaperLayout>
 </template>
@@ -41,6 +41,12 @@ defineProps<Props>();
   display: flex;
   gap: 1em;
   align-items: stretch;
+}
+.section-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8em;
 }
 .inspiration-row {
   flex: 1 0 0;
