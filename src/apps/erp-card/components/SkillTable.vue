@@ -71,7 +71,7 @@ function getTableData(data: SkillGroups<string>, autoFillCount?: number, suggest
         const total = getTotal(points, init);
         const combine =
           skill.combine &&
-          Array.from({ length: 4 }).map((_, i) => {
+          Array.from({ length: Math.max(4, skill.combine.show.length) }).map((_, i) => {
             return skill.combine!.show[i] || { name: '', index: 20 };
           });
         let rowData: TableRowData = {
@@ -243,7 +243,10 @@ function getTotal(points: SkillPoint, init: number) {
             'td-color-1': (index + 1) % 2,
           }"
         >
-          <div class="td-combine-row">
+          <div
+            class="td-combine-row"
+            :class="row.combine.length > 4 ? 'td-combine-row-crowded' : ''"
+          >
             <!-- <SkillTdInput
               v-for="cSkill in row.combine"
               :key="cSkill.name"
@@ -259,6 +262,7 @@ function getTotal(points: SkillPoint, init: number) {
               "
               :childSkillData="cSkill.name ? undefined : { name: '', place: 0 }"
             />
+            <span></span>
           </div>
         </td>
         <template v-else>
@@ -452,11 +456,17 @@ function getTotal(points: SkillPoint, init: number) {
 .td-combine-row {
   height: var(--td-line-height);
   padding: 0 0.2em;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  justify-content: space-between;
+  /* grid-template-columns: repeat(4, 1fr); */
   .skill-td-label {
     margin: 0 0.1em;
+    overflow: hidden;
   }
+}
+.td-combine-row-crowded:deep(.child-skill-display, .child-skill-input) {
+  width: 2em;
+  flex-basis: 2em;
 }
 
 .init-placeholder {
