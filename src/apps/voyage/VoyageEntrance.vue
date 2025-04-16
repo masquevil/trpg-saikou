@@ -195,6 +195,7 @@ function handleSubmitGuest() {
 <style scoped lang="scss">
 .voyage-entrance {
   width: 100%;
+  margin-bottom: 40px;
 }
 .cards {
   width: 100%;

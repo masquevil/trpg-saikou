@@ -44,7 +44,7 @@ const formattedHost = computed<FormattedSailer>(() => {
   return {
     name,
     charName,
-    avatar: host.avatar || 'https://masquevil.github.io/avatar-marker/output/00427-672575810.jpg',
+    avatar: host.avatar,
     textAvatar,
     displayedName: charName ? `${charName}(${name})` : name,
     isSelf: host.isSelf,
