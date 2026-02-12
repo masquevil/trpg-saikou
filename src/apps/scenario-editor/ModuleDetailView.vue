@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import MarkdownRenderer from './MarkdownRenderer.vue';
-import type { NpcCardData } from '../types';
+import MarkdownRenderer from './components/MarkdownRenderer.vue';
+import type { NpcCardData } from './types';
 
 const route = useRoute();
 const router = useRouter();
@@ -15,7 +15,7 @@ const isLoading = ref(true);
 const error = ref('');
 
 // 使用 import.meta.glob 动态导入所有模组文件
-const modules = import.meta.glob('../scenarios/*/mod.md', { as: 'raw', eager: false });
+const modules = import.meta.glob('./scenarios/*/mod.md', { as: 'raw', eager: false });
 
 onMounted(async () => {
   moduleName.value = decodeURIComponent(route.params.name as string);
@@ -28,7 +28,7 @@ const loadModuleContent = async () => {
     error.value = '';
 
     // 构造正确的 glob 模式
-    const moduleKey = `../scenarios/${moduleName.value}/mod.md`;
+    const moduleKey = `./scenarios/${moduleName.value}/mod.md`;
 
     if (modules[moduleKey]) {
       try {
