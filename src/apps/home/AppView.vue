@@ -53,6 +53,14 @@ const appConfigs: Record<'online' | 'offline', AppConfig[]> = {
   ],
   offline: [
     {
+      key: 'scenario-editor',
+      name: '模组编辑器',
+      to: {
+        name: 'scenario-editor',
+      },
+      preview: cocCardPreview, // 可以替换为实际的预览图
+    },
+    {
       key: 'kp-ads',
       name: 'KP招募PL展示器',
       to: {
