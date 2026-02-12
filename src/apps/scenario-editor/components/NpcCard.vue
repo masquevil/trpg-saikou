@@ -32,27 +32,29 @@ const formatCustomContent = (content: any): string => {
 <template>
   <div class="npc-card">
     <div class="card-header">
+      <div class="header-left">
+        <h3 class="npc-name">{{ cardData.name }}</h3>
+        <div class="npc-role">{{ cardData.role }}</div>
+        <div
+          v-if="cardData.summary"
+          class="npc-summary"
+        >
+          {{ cardData.summary }}
+        </div>
+      </div>
       <div
         v-if="cardData.avatar"
-        class="avatar-container"
+        class="illustration-container"
       >
         <img
           :src="cardData.avatar"
-          :alt="`${cardData.name} 头像`"
-          class="npc-avatar"
+          :alt="`${cardData.name} 立绘`"
+          class="npc-illustration"
         />
-      </div>
-      <div class="header-info">
-        <h3 class="npc-name">{{ cardData.name }}</h3>
-        <div class="npc-role">{{ cardData.role }}</div>
       </div>
     </div>
 
     <div class="card-body">
-      <div class="section">
-        <p class="summary">{{ cardData.summary }}</p>
-      </div>
-
       <!-- 渲染所有自定义字段 -->
       <div
         v-for="field in customFields"
@@ -84,6 +86,8 @@ const formatCustomContent = (content: any): string => {
 <style scoped lang="scss">
 .npc-card {
   background: white;
+  max-width: 360px;
+  margin: auto;
   border: 1px solid #999;
   border-radius: 8px;
   overflow: hidden;
@@ -98,7 +102,6 @@ const formatCustomContent = (content: any): string => {
     color: #333;
   }
 
-  .summary,
   .custom-text {
     font-size: 12px;
     white-space: pre-wrap;
@@ -107,43 +110,63 @@ const formatCustomContent = (content: any): string => {
 
 .card-header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 12px;
   padding: 12px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
 }
 
-.avatar-container {
-  flex-shrink: 0;
-  margin-right: 12px;
-}
-
-.npc-avatar {
-  width: 60px;
-  height: 60px;
-  object-fit: cover;
-  border-radius: 4px;
-  border: 1px solid #fff;
-}
-
-.header-info {
+.header-left {
   flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .npc-name {
-  margin: 0 0 4px;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: bold;
 }
 
 .npc-role {
   font-size: 12px;
-  opacity: 0.9;
+  opacity: 0.8;
+}
+
+.npc-summary {
+  font-size: 12px;
+  line-height: 1.5;
+  opacity: 0.95;
+  margin-top: 16px;
+  flex: 1;
+  white-space: pre-wrap;
+}
+
+.illustration-container {
+  flex-shrink: 0;
+  width: 120px;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.npc-illustration {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
 }
 
 .card-body {
   padding: 12px;
+
+  &:empty {
+    padding: 0;
+  }
 }
 
 .section {
@@ -161,13 +184,6 @@ const formatCustomContent = (content: any): string => {
   color: #333;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-}
-
-.summary {
-  margin: 0;
-  line-height: 1.5;
-  color: #444;
-  white-space: pre-wrap;
 }
 
 .custom-content {

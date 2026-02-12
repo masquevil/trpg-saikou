@@ -82,9 +82,8 @@ watch(
 
   // 容器
   .content-wrapper {
-    max-width: 800px;
+    max-width: 600px;
     margin: 0 auto;
-    padding: 30px;
   }
 
   // 基础的 markdown 内容
@@ -122,6 +121,7 @@ watch(
 
     :deep(.md-p) {
       font-size: 14px;
+      margin-bottom: 8px;
     }
   }
 }
@@ -133,7 +133,7 @@ watch(
   .content-wrapper {
     column-count: 2;
     column-gap: 30px;
-    max-width: 1000px;
+    max-width: 800px;
   }
 
   .markdown-content {

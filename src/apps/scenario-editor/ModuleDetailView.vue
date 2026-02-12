@@ -64,7 +64,7 @@ const goBack = () => {
 </script>
 
 <template>
-  <div class="module-detail-view">
+  <div class="module-detail-view theme-dark">
     <div class="header">
       <button
         class="back-button"
@@ -194,42 +194,6 @@ const goBack = () => {
   margin-bottom: 30px;
 }
 
-.npc-section {
-  border-top: 1px solid #eee;
-  padding-top: 20px;
-
-  h2 {
-    color: var(--color-heading);
-    margin-bottom: 15px;
-  }
-}
-
-.npc-cards {
-  display: grid;
-  gap: 15px;
-}
-
-.npc-card-item {
-  background: #f8f9fa;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  padding: 15px;
-
-  h3 {
-    margin: 0 0 10px 0;
-    color: var(--color-heading);
-  }
-
-  p {
-    margin: 5px 0;
-    color: #444;
-  }
-
-  strong {
-    color: #222;
-  }
-}
-
 @media print {
   .header {
     display: none;
@@ -238,6 +202,19 @@ const goBack = () => {
   .module-detail-view {
     padding: 0;
     max-width: none;
+    background-color: #fff;
+  }
+}
+</style>
+
+<style>
+@page {
+  size: A4;
+  margin: 1.5cm;
+}
+@media print {
+  body {
+    background-color: #fff;
   }
 }
 </style>

@@ -94,6 +94,7 @@ const router = createRouter({
       component: () => import('../apps/scenario-editor/ModuleDetailView.vue'),
       meta: {
         title: '模组详情',
+        theme: 'light',
       },
     },
   ],
