@@ -70,7 +70,7 @@ const formatCustomContent = (content: any): string => {
 <style scoped lang="scss">
 .npc-card {
   background: #fff;
-  max-width: 360px;
+  max-width: 400px;
   margin: auto;
   border: 1px solid #999;
   border-radius: 8px;

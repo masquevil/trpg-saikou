@@ -171,6 +171,10 @@ watch(
   page-break-inside: avoid;
 }
 
+.inline-npc-card {
+  margin-top: 0;
+}
+
 @media print {
   .markdown-renderer {
     background-color: var(--color-bg-print);

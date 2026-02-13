@@ -183,7 +183,7 @@ export default function useScenarioParser(currentModuleName?: string) {
           }
         } else if (line.startsWith('summary:')) {
           // 新模式：summary支持多行，直到遇到:开头的标签
-          const summaryLines = [];
+          const summaryLines = [line.slice(8)];
           let j = i + 1;
           while (j < lines.length && !lines[j].trim().startsWith(':')) {
             summaryLines.push(lines[j]);

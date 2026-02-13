@@ -132,8 +132,7 @@ summary:
 ```npc-card
 name: 文森特
 role: 第三个人
-summary:
-年轻人。
+summary: 年轻人。
 
 :性格
 内向、谨慎，似乎隐藏着许多秘密
