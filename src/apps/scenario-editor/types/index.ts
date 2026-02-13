@@ -1,18 +1,13 @@
-export interface NpcCardData {
-  name: string;
-  role: string;
-  summary: string;
-  avatar?: string; // 添加头像字段
-  // 其他自定义字段
-  [key: string]: any;
-}
-
 export interface NpcSummaryData {
   name: string;
   role: string;
   summary: string;
-  avatar?: string; // 添加头像字段
+  avatar?: string;
 }
+export type NpcCardData = NpcSummaryData & {
+  // 其他自定义字段
+  [key: string]: string;
+};
 
 export interface MarkdownParseResult {
   html: string;
