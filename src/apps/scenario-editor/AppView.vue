@@ -21,7 +21,7 @@ onMounted(async () => {
       // 从路径中提取模块名，例如: ../../scenarios/古堡的秘密/mod.md -> 古堡的秘密
       const moduleName = filePath.split('/').slice(-2, -1)[0];
       return {
-        name: moduleName,
+        name: moduleName.toUpperCase(),
         path: `/scenario-editor/module/${encodeURIComponent(moduleName)}`,
       };
     });

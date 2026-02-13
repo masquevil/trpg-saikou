@@ -72,7 +72,7 @@ const goBack = () => {
       >
         ← 返回模组列表
       </button>
-      <h1>{{ moduleName }}</h1>
+      <h1>{{ moduleName.toUpperCase() }}</h1>
       <button
         class="print-preview-btn"
         @click="togglePrintPreview"
@@ -104,11 +104,11 @@ const goBack = () => {
     <div
       v-else
       class="content"
+      :class="{ 'print-preview': isPrintPreview, 'normal-view': !isPrintPreview }"
     >
       <MarkdownRenderer
         :moduleName="moduleName"
         :content="moduleContent"
-        :is-print-preview="isPrintPreview"
         @npcCardsExtracted="handleNpcCardsExtracted"
       />
     </div>

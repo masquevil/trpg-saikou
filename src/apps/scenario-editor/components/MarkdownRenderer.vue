@@ -7,16 +7,13 @@ import useScenarioParser, { ContentItem } from '../hooks/useScenarioParser';
 interface Props {
   moduleName: string;
   content: string;
-  isPrintPreview?: boolean;
 }
 
 interface Emits {
   (e: 'npcCardsExtracted', cards: NpcCardData[]): void;
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  isPrintPreview: false,
-});
+const props = withDefaults(defineProps<Props>(), {});
 const emit = defineEmits<Emits>();
 
 const contentItems = ref<ContentItem[]>([]);
@@ -35,10 +32,7 @@ watch(
 </script>
 
 <template>
-  <div
-    class="markdown-renderer"
-    :class="{ 'print-preview': isPrintPreview, 'normal-view': !isPrintPreview }"
-  >
+  <div class="markdown-renderer">
     <div class="content-wrapper">
       <template
         v-for="(item, index) in contentItems"
@@ -75,10 +69,6 @@ watch(
   --color-title: var(--color-heading);
   --color-title-small: var(--color-text);
   --color-p: var(--color-text);
-  --color-bg-print: #fff;
-  --color-title-print: #000;
-  --color-title-small-print: #000;
-  --color-p-print: #4b4e53;
 
   // 容器
   .content-wrapper {
@@ -126,44 +116,6 @@ watch(
   }
 }
 
-// 打印预览模式样式
-.markdown-renderer.print-preview {
-  background-color: var(--color-bg-print);
-
-  .content-wrapper {
-    column-count: 2;
-    column-gap: 30px;
-    max-width: 800px;
-  }
-
-  .markdown-content {
-    color: var(--color-p-print);
-    line-height: 1.6;
-    // 避免 margin 溢出，暂时别删
-    &::after {
-      content: '\200B';
-      display: block;
-      font-size: 0;
-    }
-
-    :deep(.md-h1),
-    :deep(.md-h2),
-    :deep(.md-h3) {
-      color: var(--color-title-print);
-      column-span: all;
-    }
-
-    :deep(.md-h2) {
-      break-before: column;
-      page-break-before: always;
-    }
-
-    :deep(.md-h4) {
-      color: var(--color-title-small-print);
-    }
-  }
-}
-
 .inline-npc-card,
 .inline-npc-summary {
   margin: 20px 0;
@@ -175,29 +127,49 @@ watch(
   margin-top: 0;
 }
 
-@media print {
+/* when print */
+@mixin printing-styles {
   .markdown-renderer {
+    --color-bg-print: #fff;
+    --color-title-print: #000;
+    --color-title-small-print: #000;
+    --color-p-print: #4b4e53;
     background-color: var(--color-bg-print);
 
     .content-wrapper {
+      --color-bg-print: #fff;
+      --color-title-print: #000;
+      --color-title-small-print: #000;
+      --color-p-print: #4b4e53;
       column-count: 2;
       column-gap: 30px;
+      max-width: 800px;
     }
 
     .markdown-content {
       color: var(--color-p-print);
       line-height: 1.6;
+      // 避免 margin 溢出，暂时别删
+      &::after {
+        content: '\200B';
+        display: block;
+        font-size: 0;
+      }
 
-      :deep(.md-h1),
-      :deep(.md-h2),
       :deep(.md-h3) {
         color: var(--color-title-print);
+      }
+
+      :deep(.md-h1) {
         column-span: all;
+        color: var(--color-title-print);
       }
 
       :deep(.md-h2) {
+        column-span: all;
         break-before: column;
         page-break-before: always;
+        color: var(--color-title-print);
       }
 
       :deep(.md-h4) {
@@ -205,5 +177,11 @@ watch(
       }
     }
   }
+}
+.print-preview {
+  @include printing-styles;
+}
+@media print {
+  @include printing-styles;
 }
 </style>
