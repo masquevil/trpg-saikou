@@ -143,21 +143,24 @@ watch(
       --color-p-print: #4b4e53;
       column-count: 2;
       column-gap: 30px;
+      column-fill: auto; // 让内容优先填满第一列
       max-width: 800px;
+      orphans: 2; // 防止段落开头孤立
+      widows: 2; // 防止段落结尾孤立
     }
 
     .markdown-content {
       color: var(--color-p-print);
       line-height: 1.6;
-      // 避免 margin 溢出，暂时别删
-      &::after {
-        content: '\200B';
-        display: block;
-        font-size: 0;
-      }
 
-      :deep(.md-h3) {
-        color: var(--color-title-print);
+      // 特别处理标题后的短内容
+      :deep(.md-h1),
+      :deep(.md-h2),
+      :deep(.md-h3),
+      :deep(.md-h4) {
+        break-after: avoid;
+        break-inside: avoid;
+        page-break-inside: avoid;
       }
 
       :deep(.md-h1) {
@@ -172,12 +175,22 @@ watch(
         color: var(--color-title-print);
       }
 
+      :deep(.md-h3) {
+        color: var(--color-title-print);
+      }
+
       :deep(.md-h4) {
         color: var(--color-title-small-print);
+      }
+
+      :deep(.md-p) {
+        break-inside: avoid;
+        page-break-inside: avoid;
       }
     }
   }
 }
+
 .print-preview {
   @include printing-styles;
 }
