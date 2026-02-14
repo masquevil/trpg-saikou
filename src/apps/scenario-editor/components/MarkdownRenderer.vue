@@ -35,8 +35,8 @@ watch(
   <div class="markdown-renderer">
     <div class="content-wrapper">
       <template
-        v-for="(item, index) in contentItems"
-        :key="index"
+        v-for="(item, _index) in contentItems"
+        :key="_index"
       >
         <div
           v-if="item.type === 'text'"
