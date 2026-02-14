@@ -15,7 +15,11 @@ const isLoading = ref(true);
 const error = ref('');
 
 // 使用 import.meta.glob 动态导入所有模组文件
-const modules = import.meta.glob('./scenarios/*/mod.md', { as: 'raw', eager: false });
+const modules = import.meta.glob<false, 'raw', string>('./scenarios/*/mod.md', {
+  query: '?raw',
+  import: 'default',
+  eager: false,
+});
 
 onMounted(async () => {
   moduleName.value = decodeURIComponent(route.params.name as string);
