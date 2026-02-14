@@ -5,6 +5,7 @@ import type { RouteLocationRaw } from 'vue-router';
 import cocCardPreview from '@/assets/images/tools-preview/coc-card.jpg';
 import voyagePreview from '@/assets/images/tools-preview/voyage.jpg';
 import recordPreview from '@/assets/images/tools-preview/record.png';
+import scenarioEditorPreview from '@/assets/images/tools-preview/scenario-editor.png';
 import kpAdsPreview from '@/assets/images/tools-preview/kp-ads.png';
 import timerPreview from '@/assets/images/tools-preview/timer.png';
 import rollPreview from '@/assets/images/tools-preview/roll.png';
@@ -52,6 +53,14 @@ const appConfigs: Record<'online' | 'offline', AppConfig[]> = {
     },
   ],
   offline: [
+    {
+      key: 'scenario-editor',
+      name: '模组编辑器',
+      to: {
+        name: 'scenario-editor',
+      },
+      preview: scenarioEditorPreview,
+    },
     {
       key: 'kp-ads',
       name: 'KP招募PL展示器',

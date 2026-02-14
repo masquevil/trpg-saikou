@@ -13,10 +13,9 @@ const { VITE_TARGET_ENV = '' } = import.meta.env;
 const isHashMode = ['pages', 'hash'].includes(VITE_TARGET_ENV);
 
 const router = createRouter({
-  history:
-    !isHashMode
-      ? createWebHistory(import.meta.env.BASE_URL)
-      : createWebHashHistory(import.meta.env.BASE_URL),
+  history: !isHashMode
+    ? createWebHistory(import.meta.env.BASE_URL)
+    : createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
@@ -79,6 +78,24 @@ const router = createRouter({
       path: '/self',
       name: 'self',
       component: () => import('../apps/record/SelfView.vue'),
+    },
+    // 模组编辑器路由
+    {
+      path: '/scenario-editor',
+      name: 'scenario-editor',
+      component: () => import('../apps/scenario-editor/AppView.vue'),
+      meta: {
+        title: '模组编辑器',
+      },
+    },
+    {
+      path: '/scenario-editor/module/:name',
+      name: 'scenario-module',
+      component: () => import('../apps/scenario-editor/ModuleDetailView.vue'),
+      meta: {
+        title: '模组详情',
+        theme: 'light',
+      },
     },
   ],
 });

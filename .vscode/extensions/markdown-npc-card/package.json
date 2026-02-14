@@ -1,0 +1,22 @@
+{
+  "name": "markdown-npc-card-syntax",
+  "displayName": "Markdown NPC Card Syntax Highlighting",
+  "description": "Syntax highlighting for NPC card and summary blocks in Markdown",
+  "version": "0.1.0",
+  "publisher": "trpg-saikou",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "grammars": [
+      {
+        "scopeName": "markdown.npc-card.injection",
+        "path": "./injection.json",
+        "injectTo": ["text.html.markdown"]
+      }
+    ]
+  }
+}
