@@ -79,26 +79,26 @@ watch(
   // 基础的 markdown 内容
   .markdown-content {
     color: var(--color-p);
-    line-height: 1.7;
+    // line-height: 1.7;
 
     :deep(.md-h1) {
       color: var(--color-title);
-      margin: 24px 0 16px;
-      font-size: 28px;
+      margin: 48px 0 32px;
+      font-size: 48px;
       font-weight: 700;
     }
 
     :deep(.md-h2) {
       color: var(--color-title);
-      margin: 20px 0 12px;
-      font-size: 22px;
+      margin: 14px 0 20px;
+      font-size: 28px;
       font-weight: 600;
     }
 
     :deep(.md-h3) {
       color: var(--color-title);
-      margin: 16px 0 8px;
-      font-size: 18px;
+      margin: 40px 0 12px;
+      font-size: 20px;
       font-weight: 600;
     }
 
@@ -111,7 +111,9 @@ watch(
 
     :deep(.md-p) {
       font-size: 14px;
-      margin-bottom: 8px;
+      margin-bottom: 12px;
+      text-indent: 1.4em;
+      line-height: 1.6;
     }
   }
 }
@@ -151,7 +153,6 @@ watch(
 
     .markdown-content {
       color: var(--color-p-print);
-      line-height: 1.6;
 
       // 特别处理标题后的短内容
       :deep(.md-h1),
