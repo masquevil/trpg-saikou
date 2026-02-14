@@ -91,19 +91,4 @@ const handleModuleClick = (path: string) => {
   color: var(--color-text-secondary);
   font-size: 14px;
 }
-
-@media (max-width: 768px) {
-  .module-list {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
-  .module-card-content {
-    padding: 20px;
-  }
-
-  .module-name {
-    font-size: 18px;
-  }
-}
 </style>

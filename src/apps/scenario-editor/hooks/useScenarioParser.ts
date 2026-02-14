@@ -26,17 +26,21 @@ const marked = new Marked({
   gfm: true,
 });
 
-export default function useScenarioParser(currentModuleName?: string) {
+export default function useScenarioParser(currentModuleName: string) {
   let npcManager = ref<NpcDataManager>();
   if (!npcManager.value) npcManager.value = new NpcDataManager();
 
   // 动态导入所有头像图片
-  const avatarModules = import.meta.glob('../scenarios/*/avatars/*.{jpg,jpeg,png,gif,webp}', {
-    eager: true,
-    as: 'url',
-  });
+  const avatarModules = import.meta.glob<true, 'url', string>(
+    '../scenarios/*/avatars/*.{jpg,jpeg,png,gif,webp}',
+    {
+      eager: true,
+      query: '?url',
+      import: 'default',
+    },
+  );
 
-  const parseContent = async (content: string) => {
+  async function parseContent(content: string) {
     npcManager.value!.reset();
 
     // 首先提取所有npc-card数据
@@ -150,44 +154,42 @@ export default function useScenarioParser(currentModuleName?: string) {
     return {
       contentItems: finalItems,
     };
-  };
+  }
 
-  const parseNpcCardContent = (content: string, moduleName?: string): NpcCardData | null => {
+  function parseNpcCardContent(content: string, moduleName: string): NpcCardData | null {
     try {
       const lines = content.split('\n');
       const data: Partial<NpcCardData> = {};
 
-      // 解析必需字段 (key: value 格式)
+      // 先解析结构化字段 (key: value 格式)
       let i = 0;
       while (i < lines.length) {
         const line = lines[i].trim();
-        if (line.startsWith('name:')) {
-          data.name = line.slice(5).trim();
-        } else if (line.startsWith('role:')) {
-          data.role = line.slice(5).trim();
-        } else if (line.startsWith('avatar:')) {
+        const { isEntry, key, value } = findEntry(line);
+        // 跳过空行或者意外插入的行
+        if (!isEntry) continue;
+        if (['name', 'role'].indexOf(key) >= 0) {
+          data[key] = value;
+        } else if (key === 'avatar') {
           // 在解析阶段就处理头像路径，使用动态导入的图片
-          const avatarFileName = line.slice(7).trim();
-          if (avatarFileName && moduleName) {
-            // 构建图片路径并查找对应的导入模块
-            const avatarPath = `../scenarios/${moduleName}/avatars/${avatarFileName}`;
-            const importedAvatar = avatarModules[avatarPath];
-            if (importedAvatar) {
-              data.avatar = importedAvatar; // 使用Vite处理后的图片URL
-            } else {
-              console.warn(`找不到头像文件: ${avatarPath}`);
-              data.avatar = avatarFileName; // fallback到文件名
-            }
+          const avatarFileName = value.trim();
+          // 构建图片路径并查找对应的导入模块
+          const avatarPath = `../scenarios/${moduleName}/avatars/${avatarFileName}`;
+          const importedAvatar = avatarModules[avatarPath];
+          if (importedAvatar) {
+            data.avatar = importedAvatar; // 使用Vite处理后的图片URL
           } else {
-            data.avatar = avatarFileName; // 如果没有模块名，保持原样
+            console.warn(`找不到头像文件: ${avatarPath}`);
+            data.avatar = avatarFileName; // fallback到文件名
           }
-        } else if (line.startsWith('summary:')) {
-          // 新模式：summary支持多行，直到遇到:开头的标签
-          const summaryLines = [line.slice(8)];
+        } else if (key === 'summary') {
+          const summaryLines = [value];
           let j = i + 1;
-          while (j < lines.length && !lines[j].trim().startsWith(':')) {
+          let { isEntry } = findEntry(lines[j]);
+          while (j < lines.length && !isEntry) {
             summaryLines.push(lines[j]);
             j++;
+            isEntry = findEntry(lines[j]).isEntry;
           }
           data.summary = summaryLines.join('\n').trim();
           i = j - 1; // 调整索引到下一个标签开始位置
@@ -202,20 +204,20 @@ export default function useScenarioParser(currentModuleName?: string) {
       let currentContent: string[] = [];
 
       for (; i < lines.length; i++) {
-        const line = lines[i];
-        const trimmedLine = line.trim();
+        const line = lines[i].trim();
+        const { isEntry, value } = findEntry(line);
 
-        if (trimmedLine.startsWith(':')) {
+        if (isEntry) {
           // 保存之前的段落
           if (currentSection && currentContent.length > 0) {
             data[currentSection] = currentContent.join('\n');
           }
-          // 开始新的段落（去掉:前缀）
-          currentSection = trimmedLine.slice(1).trim();
+          // 开始新的段落
+          currentSection = value;
           currentContent = [];
-        } else if (trimmedLine && currentSection) {
-          // 添加普通文本行（无需前缀）
-          currentContent.push(trimmedLine);
+        } else if (line && currentSection) {
+          // 添加普通文本行
+          currentContent.push(line);
         }
       }
 
@@ -232,30 +234,39 @@ export default function useScenarioParser(currentModuleName?: string) {
     } catch (error) {
       return null;
     }
-  };
+  }
 
-  const parseNpcSummaryContent = (content: string): NpcSummaryData | null => {
-    try {
-      const lines = content.split('\n');
-      const firstLine = lines[0]?.trim();
-      if (firstLine && firstLine.startsWith('name:')) {
-        const name = firstLine.slice(5).trim();
-        const card = npcManager.value!.getCardByName(name);
-        if (card) {
-          const { role, summary, avatar } = card;
-          return {
-            name,
-            role,
-            summary,
-            avatar, // 包含头像信息
-          };
-        }
+  function parseNpcSummaryContent(content: string): NpcSummaryData | null {
+    const lines = content.split('\n');
+    const firstLine = lines[0]?.trim();
+    if (firstLine && firstLine.startsWith('name:')) {
+      const name = firstLine.slice(5).trim();
+      const card = npcManager.value!.getCardByName(name);
+      if (card) {
+        const { role, summary, avatar } = card;
+        return {
+          name,
+          role,
+          summary,
+          avatar,
+        };
       }
-      return null;
-    } catch (error) {
-      return null;
     }
-  };
+    return null;
+  }
+
+  function findEntry(line: string) {
+    const entry = line.trim().split(':');
+    const key = entry[0];
+    const value = entry.slice(1).join(':');
+    const isEntry =
+      entry.length > 1 && ['', 'name', 'role', 'avatar', 'summary'].indexOf(key) !== -1;
+    return {
+      isEntry,
+      key: isEntry ? key : '',
+      value: isEntry ? value.trim() : '',
+    };
+  }
 
   return {
     parse: parseContent,

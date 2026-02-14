@@ -10,9 +10,9 @@ const isLoading = ref(true);
 onMounted(async () => {
   try {
     // 动态导入所有 scenarios 目录下的 mod.md 文件
-    const scenarioModules = import.meta.glob('./scenarios/**/mod.md', {
+    const scenarioModules = import.meta.glob<true, 'raw', string>('./scenarios/**/mod.md', {
       eager: true,
-      as: 'raw',
+      query: '?raw',
     });
 
     // 从文件路径中提取模块名称
@@ -103,16 +103,5 @@ const handleModuleSelect = (modulePath: string) => {
   color: var(--color-text-secondary);
   font-size: 16px;
   padding: 40px;
-}
-
-@media print {
-  .browser-header {
-    display: none;
-  }
-
-  .module-browser {
-    padding: 0;
-    max-width: none;
-  }
 }
 </style>
