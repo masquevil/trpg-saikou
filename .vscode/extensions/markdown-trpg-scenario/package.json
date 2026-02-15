@@ -1,7 +1,7 @@
 {
-  "name": "markdown-npc-card-syntax",
-  "displayName": "Markdown NPC Card Syntax Highlighting",
-  "description": "Syntax highlighting for NPC card and summary blocks in Markdown",
+  "name": "markdown-trpg-scenario-syntax",
+  "displayName": "Markdown TRPG Scenario Syntax Highlighting",
+  "description": "Syntax highlighting for TRPG scenario blocks in Markdown",
   "version": "0.1.0",
   "publisher": "trpg-saikou",
   "engines": {
@@ -13,7 +13,7 @@
   "contributes": {
     "grammars": [
       {
-        "scopeName": "markdown.npc-card.injection",
+        "scopeName": "markdown.trpg-scenario.injection",
         "path": "./injection.json",
         "injectTo": ["text.html.markdown"]
       }

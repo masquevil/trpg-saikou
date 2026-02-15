@@ -41,12 +41,6 @@ name: 阿尔弗雷德
 1. **重启 VS Code** 让新配置生效
 2. **打开此测试文件**
 3. **使用调试工具**：`Ctrl+Shift+P` → "Inspect Editor Tokens and Scopes"
-4. **验证标准字段**：点击 `name:`，应显示作用域 `keyword.control.npc-card.field`，颜色为紫色
-5. **验证自定义字段**：点击 `:外观`，应显示作用域 `variable.parameter.custom-field.npc-card`，颜色为浅蓝色
-6. **对比Markdown标题**：确认自定义字段颜色与标题颜色有所区别
-
-## 颜色选择说明
-
-- 标准字段保持 `keyword.control` 的紫色，与VS Code默认主题一致
-- 自定义字段使用 `variable.parameter` 的浅蓝色，既区别于标题又保持协调
-- 两种颜色在视觉上有明显区分，便于快速识别不同类型的字段
+4. **验证代码块**：检查代码块整体应有 `meta.embedded.block.trpg-scenario.npc-card` 作用域
+5. **验证标准字段**：点击 `name:`，应显示对应的作用域
+6. **验证自定义字段**：点击 `:外观`，应显示对应的作用域

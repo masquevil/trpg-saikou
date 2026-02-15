@@ -1,0 +1,13 @@
+{
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      // 想要生效，需要把本文件放到 .vscode 目录下（？），或者放到用户设置里
+      {
+        "scope": "support.class.field.standard.trpg-scenario.npc-card",
+        "settings": {
+          "foreground": "#FFA500"
+        }
+      }
+    ]
+  }
+}

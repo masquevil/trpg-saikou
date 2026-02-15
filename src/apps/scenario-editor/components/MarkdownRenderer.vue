@@ -147,8 +147,8 @@ watch(
       column-gap: 30px;
       column-fill: auto; // 让内容优先填满第一列
       max-width: 800px;
-      orphans: 2; // 防止段落开头孤立
-      widows: 2; // 防止段落结尾孤立
+      widows: 2;
+      orphans: 1;
     }
 
     .markdown-content {

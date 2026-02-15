@@ -1,0 +1,32 @@
+{
+  "scopeName": "markdown.trpg-scenario.injection",
+  "injectionSelector": "L:text.html.markdown",
+  "patterns": [
+    {
+      "begin": "^\\s*```npc-card\\s*$",
+      "end": "^\\s*```\\s*$",
+      "name": "meta.embedded.block.trpg-scenario.npc-card",
+      "patterns": [
+        {
+          "match": "^\\s*(name|role|avatar|summary):",
+          "name": "support.class.field.standard.trpg-scenario.npc-card"
+        },
+        {
+          "match": "^\\s*:([^\\n]+)$",
+          "name": "variable.parameter.field.custom.trpg-scenario.npc-card"
+        }
+      ]
+    },
+    {
+      "begin": "^\\s*```npc-summary\\s*$",
+      "end": "^\\s*```\\s*$",
+      "name": "meta.embedded.block.trpg-scenario.npc-summary",
+      "patterns": [
+        {
+          "match": "^\\s*(name):",
+          "name": "support.class.field.standard.trpg-scenario.npc-summary"
+        }
+      ]
+    }
+  ]
+}
