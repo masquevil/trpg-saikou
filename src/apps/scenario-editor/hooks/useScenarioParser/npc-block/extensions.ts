@@ -1,4 +1,4 @@
-import { Ref } from 'vue';
+import { Ref, UnwrapRef } from 'vue';
 import { Tokens, RendererThis, TokenizerAndRendererExtension, HooksObject } from 'marked';
 import { NpcDataManager } from '../../../models/npcDataManager';
 import { getToken } from '../utils';
@@ -6,7 +6,7 @@ import npcCardDatalizor from './npcCardDatalizor';
 import npcSummaryDatalizor from './npcSummaryDatalizor';
 
 export interface NpcBlockStore {
-  npcManager: Ref<NpcDataManager | undefined>;
+  npcManager: Ref<UnwrapRef<NpcDataManager>>;
 }
 
 export interface NpcBlockRenderers {
@@ -19,7 +19,6 @@ export default function createNpcBlockExtensions(
   renderers: NpcBlockRenderers,
 ) {
   const npcManager = store.npcManager.value;
-  if (!npcManager) return {};
 
   const npcBlockExtensions: TokenizerAndRendererExtension[] = [
     // 自定义 NPC Card 扩展

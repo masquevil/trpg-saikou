@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { h, render } from 'vue';
+import { h, render, ref, watch } from 'vue';
 import NpcCard from './NpcCard.vue';
 import type { NpcCardData, NpcSummaryData } from '../types';
 import useScenarioParser from '../hooks/useScenarioParser';
@@ -16,7 +16,7 @@ interface Emits {
 const props = withDefaults(defineProps<Props>(), {});
 const emit = defineEmits<Emits>();
 
-const { html } = useScenarioParser(props.moduleName, props.content, {
+const { parse } = useScenarioParser(props.moduleName, props.content, {
   npcCard: (token) => {
     const { name, role, summary, avatar, content } = token;
     const cardData: NpcCardData = {
@@ -47,6 +47,15 @@ const { html } = useScenarioParser(props.moduleName, props.content, {
     return container.outerHTML;
   },
 });
+
+const html = ref('');
+watch(
+  () => props.content,
+  async () => {
+    html.value = await parse();
+  },
+  { immediate: true },
+);
 </script>
 
 <template>

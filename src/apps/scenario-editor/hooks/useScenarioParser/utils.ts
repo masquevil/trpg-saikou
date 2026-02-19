@@ -18,7 +18,6 @@ export function getToken<T extends CodeCustomToken>(
       text,
       ...data,
     } as T;
-    console.log('xxx1', match, token);
     return token;
   }
 }

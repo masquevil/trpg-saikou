@@ -25,17 +25,6 @@ export default function npcCardDatalizor(content: string): TokenData | undefined
     if (['name', 'role'].indexOf(key) >= 0) {
       data[key as 'name' | 'role'] = value;
     } else if (key === 'avatar') {
-      // // 在解析阶段就处理头像路径，使用动态导入的图片
-      // const avatarFileName = value.trim();
-      // // 构建图片路径并查找对应的导入模块
-      // const avatarPath = `../scenarios/${moduleName}/avatars/${avatarFileName}`;
-      // const importedAvatar = avatarModules[avatarPath];
-      // if (importedAvatar) {
-      //   data.avatar = importedAvatar; // 使用Vite处理后的图片URL
-      // } else {
-      //   console.warn(`找不到头像文件: ${avatarPath}`);
-      //   data.avatar = avatarFileName; // fallback到文件名
-      // }
       data.avatar = value.trim();
     } else if (key === 'summary') {
       const summaryLines = [value];

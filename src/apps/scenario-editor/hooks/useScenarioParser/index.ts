@@ -1,6 +1,6 @@
+import { ref } from 'vue';
 import { Marked, Renderer } from 'marked';
 import NpcDataManager from '../../models/npcDataManager';
-import { ref } from 'vue';
 import createNpcBlockExtensions, { NpcBlockRenderers } from './npc-block/extensions';
 
 export type CustomRenderers = NpcBlockRenderers;
@@ -33,13 +33,10 @@ export default function useScenarioParser(
   content: string,
   renderers: CustomRenderers,
 ) {
-  const npcManager = ref<NpcDataManager>();
-  if (!npcManager.value) {
-    npcManager.value = new NpcDataManager(moduleName);
-    marked.use(createNpcBlockExtensions({ npcManager }, renderers));
-  }
+  const npcManager = ref(new NpcDataManager(moduleName));
+  marked.use(createNpcBlockExtensions({ npcManager }, renderers));
 
   return {
-    html: marked.parse(content),
+    parse: async () => marked.parse(content),
   };
 }
