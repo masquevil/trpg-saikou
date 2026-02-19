@@ -1,26 +1,11 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import type { NpcCardData } from '../types';
+import type { NpcCardData, NpcSummaryData } from '../types';
 
 interface Props {
-  cardData: NpcCardData;
+  cardData: NpcCardData | NpcSummaryData;
 }
 
 const props = defineProps<Props>();
-
-const customFields = computed(() => {
-  const fields = [];
-  const excludeFields = ['id', 'name', 'role', 'summary', 'avatar'];
-
-  for (const [key, value] of Object.entries(props.cardData)) {
-    if (!excludeFields.includes(key) && value) {
-      fields.push({ key, value });
-    }
-  }
-
-  return fields;
-});
-
 const formatCustomContent = (content: any): string => {
   if (typeof content === 'string') {
     return content;
@@ -54,13 +39,14 @@ const formatCustomContent = (content: any): string => {
     <div class="card-body">
       <!-- 渲染所有自定义字段 -->
       <div
-        v-for="field in customFields"
-        :key="field.key"
+        v-if="'content' in cardData"
+        v-for="[title, value] in cardData.content"
+        :key="title"
         class="npc-info-section"
       >
-        <h4 class="npc-info-section-title">{{ field.key }}</h4>
+        <h4 class="npc-info-section-title">{{ title }}</h4>
         <div class="npc-info-section-content">
-          {{ formatCustomContent(field.value) }}
+          {{ formatCustomContent(value) }}
         </div>
       </div>
     </div>

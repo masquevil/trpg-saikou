@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { h, render } from 'vue';
 import NpcCard from './NpcCard.vue';
-import type { NpcCardData } from '../types';
-import useScenarioParser, { ContentItem } from '../hooks/useScenarioParser';
+import type { NpcCardData, NpcSummaryData } from '../types';
+import useScenarioParser from '../hooks/useScenarioParser';
 
 interface Props {
   moduleName: string;
@@ -16,51 +16,45 @@ interface Emits {
 const props = withDefaults(defineProps<Props>(), {});
 const emit = defineEmits<Emits>();
 
-const contentItems = ref<ContentItem[]>([]);
-
-const { parse } = useScenarioParser(props.moduleName);
-
-watch(
-  () => props.content,
-  async () => {
-    const result = await parse(props.content);
-    if (!result) return;
-    contentItems.value = result.contentItems;
+const { html } = useScenarioParser(props.moduleName, props.content, {
+  npcCard: (token) => {
+    const { name, role, summary, avatar, content } = token;
+    const cardData: NpcCardData = {
+      name,
+      role,
+      summary,
+      avatar,
+      content,
+    };
+    const container = document.createElement('div');
+    container.classList.add('npc-card-wrapper');
+    render(h(NpcCard, { cardData }), container);
+    return container.outerHTML;
   },
-  { immediate: true },
-);
+  npcSummary: (token) => {
+    const { name, data } = token;
+    if (!data) return '';
+    const { role, summary, avatar } = data;
+    const summaryData: NpcSummaryData = {
+      name,
+      role,
+      summary,
+      avatar,
+    };
+    const container = document.createElement('div');
+    container.classList.add('npc-summary-wrapper');
+    render(h(NpcCard, { cardData: summaryData }), container);
+    return container.outerHTML;
+  },
+});
 </script>
 
 <template>
   <div class="markdown-renderer">
-    <div class="content-wrapper">
-      <template
-        v-for="(item, _index) in contentItems"
-        :key="_index"
-      >
-        <div
-          v-if="item.type === 'text'"
-          class="markdown-content"
-          v-html="item.content"
-        ></div>
-        <div
-          v-else-if="item.type === 'card'"
-          class="inline-npc-card"
-        >
-          <NpcCard :card-data="item.data!" />
-        </div>
-        <div
-          v-else-if="item.type === 'summary'"
-          class="inline-npc-summary"
-        >
-          <NpcCard
-            v-if="item.summaryData"
-            :card-data="item.summaryData"
-            class="summary-card"
-          />
-        </div>
-      </template>
-    </div>
+    <div
+      class="content-wrapper"
+      v-html="html"
+    ></div>
   </div>
 </template>
 
@@ -74,12 +68,7 @@ watch(
   .content-wrapper {
     max-width: 600px;
     margin: 0 auto;
-  }
-
-  // 基础的 markdown 内容
-  .markdown-content {
     color: var(--color-p);
-    // line-height: 1.7;
 
     :deep(.md-h1) {
       color: var(--color-title);
@@ -115,18 +104,18 @@ watch(
       text-indent: 1.4em;
       line-height: 1.6;
     }
+
+    :deep(.npc-card-wrapper),
+    :deep(.npc-summary-wrapper) {
+      margin: 20px 0;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    :deep(.npc-card-wrapper) {
+      margin-top: 0;
+    }
   }
-}
-
-.inline-npc-card,
-.inline-npc-summary {
-  margin: 20px 0;
-  break-inside: avoid;
-  page-break-inside: avoid;
-}
-
-.inline-npc-card {
-  margin-top: 0;
 }
 
 /* when print */
@@ -149,12 +138,8 @@ watch(
       max-width: 800px;
       widows: 2;
       orphans: 1;
-    }
-
-    .markdown-content {
       color: var(--color-p-print);
 
-      // 特别处理标题后的短内容
       :deep(.md-h1),
       :deep(.md-h2),
       :deep(.md-h3),
@@ -167,6 +152,7 @@ watch(
       :deep(.md-h1) {
         column-span: all;
         color: var(--color-title-print);
+        text-align: center;
       }
 
       :deep(.md-h2) {
@@ -174,6 +160,7 @@ watch(
         break-before: column;
         page-break-before: always;
         color: var(--color-title-print);
+        text-align: center;
       }
 
       :deep(.md-h3) {
