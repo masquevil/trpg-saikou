@@ -5,13 +5,7 @@ interface Props {
   cardData: NpcCardData | NpcSummaryData;
 }
 
-const props = defineProps<Props>();
-const formatCustomContent = (content: any): string => {
-  if (typeof content === 'string') {
-    return content;
-  }
-  return String(content);
-};
+defineProps<Props>();
 </script>
 
 <template>
@@ -37,7 +31,6 @@ const formatCustomContent = (content: any): string => {
     </div>
 
     <div class="card-body">
-      <!-- 渲染所有自定义字段 -->
       <div
         v-if="'content' in cardData"
         v-for="[title, value] in cardData.content"
@@ -46,7 +39,7 @@ const formatCustomContent = (content: any): string => {
       >
         <h4 class="npc-info-section-title">{{ title }}</h4>
         <div class="npc-info-section-content">
-          {{ formatCustomContent(value) }}
+          {{ value }}
         </div>
       </div>
     </div>

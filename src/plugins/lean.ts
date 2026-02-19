@@ -15,11 +15,7 @@ interface Options {
 
 export default {
   install(app: App, options: Options = {}) {
-    const {
-      appId = defaultAppId,
-      appKey = defaultAppKey,
-      serverURL = defaultServerURL,
-    } = options;
+    const { appId = defaultAppId, appKey = defaultAppKey, serverURL = defaultServerURL } = options;
 
     if (!appId || !appKey || !serverURL) return;
 
@@ -30,5 +26,5 @@ export default {
     });
 
     app.config.globalProperties.$lean = Lean;
-  }
-}
+  },
+};
