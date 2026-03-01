@@ -6,6 +6,14 @@ import PaperSection from '../components/PaperSection.vue';
 import WritableArea from '../components/WritableArea.vue';
 
 import { usePC, usePageData } from '../hooks/useProviders';
+import {
+  randAppearance,
+  randBelief,
+  randImportantPerson,
+  randMeaningfulPlace,
+  randPreciousItem,
+  randTrait,
+} from '../models/story';
 
 import type { COCPlayerCharacter } from '../types/character';
 
@@ -13,6 +21,7 @@ interface AreaConfig {
   label: string;
   fieldName: keyof COCPlayerCharacter['stories'];
   size?: 'small' | 'base';
+  randable?: boolean;
 }
 
 const pc = usePC();
@@ -20,16 +29,28 @@ const pageData = usePageData();
 
 const BASE_ROWS = 3;
 const SMALL_ROWS = 4;
+
+// 定义随机方法映射
+const randMethods: Record<string, () => string> = {
+  app: randAppearance,
+  belief: randBelief,
+  IPerson: randImportantPerson,
+  IPlace: randMeaningfulPlace,
+  IItem: randPreciousItem,
+  trait: randTrait,
+};
+
 const leftConfigs: AreaConfig[] = reactive([
-  { label: '形象描述', fieldName: 'app' },
-  { label: '思想与信念', fieldName: 'belief' },
-  { label: '重要之人', fieldName: 'IPerson' },
-  { label: '意义非凡之地', fieldName: 'IPlace' },
-  { label: '宝贵之物', fieldName: 'IItem' },
-  { label: '特质', fieldName: 'trait' },
+  { label: '形象描述', fieldName: 'app', randable: true },
+  { label: '思想与信念', fieldName: 'belief', randable: true },
+  { label: '重要之人', fieldName: 'IPerson', randable: true },
+  { label: '意义非凡之地', fieldName: 'IPlace', randable: true },
+  { label: '宝贵之物', fieldName: 'IItem', randable: true },
+  { label: '特质', fieldName: 'trait', randable: true },
   { label: '伤口与疤痕', fieldName: 'scar' },
   { label: '精神症状', fieldName: 'mad' },
 ]);
+
 const rightConfigs: AreaConfig[] = reactive([]);
 const restConfig = reactive<Partial<AreaConfig>>({ fieldName: 'desc', size: 'base' });
 const restRows = computed(() => {
@@ -50,6 +71,14 @@ function onResizeConfig(config: Partial<AreaConfig>) {
     }
   }
   config.size = 'small';
+}
+
+function handleRand(fieldName: keyof COCPlayerCharacter['stories']) {
+  const randMethod = randMethods[fieldName];
+  if (randMethod && pc?.value) {
+    const randValue = randMethod();
+    pc.value.stories[fieldName] = randValue;
+  }
 }
 
 watch(
@@ -83,7 +112,9 @@ watch(
           v-model="pc.stories[config.fieldName]"
           :rows="config.size === 'small' ? SMALL_ROWS : BASE_ROWS"
           :size="config.size"
+          :randable="config.randable"
           @oversize="() => onResizeConfig(config)"
+          @rand="() => handleRand(config.fieldName)"
         />
       </div>
       <div class="story-section-column col-3">

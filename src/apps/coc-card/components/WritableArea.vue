@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, nextTick, watch, onActivated } from 'vue';
 import { usePageData } from '../hooks/useProviders';
+import RandButton from './RandButton.vue';
 
 interface Props {
   label: string;
@@ -10,27 +11,35 @@ interface Props {
   placeholder?: string;
   maxlength?: number;
   readonly?: boolean;
+  randable?: boolean;
 }
 const props = withDefaults(defineProps<Props>(), {
   rows: 3,
   modelValue: '',
   size: 'base',
   readonly: false,
+  randable: false,
 });
 
 interface Emits {
   (event: 'update:modelValue', modelValue: string): void;
   (event: 'oversize'): void;
+  (event: 'rand'): void;
 }
 const emit = defineEmits<Emits>();
 
 const pageData = usePageData();
 
+// 按钮宽度常量（22px + 4px gap）
+const BUTTON_WIDTH_EM = 1.7; // 约等于 26px 转换为 em 单位
+
 const inputStyle = computed(() => {
   const labelLength = props.label.length;
   const indent = props.size === 'small' ? labelLength / 0.8 : labelLength;
+  // 增加按钮宽度的缩进
+  const totalIndent = indent + (props.randable ? BUTTON_WIDTH_EM : 0);
   return {
-    textIndent: indent ? `${indent + 0.4}em` : undefined,
+    textIndent: totalIndent ? `${totalIndent + 0.4}em` : undefined,
   };
 });
 
@@ -45,6 +54,11 @@ function checkOverSize(stop: boolean = false) {
     }
   });
 }
+
+function handleRand() {
+  emit('rand');
+}
+
 watch(
   () => [props.modelValue, pageData?.printing],
   () => checkOverSize(),
@@ -61,7 +75,13 @@ onActivated(() => {
       'printing-image': pageData?.printing,
     }"
   >
-    <div class="label">{{ label }}</div>
+    <div class="label-container">
+      <RandButton
+        v-if="randable"
+        @click="handleRand"
+      />
+      <div class="label">{{ label }}</div>
+    </div>
     <textarea
       class="input"
       :class="{
@@ -91,9 +111,6 @@ onActivated(() => {
         <div
           class="line-row-label"
           v-if="row === 1 && label"
-          :style="{
-            width: `${label.length}em`,
-          }"
         ></div>
         <div class="line"></div>
       </div>
@@ -111,12 +128,18 @@ onActivated(() => {
   line-height: 0;
 }
 
-.label {
+.label-container {
   position: absolute;
   z-index: 10;
-  font-weight: 900;
+  display: flex;
+  align-items: center;
+  gap: 4px;
   padding: 0 calc(var(--padding-h) / 2);
   line-height: var(--line-height);
+}
+
+.label {
+  font-weight: 900;
   color: var(--color-black);
 }
 
@@ -166,7 +189,9 @@ onActivated(() => {
 }
 .line-row-label {
   margin-right: var(--padding-h);
+  width: v-bind('`${label.length + (randable ? BUTTON_WIDTH_EM : 0)}em`');
 }
+
 .line {
   flex: 1 1 0;
   height: 1px;
