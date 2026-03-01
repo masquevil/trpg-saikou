@@ -78,6 +78,7 @@ onActivated(() => {
     <div class="label-container">
       <RandButton
         v-if="randable"
+        class="rand-button"
         @click="handleRand"
       />
       <div class="label">{{ label }}</div>
@@ -205,6 +206,17 @@ onActivated(() => {
     visibility: hidden;
     color: transparent;
     opacity: 0;
+  }
+  .rand-button {
+    display: none;
+  }
+  .input {
+    text-indent: v-bind(
+      '`${props.size === "small" ? label.length / 0.8 : label.length}em`'
+    ) !important;
+  }
+  .line-row-label {
+    width: v-bind('`${label.length}em`');
   }
 }
 .printing-image {
