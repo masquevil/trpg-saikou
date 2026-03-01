@@ -12397,7 +12397,7 @@ const nr = /* @__PURE__ */ L(wr, [["render", Mr], ["__scopeId", "data-v-fa6373e1
       ]);
     };
   }
-}), vr = /* @__PURE__ */ L(Ir, [["__scopeId", "data-v-564df3f1"]]), We = (w) => (vA("data-v-d2dec0a7"), w = w(), lA(), w), lr = { class: "label-container" }, ar = { class: "label" }, Ur = ["rows", "placeholder", "value", "maxlength", "readonly"], rr = /* @__PURE__ */ We(() => /* @__PURE__ */ I("div", { class: "line-row" }, null, -1)), Rr = {
+}), vr = /* @__PURE__ */ L(Ir, [["__scopeId", "data-v-564df3f1"]]), We = (w) => (vA("data-v-242165cf"), w = w(), lA(), w), lr = { class: "label-container" }, ar = { class: "label" }, Ur = ["rows", "placeholder", "value", "maxlength", "readonly"], rr = /* @__PURE__ */ We(() => /* @__PURE__ */ I("div", { class: "line-row" }, null, -1)), Rr = {
   key: 0,
   class: "line-row-label"
 }, Fr = /* @__PURE__ */ We(() => /* @__PURE__ */ I("div", { class: "line" }, null, -1)), Xg = 1.7, Pr = /* @__PURE__ */ h({
@@ -12415,7 +12415,9 @@ const nr = /* @__PURE__ */ L(wr, [["render", Mr], ["__scopeId", "data-v-fa6373e1
   emits: ["update:modelValue", "oversize", "rand"],
   setup(w, { emit: A }) {
     gD((C) => ({
-      a7b94fe8: `${C.label.length + (C.randable ? Xg : 0)}em`
+      "2a50e57d": `${C.label.length + (C.randable ? Xg : 0)}em`,
+      "3040eb8e": `${o.size === "small" ? C.label.length / 0.8 : C.label.length}em`,
+      "20e0500e": `${C.label.length}em`
     }));
     const o = w, i = A, g = ZA(), e = wA(() => {
       const C = o.label.length, l = (o.size === "small" ? C / 0.8 : C) + (o.randable ? Xg : 0);
@@ -12447,6 +12449,7 @@ const nr = /* @__PURE__ */ L(wr, [["render", Mr], ["__scopeId", "data-v-fa6373e1
         I("div", lr, [
           C.randable ? (r(), q(vr, {
             key: 0,
+            class: "rand-button",
             onClick: n
           })) : W("", !0),
           I("div", ar, x(C.label), 1)
@@ -12482,7 +12485,7 @@ const nr = /* @__PURE__ */ L(wr, [["render", Mr], ["__scopeId", "data-v-fa6373e1
       ], 2);
     };
   }
-}), sA = /* @__PURE__ */ L(Pr, [["__scopeId", "data-v-d2dec0a7"]]), Kr = [
+}), sA = /* @__PURE__ */ L(Pr, [["__scopeId", "data-v-242165cf"]]), Kr = [
   "结实的",
   "英俊的",
   "笨拙的",
