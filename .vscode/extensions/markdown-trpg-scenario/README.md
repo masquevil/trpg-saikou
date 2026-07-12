@@ -11,8 +11,8 @@
 
 ### NPC Card 语法
 
-```markdown
-\`\`\`npc-card
+````markdown
+```npc-card
 name: 角色名称
 role: 角色身份  
 avatar: 图片文件地址.jpg / 图片网络地址
@@ -25,16 +25,16 @@ summary: 角色简介，可以多行
 多行文本：
 - 项目1
 - 项目2
-\`\`\`
 ```
+````
 
 ### NPC Summary 语法
 
-```markdown
-\`\`\`npc-summary
+````markdown
+```npc-summary
 name: 角色名称
-\`\`\`
 ```
+````
 
 ## 颜色自定义
 
