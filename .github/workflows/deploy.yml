@@ -14,17 +14,25 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
       - name: Setup Node
         uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: pnpm
 
       - name: Install dependencies
-        uses: bahmutov/npm-install@v1
+        run: pnpm install --frozen-lockfile
 
       - name: Copy local example
         run: sh ./shell/copy.sh
 
       - name: Build project
-        run: VITE_TARGET_ENV=pages yarn build
+        run: VITE_TARGET_ENV=pages pnpm build
 
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v4

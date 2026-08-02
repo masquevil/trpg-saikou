@@ -78,11 +78,11 @@
 ## Project Setup
 
 ```sh
-yarn install
+pnpm install
 
 sh ./shell/copy.sh
 
-yarn dev
+pnpm dev
 ```
 
 ## 商业使用
@@ -91,5 +91,5 @@ yarn dev
 
 如需商业合作，可以联系：
 
-* 侠小然(masquevil@gmail.com)
-* 听枫馆(北京) · 枫笛 (微信：drivehe)
+- 侠小然(<masquevil@gmail.com>)
+- 听枫馆(北京) · 枫笛 (微信：drivehe)

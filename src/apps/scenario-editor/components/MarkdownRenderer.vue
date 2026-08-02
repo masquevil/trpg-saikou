@@ -14,7 +14,7 @@ interface Emits {
 }
 
 const props = withDefaults(defineProps<Props>(), {});
-const emit = defineEmits<Emits>();
+defineEmits<Emits>();
 
 const { parse } = useScenarioParser(props.moduleName, props.content, {
   npcCard: (token) => {

@@ -1,6 +1,6 @@
 {
-  "installCommand": "yarn install && sh ./shell/copy.sh",
-  "buildCommand": "yarn build",
+  "installCommand": "pnpm install && sh ./shell/copy.sh",
+  "buildCommand": "pnpm build",
   "outputDirectory": "dist",
   "rewrites": [
     {
