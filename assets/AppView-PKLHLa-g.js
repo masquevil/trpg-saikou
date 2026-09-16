@@ -1,0 +1,1 @@
+import{b as e,h as t,x as n,z as r}from"./runtime-core.esm-bundler-DtrghhmR.js";import{t as i}from"./_plugin-vue_export-helper-BDNMzG2s.js";import{t as a}from"./RollTool-Cg2H4q_D.js";var o={class:`page`},s=i(n({__name:`AppView`,setup(n){return(n,i)=>(r(),t(`main`,o,[e(a)]))}}),[[`__scopeId`,`data-v-e922e64a`]]);export{s as default};

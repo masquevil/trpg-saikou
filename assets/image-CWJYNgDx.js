@@ -1,0 +1,1 @@
+function e(e,t){let n=document.createElement(`a`);n.href=e,n.download=t,n.click()}function t(e){return new Promise(t=>{let n=document.createElement(`img`);n.onload=()=>{n.remove(),t({width:n.width,height:n.height})},n.src=e})}function n(t,n=`image`){e(t,n)}export{t as n,e as r,n as t};
