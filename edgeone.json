@@ -1,0 +1,10 @@
+{
+  "installCommand": "pnpm install && sh ./shell/copy.sh",
+  "buildCommand": "pnpm build",
+  "rewrites": [
+    {
+      "source": "/*",
+      "destination": "/index.html"
+    }
+  ]
+}
