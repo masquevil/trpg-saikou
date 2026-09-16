@@ -3,3 +3,5 @@ allowBuilds:
   core-js-pure: true
   esbuild: true
   vue-demi: true
+packages:
+  - "."
