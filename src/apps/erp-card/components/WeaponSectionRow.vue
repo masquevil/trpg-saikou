@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import { omit } from 'es-toolkit';
 
 import SoxCheckbox from '@/components/SoxCheckbox.vue';
 import BaseTdInput from '../components/BaseTdInput.vue';
@@ -126,10 +127,7 @@ function updatePCWeapon(updates: Partial<Weapon>) {
 function onSelectWeapon(name: string) {
   const data = weapons.find((data) => data.name === name);
   if (!data) return;
-  const { price, time, ...rest } = data;
-  updatePCWeapon({
-    ...rest,
-  });
+  updatePCWeapon(omit(data, ['price', 'time']));
   hideWeaponSeletor();
   LA?.track(LAEventID.FEATURE, {
     name: FeatureNames.PAPER_USE_WEAPON,

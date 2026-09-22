@@ -20,7 +20,7 @@ function alignNumberText(number: number, max: number) {
   return (
     numberStr +
     Array.from({ length: maxStrLength - numberStr.length })
-      .map((_) => ' ')
+      .map(() => ' ')
       .join('')
   );
 }

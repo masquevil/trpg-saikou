@@ -34,7 +34,7 @@ const values = reactive(getValues());
 const rests = computed(() => {
   let p = 0;
   let i = 0;
-  pc?.value.skillPoints.forEach(([_, point]) => {
+  pc?.value.skillPoints.forEach(([, point]) => {
     p += point.p || 0;
     i += point.i || 0;
   });

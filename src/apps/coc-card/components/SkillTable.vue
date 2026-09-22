@@ -145,8 +145,8 @@ function findSkillPoints(skillInfo: COCPCSkill) {
     if (typeof skillInfo === 'string') {
       return skillInfo === pointSkill;
     }
-    const [name, _, place] = pointSkill;
-    const [skillName, __, skillPlace] = skillInfo;
+    const [name, , place] = pointSkill;
+    const [skillName, , skillPlace] = skillInfo;
     return name === skillName && place === skillPlace;
   });
 }

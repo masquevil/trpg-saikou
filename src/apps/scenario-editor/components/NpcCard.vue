@@ -31,17 +31,18 @@ defineProps<Props>();
     </div>
 
     <div class="card-body">
-      <div
-        v-if="'content' in cardData"
-        v-for="[title, value] in cardData.content"
-        :key="title"
-        class="npc-info-section"
-      >
-        <h4 class="npc-info-section-title">{{ title }}</h4>
-        <div class="npc-info-section-content">
-          {{ value }}
+      <template v-if="'content' in cardData">
+        <div
+          v-for="[title, value] in cardData.content"
+          :key="title"
+          class="npc-info-section"
+        >
+          <h4 class="npc-info-section-title">{{ title }}</h4>
+          <div class="npc-info-section-content">
+            {{ value }}
+          </div>
         </div>
-      </div>
+      </template>
     </div>
   </div>
 </template>

@@ -50,7 +50,7 @@ const isProSkill = computed(() => {
       return skillInfo === props.skillName;
     }
     // 二级技能
-    const [skillName, _, childSkillPlace] = skillInfo;
+    const [skillName, , childSkillPlace] = skillInfo;
     return skillName === props.skillName && childSkillPlace === props.childSkillData?.place;
   });
 });
@@ -59,7 +59,7 @@ function updateCurrentData(value: string) {
   if (!props.childSkillData || !currentData.value) return;
   // update pro data
   if (isProSkill.value && pc) {
-    const skillInfo = pc.value.proSkills.find(([skillName, _, childSkillPlace]) => {
+    const skillInfo = pc.value.proSkills.find(([skillName, , childSkillPlace]) => {
       return skillName === props.skillName && childSkillPlace === props.childSkillData?.place;
     });
     if (skillInfo && typeof skillInfo !== 'string') {

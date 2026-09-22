@@ -9,7 +9,7 @@ module.exports = {
     '@vue/eslint-config-typescript',
     '@vue/eslint-config-prettier/skip-formatting',
   ],
-  options: {
+  rules: {
     'no-extra-boolean-cast': 'off',
   },
   parserOptions: {

@@ -12,8 +12,6 @@ import RandNameRow from '../components/control-section-parts/rand-name/RandNameR
 import formattedJobs from '../models/job';
 import LA, { LAEventID, FeatureNames } from '@/plugins/51la';
 
-// @ts-ignore
-import vClickOutside from '@/directives/clickOutside';
 import { usePC, usePageData } from '../hooks/useProviders';
 
 import type { FlattenTreeData } from '../types/flattenTree';
