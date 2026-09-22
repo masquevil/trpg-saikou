@@ -3,6 +3,9 @@ import { fileURLToPath, URL } from 'node:url';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import { visualizer } from 'rollup-plugin-visualizer';
+import AutoImport from 'unplugin-auto-import/vite';
+import Components from 'unplugin-vue-components/vite';
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 
 function getBase() {
   /**
@@ -32,6 +35,12 @@ export default defineConfig({
       gzipSize: true,
       brotliSize: true,
     }),
+    AutoImport({
+      resolvers: [ElementPlusResolver()],
+    }),
+    Components({
+      resolvers: [ElementPlusResolver()],
+    }),
   ],
   base: getBase(),
   resolve: {
@@ -47,5 +56,34 @@ export default defineConfig({
   },
   build: {
     assetsInlineLimit: 8192,
+    rolldownOptions: {
+      output: {
+        codeSplitting: {
+          groups: [
+            // {
+            //   name: 'vue-vendor',
+            //   test: /node_modules[\\/]vue/,
+            //   priority: 20,
+            // },
+            // {
+            //   name: 'element-plus-vendor',
+            //   test: /node_modules[\\/]element-plus/,
+            //   priority: 19,
+            // },
+            // {
+            //   name: 'vendor',
+            //   test: /node_modules/,
+            //   priority: 10,
+            // },
+            {
+              name: 'common',
+              minShareCount: 2,
+              minSize: 10000,
+              priority: 5,
+            },
+          ],
+        },
+      },
+    },
   },
 });

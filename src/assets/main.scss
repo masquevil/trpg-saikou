@@ -1,6 +1,6 @@
-@import './base.scss';
-@import './animate.scss';
-@import './element-override.scss';
+@use './base.scss';
+@use './animate.scss';
+@use './element-override.scss';
 
 ::placeholder {
   color: var(--color-placeholder);

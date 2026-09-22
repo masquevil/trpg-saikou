@@ -12,8 +12,4 @@ const app = createApp(App);
 app.use(router);
 app.use(lean);
 
-import('element-plus').then((ElementPlus) => {
-  app.use(ElementPlus.default);
-});
-
 app.mount('#app');
