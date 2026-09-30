@@ -28,14 +28,6 @@ const appConfigs: Record<'online' | 'offline', AppConfig[]> = {
       preview: cocCardPreview,
     },
     {
-      key: 'voyage',
-      name: '维哲枢纽·在线跑团（开发版）',
-      to: {
-        name: 'voyage',
-      },
-      preview: voyagePreview,
-    },
-    {
       key: 'timer',
       name: '计时器',
       to: {
@@ -55,7 +47,7 @@ const appConfigs: Record<'online' | 'offline', AppConfig[]> = {
   offline: [
     {
       key: 'scenario-editor',
-      name: '模组编辑器',
+      name: '模组编辑器（本地）',
       to: {
         name: 'scenario-editor',
       },
@@ -63,7 +55,7 @@ const appConfigs: Record<'online' | 'offline', AppConfig[]> = {
     },
     {
       key: 'kp-ads',
-      name: 'KP招募PL展示器',
+      name: 'KP招募PL展示器（本地）',
       to: {
         name: 'kp-ads',
       },
@@ -78,8 +70,16 @@ const appConfigs: Record<'online' | 'offline', AppConfig[]> = {
       preview: cocCardPreview,
     },
     {
+      key: 'voyage',
+      name: '维哲枢纽·网团（搁置）',
+      to: {
+        name: 'voyage',
+      },
+      preview: voyagePreview,
+    },
+    {
       key: 'record',
-      name: '模组列表（待重构）',
+      name: '模组列表（废弃）',
       to: {
         name: 'tfg-stories',
       },

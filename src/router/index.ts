@@ -97,6 +97,15 @@ const router = createRouter({
         theme: 'light',
       },
     },
+    // 404 兜底路由，需放在最后
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'not-found',
+      component: () => import('../apps/not-found/AppView.vue'),
+      meta: {
+        title: '页面未找到',
+      },
+    },
   ],
 });
 
