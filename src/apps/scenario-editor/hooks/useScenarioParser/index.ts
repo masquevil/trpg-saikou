@@ -1,7 +1,7 @@
 import { ref } from 'vue';
 import { Marked } from 'marked';
 import NpcDataManager from '../../models/npcDataManager';
-import createNpcBlockExtensions, { NpcBlockRenderers } from './npc-block/extensions';
+import createNpcBlockExtensions, { type NpcBlockRenderers } from './npc-block/extensions';
 
 export type CustomRenderers = NpcBlockRenderers;
 

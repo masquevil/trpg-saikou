@@ -47,92 +47,95 @@ interface TableRowData {
 }
 
 function getTableData(data: SkillGroups, suggestion?: Suggestion) {
-  const tableData = data.reduce<TableRowData[]>((result: any, skillGroup: SkillGroup) => {
-    const rows: TableRowData[] = skillGroup.groupSkills.reduce<TableRowData[]>(
-      (rows, skill, index) => {
-        const isSpecialGroup = skillGroup.groupName === '特殊';
-        let init = skill.init;
-        if (pc && skill.name in dynamicInitFormulas) {
-          init = dynamicInitFormulas[skill.name](pc.value);
-        }
-        const isGroupStart = isSpecialGroup || index === 0;
-        // simple skill row
-        const skillKey = skill.name;
-        const skillPoint = findSkillPoints(skillKey);
-        const points = skillPoint?.[1] || {};
-        // 信用评级范围
-        const [w0, w1] = suggestion?.wealth ?? [-1, -1];
-        const comments = skillKey === '信用评级' && w0 >= 0 && w1 >= 0 ? `(${w0}~${w1})` : '';
-        const total = getTotal(points, init);
-        let rowData: TableRowData = {
-          key: skill.name,
-          skillName: skill.name,
-          skillKey: skill.hidden ?? skill.name,
-          hiddenKey: skill.hidden,
-          comments,
-          init,
-          initPlaceholder: skill.initPlaceholder,
-          points,
-          total,
-          totalSeparation: [total, ~~(total / 2), ~~(total / 5)],
-          showTotal: total > 0 && (total !== init || total === points.b),
-          ...(isGroupStart
-            ? {
-                isGroupStart,
-                groupName: skillGroup.groupName,
-                groupSize: skillGroup.groupSkills.length,
+  const tableData = data.reduce<TableRowData[]>(
+    (result: TableRowData[], skillGroup: SkillGroup) => {
+      const rows: TableRowData[] = skillGroup.groupSkills.reduce<TableRowData[]>(
+        (rows, skill, index) => {
+          const isSpecialGroup = skillGroup.groupName === '特殊';
+          let init = skill.init;
+          if (pc && skill.name in dynamicInitFormulas) {
+            init = dynamicInitFormulas[skill.name](pc.value);
+          }
+          const isGroupStart = isSpecialGroup || index === 0;
+          // simple skill row
+          const skillKey = skill.name;
+          const skillPoint = findSkillPoints(skillKey);
+          const points = skillPoint?.[1] || {};
+          // 信用评级范围
+          const [w0, w1] = suggestion?.wealth ?? [-1, -1];
+          const comments = skillKey === '信用评级' && w0 >= 0 && w1 >= 0 ? `(${w0}~${w1})` : '';
+          const total = getTotal(points, init);
+          const rowData: TableRowData = {
+            key: skill.name,
+            skillName: skill.name,
+            skillKey: skill.hidden ?? skill.name,
+            hiddenKey: skill.hidden,
+            comments,
+            init,
+            initPlaceholder: skill.initPlaceholder,
+            points,
+            total,
+            totalSeparation: [total, ~~(total / 2), ~~(total / 5)],
+            showTotal: total > 0 && (total !== init || total === points.b),
+            ...(isGroupStart
+              ? {
+                  isGroupStart,
+                  groupName: skillGroup.groupName,
+                  groupSize: skillGroup.groupSkills.length,
+                }
+              : {}),
+            ...(isSpecialGroup ? { isSpecialGroup, groupSize: 1 } : {}),
+          };
+          const resultRows: TableRowData[] = [...rows];
+          let added = [rowData];
+          // multi skill rows
+          if (skill.group) {
+            const length = skill.group.show.length;
+            const groupRow = resultRows.find((row) => row.isGroupStart) || rowData;
+            // increase groupSize
+            groupRow.groupSize! += length - 1;
+            added = skill.group.show.map((placeName, childIndex) => {
+              const childSkillName =
+                viewData?.showingChildSkills[skill.name]?.[childIndex] ?? placeName;
+              const childSkill = skill.group?.skills.find(({ name }) => name === childSkillName);
+              let init = childSkill?.init ?? rowData.init;
+              const skillKey: COCPCSkill = [skill.hidden ?? skill.name, childSkillName, childIndex];
+              const skillPoint = findSkillPoints(skillKey);
+              const points = skillPoint?.[1] || {};
+              const total = getTotal(points, init);
+              if (pc && !skill.name) {
+                init = points.b || 0;
               }
-            : {}),
-          ...(isSpecialGroup ? { isSpecialGroup, groupSize: 1 } : {}),
-        };
-        let resultRows: TableRowData[] = [...rows];
-        let added = [rowData];
-        // multi skill rows
-        if (skill.group) {
-          const length = skill.group.show.length;
-          const groupRow = resultRows.find((row) => row.isGroupStart) || rowData;
-          // increase groupSize
-          groupRow.groupSize! += length - 1;
-          added = skill.group.show.map((placeName, childIndex) => {
-            const childSkillName =
-              viewData?.showingChildSkills[skill.name]?.[childIndex] ?? placeName;
-            const childSkill = skill.group?.skills.find(({ name }) => name === childSkillName);
-            let init = childSkill?.init ?? rowData.init;
-            const skillKey: COCPCSkill = [skill.hidden ?? skill.name, childSkillName, childIndex];
-            const skillPoint = findSkillPoints(skillKey);
-            const points = skillPoint?.[1] || {};
-            const total = getTotal(points, init);
-            if (pc && !skill.name) {
-              init = points.b || 0;
-            }
-            return {
-              ...rowData,
-              // group info
-              isGroupStart: childIndex ? false : rowData.isGroupStart,
-              // skill info
-              key: `${skill.name}:_:${childIndex}`,
-              skillKey,
-              hiddenKey: skill.hidden,
-              init,
-              points,
-              total,
-              totalSeparation: [total, ~~(total / 2), ~~(total / 5)],
-              showTotal: total > 0 && (total !== init || total === points.b),
-              // child skill info
-              childSkillData: {
-                name: childSkillName,
-                place: childIndex,
-                list: skill.group?.skills,
-              },
-            };
-          });
-        }
-        return [...resultRows, ...added];
-      },
-      [],
-    );
-    return [...result, ...rows];
-  }, []);
+              return {
+                ...rowData,
+                // group info
+                isGroupStart: childIndex ? false : rowData.isGroupStart,
+                // skill info
+                key: `${skill.name}:_:${childIndex}`,
+                skillKey,
+                hiddenKey: skill.hidden,
+                init,
+                points,
+                total,
+                totalSeparation: [total, ~~(total / 2), ~~(total / 5)],
+                showTotal: total > 0 && (total !== init || total === points.b),
+                // child skill info
+                childSkillData: {
+                  name: childSkillName,
+                  place: childIndex,
+                  list: skill.group?.skills,
+                },
+              };
+            });
+          }
+          return [...resultRows, ...added];
+        },
+        [],
+      );
+      return [...result, ...rows];
+    },
+    [],
+  );
   return tableData;
 }
 

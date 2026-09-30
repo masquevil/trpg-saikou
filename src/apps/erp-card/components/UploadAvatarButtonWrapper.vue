@@ -25,9 +25,9 @@ const HEIGHT = 172 * 2;
 const pc = usePC();
 
 async function handleUpload(event: Event) {
-  const el = event.target as any;
-  const file: File = el.files[0];
-  el.value = null;
+  const el = event.target as HTMLInputElement;
+  const file = el.files?.[0];
+  el.value = '';
   if (!file || !pc) return;
 
   const url = await filetoDataURL(file);

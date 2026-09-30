@@ -1,6 +1,7 @@
 import { fileURLToPath, URL } from 'node:url';
 
 import { defineConfig } from 'vite';
+import VueRouter from 'vue-router/vite';
 import vue from '@vitejs/plugin-vue';
 import { visualizer } from 'rollup-plugin-visualizer';
 import AutoImport from 'unplugin-auto-import/vite';
@@ -27,6 +28,8 @@ function getBase() {
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
+    // 文件路由：`src/pages` 的目录结构即路由表，并生成 `typed-router.d.ts`
+    VueRouter(),
     vue(),
     // bundle 分析插件
     visualizer({

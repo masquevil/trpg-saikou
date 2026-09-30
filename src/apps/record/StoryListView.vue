@@ -116,7 +116,7 @@ const computedList = computed(() => {
       <h1 class="title">我的模组列表</h1>
       <RouterLink
         class="link"
-        to="/self"
+        to="/record-self"
       >
         我的记录
       </RouterLink>

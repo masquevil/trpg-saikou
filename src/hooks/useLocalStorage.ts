@@ -1,4 +1,4 @@
-import { useStorage, RemovableRef } from '@vueuse/core';
+import { useStorage, type RemovableRef } from '@vueuse/core';
 
 import { LSNamespace, LSApp } from '@/types/ls';
 

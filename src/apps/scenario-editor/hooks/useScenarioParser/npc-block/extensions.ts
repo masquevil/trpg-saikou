@@ -1,5 +1,5 @@
-import { Ref, UnwrapRef } from 'vue';
-import { Tokens, RendererThis, TokenizerAndRendererExtension, HooksObject } from 'marked';
+import type { Ref, UnwrapRef } from 'vue';
+import type { Tokens, RendererThis, TokenizerAndRendererExtension, HooksObject } from 'marked';
 import { NpcDataManager } from '../../../models/npcDataManager';
 import { getToken } from '../utils';
 import npcCardDatalizor from './npcCardDatalizor';
@@ -26,7 +26,6 @@ export default function createNpcBlockExtensions(
       name: 'code-custom-npc-card',
       level: 'block' as const,
       tokenizer(src: string): Tokens.CodeCustomNpcCard | undefined {
-        this.lexer.state;
         const token = getToken<Tokens.CodeCustomNpcCard>(
           'code-custom-npc-card',
           /^```npc-card\s*\n([\s\S]*?)\n```/,

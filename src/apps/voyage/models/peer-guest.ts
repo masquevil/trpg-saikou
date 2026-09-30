@@ -1,4 +1,5 @@
-import { Peer, PeerError, DataConnection } from 'peerjs';
+import { Peer, PeerError } from 'peerjs';
+import type { DataConnection } from 'peerjs';
 
 import type { HostMetadata, GuestMetadata } from '../types';
 import type { MessageUnit, Message } from '../types/message';

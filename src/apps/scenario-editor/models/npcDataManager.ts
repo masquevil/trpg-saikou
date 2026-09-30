@@ -1,4 +1,4 @@
-import { NpcCardData } from '../types';
+import type { NpcCardData } from '../types';
 
 // 动态导入所有头像图片
 const avatarModules = import.meta.glob<true, 'url', string>(

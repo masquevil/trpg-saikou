@@ -3,7 +3,7 @@ import { ref, reactive, computed } from 'vue';
 import type { VNodeRef } from 'vue';
 import { RefreshLeft, DArrowRight, DArrowLeft } from '@element-plus/icons-vue';
 
-import { ThrowDiceDetailOptions } from '../../types/dice';
+import type { ThrowDiceDetailOptions } from '../../types/dice';
 import { groupThrowDiceDetail, getGroupThrowDiceTitle } from '../../utils/random';
 
 import ActionCard from './ActionCard.vue';

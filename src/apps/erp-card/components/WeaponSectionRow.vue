@@ -16,7 +16,6 @@ import LA, { LAEventID, FeatureNames } from '@/plugins/51la';
 
 import { useToggle } from '@/utils/ui';
 import { usePC } from '../hooks/useProviders';
-// @ts-ignore
 import vClickOutside from '@/directives/clickOutside';
 
 interface Props {

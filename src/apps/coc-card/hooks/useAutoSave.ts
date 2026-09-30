@@ -48,7 +48,7 @@ export default function useAutoSave(
           '编辑的人物卡',
           savedPC?.name ? `：${savedPC.name}` : '',
         ]);
-      } catch (e) {
+      } catch {
         return;
       }
       ElMessageBox.confirm(vnode, '检测到编辑过的人物卡', { showClose: false }).then(() => {
@@ -56,10 +56,7 @@ export default function useAutoSave(
         pcRef.value = savedPC!;
         // TODO: 提取成 util
         if (savedViewData) {
-          Object.keys(savedViewData).forEach((key) => {
-            const k = key as keyof COCCardViewData;
-            viewData[k] = savedViewData[k] as any;
-          });
+          Object.assign(viewData, savedViewData);
         }
         nextTick(() => {
           pageData.importing = false;

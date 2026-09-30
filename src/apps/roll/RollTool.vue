@@ -2,7 +2,7 @@
 import { ref, computed } from 'vue';
 import { Plus } from '@element-plus/icons-vue';
 
-import { ThrowDiceDetailOptions } from '../../types/dice';
+import type { ThrowDiceDetailOptions } from '../../types/dice';
 import { throwDice } from '../../utils/random';
 
 import ActionCard from './ActionCard.vue';

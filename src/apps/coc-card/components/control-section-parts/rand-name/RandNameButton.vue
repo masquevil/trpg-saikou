@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Lollipop } from '@element-plus/icons-vue';
 
-import { RandNameScope } from '../../../types/name';
+import type { RandNameScope } from '../../../types/name';
 
 export interface Props {
   scope: RandNameScope;
