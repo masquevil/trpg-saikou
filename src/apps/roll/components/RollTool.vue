@@ -185,6 +185,7 @@ function onDiyScroll(delta: number) {
   font-size: 32px;
   line-height: 0;
   background-color: transparent;
+  color: var(--color-heading);
   cursor: pointer;
   &:hover {
     color: var(--color-text-hover);

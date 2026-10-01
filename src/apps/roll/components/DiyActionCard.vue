@@ -161,6 +161,7 @@ const optionTitle = computed(() => {
 .dice-button {
   font-size: 32px;
   line-height: 0;
+  color: var(--color-heading);
   background-color: transparent;
   cursor: pointer;
   &:hover {
