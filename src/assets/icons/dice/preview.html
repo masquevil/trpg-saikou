@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
+    <title>骰子 SVG 预览</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        padding: 40px 24px;
+        background: #f5f4f0;
+        color: #242827;
+        font-family: system-ui, sans-serif;
+      }
+      main {
+        max-width: 1000px;
+        margin: auto;
+      }
+      h1 {
+        margin-bottom: 8px;
+      }
+      p {
+        line-height: 1.7;
+      }
+      .controls {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 24px;
+        margin: 28px 0;
+      }
+      label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 12px;
+        color: #242827;
+      }
+      .card {
+        display: grid;
+        justify-items: center;
+        align-content: center;
+        gap: 20px;
+        min-height: 190px;
+        padding: 24px 8px;
+        border: 1px solid #8884;
+        border-radius: 16px;
+        background: #fff;
+      }
+      .card svg {
+        font-size: var(--dice-size, 96px);
+      }
+      .card span {
+        font-size: 14px;
+        font-weight: 650;
+      }
+      .dark .card {
+        background: #182126;
+      }
+      .small {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 24px;
+        align-items: center;
+        margin-top: 28px;
+      }
+      .sample {
+        display: inline-flex;
+        gap: 8px;
+        align-items: center;
+      }
+      .sample svg {
+        font-size: var(--sample-size);
+      }
+      #error {
+        color: #b42318;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>骰子 / Dice icons</h1>
+      <p>实心剪影 · 透明切面 · 路径数字。D100 使用独立的球形多面体设计。</p>
+      <div class="controls">
+        <label
+          >颜色
+          <input
+            id="color"
+            type="color"
+            value="#242827"
+        /></label>
+        <label
+          >大小
+          <input
+            id="size"
+            type="range"
+            min="24"
+            max="128"
+            value="96"
+          /><output id="size-value">96px</output></label
+        >
+        <label
+          ><input
+            id="dark"
+            type="checkbox"
+          />深色背景</label
+        >
+      </div>
+      <p
+        id="error"
+        role="alert"
+        hidden
+      ></p>
+      <div
+        class="grid"
+        id="grid"
+      ></div>
+      <div
+        class="small"
+        id="small"
+      ></div>
+      <p>
+        在 HTML 中内联 SVG，通过 <code>color</code> 和 <code>font-size</code> 控制。使用 img
+        引用时，不能继承页面颜色。
+      </p>
+    </main>
+    <script type="module">
+      const grid = document.querySelector('#grid');
+      const small = document.querySelector('#small');
+      const color = document.querySelector('#color');
+      color.addEventListener('input', () => {
+        grid.style.color = color.value;
+        small.style.color = color.value;
+      });
+      document.querySelector('#size').addEventListener('input', (event) => {
+        grid.style.setProperty('--dice-size', `${event.target.value}px`);
+        document.querySelector('#size-value').value = `${event.target.value}px`;
+      });
+      document.querySelector('#dark').addEventListener('change', (event) => {
+        grid.classList.toggle('dark', event.target.checked);
+        color.value = event.target.checked ? '#e4c58a' : '#242827';
+        color.dispatchEvent(new Event('input'));
+      });
+      try {
+        const icons = await Promise.all(
+          [2, 3, 4, 6, 8, 10, 12, 20, 100].map(async (sides) => {
+            const response = await fetch(`./d${sides}.svg`);
+            if (!response.ok) throw new Error(`D${sides}: HTTP ${response.status}`);
+            const document = new DOMParser().parseFromString(
+              await response.text(),
+              'image/svg+xml',
+            );
+            if (document.querySelector('parsererror')) throw new Error(`D${sides}: SVG 解析失败`);
+            return { sides, svg: document.documentElement };
+          }),
+        );
+        for (const { sides, svg } of icons) {
+          const card = document.createElement('div');
+          card.className = 'card';
+          svg.setAttribute('aria-hidden', 'true');
+          const label = document.createElement('span');
+          label.textContent = `D${sides}`;
+          card.append(svg, label);
+          grid.append(card);
+        }
+        for (const size of [16, 24, 32, 48]) {
+          const sample = document.createElement('span');
+          sample.className = 'sample';
+          sample.style.setProperty('--sample-size', `${size}px`);
+          sample.append(icons.at(-1).svg.cloneNode(true), `D100 / ${size}px`);
+          small.append(sample);
+        }
+      } catch (error) {
+        const message = document.querySelector('#error');
+        message.hidden = false;
+        message.textContent = `加载失败：${error.message}。请通过项目开发服务器访问预览页，不要直接用 file:// 打开。`;
+      }
+    </script>
+  </body>
+</html>

@@ -2,13 +2,14 @@
 import { ref, computed } from 'vue';
 import { Plus } from '@element-plus/icons-vue';
 
-import type { ThrowDiceDetailOptions } from '@/types/dice.ts';
 import { throwDice } from '@/utils/random.ts';
+import type { ThrowDiceDetailOptions } from '@/types/dice.ts';
 
-import ActionCard from './ActionCard.vue';
-import DiyActionCard from './DiyActionCard.vue';
 import { diceList } from '../constants/index.ts';
 import type { DiyRollResult } from '../types/index.ts';
+import ActionCard from './ActionCard.vue';
+import DiyActionCard from './DiyActionCard.vue';
+import DiceIcon from './DiceIcon.vue';
 
 interface Props {
   hideDiy?: boolean;
@@ -88,12 +89,14 @@ function onDiyScroll(delta: number) {
     </div>
     <ActionCard title="简单投掷（点击即骰）">
       <div class="simple-dice-container">
-        <div
+        <button
           v-for="dice in diceList"
           :key="dice"
+          class="dice-button"
+          @click="onSimpleRoll(dice)"
         >
-          <el-button @click="onSimpleRoll(dice)"> D{{ dice }} </el-button>
-        </div>
+          <DiceIcon :sides="dice" />
+        </button>
       </div>
     </ActionCard>
     <div
@@ -175,8 +178,17 @@ function onDiyScroll(delta: number) {
 .simple-dice-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px 8px;
+  gap: 12px 2px;
   justify-content: space-between;
+}
+.dice-button {
+  font-size: 32px;
+  line-height: 0;
+  background-color: transparent;
+  cursor: pointer;
+  &:hover {
+    color: var(--color-text-hover);
+  }
 }
 
 .diy-container {

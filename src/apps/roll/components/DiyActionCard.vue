@@ -6,9 +6,10 @@ import { RefreshLeft, DArrowRight, DArrowLeft } from '@element-plus/icons-vue';
 import type { ThrowDiceDetailOptions } from '@/types/dice.ts';
 import { groupThrowDiceDetail, getGroupThrowDiceTitle } from '@/utils/random.ts';
 
-import ActionCard from './ActionCard.vue';
 import { diceList } from '../constants/index.ts';
 import type { DiyRollResult } from '../types/index.ts';
+import ActionCard from './ActionCard.vue';
+import DiceIcon from './DiceIcon.vue';
 
 interface Props {
   setRef?: VNodeRef;
@@ -26,11 +27,6 @@ const emit = defineEmits<Emits>();
 const { defaultGroupCount = 5, defaultOptions = { dice: 6, times: 3 } } = props;
 const groupCount = ref(defaultGroupCount);
 const options = reactive(defaultOptions);
-const diceListIndex = ref(3);
-
-function onDiceListIndexChange(delta: number) {
-  diceListIndex.value = (diceListIndex.value + delta + diceList.length) % diceList.length;
-}
 
 function handleRoll() {
   const resultContent = groupThrowDiceDetail(groupCount.value, options).text;
@@ -74,18 +70,18 @@ const optionTitle = computed(() => {
           </el-button-group>
         </div>
       </el-form-item>
-      <el-form-item label="D">
-        <div class="card-row">
-          <el-button @click="onDiceListIndexChange(-3)"> ← </el-button>
-          <el-radio-group v-model="options.dice">
-            <el-radio-button
-              v-for="dice in diceList.slice(diceListIndex, diceListIndex + 3)"
-              :key="dice"
-              :label="`D${dice}`"
-              :value="dice"
-            />
-          </el-radio-group>
-          <el-button @click="onDiceListIndexChange(3)"> → </el-button>
+      <el-form-item>
+        <div class="card-row card-row-dice">
+          <button
+            v-for="dice in diceList"
+            :key="dice"
+            class="dice-button"
+            :class="{ 'dice-button-active': options.dice === dice }"
+            type="button"
+            @click="() => (options.dice = dice)"
+          >
+            <DiceIcon :sides="dice" />
+          </button>
         </div>
       </el-form-item>
       <el-form-item label="几颗">
@@ -158,6 +154,26 @@ const optionTitle = computed(() => {
   align-items: center;
   justify-content: space-between;
 }
+.card-row-dice {
+  gap: 2px;
+}
+
+.dice-button {
+  font-size: 32px;
+  line-height: 0;
+  background-color: transparent;
+  cursor: pointer;
+  &:hover {
+    color: var(--color-text-hover);
+  }
+}
+.dice-button-active {
+  color: var(--color-brand-temp);
+  &:hover {
+    color: var(--color-brand-temp-hover);
+  }
+}
+
 .footer {
   display: flex;
   gap: 8px;

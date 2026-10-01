@@ -24,6 +24,8 @@
   --color-white: #fff;
   --color-white-bg: #fafafa;
   --color-black: #2e2e2e;
+  --color-brand-temp: oklch(72% 0.14 280);
+  --color-brand-temp-hover: oklch(72% 0.14 280 / 0.8);
 
   --color-link: hsl(240, 100%, 75%);
   --color-link-hover: hsl(240, 50%, 60%);
@@ -52,6 +54,7 @@
 
   --color-heading: var(--vt-c-text-light-1);
   --color-text: var(--vt-c-text-light-1);
+  --color-text-hover: var(--vt-c-text-light-2);
 }
 
 @mixin theme-dark-vars {
@@ -64,6 +67,7 @@
 
   --color-heading: var(--vt-c-text-dark-1);
   --color-text: var(--vt-c-text-dark-2);
+  --color-text-hover: var(--vt-c-text-dark-3);
 }
 
 :root {
