@@ -1,4 +1,3 @@
-// TSConfig for modules that run in Node.js environment via either transpilation or type-stripping.
 {
   "extends": "@tsconfig/node24/tsconfig.json",
   "include": [
@@ -11,7 +10,9 @@
   "compilerOptions": {
     "module": "preserve",
     "moduleResolution": "bundler",
-    "types": ["node"],
+    "types": [
+      "node"
+    ],
     "noEmit": true,
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo"
   }

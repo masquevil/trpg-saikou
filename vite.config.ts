@@ -28,7 +28,6 @@ function getBase() {
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    // 文件路由：`src/pages` 的目录结构即路由表，并生成 `typed-router.d.ts`
     VueRouter(),
     vue(),
     // bundle 分析插件
