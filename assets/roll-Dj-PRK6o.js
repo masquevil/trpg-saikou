@@ -1,0 +1,1 @@
+import{Qn as e,Y as t,ar as n,at as r,er as i,gr as a,ir as o,ot as s}from"./common-BWBPgQEM.js";var c={class:`page`},l=s(n({__name:`AppView`,setup(e){return(e,n)=>(a(),i(`main`,c,[o(t)]))}}),[[`__scopeId`,`data-v-dcdb527f`]]),u=n({__name:`roll`,setup(t){return(t,n)=>(a(),e(l))}});typeof r==`function`&&r(u);var d=u;export{d as default};
