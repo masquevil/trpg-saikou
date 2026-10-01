@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // components
 import ControlDialog from '../../ControlDialog.vue';
-import RollTool from '../../../../roll/RollTool.vue';
+import RollTool from '@/apps/roll/components/RollTool.vue';
 
 interface Props {
   isOpen?: boolean;

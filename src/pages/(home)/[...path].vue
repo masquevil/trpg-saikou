@@ -9,6 +9,6 @@ import AppView from '@/apps/not-found/AppView.vue';
 <route lang="json5">
 {
   name: 'not-found',
-  meta: { title: '页面未找到' },
+  meta: { title: '404 - 页面未找到' },
 }
 </route>

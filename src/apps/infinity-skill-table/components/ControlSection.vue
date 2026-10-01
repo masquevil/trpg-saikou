@@ -7,19 +7,19 @@ import copy from 'copy-to-clipboard';
 import { Plus, Download, Refresh, DocumentCopy } from '@element-plus/icons-vue';
 
 // components
-import ControlButton from '../coc-card/components/ControlButton.vue';
-import ControlDialog from '../coc-card/components/ControlDialog.vue';
-import DownloaderItem from '../coc-card/components/DownloaderItem.vue';
+import ControlButton from '@/apps/coc-card/components/ControlButton.vue';
+import ControlDialog from '@/apps/coc-card/components/ControlDialog.vue';
+import DownloaderItem from '@/apps/coc-card/components/DownloaderItem.vue';
 
 // models
-import { createPC } from '../coc-card/models/character';
-import { resetViewData } from '../coc-card/models/viewData';
+import { createPC } from '@/apps/coc-card/models/character';
+import { resetViewData } from '@/apps/coc-card/models/viewData';
 
-import { usePC, useViewData, usePageData } from '../coc-card/hooks/useProviders';
-import { printEl } from '../coc-card/hooks/usePrintPaper';
-import useAppLs from '../coc-card/hooks/useAppLs';
+import { usePC, useViewData, usePageData } from '@/apps/coc-card/hooks/useProviders';
+import { printEl } from '@/apps/coc-card/hooks/usePrintPaper';
+import useAppLs from '@/apps/coc-card/hooks/useAppLs';
 
-import type { COCCardViewData } from '../coc-card/types/viewData';
+import type { COCCardViewData } from '@/apps/coc-card/types/viewData';
 
 interface Props {
   paperEls: HTMLElement[];

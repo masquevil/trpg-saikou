@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { VNodeRef } from 'vue';
 
-import PaperLayout from '../coc-card/layouts/PaperLayout.vue';
+import PaperLayout from '@/apps/coc-card/layouts/PaperLayout.vue';
 import SkillSection from './SkillSection.vue';
-import CopyrightSection from '../coc-card/sections/CopyrightSection.vue';
+import CopyrightSection from '@/apps/coc-card/sections/CopyrightSection.vue';
 
 interface Props {
   setRef?: VNodeRef;

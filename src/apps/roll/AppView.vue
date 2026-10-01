@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import RollTool from './RollTool.vue';
+import RollTool from './components/RollTool.vue';
 </script>
 
 <template>
