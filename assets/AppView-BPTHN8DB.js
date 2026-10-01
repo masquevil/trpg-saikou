@@ -1,1 +1,0 @@
-import{$n as e,H as t,S as n,hr as r,ir as i,rr as a}from"./common-QhI3MXFm.js";var o={class:`page`},s=t(i({__name:`AppView`,setup(t){return(t,i)=>(r(),e(`main`,o,[a(n)]))}}),[[`__scopeId`,`data-v-e922e64a`]]);export{s as default};
