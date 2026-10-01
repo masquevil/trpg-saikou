@@ -1,5 +1,5 @@
-import { ParamsOfFeature } from './id_feature';
-import { ParamsOfVoyage } from './id_voyage';
+import type { ParamsOfFeature } from './id_feature';
+import type { ParamsOfVoyage } from './id_voyage';
 
 export enum LAEventID {
   // coc-card 使用的功能

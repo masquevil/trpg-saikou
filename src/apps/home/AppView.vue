@@ -81,9 +81,16 @@ const appConfigs: Record<'online' | 'offline', AppConfig[]> = {
       key: 'record',
       name: '模组列表（废弃）',
       to: {
-        name: 'tfg-stories',
+        name: 'record-stories',
       },
       preview: recordPreview,
+    },
+    {
+      key: 'infinity-skill-table',
+      name: '无限技能表（私用）',
+      to: {
+        name: 'infinity-skill-table',
+      },
     },
   ],
 };

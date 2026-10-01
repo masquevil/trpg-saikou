@@ -22,7 +22,7 @@ const ls = useLocalStorage<Store>({
 
 if (import.meta.env.DEV) {
   console.log(`ls:${ls.appName}:${ls.version}`, ls);
-  // @ts-ignore
+  // @ts-expect-error 便于在控制台调试
   window.ls = ls;
 }
 

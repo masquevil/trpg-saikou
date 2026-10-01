@@ -4,7 +4,7 @@ import { useRoute, useRouter } from 'vue-router';
 import MarkdownRenderer from './components/MarkdownRenderer.vue';
 import type { NpcCardData } from './types';
 
-const route = useRoute();
+const route = useRoute('scenario-module');
 const router = useRouter();
 
 const moduleName = ref('');
@@ -38,7 +38,7 @@ const loadModuleContent = async () => {
       try {
         const content = await modules[moduleKey]();
         moduleContent.value = content;
-      } catch (importError) {
+      } catch {
         throw new Error(`无法加载模组: ${moduleName.value}`);
       }
     } else {

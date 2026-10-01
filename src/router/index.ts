@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router';
+import { routes, handleHotUpdate } from 'vue-router/auto-routes';
 import { useColorMode } from '@vueuse/core';
 import { ElMessageBox } from 'element-plus';
 
@@ -12,102 +13,19 @@ declare module 'vue-router' {
 const { VITE_TARGET_ENV = '' } = import.meta.env;
 const isHashMode = ['pages', 'hash'].includes(VITE_TARGET_ENV);
 
+// 路由表由 `vue-router/vite` 插件根据 `src/pages` 目录自动生成
+// 每个页面的 name / meta 定义在对应 SFC 的 `<route>` 自定义块中
 const router = createRouter({
   history: !isHashMode
     ? createWebHistory(import.meta.env.BASE_URL)
     : createWebHashHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: () => import('../apps/home/AppView.vue'),
-    },
-    {
-      path: '/coc-card',
-      name: 'coc-card',
-      component: () => import('../apps/coc-card/AppView.vue'),
-      meta: {
-        title: 'COC 车卡',
-      },
-    },
-    {
-      path: '/voyage',
-      name: 'voyage',
-      component: () => import('../apps/voyage/AppView.vue'),
-      meta: {
-        title: '维哲枢纽·在线跑团',
-      },
-    },
-    {
-      path: '/erp-card',
-      name: 'erp-card',
-      component: () => import('../apps/erp-card/AppView.vue'),
-      meta: {
-        title: 'ERP 车卡',
-      },
-    },
-    {
-      path: '/kp',
-      name: 'kp-ads',
-      component: () => import('../apps/kp-ads/AppView.vue'),
-    },
-    {
-      path: '/timer',
-      name: 'timer',
-      component: () => import('../apps/timer/AppView.vue'),
-    },
-    {
-      path: '/roll',
-      name: 'roll',
-      component: () => import('../apps/roll/AppView.vue'),
-    },
-    {
-      path: '/infinity-skill-table',
-      name: 'infinity-skill-table',
-      component: () => import('../apps/infinity-skill-table/AppView.vue'),
-      meta: {
-        title: '无限技能表',
-      },
-    },
-    {
-      path: '/tfg-stories',
-      name: 'tfg-stories',
-      component: () => import('../apps/record/StoryListView.vue'),
-    },
-    {
-      path: '/self',
-      name: 'self',
-      component: () => import('../apps/record/SelfView.vue'),
-    },
-    // 模组编辑器路由
-    {
-      path: '/scenario-editor',
-      name: 'scenario-editor',
-      component: () => import('../apps/scenario-editor/AppView.vue'),
-      meta: {
-        title: '模组编辑器',
-      },
-    },
-    {
-      path: '/scenario-editor/module/:name',
-      name: 'scenario-module',
-      component: () => import('../apps/scenario-editor/ModuleDetailView.vue'),
-      meta: {
-        title: '模组详情',
-        theme: 'light',
-      },
-    },
-    // 404 兜底路由，需放在最后
-    {
-      path: '/:pathMatch(.*)*',
-      name: 'not-found',
-      component: () => import('../apps/not-found/AppView.vue'),
-      meta: {
-        title: '页面未找到',
-      },
-    },
-  ],
+  routes,
 });
+
+// 文件路由的 HMR 支持
+if (import.meta.hot) {
+  handleHotUpdate(router);
+}
 
 // dynamic set title
 router.beforeEach((to) => {

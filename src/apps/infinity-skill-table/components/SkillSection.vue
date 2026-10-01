@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { reactive, watch } from 'vue';
 
-import PaperSection from '../coc-card/components/PaperSection.vue';
-import SkillTable from '../coc-card/components/SkillTable.vue';
-import WritableRow from '../coc-card/components/WritableRow.vue';
+import PaperSection from '@/apps/coc-card/components/PaperSection.vue';
+import SkillTable from '@/apps/coc-card/components/SkillTable.vue';
+import WritableRow from '@/apps/coc-card/components/WritableRow.vue';
 // models
-import type { SkillGroups } from '../coc-card/types/formattedSkill';
+import type { SkillGroups } from '@/apps/coc-card/types/formattedSkill';
 
-import { usePC, useViewData, usePageData } from '../coc-card/hooks/useProviders';
+import { usePC, useViewData, usePageData } from '@/apps/coc-card/hooks/useProviders';
 
 interface Props {
   hiddenKey: number;

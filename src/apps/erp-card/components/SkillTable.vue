@@ -52,101 +52,104 @@ interface TableRowData {
 }
 
 function getTableData(data: SkillGroups<string>, autoFillCount?: number, suggestion?: Suggestion) {
-  const tableData = data.reduce<TableRowData[]>((result: any, skillGroup: SkillGroup<string>) => {
-    const rows: TableRowData[] = skillGroup.groupSkills.reduce<TableRowData[]>(
-      (rows, skill, index) => {
-        const isSpecialGroup = skillGroup.groupName === '特殊';
-        let init = skill.init;
-        if (pc && skill.name in dynamicInitFormulas) {
-          init = dynamicInitFormulas[skill.name](pc.value);
-        }
-        const isGroupStart = isSpecialGroup || index === 0;
-        // simple skill row
-        const skillKey = skill.name;
-        const skillPoint = findSkillPoints(skillKey);
-        const points = skillPoint?.[1] || {};
-        // 信用评级范围
-        const [w0, w1] = suggestion?.wealth ?? [-1, -1];
-        const comments = skillKey === '信用评级' && w0 >= 0 && w1 >= 0 ? `(${w0}~${w1})` : '';
-        const total = getTotal(points, init);
-        const combine =
-          skill.combine &&
-          Array.from({ length: Math.max(4, skill.combine.show.length) }).map((_, i) => {
-            return skill.combine!.show[i] || { name: '', index: 20 };
-          });
-        let rowData: TableRowData = {
-          key: skill.name,
-          skillName: skill.name,
-          skillKey: skill.name,
-          comments,
-          init,
-          initPlaceholder: skill.initPlaceholder,
-          points,
-          total,
-          totalSeparation: [total, ~~(total / 2), ~~(total / 5)],
-          showTotal: total > 0 && (total !== init || total === points.b),
-          ...(isGroupStart
-            ? {
-                isGroupStart,
-                groupName: skillGroup.groupName,
-                groupSize: skillGroup.groupSkills.length,
-              }
-            : {}),
-          ...(isSpecialGroup ? { isSpecialGroup, groupSize: 1 } : {}),
-          ...(skill.combine ? { combine } : {}),
-        };
-        let resultRows: TableRowData[] = [...rows];
-        let added = [rowData];
-        // multi skill rows
-        if (skill.group) {
-          let length = skill.group.show.length;
-          let show = skill.group.show;
-          if (!skill.name && autoFillCount) {
-            length += autoFillCount;
-            show = show.concat(Array(autoFillCount).fill(''));
+  const tableData = data.reduce<TableRowData[]>(
+    (result: TableRowData[], skillGroup: SkillGroup<string>) => {
+      const rows: TableRowData[] = skillGroup.groupSkills.reduce<TableRowData[]>(
+        (rows, skill, index) => {
+          const isSpecialGroup = skillGroup.groupName === '特殊';
+          let init = skill.init;
+          if (pc && skill.name in dynamicInitFormulas) {
+            init = dynamicInitFormulas[skill.name](pc.value);
           }
-          const groupRow = resultRows.find((row) => row.isGroupStart) || rowData;
-          // increase groupSize
-          groupRow.groupSize! += length - 1;
-          added = show.map((placeName, childIndex) => {
-            const childSkillName =
-              viewData?.showingChildSkills[skill.name]?.[childIndex] ?? placeName;
-            const childSkill = skill.group?.skills.find(({ name }) => name === childSkillName);
-            let init = childSkill?.init ?? rowData.init;
-            const skillKey: ERPPCSkill = [skill.name, childSkillName, childIndex];
-            const skillPoint = findSkillPoints(skillKey);
-            const points = skillPoint?.[1] || {};
-            const total = getTotal(points, init);
-            if (pc && !skill.name) {
-              init = points.b || 0;
+          const isGroupStart = isSpecialGroup || index === 0;
+          // simple skill row
+          const skillKey = skill.name;
+          const skillPoint = findSkillPoints(skillKey);
+          const points = skillPoint?.[1] || {};
+          // 信用评级范围
+          const [w0, w1] = suggestion?.wealth ?? [-1, -1];
+          const comments = skillKey === '信用评级' && w0 >= 0 && w1 >= 0 ? `(${w0}~${w1})` : '';
+          const total = getTotal(points, init);
+          const combine =
+            skill.combine &&
+            Array.from({ length: Math.max(4, skill.combine.show.length) }).map((_, i) => {
+              return skill.combine!.show[i] || { name: '', index: 20 };
+            });
+          const rowData: TableRowData = {
+            key: skill.name,
+            skillName: skill.name,
+            skillKey: skill.name,
+            comments,
+            init,
+            initPlaceholder: skill.initPlaceholder,
+            points,
+            total,
+            totalSeparation: [total, ~~(total / 2), ~~(total / 5)],
+            showTotal: total > 0 && (total !== init || total === points.b),
+            ...(isGroupStart
+              ? {
+                  isGroupStart,
+                  groupName: skillGroup.groupName,
+                  groupSize: skillGroup.groupSkills.length,
+                }
+              : {}),
+            ...(isSpecialGroup ? { isSpecialGroup, groupSize: 1 } : {}),
+            ...(skill.combine ? { combine } : {}),
+          };
+          const resultRows: TableRowData[] = [...rows];
+          let added = [rowData];
+          // multi skill rows
+          if (skill.group) {
+            let length = skill.group.show.length;
+            let show = skill.group.show;
+            if (!skill.name && autoFillCount) {
+              length += autoFillCount;
+              show = show.concat(Array(autoFillCount).fill(''));
             }
-            return {
-              ...rowData,
-              // group info
-              isGroupStart: childIndex ? false : rowData.isGroupStart,
-              // skill info
-              key: `${skill.name}:_:${childIndex}`,
-              skillKey,
-              init,
-              points,
-              total,
-              totalSeparation: [total, ~~(total / 2), ~~(total / 5)],
-              showTotal: total > 0 && (total !== init || total === points.b),
-              // child skill info
-              childSkillData: {
-                name: childSkillName,
-                place: childIndex,
-                list: skill.group?.skills,
-              },
-            };
-          });
-        }
-        return [...resultRows, ...added];
-      },
-      [],
-    );
-    return [...result, ...rows];
-  }, []);
+            const groupRow = resultRows.find((row) => row.isGroupStart) || rowData;
+            // increase groupSize
+            groupRow.groupSize! += length - 1;
+            added = show.map((placeName, childIndex) => {
+              const childSkillName =
+                viewData?.showingChildSkills[skill.name]?.[childIndex] ?? placeName;
+              const childSkill = skill.group?.skills.find(({ name }) => name === childSkillName);
+              let init = childSkill?.init ?? rowData.init;
+              const skillKey: ERPPCSkill = [skill.name, childSkillName, childIndex];
+              const skillPoint = findSkillPoints(skillKey);
+              const points = skillPoint?.[1] || {};
+              const total = getTotal(points, init);
+              if (pc && !skill.name) {
+                init = points.b || 0;
+              }
+              return {
+                ...rowData,
+                // group info
+                isGroupStart: childIndex ? false : rowData.isGroupStart,
+                // skill info
+                key: `${skill.name}:_:${childIndex}`,
+                skillKey,
+                init,
+                points,
+                total,
+                totalSeparation: [total, ~~(total / 2), ~~(total / 5)],
+                showTotal: total > 0 && (total !== init || total === points.b),
+                // child skill info
+                childSkillData: {
+                  name: childSkillName,
+                  place: childIndex,
+                  list: skill.group?.skills,
+                },
+              };
+            });
+          }
+          return [...resultRows, ...added];
+        },
+        [],
+      );
+      return [...result, ...rows];
+    },
+    [],
+  );
   return tableData;
 }
 

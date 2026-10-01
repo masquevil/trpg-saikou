@@ -1,4 +1,4 @@
-import { HostMetadata, GuestData } from './index';
+import type { HostMetadata, GuestData } from './index';
 
 export interface MessageBase {
   ts: number;

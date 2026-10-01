@@ -1,4 +1,4 @@
-import { ThrowDiceDetailOptions, ThrowDiceDetail, GroupThrowDiceDetail } from '../types/dice';
+import type { ThrowDiceDetailOptions, ThrowDiceDetail, GroupThrowDiceDetail } from '../types/dice';
 
 export function shuffleArray<T>(array: T[]) {
   for (let i = array.length - 1; i > 0; i--) {

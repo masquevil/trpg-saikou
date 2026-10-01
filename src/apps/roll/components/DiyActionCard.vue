@@ -3,12 +3,12 @@ import { ref, reactive, computed } from 'vue';
 import type { VNodeRef } from 'vue';
 import { RefreshLeft, DArrowRight, DArrowLeft } from '@element-plus/icons-vue';
 
-import { ThrowDiceDetailOptions } from '../../types/dice';
-import { groupThrowDiceDetail, getGroupThrowDiceTitle } from '../../utils/random';
+import type { ThrowDiceDetailOptions } from '@/types/dice.ts';
+import { groupThrowDiceDetail, getGroupThrowDiceTitle } from '@/utils/random.ts';
 
 import ActionCard from './ActionCard.vue';
-import { diceList } from './constants';
-import type { DiyRollResult } from './types';
+import { diceList } from '../constants/index.ts';
+import type { DiyRollResult } from '../types/index.ts';
 
 interface Props {
   setRef?: VNodeRef;

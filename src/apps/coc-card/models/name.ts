@@ -1,4 +1,4 @@
-import { RandNameScope } from '../types/name';
+import type { RandNameScope } from '../types/name';
 import { namesEnSources, namesZhSources } from '../constants/name';
 import { getRatioResult, getRandomArrayItem } from '../utils';
 

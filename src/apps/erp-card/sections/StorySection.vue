@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, reactive, computed, watch } from 'vue';
-import { ElMessage, MessageHandler } from 'element-plus';
+import { ElMessage, type MessageHandler } from 'element-plus';
 
 import PaperSection from '../components/PaperSection.vue';
 import WritableArea from '../components/WritableArea.vue';

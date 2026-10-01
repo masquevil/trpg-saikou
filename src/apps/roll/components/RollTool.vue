@@ -2,13 +2,13 @@
 import { ref, computed } from 'vue';
 import { Plus } from '@element-plus/icons-vue';
 
-import { ThrowDiceDetailOptions } from '../../types/dice';
-import { throwDice } from '../../utils/random';
+import type { ThrowDiceDetailOptions } from '@/types/dice.ts';
+import { throwDice } from '@/utils/random.ts';
 
 import ActionCard from './ActionCard.vue';
 import DiyActionCard from './DiyActionCard.vue';
-import { diceList } from './constants';
-import type { DiyRollResult } from './types';
+import { diceList } from '../constants/index.ts';
+import type { DiyRollResult } from '../types/index.ts';
 
 interface Props {
   hideDiy?: boolean;

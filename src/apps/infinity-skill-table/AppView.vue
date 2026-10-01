@@ -12,8 +12,8 @@ import type { PageData } from '../coc-card/types/pageData';
 import useDerives from '../coc-card/hooks/useDerives';
 import useAppLs from '../coc-card/hooks/useAppLs';
 
-import ControlSection from './ControlSection.vue';
-import PaperOne from './PaperOne.vue';
+import ControlSection from './components/ControlSection.vue';
+import PaperOne from './components/PaperOne.vue';
 
 const qsObject = qs.parse(location.search.slice(1));
 const pcRef = ref<COCPlayerCharacter>(createPC());

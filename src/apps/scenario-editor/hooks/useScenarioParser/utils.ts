@@ -1,4 +1,4 @@
-import { CodeCustomToken } from 'marked';
+import type { CodeCustomToken } from 'marked';
 
 // 创建一个自定义的 marked tokenizer
 export function getToken<T extends CodeCustomToken>(

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, inject, computed } from 'vue';
-// @ts-ignore
 import vClickOutside from '@/directives/clickOutside';
 import { usePC } from '../hooks/useProviders';
 import type { ChildSkill } from '../types/skill';

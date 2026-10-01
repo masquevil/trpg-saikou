@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-// @ts-ignore
 import vClickOutside from '@/directives/clickOutside';
 
 import { usePageData } from '../hooks/useProviders';

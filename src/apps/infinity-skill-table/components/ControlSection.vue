@@ -7,19 +7,19 @@ import copy from 'copy-to-clipboard';
 import { Plus, Download, Refresh, DocumentCopy } from '@element-plus/icons-vue';
 
 // components
-import ControlButton from '../coc-card/components/ControlButton.vue';
-import ControlDialog from '../coc-card/components/ControlDialog.vue';
-import DownloaderItem from '../coc-card/components/DownloaderItem.vue';
+import ControlButton from '@/apps/coc-card/components/ControlButton.vue';
+import ControlDialog from '@/apps/coc-card/components/ControlDialog.vue';
+import DownloaderItem from '@/apps/coc-card/components/DownloaderItem.vue';
 
 // models
-import { createPC } from '../coc-card/models/character';
-import { resetViewData } from '../coc-card/models/viewData';
+import { createPC } from '@/apps/coc-card/models/character';
+import { resetViewData } from '@/apps/coc-card/models/viewData';
 
-import { usePC, useViewData, usePageData } from '../coc-card/hooks/useProviders';
-import { printEl } from '../coc-card/hooks/usePrintPaper';
-import useAppLs from '../coc-card/hooks/useAppLs';
+import { usePC, useViewData, usePageData } from '@/apps/coc-card/hooks/useProviders';
+import { printEl } from '@/apps/coc-card/hooks/usePrintPaper';
+import useAppLs from '@/apps/coc-card/hooks/useAppLs';
 
-import type { COCCardViewData } from '../coc-card/types/viewData';
+import type { COCCardViewData } from '@/apps/coc-card/types/viewData';
 
 interface Props {
   paperEls: HTMLElement[];
@@ -137,7 +137,7 @@ function copyOutData() {
 function applyInData() {
   const json = LZString.decompressFromEncodedURIComponent(inData.value);
   const data = JSON.parse(json);
-  pageData && (pageData.importing = true);
+  if (pageData) pageData.importing = true;
   if (data && data.viewData && data.pc && viewData && pc) {
     try {
       pc.value = data.pc;
@@ -148,13 +148,13 @@ function applyInData() {
       ElMessage.success('已成功导入');
       inOutModalVisible.value = false;
       morePanelVisible.value = false;
-    } catch (_) {
+    } catch {
       ElMessage.error('数据有误，无法导入。页面可能因此受损，建议刷新');
     }
   } else {
     ElMessage.error('数据有误，无法导入');
   }
-  pageData && (pageData.importing = false);
+  if (pageData) pageData.importing = false;
 }
 </script>
 

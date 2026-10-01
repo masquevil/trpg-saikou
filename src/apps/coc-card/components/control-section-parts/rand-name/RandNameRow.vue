@@ -9,7 +9,7 @@ import RandNameOption from './RandNameOption.vue';
 import LA, { LAEventID, FeatureNames } from '@/plugins/51la';
 import { usePC, usePageData } from '../../../hooks/useProviders';
 import { randName } from '../../../models/name';
-import { RandNameScope } from '../../../types/name';
+import type { RandNameScope } from '../../../types/name';
 
 const options: { label: string; scope: RandNameScope }[] = [
   { label: '随', scope: 'all' },
