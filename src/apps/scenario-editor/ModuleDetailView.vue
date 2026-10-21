@@ -121,6 +121,8 @@ const goBack = () => {
 
 <style scoped lang="scss">
 .module-detail-view {
+  color: var(--color-text);
+  background-color: var(--color-bg);
   padding: 20px;
   height: 100%;
   display: flex;
@@ -141,7 +143,7 @@ const goBack = () => {
 
 .back-button {
   padding: 8px 16px;
-  border: 1px solid var(--color-section-border);
+  border: 1px solid var(--color-surface-border);
   border-radius: 4px;
   background-color: transparent;
   color: var(--color-text);
@@ -150,7 +152,7 @@ const goBack = () => {
 
   &:hover {
     border-color: var(--color-primary);
-    background-color: var(--color-hover-bg);
+    background-color: var(--color-surface-bg-hover);
   }
 }
 
@@ -160,18 +162,18 @@ const goBack = () => {
   border-radius: 8px;
   color: var(--color-text);
   border: 1px solid var(--color-border);
-  background-color: var(--color-control-bg);
+  background-color: var(--color-surface);
   cursor: pointer;
   font-size: 14px;
   line-height: 1;
 
   &:hover {
-    background-color: var(--color-control-bg-hover);
-    border-color: var(--color-border-hover);
+    background-color: var(--color-surface-bg-hover);
+    border-color: var(--color-surface-border-hover);
   }
 
   &:active {
-    background-color: var(--color-control-bg-active);
+    background-color: var(--color-surface-bg-active);
   }
 }
 
@@ -179,14 +181,14 @@ const goBack = () => {
 .error {
   text-align: center;
   padding: 40px;
-  color: #666;
+  color: var(--color-text-secondary);
 
   button {
     margin-top: 16px;
     padding: 10px 20px;
-    border: 1px solid var(--color-section-border);
+    border: 1px solid var(--color-surface-border);
     border-radius: 4px;
-    background-color: var(--color-section-bg);
+    background-color: var(--color-surface);
     color: var(--color-text);
     cursor: pointer;
   }
@@ -206,7 +208,7 @@ const goBack = () => {
   .module-detail-view {
     padding: 0;
     max-width: none;
-    background-color: #fff;
+    background-color: var(--color-white);
   }
 }
 </style>
@@ -218,7 +220,7 @@ const goBack = () => {
 }
 @media print {
   body {
-    background-color: #fff;
+    background-color: var(--color-white);
   }
 }
 </style>

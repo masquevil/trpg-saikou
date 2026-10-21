@@ -161,17 +161,17 @@ const optionTitle = computed(() => {
 .dice-button {
   font-size: 32px;
   line-height: 0;
-  color: var(--color-heading);
+  color: var(--color-dice-button);
   background-color: transparent;
   cursor: pointer;
   &:hover {
-    color: var(--color-text-hover);
+    color: var(--color-dice-button-hover);
   }
 }
 .dice-button-active {
-  color: var(--color-brand-temp);
+  color: var(--color-dice-button-active);
   &:hover {
-    color: var(--color-brand-temp-hover);
+    color: var(--color-dice-button-hover);
   }
 }
 

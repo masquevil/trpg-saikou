@@ -1,0 +1,82 @@
+@use './palette';
+
+// 仅为独立弹层提供必要的背景和文字，保留 Element 自带的其余变量。
+@mixin tokens {
+  --el-bg-color-overlay: var(--color-white);
+  --el-text-color-primary: var(--color-text);
+  --el-text-color-regular: var(--color-text);
+}
+
+// Teleport 轻提示与默认确认框使用浅色；显式 theme-dark 的确认框沿用暗色主题。
+// 直接组合依赖，避免反向引用 light/index 形成循环。
+@mixin component-styles {
+  // 仅适配普通实底按钮；plain / text / link / disabled 继续使用 Element 原有规则。
+  .el-button:not(.is-plain):not(.is-text):not(.is-link):not(.is-disabled) {
+    --el-button-bg-color: var(--color-muted-dark-plain-5);
+    --el-button-text-color: var(--color-muted-light-3);
+    --el-button-border-color: var(--color-muted-dark-3);
+    --el-button-hover-bg-color: var(--color-primary-dark-plain-2);
+    --el-button-hover-text-color: var(--color-primary-light-2);
+    --el-button-hover-border-color: var(--color-primary-dark-2);
+    --el-button-active-bg-color: var(--color-primary-dark-plain-1);
+    --el-button-active-text-color: var(--color-primary-light-3);
+    --el-button-active-border-color: var(--color-primary-dark-1);
+    --el-button-outline-color: var(--color-primary);
+
+    @each $name in primary, success, warning, danger, info {
+      &.el-button--#{$name} {
+        --el-button-bg-color: var(--color-button-#{$name});
+        --el-button-text-color: var(--color-button-#{$name}-text);
+        --el-button-border-color: var(--color-button-#{$name}-border);
+        --el-button-hover-bg-color: var(--color-button-#{$name}-hover);
+        --el-button-hover-text-color: var(--color-button-#{$name}-text);
+        --el-button-hover-border-color: var(--color-button-#{$name}-border-hover);
+        --el-button-active-bg-color: var(--color-button-#{$name}-active);
+        --el-button-active-text-color: var(--color-button-#{$name}-text);
+        --el-button-active-border-color: var(--color-button-#{$name}-active);
+      }
+    }
+  }
+
+  .el-message,
+  .el-message-box:not(.theme-dark) {
+    @include palette.tokens;
+    @include tokens;
+    color-scheme: light;
+    color: var(--color-text);
+  }
+
+  .el-message-box:not(.theme-dark) {
+    background-color: var(--color-white);
+  }
+
+  .el-message {
+    margin-right: -30%;
+    margin-top: constant(safe-area-inset-top);
+    margin-top: env(safe-area-inset-top);
+  }
+
+  .el-message--error {
+    --el-message-bg-color: var(--color-danger-light-6);
+    --el-message-border-color: var(--color-danger-light-2);
+    --el-message-text-color: var(--color-danger-dark-3);
+  }
+
+  .el-message--success {
+    --el-message-bg-color: var(--color-success-light-6);
+    --el-message-border-color: var(--color-success-light-2);
+    --el-message-text-color: var(--color-success-dark-3);
+  }
+
+  .el-message--warning {
+    --el-message-bg-color: var(--color-warning-light-6);
+    --el-message-border-color: var(--color-warning-light-2);
+    --el-message-text-color: var(--color-warning-dark-3);
+  }
+
+  .el-message--info {
+    --el-message-bg-color: var(--color-info-light-6);
+    --el-message-border-color: var(--color-info-light-2);
+    --el-message-text-color: var(--color-info-dark-3);
+  }
+}

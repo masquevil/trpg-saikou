@@ -52,7 +52,7 @@ defineProps<Props>();
   flex: 1 0 0;
   display: flex;
   align-items: flex-end;
-  color: #888;
+  color: var(--color-paper-note);
   line-height: 1;
 }
 .inspiration-item {

@@ -124,7 +124,10 @@ function onDiyScroll(delta: number) {
 </template>
 
 <style scoped lang="scss">
+@use '../theme' as theme;
+
 .container {
+  @include theme.tokens;
   flex: 1;
   height: 100%;
   display: flex;
@@ -185,10 +188,10 @@ function onDiyScroll(delta: number) {
   font-size: 32px;
   line-height: 0;
   background-color: transparent;
-  color: var(--color-heading);
+  color: var(--color-dice-button);
   cursor: pointer;
   &:hover {
-    color: var(--color-text-hover);
+    color: var(--color-dice-button-hover);
   }
 }
 
@@ -201,8 +204,6 @@ function onDiyScroll(delta: number) {
   overflow-x: auto;
 }
 .add-diy-button {
-  --color-bg-hover: rgba(0, 0, 0, 0.1);
-  --color-bg-active: rgba(0, 0, 0, 0.18);
   flex: 0 0 auto;
   width: 80px;
   height: 100%;
@@ -216,10 +217,10 @@ function onDiyScroll(delta: number) {
   transition: background-color 0.2s;
 
   &:hover {
-    background-color: var(--color-bg-hover);
+    background-color: var(--color-roll-bg-hover);
   }
   &:active {
-    background-color: var(--color-bg-active);
+    background-color: var(--color-roll-bg-active);
   }
 }
 </style>

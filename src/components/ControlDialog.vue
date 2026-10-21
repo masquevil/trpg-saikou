@@ -25,14 +25,13 @@ defineEmits<Emits>();
 </template>
 
 <style lang="scss">
+@use '@/assets/themes/dark' as dark;
+
 .control-dialog {
+  @include dark.tokens;
   max-width: 720px;
   background-color: rgba(0, 0, 0, 0.88);
   --el-dialog-width: 80%;
-  --el-text-color-primary: var(--color-white);
-  --color-border: #8a8a8a;
-  --color-action-bg: #3a3a3a;
-  --color-action-bg-hover: #444;
-  --color-action-bg-active: #4b4e53;
+  --el-text-color-primary: var(--color-heading);
 }
 </style>

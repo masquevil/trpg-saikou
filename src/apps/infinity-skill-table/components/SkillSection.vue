@@ -142,8 +142,8 @@ const skillGroups = reactive<SkillGroups>([
 }
 
 .point-container {
-  background-color: white;
-  color: var(--color-black);
+  background-color: var(--color-paper-bg);
+  color: var(--color-paper-ink);
   display: flex;
   align-items: center;
   gap: 0.4em;
@@ -167,7 +167,7 @@ const skillGroups = reactive<SkillGroups>([
 
 .point-rest {
   font-size: 0.88em;
-  color: #777;
+  color: var(--color-paper-skill-note);
 }
 
 .skill-section-body {

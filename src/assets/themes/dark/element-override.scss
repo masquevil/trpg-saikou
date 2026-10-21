@@ -1,0 +1,6 @@
+// 仅为独立弹层提供必要的背景和文字，保留 Element 自带的其余变量。
+@mixin tokens {
+  --el-bg-color-overlay: var(--color-bg);
+  --el-text-color-primary: var(--color-text);
+  --el-text-color-regular: var(--color-text);
+}

@@ -163,11 +163,19 @@ function applyWeapon(index: number, weapon?: Weapon) {
 </template>
 
 <style scoped lang="scss">
+@mixin theme {
+  --color-list-card-bg: rgba(0, 0, 0, 0.18);
+  --color-list-action-bg: rgba(0, 0, 0, 0.9);
+  --color-list-action-bg-hover: rgba(16, 16, 16, 0.9);
+  --color-list-action-bg-active: rgba(32, 32, 32, 0.9);
+}
+
 .weapon-list {
+  @include theme;
   --el-collapse-border-color: var(--color-border);
   --el-collapse-header-height: 32px;
   --el-collapse-header-bg-color: transparent;
-  --el-collapse-header-text-color: var(--color-white);
+  --el-collapse-header-text-color: var(--color-heading);
   --el-collapse-header-font-size: 14px;
   --el-collapse-content-bg-color: transparent;
   --el-collapse-content-font-size: 12px;
@@ -184,7 +192,7 @@ function applyWeapon(index: number, weapon?: Weapon) {
   padding: 6px 12px 6px 4px;
   font-size: 12px;
   line-height: 1.6;
-  background-color: rgba(0, 0, 0, 0.18);
+  background-color: var(--color-list-card-bg);
 }
 .weapon-card-header {
   display: grid;
@@ -202,17 +210,18 @@ function applyWeapon(index: number, weapon?: Weapon) {
 }
 
 .job-card-action {
+  @include theme;
   padding: 6px 12px;
   border-radius: 4px;
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: var(--color-list-action-bg);
   line-height: 1;
   color: var(--color-text);
   cursor: pointer;
   &:hover {
-    background-color: rgba(16, 16, 16, 0.9);
+    background-color: var(--color-list-action-bg-hover);
   }
   &:active {
-    background-color: rgba(32, 32, 32, 0.9);
+    background-color: var(--color-list-action-bg-active);
   }
 }
 .job-card-action-use {
@@ -239,8 +248,9 @@ function applyWeapon(index: number, weapon?: Weapon) {
   }
 }
 .weapon-card-places-container.el-popover.el-popper {
+  --color-weapon-popover-bg: rgba(96, 96, 96, 0.9);
   padding: 2px 4px;
-  --el-bg-color-overlay: rgba(96, 96, 96, 0.9);
+  --el-bg-color-overlay: var(--color-weapon-popover-bg);
   display: flex;
   justify-content: space-between;
 }

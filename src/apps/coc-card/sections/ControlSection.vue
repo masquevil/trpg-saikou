@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, watch, reactive } from 'vue';
 import { ElMessage } from 'element-plus';
+import 'element-plus/es/components/message/style/css';
 import LZString from 'lz-string';
 import copy from 'copy-to-clipboard';
 
@@ -180,7 +181,7 @@ function actResetCard() {
     ls.removeItem('autoSaved');
   });
 
-  ElMessage.info('已重置人物卡');
+  ElMessage.success('已重置人物卡');
   morePanelVisible.value = false;
   LA?.track(LAEventID.FEATURE, { name: FeatureNames.MORE_RESET });
 }
@@ -465,8 +466,6 @@ const cleanPreloadFn = watch(morePanelVisible, (visible) => {
 
 <style scoped lang="scss">
 .control-section {
-  --color-border: #8a8a8a;
-
   max-width: 65.625em;
   margin: auto;
   margin-bottom: constant(safe-area-inset-bottom);

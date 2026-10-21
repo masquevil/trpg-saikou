@@ -34,8 +34,8 @@ defineProps<Props>();
   width: 100px;
   height: 120px;
   position: relative;
-  border: 2px solid var(--color-border);
-  background-color: var(--color-black);
+  border: 2px solid var(--color-voyage-panel-border);
+  background-color: var(--color-surface);
 }
 .sailor-card-avatar {
   width: 100%;
@@ -65,6 +65,6 @@ defineProps<Props>();
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-  background-color: rgba(0, 0, 0, 0.66);
+  background-color: var(--color-voyage-avatar-caption-bg);
 }
 </style>

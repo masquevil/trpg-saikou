@@ -16,7 +16,7 @@ defineEmits<Emits>();
 
 <template>
   <button
-    class="rand-name-button"
+    class="button-default rand-name-button"
     @click="$emit('click', $event)"
   >
     <el-icon size="1.3em">
@@ -27,27 +27,13 @@ defineEmits<Emits>();
 
 <style scoped lang="scss">
 .rand-name-button {
-  --color-button-bg: #fff;
-  --color-button-bg-hover: #fafafa;
-  --color-button-bg-active: #f5f5f5;
-  --color-button-border: #b2b2b2;
-}
-.rand-name-button {
   width: 22px;
   height: 22px;
-  border: 1px solid var(--color-button-border);
+
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  border-radius: 6px;
-  background-color: var(--color-button-bg);
 
-  &:hover {
-    background-color: var(--color-button-bg-hover);
-  }
-  &:active {
-    background-color: var(--color-button-bg-active);
-  }
+  border-radius: 6px;
 }
 </style>

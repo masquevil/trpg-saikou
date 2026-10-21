@@ -21,7 +21,7 @@ declare global {
       track: {
         (eventID: LAEventID.FEATURE, params: ParamsOfFeature): void;
         (eventID: LAEventID.VOYAGE, params: ParamsOfVoyage): void;
-      }
+      };
     };
   }
 }

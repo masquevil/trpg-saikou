@@ -114,7 +114,10 @@ function updateAttr(key: ERPAttributesKey, value: string) {
 </template>
 
 <style scoped lang="scss">
+@use '@/assets/themes/light/theme-part-paper' as paper;
+
 .info-section {
+  @include paper.tokens;
   display: flex;
   padding: 0.4em 0.6em 0.6em;
   gap: 0.8em;
@@ -139,7 +142,7 @@ function updateAttr(key: ERPAttributesKey, value: string) {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #4b4e53;
+  color: var(--color-paper-attr-note);
 }
 .dice-hint {
   align-self: flex-start;
@@ -158,14 +161,6 @@ function updateAttr(key: ERPAttributesKey, value: string) {
   gap: 0.4em;
   width: 0;
   white-space: nowrap;
-
-  --color-button-border: #b2b2b2;
-  --color-button-border-hover: #9a9a9a;
-  --color-button-bg: #fff;
-  --color-button-bg-hover: #fafafa;
-  --color-button-bg-active: #f5f5f5;
-  --color-button-text: #4b4e53;
-  --color-button-text-hover: #2e2e2e;
 }
 .ponits-sum {
   text-align: center;

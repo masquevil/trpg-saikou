@@ -26,13 +26,16 @@
 </template>
 
 <style scoped lang="scss">
+@use '@/assets/themes/light/theme-part-paper' as paper;
+
 .copyright-section {
+  @include paper.tokens;
   margin-top: -0.24em;
   height: 0;
   line-height: 0;
   display: flex;
   justify-content: space-between;
-  color: #4b4e53;
+  color: var(--color-paper-copyright);
   white-space: nowrap;
 }
 

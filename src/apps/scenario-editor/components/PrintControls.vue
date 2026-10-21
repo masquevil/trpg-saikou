@@ -1,33 +1,34 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { ElMessage } from 'element-plus'
+import { ref } from 'vue';
+import { ElMessage } from 'element-plus';
+import 'element-plus/es/components/message/style/css';
 
 interface Props {
-  disabled?: boolean
+  disabled?: boolean;
 }
 
 interface Emits {
-  (e: 'print'): void
+  (e: 'print'): void;
 }
 
-defineProps<Props>()
-const emit = defineEmits<Emits>()
+defineProps<Props>();
+const emit = defineEmits<Emits>();
 
-const isPreviewing = ref(false)
+const isPreviewing = ref(false);
 
 const handlePrint = () => {
-  emit('print')
-  ElMessage.info('正在准备打印...')
-}
+  emit('print');
+  ElMessage.info('正在准备打印...');
+};
 
 const handlePreview = () => {
-  isPreviewing.value = !isPreviewing.value
+  isPreviewing.value = !isPreviewing.value;
   if (isPreviewing.value) {
-    ElMessage.info('进入打印预览模式')
+    ElMessage.info('进入打印预览模式');
   } else {
-    ElMessage.info('退出打印预览模式')
+    ElMessage.info('退出打印预览模式');
   }
-}
+};
 </script>
 
 <template>
@@ -41,7 +42,7 @@ const handlePreview = () => {
       <span class="button-icon">👁️</span>
       <span class="button-text">{{ isPreviewing ? '退出预览' : '打印预览' }}</span>
     </button>
-    
+
     <button
       class="control-button print-button"
       @click="handlePrint"
@@ -64,28 +65,28 @@ const handlePreview = () => {
   align-items: center;
   gap: 6px;
   padding: 10px 16px;
-  border: 1px solid var(--color-section-border);
+  border: 1px solid var(--color-surface-border);
   border-radius: 6px;
-  background-color: var(--color-section-bg);
+  background-color: var(--color-surface);
   color: var(--color-text);
   cursor: pointer;
   transition: all 0.2s ease;
-  
+
   &:hover:not(:disabled) {
-    border-color: var(--color-primary);
-    background-color: var(--color-hover-bg);
+    border-color: var(--color-primary-light-4);
+    background-color: var(--color-surface-bg-hover);
     transform: translateY(-1px);
   }
-  
+
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
   }
-  
+
   &.active {
-    border-color: var(--color-primary);
-    background-color: var(--color-primary-light);
-    color: var(--color-primary);
+    border-color: var(--color-primary-light-4);
+    background-color: var(--color-primary-dark-5);
+    color: var(--color-primary-light-4);
   }
 }
 
@@ -99,13 +100,13 @@ const handlePreview = () => {
 }
 
 .print-button {
-  background-color: var(--color-primary);
-  border-color: var(--color-primary);
-  color: white;
-  
+  background-color: var(--color-primary-light-4);
+  border-color: var(--color-primary-light-4);
+  color: var(--color-white);
+
   &:hover:not(:disabled) {
-    background-color: var(--color-primary-dark);
-    border-color: var(--color-primary-dark);
+    background-color: var(--color-primary-dark-1);
+    border-color: var(--color-primary-dark-1);
   }
 }
 
@@ -114,7 +115,7 @@ const handlePreview = () => {
     flex-direction: column;
     gap: 8px;
   }
-  
+
   .control-button {
     justify-content: center;
     padding: 12px;

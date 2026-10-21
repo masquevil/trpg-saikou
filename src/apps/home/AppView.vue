@@ -182,22 +182,22 @@ const appConfigs: Record<'online' | 'offline', AppConfig[]> = {
   gap: 20px;
 }
 .tool-card {
-  border: 1px solid var(--color-section-border);
+  border: 1px solid var(--color-surface-border);
   border-radius: 4px;
   overflow: hidden;
-  background-color: var(--color-section-bg);
+  background-color: var(--color-surface);
   color: var(--color-white);
   cursor: pointer;
   transition: all 0.2s;
 }
 .tool-card:hover {
-  box-shadow: 2px 2px 8px var(--color-section-shadow);
+  box-shadow: 2px 2px 8px var(--color-surface-shadow);
   transform: translate(-1px, -1px);
 }
 .tool-card-header {
   padding: 8px 12px;
-  border-bottom: 1px solid var(--color-section-border);
-  background-color: var(--color-section-header-bg);
+  border-bottom: 1px solid var(--color-surface-border);
+  background-color: var(--color-surface-header-bg);
   color: var(--color-white);
   font-size: 16px;
 }

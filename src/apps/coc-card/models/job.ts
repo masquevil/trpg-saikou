@@ -32,10 +32,7 @@ function formatJobs(jobs: Job[], jobGroups: JobGroup[]) {
 
 const jobsData = formatJobs(jobs, jobGroups);
 
-export function getProPointByJobAndAttrs(
-  jobName?: string,
-  attrs?: Partial<COCAttributes>,
-) {
+export function getProPointByJobAndAttrs(jobName?: string, attrs?: Partial<COCAttributes>) {
   const result = {
     text: '',
     point: 0,

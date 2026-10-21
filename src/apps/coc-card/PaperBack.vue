@@ -31,15 +31,9 @@ defineProps<Props>();
       <ExperienceSection class="col-1" />
     </div>
     <div class="inspiration-row">
-      <div class="inspiration-item special-thanks">
-        Special Thanks 听枫馆·枫笛(北京)
-      </div>
-      <div class="inspiration-item inspiration">
-        Inspired By 猫爷TRPG 人格解体
-      </div>
-      <div class="inspiration-item copyright">
-        「克苏鲁的呼唤」7版人物卡 Copyright 侠小然
-      </div>
+      <div class="inspiration-item special-thanks">Special Thanks 听枫馆·枫笛(北京)</div>
+      <div class="inspiration-item inspiration">Inspired By 猫爷TRPG 人格解体</div>
+      <div class="inspiration-item copyright">「克苏鲁的呼唤」7版人物卡 Copyright 侠小然</div>
     </div>
   </PaperLayout>
 </template>
@@ -54,7 +48,7 @@ defineProps<Props>();
   flex: 1 0 0;
   display: flex;
   align-items: flex-end;
-  color: #888;
+  color: var(--color-paper-note);
   line-height: 1;
 }
 .inspiration-item {

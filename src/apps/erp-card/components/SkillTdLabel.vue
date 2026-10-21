@@ -150,14 +150,15 @@ function selectChildSkill(childSkill: ChildSkill) {
 </template>
 
 <style scoped lang="scss">
+@use '@/assets/themes/light/theme-part-paper' as paper;
+
 .skill-td-label {
+  @include paper.tokens;
   display: flex;
   align-items: center;
   margin-left: 0.4em;
   margin-right: 0.6em;
   white-space: nowrap;
-
-  --color-line: #8a8a8a;
 }
 .skill-td-checkbox-label {
   width: var(--th-line-height);
@@ -188,11 +189,11 @@ function selectChildSkill(childSkill: ChildSkill) {
   font-size: 0.96em;
   line-height: 1.2em;
   background-color: transparent;
-  border-bottom: 1px solid var(--color-line);
+  border-bottom: 1px solid var(--color-paper-input-border);
 
   &:hover,
   &:focus {
-    border-color: var(--color-black);
+    border-color: var(--color-paper-ink);
   }
 }
 
@@ -205,8 +206,8 @@ function selectChildSkill(childSkill: ChildSkill) {
   width: 14.4em;
   margin: 0 -5em;
   text-align: center;
-  background-color: var(--color-white);
-  border: 1px solid var(--color-black);
+  background-color: var(--color-paper-bg);
+  border: 1px solid var(--color-paper-ink);
   display: flex;
   flex-wrap: wrap;
 }
@@ -217,13 +218,13 @@ function selectChildSkill(childSkill: ChildSkill) {
   cursor: pointer;
   &:hover {
     opacity: 1;
-    background-color: var(--color-background-mute);
+    background-color: var(--color-paper-menu-bg-hover);
   }
 }
 .child-skill-option-existed {
   opacity: 0.8;
-  background-color: var(--color-background-mute);
-  color: var(--color-line);
+  background-color: var(--color-paper-menu-bg-hover);
+  color: var(--color-paper-input-border);
 }
 
 .skill-td-label-comments {

@@ -1,0 +1,17 @@
+// 唯一运行索引；不直接定义变量。
+@use './dark' as dark;
+@use './light' as light;
+@use './light/element-override' as element;
+
+:root,
+.dark,
+.theme-dark {
+  @include dark.tokens;
+}
+
+.light,
+.theme-light {
+  @include light.tokens;
+}
+
+@include element.component-styles;

@@ -2,9 +2,7 @@ import type { COCPlayerCharacter } from '../types/character';
 
 import { weapons, createWeapon } from './weapon';
 
-export function createPC(
-  override?: Partial<COCPlayerCharacter>,
-): COCPlayerCharacter {
+export function createPC(override?: Partial<COCPlayerCharacter>): COCPlayerCharacter {
   return {
     name: '',
     playerName: '',

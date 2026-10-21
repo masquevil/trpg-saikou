@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
 import { ElMessage } from 'element-plus';
+import 'element-plus/es/components/message/style/css';
 import { Peer } from 'peerjs';
 
 import VoyageEntrance from './VoyageEntrance.vue';
@@ -207,7 +208,10 @@ function handleDice(pkey: string, result: number, text?: string) {
 </template>
 
 <style scoped lang="scss">
+@use './theme' as theme;
+
 .container {
+  @include theme.tokens;
   margin: auto;
   max-width: 960px;
   padding: 0 20px;
@@ -223,7 +227,7 @@ function handleDice(pkey: string, result: number, text?: string) {
 }
 
 .data-board {
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-voyage-debug-border);
   padding: 8px;
   margin-bottom: 8px;
   white-space: pre;

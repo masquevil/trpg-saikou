@@ -51,11 +51,11 @@ defineProps<Props>();
   border-radius: 8px;
   font-size: 14px;
   line-height: 20px;
-  background-color: var(--color-black);
+  background-color: var(--color-surface);
 }
 
 .message-card-system {
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--color-voyage-message-meta);
   font-size: 12px;
   text-align: center;
 }

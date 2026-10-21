@@ -1,6 +1,6 @@
 @use './base.scss';
 @use './animate.scss';
-@use './element-override.scss';
+@use './button';
 
 ::placeholder {
   color: var(--color-placeholder);
@@ -9,24 +9,44 @@
 body {
   min-height: 100vh;
   color: var(--color-text);
-  background: var(--color-black);
-  transition: color 0.5s, background-color 0.5s;
+  background: var(--color-bg);
+  transition:
+    color 0.5s,
+    background-color 0.5s;
   line-height: 1.6;
-  font-family: Inter, -apple-system, BlinkMacSystemFont, Microsoft Yahei, 'Segoe UI', Roboto, Oxygen, Ubuntu,
-    Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    Microsoft Yahei,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Fira Sans',
+    'Droid Sans',
+    'Helvetica Neue',
+    sans-serif;
   font-size: 15px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-input[type=text], input[type=checkbox], button, th, td {
+input[type='text'],
+input[type='checkbox'],
+button,
+th,
+td {
   appearance: none;
   outline: none;
   border: none;
   border-radius: 0;
   padding: 0;
 }
+
+@include button.styles;
 
 a {
   text-decoration: none;
@@ -47,6 +67,11 @@ table {
   &:active {
     color: var(--color-link-active);
   }
+}
+
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 .rel {

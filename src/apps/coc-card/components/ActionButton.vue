@@ -32,25 +32,29 @@ defineEmits<Emits>();
 
 <style scoped lang="scss">
 .action-button {
+  // ActionButton 自身的局部三态，不属于通用主题。
+  --color-action-button-bg: #3a3a3a;
+  --color-action-button-bg-hover: #444444;
+  --color-action-button-bg-active: #4b4e53;
   display: inline-block;
   padding: 8px 12px;
   border-radius: 8px;
   color: var(--color-text);
   border: 1px solid var(--color-border);
-  background-color: var(--color-control-bg);
+  background-color: var(--color-action-button-bg);
   cursor: pointer;
   font-size: 14px;
   line-height: 1;
 
   &:hover {
-    background-color: var(--color-control-bg-hover);
+    background-color: var(--color-action-button-bg-hover);
   }
   &:active {
-    background-color: var(--color-control-bg-active);
+    background-color: var(--color-action-button-bg-active);
   }
   &:disabled {
     cursor: not-allowed;
-    background-color: var(--color-control-bg);
+    background-color: var(--color-action-button-bg);
     opacity: 0.6;
   }
 }

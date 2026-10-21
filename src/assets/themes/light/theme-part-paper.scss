@@ -1,0 +1,50 @@
+// 共享主题部分；显式 include 到对应容器，不输出全局变量。
+// coc-card、erp-card、infinity-skill-table 共用；在 .paper.theme-light / 导出纸张容器中 include。
+// 依赖基础主题 white / black / muted 色阶；基础变量不是本文件重复维护的 palette。
+@mixin tokens {
+  // === Paper Input & Checkbox（保留纸张原色）===
+  --color-paper-bg: var(--color-white);
+  --color-paper-text: #2c3e50;
+  --color-paper-text-secondary: rgba(60, 60, 60, 0.83);
+  --color-paper-note: #888888;
+  --color-paper-skill-note: #777777;
+  --color-paper-line: #b2b2b2;
+  --color-paper-input-border: #8a8a8a;
+  --color-paper-divider: #c2c2c2;
+  --color-paper-focus-border: var(--color-black);
+  --color-paper-focus-shadow: #534565;
+  --color-paper-checkbox-bg-hover: #efe8f8;
+  --color-paper-checkbox-bg-active: #e8dcf8;
+  --color-paper-checkbox-bg-checked: #f2f2f2;
+  --color-paper-weapon-border: #777777;
+  --color-paper-hint-accent: #9148db;
+
+  // 状态格分组底色：保留原来的明暗交错。
+  --color-paper-status-bg: hsl(0, 0%, 96%);
+  --color-paper-status-bg-alt: hsl(0, 0%, 82%);
+  --color-paper-san-bg: #f5f5f5;
+  --color-paper-san-bg-alt: #dddddd;
+  --color-paper-attr-note: #4b4e53;
+
+  // === Paper Table（技能 / 武器表格共用）===
+  --color-paper-table-0: var(--color-white);
+  --color-paper-table-1: hsl(0, 0%, 93%);
+  --color-paper-table-2: hsl(0, 0%, 86%);
+  --color-paper-table-3: hsl(0, 0%, 79%);
+  --color-paper-table-separator: #aaaaaa;
+
+  // === Paper Sections & Copyright（补齐纸张语义，不等同于暗色正文）===
+  // PaperSection 标题带 / 外框、WeaponSection / SkillTable 的深色文字。
+  --color-paper-ink: var(--color-black);
+  --color-paper-section-bg: var(--color-black);
+  --color-paper-section-text: var(--color-white);
+  // 两套 CopyrightSection；商业链接 color: inherit；footprint opacity=.5 保留。
+  --color-paper-copyright: #4b4e53;
+  --color-paper-copyright-link: var(--color-paper-copyright);
+  // WritableArea 正文引用 paper-text，标签/表格墨色引用 paper-ink。
+  --color-paper-placeholder: #b2b2b2;
+  // SkillTdLabel 的菜单底色和禁选提示；不随全局暗色 background-mute 改变。
+  --color-paper-menu-bg: var(--color-white);
+  --color-paper-menu-bg-hover: #f2f2f2;
+  --color-paper-menu-text-disabled: #8a8a8a;
+}

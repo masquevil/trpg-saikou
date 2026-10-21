@@ -2,6 +2,7 @@
 import { watch, h, Fragment, nextTick } from 'vue';
 import type { Ref } from 'vue';
 import { ElMessageBox } from 'element-plus';
+import 'element-plus/es/components/message-box/style/css';
 
 import type { ERPPlayerCharacter } from '../types/character';
 import type { ERPCardViewData } from '../types/viewData';
@@ -53,7 +54,10 @@ export default function useAutoSave(
       } catch {
         return;
       }
-      ElMessageBox.confirm(vnode, '检测到编辑过的人物卡', { showClose: false }).then(() => {
+      ElMessageBox.confirm(vnode, '检测到编辑过的人物卡', {
+        showClose: false,
+        customClass: 'theme-dark',
+      }).then(() => {
         pageData.importing = true;
         pcRef.value = savedPC!;
         // TODO: 提取成 util

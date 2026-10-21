@@ -1,8 +1,4 @@
-import type {
-  ImageLabel,
-  ImageLabelData,
-  SdImageData,
-} from '../types/sdAvatar';
+import type { ImageLabel, ImageLabelData, SdImageData } from '../types/sdAvatar';
 
 import {
   SdAvatarDomain,
@@ -134,19 +130,12 @@ export async function initSdAvatars(): Promise<CallbackData> {
   };
 }
 
-function getSourceLabels({
-  sex = '',
-  age = '',
-  description = '',
-}: SourceFields): ImageLabel[] {
+function getSourceLabels({ sex = '', age = '', description = '' }: SourceFields): ImageLabel[] {
   const labels: ImageLabel[] = [];
 
   /* sex */
   if (sex.match(/女|girl|female/)) labels.push('female');
-  if (
-    sex.match(/男|boy/) ||
-    (sex.includes('male') && !sex.includes('female'))
-  ) {
+  if (sex.match(/男|boy/) || (sex.includes('male') && !sex.includes('female'))) {
     labels.push('male');
   }
 
@@ -195,9 +184,7 @@ function getSourceLabels({
   return labels;
 }
 
-export async function getSuggestImages(
-  sourceFields: SourceFields,
-): Promise<SdImageData[]> {
+export async function getSuggestImages(sourceFields: SourceFields): Promise<SdImageData[]> {
   const sourceLabels = getSourceLabels(sourceFields);
   const sourceBinary = imageLabelsToBinary(sourceLabels);
 

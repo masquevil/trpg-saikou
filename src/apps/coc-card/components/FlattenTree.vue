@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import type {
-  FlattenTreeData,
-  FlattenTreeDataItem as Item,
-} from '../types/flattenTree';
+import type { FlattenTreeData, FlattenTreeDataItem as Item } from '../types/flattenTree';
 interface Props {
   tree: FlattenTreeData;
 }
@@ -38,11 +35,12 @@ defineEmits<Emits>();
 
 <style scoped lang="scss">
 .flatten-tree {
+  --color-group-label: #999999;
+  --color-option-bg: rgba(0, 0, 0, 0.04);
+  --color-option-bg-hover: rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   gap: 0.6em;
-
-  --color-group-label: #999;
 }
 
 .group {
@@ -76,12 +74,12 @@ defineEmits<Emits>();
   line-height: 1;
   padding: 0.4em 0.6em;
   border-radius: 0.4em;
-  background-color: rgba(0, 0, 0, 0.04);
+  background-color: var(--color-option-bg);
   cursor: pointer;
   color: var(--color-black);
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: var(--color-option-bg-hover);
   }
 }
 </style>

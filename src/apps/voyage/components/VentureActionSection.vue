@@ -141,26 +141,26 @@ watch(input, () => {
   padding: 8px 12px;
   font-size: 14px;
   line-height: 20px;
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-voyage-panel-border);
   border-right: none;
-  background-color: var(--color-bg);
+  background-color: var(--color-voyage-action-bg);
   outline: none;
   resize: none;
 
   &:hover,
   &:focus {
-    border-color: var(--color-border-hover);
+    border-color: var(--color-voyage-panel-border-hover);
   }
 }
 .message-button {
   padding: 8px 24px;
   font-size: 16px;
   line-height: 1;
-  background-color: var(--color-border);
+  background-color: var(--color-voyage-action-bg);
   cursor: pointer;
 
   &:hover {
-    background-color: var(--color-border-hover);
+    background-color: var(--color-voyage-action-bg-hover);
   }
 }
 </style>

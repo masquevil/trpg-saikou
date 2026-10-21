@@ -2,7 +2,7 @@
 .slide-up-leave-active {
   opacity: 1;
   overflow: hidden;
-  transition: all .4s ease;
+  transition: all 0.4s ease;
 }
 .slide-up-enter-from,
 .slide-up-leave-to {
@@ -14,7 +14,7 @@
 .slide-down-leave-active {
   opacity: 1;
   overflow: hidden;
-  transition: all .4s ease;
+  transition: all 0.4s ease;
 }
 .slide-down-enter-from,
 .slide-down-leave-to {
@@ -27,7 +27,9 @@
 .drop-down-leave-active {
   opacity: 1;
   overflow: hidden;
-  transition: transform .2s ease, opacity .2s ease;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
   transform-origin: top center;
 }
 .drop-down-enter-from,
@@ -40,10 +42,10 @@
 .swipe-paper-enter-active,
 .swipe-paper-leave-active {
   z-index: 1;
-  transition: all .4s ease-in-out;
+  transition: all 0.4s ease-in-out;
 }
 .swipe-paper-enter-active {
-  transition-delay: .56s;
+  transition-delay: 0.56s;
 }
 .swipe-paper-enter-from,
 .swipe-paper-leave-to {

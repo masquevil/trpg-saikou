@@ -3,9 +3,7 @@ import { countTexts } from '../constants/texts';
 
 import type { Suggestion, SuggestionMultiSkill } from '../types/suggestion';
 
-export function getDefaultSuggestion(
-  override?: Partial<Suggestion>,
-): Suggestion {
+export function getDefaultSuggestion(override?: Partial<Suggestion>): Suggestion {
   return {
     wealth: [-1, -1],
     text: '',
@@ -50,21 +48,13 @@ export function getJobSuggestion(jobName: string): Suggestion {
       let sugKey = skillName;
       if (childSkillName) sugKey = `${skillName}(${childSkillName})`;
       if (isDescribedName) sugKey = skillNameDesc;
-      sugMap.set(
-        sugKey,
-        isDescribedName || childSkillName ? 0 : (sugMap.get(sugKey) || 0) + 1,
-      );
+      sugMap.set(sugKey, isDescribedName || childSkillName ? 0 : (sugMap.get(sugKey) || 0) + 1);
     }
   });
   // set suggestion
   const restCount = 8 - job.skills.length;
-  suggestion.text = [
-    ...sugMap.entries(),
-    ...(restCount ? [['其他个人或时代特长', restCount]] : []),
-  ]
-    .map(
-      ([key, count]) => `${key}${count ? `(任${countTexts[`${count}`]})` : ''}`,
-    )
+  suggestion.text = [...sugMap.entries(), ...(restCount ? [['其他个人或时代特长', restCount]] : [])]
+    .map(([key, count]) => `${key}${count ? `(任${countTexts[`${count}`]})` : ''}`)
     .join('、');
   // set mutil skill texts
   suggestion.multiSkillTexts = getMultiSkillTexts(suggestion);
@@ -78,8 +68,7 @@ function getMultiSkillTexts(suggestion: Suggestion) {
     const eIndex = multiSkillsInfo.findIndex(([eMultiSkill]) => {
       const isSame = eMultiSkill.every((eMultiSkillItem, index) => {
         const multiSkillItem = multiSkill[index];
-        if (typeof eMultiSkillItem === 'string')
-          return eMultiSkillItem === multiSkillItem;
+        if (typeof eMultiSkillItem === 'string') return eMultiSkillItem === multiSkillItem;
         if (typeof multiSkillItem === 'string') return false;
         return (
           eMultiSkillItem.name === multiSkillItem.name &&

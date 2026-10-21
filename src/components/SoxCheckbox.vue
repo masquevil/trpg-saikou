@@ -23,7 +23,7 @@ watch(
   () => props.checked,
   () => {
     localChecked.value = props.checked;
-  }
+  },
 );
 
 function onChange($event: Event) {
@@ -50,9 +50,12 @@ function onChange($event: Event) {
 </template>
 
 <style scoped lang="scss">
+@use '@/assets/themes/light/theme-part-paper' as paper;
+
 .sox-checkbox {
-  --color-line: #8a8a8a;
-  --color-font: var(--color-black);
+  @include paper.tokens;
+  --color-line: var(--color-paper-input-border);
+  --color-font: var(--color-paper-ink);
 
   font-size: 1em;
   line-height: 1em;
@@ -60,7 +63,7 @@ function onChange($event: Event) {
   height: 0.9em;
   display: inline-block;
   outline: 1px solid var(--color-line);
-  background-color: var(--color-white);
+  background-color: var(--color-paper-bg);
   text-align: center;
   cursor: pointer;
   overflow: hidden;
@@ -68,10 +71,10 @@ function onChange($event: Event) {
 
   &:hover,
   &:focus {
-    outline-color: var(--color-black);
+    outline-color: var(--color-paper-ink);
   }
   &:active {
-    background-color: var(--vt-c-white-mute);
+    background-color: var(--color-paper-checkbox-bg-checked);
   }
 }
 .sox-checkbox-input {

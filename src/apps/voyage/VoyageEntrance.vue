@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
 import { ElMessage } from 'element-plus';
+import 'element-plus/es/components/message/style/css';
 
 import type { SdImageData } from '@/libs/sdAvatar/type';
 import ControlDialog from '@/components/ControlDialog.vue';
@@ -215,18 +216,18 @@ function handleSubmitGuest() {
   gap: 10px;
   padding: 20px;
   border-radius: 8px;
-  border: 1px solid var(--color-border);
-  background-color: var(--color-control-bg);
+  border: 1px solid var(--color-voyage-panel-border);
+  background-color: var(--color-surface);
   cursor: pointer;
 
   &:hover {
-    border-color: var(--color-border-hover);
-    background-color: var(--color-control-bg-hover);
+    border-color: var(--color-voyage-panel-border-hover);
+    background-color: var(--color-surface-bg-hover);
   }
 }
 .subtitle {
   font-size: 28px;
-  color: #8b8b8b;
+  color: var(--color-voyage-note);
 }
 .title {
   font-size: 40px;
@@ -262,12 +263,12 @@ function handleSubmitGuest() {
   cursor: pointer;
   &:hover {
     border-color: var(--el-border-color-hover);
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--color-voyage-drop-bg);
   }
   &:disabled {
     cursor: not-allowed;
     border-color: var(--el-border-color-hover);
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--color-voyage-drop-bg);
     opacity: 0.6;
   }
 }

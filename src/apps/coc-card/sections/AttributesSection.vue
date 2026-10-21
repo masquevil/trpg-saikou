@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { ElMessage } from 'element-plus';
+import 'element-plus/es/components/message/style/css';
 
 // components
 import PaperSection from '../components/PaperSection.vue';
@@ -143,14 +144,6 @@ function actRoll() {
   gap: 0.4em;
   width: 0;
   white-space: nowrap;
-
-  --color-button-border: #b2b2b2;
-  --color-button-border-hover: #9a9a9a;
-  --color-button-bg: #fff;
-  --color-button-bg-hover: #fafafa;
-  --color-button-bg-active: #f5f5f5;
-  --color-button-text: #4b4e53;
-  --color-button-text-hover: #2e2e2e;
 }
 .ponits-sum {
   text-align: center;

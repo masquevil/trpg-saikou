@@ -8,8 +8,7 @@ import { computed } from 'vue';
 const pc = usePC();
 
 const wealth = computed(() => {
-  const point =
-    pc?.value.skillPoints.find(([name]) => name === '信用评级')?.[1] || {};
+  const point = pc?.value.skillPoints.find(([name]) => name === '信用评级')?.[1] || {};
   if (Object.keys(point).length === 0) return '';
   const { p = 0, i = 0, g = 0 } = point;
   return `${p + i + g}`;

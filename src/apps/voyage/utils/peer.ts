@@ -1,6 +1,8 @@
 import { h, Text } from 'vue';
 import { Peer } from 'peerjs';
 import { ElMessage, ElMessageBox } from 'element-plus';
+import 'element-plus/es/components/message/style/css';
+import 'element-plus/es/components/message-box/style/css';
 
 export function setupPeer() {
   const peer = new Peer();

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { ElMessage } from 'element-plus';
+import 'element-plus/es/components/message/style/css';
 import copy from 'copy-to-clipboard';
 
 import { Dessert } from '@element-plus/icons-vue';

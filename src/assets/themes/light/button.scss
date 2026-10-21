@@ -1,0 +1,59 @@
+// 通用按钮系列；不包含 ActionButton 组件配色。
+@mixin tokens {
+  // === Default（固定白底；纸张随机姓名 / 一发入魂 / 属性按钮）===
+  --color-button-default: var(--color-white);
+  --color-button-default-hover: var(--color-muted-light-5);
+  --color-button-default-active: var(--color-muted-light-4);
+  --color-button-default-border: var(--color-muted-light-1);
+  --color-button-default-border-hover: var(--color-muted);
+  --color-button-default-text: var(--color-muted-dark-4);
+  --color-button-default-text-hover: var(--color-muted-dark-5);
+
+  // === Primary ===
+  --color-button-primary: var(--color-primary);
+  --color-button-primary-hover: var(--color-primary-dark-1);
+  --color-button-primary-active: var(--color-primary-dark-2);
+  --color-button-primary-border: var(--color-primary);
+  --color-button-primary-border-hover: var(--color-primary-dark-1);
+  --color-button-primary-text: var(--color-white);
+
+  // === Success ===
+  --color-button-success: var(--color-success);
+  --color-button-success-hover: var(--color-success-dark-1);
+  --color-button-success-active: var(--color-success-dark-2);
+  --color-button-success-border: var(--color-success);
+  --color-button-success-border-hover: var(--color-success-dark-1);
+  --color-button-success-text: var(--color-white);
+
+  // === Warning ===
+  --color-button-warning: var(--color-warning);
+  --color-button-warning-hover: var(--color-warning-dark-1);
+  --color-button-warning-active: var(--color-warning-dark-2);
+  --color-button-warning-border: var(--color-warning);
+  --color-button-warning-border-hover: var(--color-warning-dark-1);
+  --color-button-warning-text: var(--color-white);
+
+  // === Danger ===
+  --color-button-danger: var(--color-danger);
+  --color-button-danger-hover: var(--color-danger-dark-1);
+  --color-button-danger-active: var(--color-danger-dark-2);
+  --color-button-danger-border: var(--color-danger);
+  --color-button-danger-border-hover: var(--color-danger-dark-1);
+  --color-button-danger-text: var(--color-white);
+
+  // === Info ===
+  --color-button-info: var(--color-info);
+  --color-button-info-hover: var(--color-info-dark-1);
+  --color-button-info-active: var(--color-info-dark-2);
+  --color-button-info-border: var(--color-info);
+  --color-button-info-border-hover: var(--color-info-dark-1);
+  --color-button-info-text: var(--color-white);
+
+  // === Muted ===
+  --color-button-muted: var(--color-muted);
+  --color-button-muted-hover: var(--color-muted-dark-1);
+  --color-button-muted-active: var(--color-muted-dark-2);
+  --color-button-muted-border: var(--color-muted);
+  --color-button-muted-border-hover: var(--color-muted-dark-1);
+  --color-button-muted-text: var(--color-white);
+}

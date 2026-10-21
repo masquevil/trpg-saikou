@@ -65,13 +65,14 @@ const inputStyle = reactive({
 </template>
 
 <style scoped lang="scss">
+@use '@/assets/themes/light/theme-part-paper' as paper;
+
 .writable-row {
+  @include paper.tokens;
   display: flex;
   align-items: flex-end;
   gap: 0.4em;
   line-height: 1;
-
-  --color-line: #b2b2b2;
 }
 .writable-row-with-hint {
   & .label {
@@ -100,13 +101,13 @@ const inputStyle = reactive({
 
 .input {
   flex: 1 1 auto;
-  border-bottom: 1px solid var(--color-line);
+  border-bottom: 1px solid var(--color-paper-line);
   padding: 0.2em;
   font-size: 1em;
 
   &:hover,
   &:focus {
-    border-color: var(--color-black);
+    border-color: var(--color-paper-ink);
   }
   &:read-only {
     cursor: not-allowed;

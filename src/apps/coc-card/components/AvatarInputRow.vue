@@ -35,9 +35,7 @@ const inputStyle = reactive({
       :placeholder="placeholder"
       :readonly="readonly"
       :value="modelValue"
-      @input="
-        $emit('update:modelValue', ($event.target as HTMLInputElement).value)
-      "
+      @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
       @focus="$emit('focus')"
       @blur="$emit('blur')"
     />
@@ -46,14 +44,13 @@ const inputStyle = reactive({
 
 <style scoped lang="scss">
 .avatar-input-row {
+  --color-line: var(--color-placeholder);
+  --color-line-hover: #dddddd;
+  --color-input-placeholder: rgba(255, 255, 255, 0.5);
   display: flex;
   align-items: center;
   gap: 2px;
   line-height: 1;
-
-  --color-line: #b2b2b2;
-  --color-line-hover: #ddd;
-  --color-placeholder: rgba(255, 255, 255, 0.5);
 }
 
 .label {
@@ -77,7 +74,7 @@ const inputStyle = reactive({
   }
 
   &::placeholder {
-    color: var(--color-placeholder);
+    color: var(--color-input-placeholder);
   }
 }
 </style>

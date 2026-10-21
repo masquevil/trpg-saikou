@@ -34,7 +34,10 @@ defineEmits<Emits>();
 </template>
 
 <style scoped lang="scss">
+@use '@/assets/themes/light/theme-part-paper' as paper;
+
 .base-td-select {
+  @include paper.tokens;
   width: 100%;
   font-size: 0.88em;
   line-height: 1;
@@ -46,7 +49,7 @@ defineEmits<Emits>();
 
   &:hover,
   &:focus {
-    box-shadow: 0 0 1px 1px #534565;
+    box-shadow: 0 0 1px 1px var(--color-paper-focus-shadow);
   }
 
   &::after {

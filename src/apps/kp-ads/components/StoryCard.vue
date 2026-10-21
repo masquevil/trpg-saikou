@@ -93,24 +93,21 @@ const durationLabel = computed(() => {
 </template>
 
 <style scoped lang="scss">
+@use '../theme' as theme;
+
 .story-card {
-  --color-label-text: var(--color-text);
-  --color-label-bg: #335355;
-  --color-text-comments: #999;
+  @include theme.tokens;
+
   /* dicecho */
-  --color-dicecho-text: #cacbfc;
-  --color-dicecho-link: #9496f7;
-  --color-dicecho-link-hover: #8789f7;
-  --color-dicecho-link-active: #7c7ef0;
 }
 .story-card {
   padding: 12px;
-  border: 1px solid var(--color-section-border);
+  border: 1px solid var(--color-surface-border);
   border-radius: 4px;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  background-color: var(--color-section-bg);
+  background-color: var(--color-surface);
 }
 .story-card-header {
   display: flex;
@@ -125,8 +122,8 @@ const durationLabel = computed(() => {
   line-height: 1;
   padding: 4px 6px;
   border-radius: 2px;
-  background-color: var(--color-label-bg);
-  color: var(--color-label-text);
+  background-color: var(--color-story-tag-bg);
+  color: var(--color-story-tag-text);
   font-size: 12px;
 }
 .story-card-cover-image {
@@ -142,7 +139,7 @@ const durationLabel = computed(() => {
   line-height: 1.4;
 }
 .story-card-comments {
-  color: var(--color-text-comments);
+  color: var(--color-story-note);
 }
 .story-card-infos {
   display: flex;
@@ -167,16 +164,19 @@ const durationLabel = computed(() => {
   padding: 2px 4px;
   margin: -1px 0;
   border-radius: 2px;
-  background-color: var(--color-label-bg);
+  background-color: var(--color-story-tag-bg);
 
   &.duration-label-short {
-    --color-label-bg: var(--el-color-success-light-5);
+    color: var(--color-story-short-text);
+    background-color: var(--color-story-short-bg);
   }
   &.duration-label-middle {
-    --color-label-bg: var(--el-color-warning-light-5);
+    color: var(--color-story-medium-text);
+    background-color: var(--color-story-medium-bg);
   }
   &.duration-label-long {
-    --color-label-bg: var(--el-color-error-light-5);
+    color: var(--color-story-long-text);
+    background-color: var(--color-story-long-bg);
   }
 }
 

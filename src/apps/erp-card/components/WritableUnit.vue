@@ -31,7 +31,10 @@ defineEmits<Emits>();
 </template>
 
 <style scoped lang="scss">
+@use '@/assets/themes/light/theme-part-paper' as paper;
+
 .writable-unit {
+  @include paper.tokens;
   --local-var-gap: var(--writable-unit-gap, 0.2em);
   --local-var-label-font-size: var(--writable-unit-label-font-size, 0.8em);
   --local-var-input-padding: var(--writable-unit-input-padding, 0.2em);
@@ -41,8 +44,6 @@ defineEmits<Emits>();
   align-items: center;
   gap: var(--local-var-gap);
   line-height: 1;
-
-  --color-line: #b2b2b2;
 }
 .label {
   font-size: var(--local-var-label-font-size);
@@ -51,14 +52,14 @@ defineEmits<Emits>();
 .input {
   flex: 1 1 auto;
   width: 4em;
-  border-bottom: 1px solid var(--color-line);
+  border-bottom: 1px solid var(--color-paper-line);
   padding: var(--local-var-input-padding);
   font-size: 1em;
   text-align: center;
 
   &:hover,
   &:focus {
-    border-color: var(--color-black);
+    border-color: var(--color-paper-ink);
   }
 
   &::placeholder {

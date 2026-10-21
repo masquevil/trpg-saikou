@@ -1,0 +1,6 @@
+// app 主题入口；共用定义在 assets/themes 中维护。
+@use '../../assets/themes/light/theme-part-paper' as paper;
+
+@mixin paper-tokens {
+  @include paper.tokens;
+}

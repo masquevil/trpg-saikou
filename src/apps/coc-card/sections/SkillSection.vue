@@ -258,7 +258,7 @@ watch(
 }
 .point-rest {
   font-size: 0.88em;
-  color: #777;
+  color: var(--color-paper-skill-note);
 }
 
 .skill-section-body {

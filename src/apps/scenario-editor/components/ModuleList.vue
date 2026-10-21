@@ -49,17 +49,17 @@ const handleModuleClick = (path: string) => {
 }
 
 .module-card {
-  border: 1px solid var(--color-section-border);
+  border: 1px solid var(--color-surface-border);
   border-radius: 8px;
   overflow: hidden;
-  background-color: var(--color-section-bg);
+  background-color: var(--color-surface);
   color: var(--color-white);
   cursor: pointer;
   transition: all 0.3s ease;
 
   &:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 24px var(--color-surface-shadow);
     border-color: var(--color-primary);
   }
 }
