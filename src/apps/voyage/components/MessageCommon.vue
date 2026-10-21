@@ -53,6 +53,6 @@ defineProps<Props>();
   font-size: 12px;
   line-height: 1;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--color-voyage-message-meta);
 }
 </style>

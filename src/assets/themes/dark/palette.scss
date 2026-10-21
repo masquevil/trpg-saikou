@@ -1,0 +1,29 @@
+// dark palette；文字与 muted 色阶不完全匹配，保留独立明度和色相。
+@use '../shared/palette' as shared;
+
+@mixin tokens {
+  @include shared.tokens;
+  color-scheme: dark;
+
+  // === Base Colors (hex) ===
+  --color-white: #ffffff;
+  --color-black: #2e2e2e;
+
+  // === Text（独立层级；OKLCH 等值转换，注释原 hex）===
+  --color-heading: #ffffff; // #ffffff
+  --color-text: #f5f5f5; // #f5f5f5
+  --color-text-secondary: #8a8a8a; // #8a8a8a
+  --color-text-tertiary: #606060; // #606060
+  --color-text-disabled: #4a4a4a; // #4a4a4a
+
+  // === Border（引用 muted；焦点直接使用 primary）===
+  --color-border: var(--color-muted);
+
+  // === Placeholder (hex) ===
+  --color-placeholder: #b2b2b2;
+
+  // === Link ===
+  --color-link: var(--color-primary-light-1);
+  --color-link-hover: var(--color-primary-light-3);
+  --color-link-active: var(--color-primary-light-5);
+}

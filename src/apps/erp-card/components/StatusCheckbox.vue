@@ -20,7 +20,10 @@ withDefaults(defineProps<Props>(), {
 </template>
 
 <style scoped lang="scss">
+@use '@/assets/themes/light/theme-part-paper' as paper;
+
 .status-checkbox {
+  @include paper.tokens;
   padding: 0.35em;
   display: flex;
   gap: 0.4em;
@@ -34,10 +37,10 @@ withDefaults(defineProps<Props>(), {
 .checkbox {
   width: 1em;
   height: 1em;
-  border: 1px solid var(--color-black);
+  border: 1px solid var(--color-paper-ink);
   font-size: 1em;
   line-height: 1;
-  background-color: var(--color-white);
+  background-color: var(--color-paper-bg);
   cursor: pointer;
 
   &:checked::before {
@@ -45,10 +48,10 @@ withDefaults(defineProps<Props>(), {
   }
 
   .status-checkbox:hover & {
-    background-color: #efe8f8;
+    background-color: var(--color-paper-checkbox-bg-hover);
   }
   .status-checkbox:active & {
-    background-color: #e8dcf8;
+    background-color: var(--color-paper-checkbox-bg-active);
   }
 }
 </style>

@@ -1,0 +1,10 @@
+// app 局部主题，通过 mixin 显式注入容器。
+
+@mixin tokens {
+  --color-roll-bg-hover: rgba(0, 0, 0, 0.1);
+  --color-roll-bg-active: rgba(0, 0, 0, 0.18);
+  --color-border: var(--color-surface-border);
+  --color-dice-button: var(--color-heading);
+  --color-dice-button-hover: var(--color-primary-light-3);
+  --color-dice-button-active: var(--color-primary-light-1);
+}

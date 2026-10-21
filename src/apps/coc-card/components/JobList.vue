@@ -102,10 +102,14 @@ function applyJob(jobName: string) {
 
 <style scoped lang="scss">
 .job-list {
+  --color-list-card-bg: rgba(0, 0, 0, 0.18);
+  --color-list-action-bg: rgba(0, 0, 0, 0.9);
+  --color-list-action-bg-hover: rgba(16, 16, 16, 0.9);
+  --color-list-action-bg-active: rgba(32, 32, 32, 0.9);
   --el-collapse-border-color: var(--color-border);
   --el-collapse-header-height: 32px;
   --el-collapse-header-bg-color: transparent;
-  --el-collapse-header-text-color: var(--color-white);
+  --el-collapse-header-text-color: var(--color-heading);
   --el-collapse-header-font-size: 14px;
   --el-collapse-content-bg-color: transparent;
   --el-collapse-content-font-size: 12px;
@@ -121,7 +125,7 @@ function applyJob(jobName: string) {
   border: 1px solid var(--color-border);
   padding: 6px 12px;
   line-height: 1.6;
-  background-color: rgba(0, 0, 0, 0.18);
+  background-color: var(--color-list-card-bg);
   font-size: 12px;
 }
 .job-card-header {
@@ -140,13 +144,13 @@ function applyJob(jobName: string) {
   padding: 2px 6px;
   margin: -2px -6px;
   border-radius: 4px;
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: var(--color-list-action-bg);
   cursor: pointer;
   &:hover {
-    background-color: rgba(16, 16, 16, 0.9);
+    background-color: var(--color-list-action-bg-hover);
   }
   &:active {
-    background-color: rgba(32, 32, 32, 0.9);
+    background-color: var(--color-list-action-bg-active);
   }
 }
 

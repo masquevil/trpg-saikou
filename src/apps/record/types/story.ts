@@ -20,18 +20,18 @@ export interface StoryOptions {
 export type Story = [StoryNames, string, string, [number, number], StoryOptions?];
 export type Period = 'short' | 'medium' | 'long' | 'battle';
 export interface FormattedStory {
-  name: StoryNames,
+  name: StoryNames;
   decade: {
     decade?: string;
     decadeInt?: number;
     decadeText: string;
-  },
+  };
   area: {
     country: string;
     city?: string;
-  }[],
-  playTime: [number, number],
-  period: Period,
+  }[];
+  playTime: [number, number];
+  period: Period;
   periodText: string;
-  options?: StoryOptions,
+  options?: StoryOptions;
 }

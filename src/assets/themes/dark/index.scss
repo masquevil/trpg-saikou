@@ -1,0 +1,12 @@
+// dark 主题组合；只引用分组，不定义变量，不自动输出 CSS。
+@use './palette';
+@use './surface';
+@use './button';
+@use './element-override' as element;
+
+@mixin tokens {
+  @include palette.tokens;
+  @include surface.tokens;
+  @include button.tokens;
+  @include element.tokens;
+}

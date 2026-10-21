@@ -7,4 +7,3 @@ export interface FormattedExperience {
   storyScore?: number; // 模组评分
   comments: string; // 评价
 }
-

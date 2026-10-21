@@ -68,40 +68,40 @@ watch(
 </template>
 
 <style scoped lang="scss">
+@use '../theme' as theme;
+
 .markdown-renderer {
-  --color-title: var(--color-heading);
-  --color-title-small: var(--color-text);
-  --color-p: var(--color-text);
+  @include theme.tokens;
 
   // 容器
   .content-wrapper {
     max-width: 600px;
     margin: 0 auto;
-    color: var(--color-p);
+    color: var(--color-text);
 
     :deep(.md-h1) {
-      color: var(--color-title);
+      color: var(--color-heading);
       margin: 48px 0 32px;
       font-size: 48px;
       font-weight: 700;
     }
 
     :deep(.md-h2) {
-      color: var(--color-title);
+      color: var(--color-heading);
       margin: 14px 0 20px;
       font-size: 28px;
       font-weight: 600;
     }
 
     :deep(.md-h3) {
-      color: var(--color-title);
+      color: var(--color-heading);
       margin: 40px 0 12px;
       font-size: 20px;
       font-weight: 600;
     }
 
     :deep(.md-h4) {
-      color: var(--color-title-small);
+      color: var(--color-text);
       margin: 12px 0 6px;
       font-size: 16px;
       font-weight: 500;
@@ -130,24 +130,16 @@ watch(
 /* when print */
 @mixin printing-styles {
   .markdown-renderer {
-    --color-bg-print: #fff;
-    --color-title-print: #000;
-    --color-title-small-print: #000;
-    --color-p-print: #4b4e53;
-    background-color: var(--color-bg-print);
+    background-color: var(--color-print-bg);
 
     .content-wrapper {
-      --color-bg-print: #fff;
-      --color-title-print: #000;
-      --color-title-small-print: #000;
-      --color-p-print: #4b4e53;
       column-count: 2;
       column-gap: 30px;
       column-fill: auto; // 让内容优先填满第一列
       max-width: 800px;
       widows: 2;
       orphans: 1;
-      color: var(--color-p-print);
+      color: var(--color-print-text);
 
       :deep(.md-h1),
       :deep(.md-h2),
@@ -160,7 +152,7 @@ watch(
 
       :deep(.md-h1) {
         column-span: all;
-        color: var(--color-title-print);
+        color: var(--color-print-heading);
         text-align: center;
       }
 
@@ -168,16 +160,16 @@ watch(
         column-span: all;
         break-before: column;
         page-break-before: always;
-        color: var(--color-title-print);
+        color: var(--color-print-heading);
         text-align: center;
       }
 
       :deep(.md-h3) {
-        color: var(--color-title-print);
+        color: var(--color-print-heading);
       }
 
       :deep(.md-h4) {
-        color: var(--color-title-small-print);
+        color: var(--color-print-heading);
       }
 
       :deep(.md-p) {

@@ -92,9 +92,9 @@ function closeOptions() {
   position: absolute;
   width: 100%;
   margin-top: 1em;
-  border: 1px solid #777;
+  border: 1px solid var(--color-paper-weapon-border);
   padding: 0.2em 0;
-  background-color: #fff;
+  background-color: var(--color-paper-bg);
   z-index: 1;
 }
 .option {

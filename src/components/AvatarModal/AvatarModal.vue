@@ -169,6 +169,8 @@ function refreshSDImages() {
 
 <style scoped lang="scss">
 .avatar-modal-content {
+  --color-note: #888888;
+
   color: var(--color-text);
 }
 
@@ -210,7 +212,7 @@ function refreshSDImages() {
   }
   &:disabled {
     cursor: not-allowed;
-    color: #888;
+    color: var(--color-note);
   }
 }
 
@@ -234,7 +236,10 @@ function refreshSDImages() {
 </style>
 
 <style lang="scss">
+@use '@/assets/themes/dark' as dark;
 .avatar-modal {
+  background-color: rgba(0, 0, 0, 0.88);
+  @include dark.tokens;
   /* half of footer control height */
   /* transform: translateY(-32px); */
   max-width: 420px;

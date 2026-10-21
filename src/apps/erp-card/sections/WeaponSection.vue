@@ -46,12 +46,11 @@ const localWeapons = computed<(Weapon | undefined)[]>(() => {
 </template>
 
 <style scoped lang="scss">
+@use '@/assets/themes/light/theme-part-paper' as paper;
+
 .weapon-section-body {
-  color: var(--color-black);
-  --wp-color-0: hsl(0, 0%, 100%);
-  --wp-color-1: hsl(0, 0%, 93%);
-  --wp-color-2: hsl(0, 0%, 86%);
-  --wp-color-3: hsl(0, 0%, 79%);
+  @include paper.tokens;
+  color: var(--color-paper-ink);
 }
 .weapon-section-row {
   display: grid;
@@ -64,10 +63,10 @@ const localWeapons = computed<(Weapon | undefined)[]>(() => {
   padding: 0.4em 0;
 }
 .th-deep {
-  background-color: var(--wp-color-3);
+  background-color: var(--color-paper-table-3);
 }
 .th-light {
-  background-color: var(--wp-color-2);
+  background-color: var(--color-paper-table-2);
 }
 </style>
 

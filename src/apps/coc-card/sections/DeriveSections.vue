@@ -12,11 +12,7 @@ import { usePC } from '../hooks/useProviders';
 
 const pc = usePC();
 
-function updateAttr(
-  key: keyof COCDeriveAttributes,
-  cKey: 'now' | 'start',
-  value: string,
-): void {
+function updateAttr(key: keyof COCDeriveAttributes, cKey: 'now' | 'start', value: string): void {
   if (!pc || !pc.value.deriveAttributes) return;
   pc.value.deriveAttributes[key][cKey] = value ? value : undefined;
 }
@@ -120,7 +116,10 @@ const sanMax = computed(() => {
 </template>
 
 <style scoped lang="scss">
+@use '@/assets/themes/light/theme-part-paper' as paper;
+
 .computed-sections {
+  @include paper.tokens;
   display: flex;
   flex-wrap: wrap;
   gap: 0.8em;
@@ -137,13 +136,13 @@ const sanMax = computed(() => {
 .body-status-section {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  color: var(--color-black);
+  color: var(--color-paper-ink);
 
   & > .status-checkbox {
-    background-color: hsl(0, 0%, 96%);
+    background-color: var(--color-paper-status-bg);
     &:nth-child(2),
     &:nth-child(3) {
-      background-color: hsl(0, 0%, 82%);
+      background-color: var(--color-paper-status-bg-alt);
     }
   }
 }
@@ -152,13 +151,13 @@ const sanMax = computed(() => {
   grid-template:
     '1 2'
     '3 .' / 6fr 5fr;
-  color: var(--color-black);
+  color: var(--color-paper-ink);
 
   & > .status-checkbox {
-    background-color: #f5f5f5;
+    background-color: var(--color-paper-san-bg);
     &:nth-child(2),
     &:nth-child(3) {
-      background-color: #ddd;
+      background-color: var(--color-paper-san-bg-alt);
     }
   }
 }

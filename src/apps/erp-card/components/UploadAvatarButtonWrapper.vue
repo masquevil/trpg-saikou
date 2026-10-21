@@ -1,10 +1,5 @@
 <script setup lang="ts">
-import {
-  filetoDataURL,
-  urltoImage,
-  imagetoCanvas,
-  canvastoDataURL,
-} from 'image-conversion';
+import { filetoDataURL, urltoImage, imagetoCanvas, canvastoDataURL } from 'image-conversion';
 
 import { getImageSize } from '@/utils/image';
 import { usePC } from '../hooks/useProviders';

@@ -48,11 +48,14 @@ defineProps<Props>();
 </template>
 
 <style scoped lang="scss">
+@use '../theme' as theme;
+
 .npc-card {
-  background: #fff;
+  @include theme.tokens;
+  background: var(--color-npc-bg);
   max-width: 400px;
   margin: auto;
-  border: 1px solid #999;
+  border: 1px solid var(--color-npc-border);
   border-radius: 8px;
   overflow: hidden;
   break-inside: avoid;
@@ -64,8 +67,12 @@ defineProps<Props>();
   align-items: flex-start;
   gap: 12px;
   padding: 12px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: linear-gradient(
+    135deg,
+    var(--color-npc-header-start) 0%,
+    var(--color-npc-header-end) 100%
+  );
+  color: var(--color-npc-header-text);
 }
 .card-header-left {
   flex: 1;
@@ -96,7 +103,7 @@ defineProps<Props>();
   flex-shrink: 0;
   width: 120px;
   height: 160px;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--color-npc-avatar-bg);
   border-radius: 8px;
   overflow: hidden;
 }
@@ -127,14 +134,14 @@ defineProps<Props>();
   margin: 0 0 8px;
   font-size: 14px;
   font-weight: 700;
-  color: #333;
+  color: var(--color-npc-title);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 .npc-info-section-content {
   font-size: 12px;
   line-height: 1.5;
-  color: #444;
+  color: var(--color-npc-text);
   white-space: pre-wrap;
 }
 </style>

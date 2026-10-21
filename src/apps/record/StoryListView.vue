@@ -257,7 +257,10 @@ const computedList = computed(() => {
 </template>
 
 <style scoped lang="scss">
+@use './theme' as theme;
+
 .page {
+  @include theme.tokens;
   width: 960px;
   margin: auto;
   padding: 32px 0;
@@ -355,10 +358,10 @@ const computedList = computed(() => {
   width: 320px;
   padding: 8px 16px;
   margin-left: -16px;
-  background-color: var(--color-background-mute);
+  background-color: var(--color-surface-elevated);
   border: 1px solid var(--color-border);
   border-radius: 8px;
-  box-shadow: 0 0 2px -1px #fff;
+  box-shadow: 0 0 2px -1px var(--color-record-card-glow);
   z-index: 1;
   opacity: 0;
   pointer-events: none;
@@ -367,7 +370,7 @@ const computedList = computed(() => {
   .item-comments-container:hover & {
     opacity: 1;
     pointer-events: initial;
-    border: 1px solid var(--color-border-hover);
+    border: 1px solid var(--color-surface-border-hover);
   }
 }
 

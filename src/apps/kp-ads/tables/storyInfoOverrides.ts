@@ -17,7 +17,7 @@ import cover狂气山脉 from '../assets/img/狂气山脉.jpg';
 import cover疯狂嘉年华 from '../assets/img/疯狂嘉年华.jpg';
 
 enum NonDicechoIds {
-  '醒来',
+  醒来,
 }
 
 function createNonDicechoId(id: NonDicechoIds): string {

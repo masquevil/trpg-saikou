@@ -31,16 +31,19 @@ withDefaults(defineProps<Props>(), {
 </template>
 
 <style scoped lang="scss">
+@use '@/assets/themes/light/theme-part-paper' as paper;
+
 .paper-section {
+  @include paper.tokens;
   display: flex;
   flex-direction: column;
-  outline: 1pt solid var(--color-black);
+  outline: 1pt solid var(--color-paper-ink);
 }
 
 .header {
   display: flex;
-  color: white;
-  background-color: var(--color-black);
+  color: var(--color-paper-section-text);
+  background-color: var(--color-paper-section-bg);
 
   &-centered {
     justify-content: center;

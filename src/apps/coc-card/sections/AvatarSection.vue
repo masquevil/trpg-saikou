@@ -45,23 +45,26 @@ const avatarUrl = computed(() => {
 </template>
 
 <style scoped lang="scss">
+@use '@/assets/themes/light/theme-part-paper' as paper;
+
 .avatar-section {
+  @include paper.tokens;
   flex: 1 1 auto;
   position: relative;
   width: 10.94em;
   min-height: 12em;
-  border: 1px solid var(--color-black);
+  border: 1px solid var(--color-paper-ink);
   padding: 1em;
   cursor: pointer;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  background-color: var(--color-white);
+  background-color: var(--color-paper-bg);
   &:hover {
-    background-color: var(--color-background-soft);
+    background-color: var(--color-button-default-hover);
   }
   &:active {
-    background-color: var(--color-background-mute);
+    background-color: var(--color-paper-menu-bg-hover);
   }
 }
 
@@ -73,7 +76,7 @@ const avatarUrl = computed(() => {
   justify-content: center;
   align-items: center;
   gap: 0.8em;
-  color: #777;
+  color: var(--color-paper-weapon-border);
 }
 
 /* when print image & print */

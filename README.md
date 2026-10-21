@@ -11,6 +11,7 @@
     - [计时加速器（可朗读）](#计时加速器可朗读)
     - [记录工具](#记录工具)
   - [Project Setup](#project-setup)
+  - [UI/UE 设计与贡献](#uiue-设计与贡献)
   - [商业使用](#商业使用)
 
 ## 包含工具
@@ -84,6 +85,11 @@ sh ./shell/copy.sh
 
 pnpm dev
 ```
+
+## UI/UE 设计与贡献
+
+- [UI/UE 设计规范](contribution/ui-ux-guidelines.md)：主题、配色、按钮、交互反馈与纸张设计规则。
+- [主题使用与贡献指南](contribution/theme-contributing.md)：主题结构、变量归属、组件接入与验证清单。
 
 ## 商业使用
 

@@ -102,8 +102,11 @@ onActivated(() => {
 </template>
 
 <style scoped lang="scss">
+@use '@/assets/themes/light/theme-part-paper' as paper;
+
 .writable-area {
-  --color-line: #b2b2b2;
+  @include paper.tokens;
+
   --line-height: 1.66em;
   --padding-h: 0.4em;
 
@@ -117,7 +120,7 @@ onActivated(() => {
   font-weight: 900;
   padding: 0 calc(var(--padding-h) / 2);
   line-height: var(--line-height);
-  color: var(--color-black);
+  color: var(--color-paper-ink);
 }
 
 .input {
@@ -128,14 +131,14 @@ onActivated(() => {
   border-radius: 0;
   font-size: 1em;
   line-height: var(--line-height);
-  color: var(--color-text);
+  color: var(--color-paper-text);
   overflow: auto;
   font-family: inherit;
   word-break: break-all;
 
   &:hover,
   &:focus {
-    border-color: var(--color-black);
+    border-color: var(--color-paper-ink);
     outline: none;
   }
 }
@@ -170,7 +173,7 @@ onActivated(() => {
 .line {
   flex: 1 1 0;
   height: 1px;
-  border-bottom: 1px solid var(--color-line);
+  border-bottom: 1px solid var(--color-paper-line);
 }
 
 /* when print image & print */

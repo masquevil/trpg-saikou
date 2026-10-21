@@ -160,6 +160,8 @@ function refreshSDImages() {
 
 <style scoped lang="scss">
 .avatar-modal-content {
+  --color-note: #888888;
+
   color: var(--color-text);
 }
 
@@ -201,7 +203,7 @@ function refreshSDImages() {
   }
   &:disabled {
     cursor: not-allowed;
-    color: #888;
+    color: var(--color-note);
   }
 }
 

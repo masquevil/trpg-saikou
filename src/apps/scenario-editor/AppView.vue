@@ -78,7 +78,7 @@ const handleModuleSelect = (modulePath: string) => {
   text-align: center;
   margin-bottom: 40px;
   padding-bottom: 20px;
-  border-bottom: 1px solid var(--color-section-border);
+  border-bottom: 1px solid var(--color-surface-border);
 
   h1 {
     margin: 0 0 10px;

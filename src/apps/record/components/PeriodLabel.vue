@@ -26,30 +26,33 @@ const periodText = welcome ? '入门' : periodTexts[props.period];
 </template>
 
 <style scoped lang="scss">
+@use '../theme' as theme;
+
 .period-label {
+  @include theme.tokens;
   padding: 4px 8px;
   border-radius: 4px;
   font-size: 14px;
   line-height: 14px;
   width: 44px;
   display: inline-block;
-  color: var(--period-text-color, #eee);
-  background-color: var(--period-label-color, #666);
+  color: var(--color-period-text);
+  background-color: var(--period-label-color, var(--color-period-bg));
 
   &-welcome {
-    --period-label-color: #468;
+    --period-label-color: var(--color-period-welcome-bg);
   }
   &-short {
-    --period-label-color: #486;
+    --period-label-color: var(--color-period-short-bg);
   }
   &-medium {
-    --period-label-color: #873;
+    --period-label-color: var(--color-period-medium-bg);
   }
   &-long {
-    --period-label-color: #855;
+    --period-label-color: var(--color-period-long-bg);
   }
   &-battle {
-    --period-label-color: #733;
+    --period-label-color: var(--color-period-battle-bg);
   }
 }
 </style>

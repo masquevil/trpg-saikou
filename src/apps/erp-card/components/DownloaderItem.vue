@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue';
 
 import ControlDialog from '../components/ControlDialog.vue';
+import ActionButton from './ActionButton.vue';
 import { downloadImage } from '@/utils/image';
 
 interface Props {
@@ -62,19 +63,21 @@ function openModal() {
 
     <div class="downloader-item-info">
       <div class="downloader-item-title">{{ title }}</div>
-      <div
+      <ActionButton
+        tag="div"
         class="downloader-item-button"
         @click="downloadFile"
       >
         下载
-      </div>
-      <div
+      </ActionButton>
+      <ActionButton
         v-if="refreshable"
+        tag="div"
         class="downloader-item-button"
         @click="$emit('refresh')"
       >
         重新生成
-      </div>
+      </ActionButton>
     </div>
 
     <ControlDialog
@@ -109,11 +112,13 @@ function openModal() {
   height: 140px;
 }
 .downloader-item-file {
+  // TXT 文件预览块的常态背景。
+  --color-download-preview-bg: rgba(255, 255, 255, 0.08);
   width: 100px;
   border: 1px solid var(--color-border);
   padding: 4px 8px;
   color: var(--color-text);
-  background-color: rgba(255, 255, 255, 0.08);
+  background-color: var(--color-download-preview-bg);
 }
 .downloader-item-info {
   display: flex;
@@ -127,22 +132,7 @@ function openModal() {
 }
 .downloader-item-button {
   width: 100px;
-  padding: 8px;
-  border-radius: 8px;
   text-align: center;
-  color: var(--color-text);
-  border: 1px solid var(--color-border);
-  background-color: var(--color-action-bg);
-  cursor: pointer;
-  font-size: 14px;
-  line-height: 1;
-
-  &:hover {
-    background-color: var(--color-action-bg-hover);
-  }
-  &:active {
-    background-color: var(--color-action-bg-active);
-  }
 }
 
 .preview-full-image-container {

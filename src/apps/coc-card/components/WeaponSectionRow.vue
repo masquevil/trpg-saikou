@@ -264,7 +264,10 @@ function onSelectWeapon(name: string) {
 </template>
 
 <style scoped lang="scss">
+@use '@/assets/themes/light/theme-part-paper' as paper;
+
 .wp-td {
+  @include paper.tokens;
   line-height: 1.88em;
   padding: 0 0.2em;
   font-size: 0.92em;
@@ -274,13 +277,13 @@ function onSelectWeapon(name: string) {
   white-space: nowrap;
 }
 .td-color-0 {
-  background-color: var(--wp-color-0);
+  background-color: var(--color-paper-table-0);
 }
 .td-color-1 {
-  background-color: var(--wp-color-1);
+  background-color: var(--color-paper-table-1);
 }
 .td-color-2 {
-  background-color: var(--wp-color-2);
+  background-color: var(--color-paper-table-2);
 }
 
 .weapon-td-name {
@@ -294,8 +297,8 @@ function onSelectWeapon(name: string) {
   bottom: 100%;
   margin-bottom: 0.4em;
   padding: 1em;
-  border: 1px solid #777;
-  background-color: #fff;
+  border: 1px solid var(--color-paper-weapon-border);
+  background-color: var(--color-paper-bg);
   z-index: 1;
 
   &:deep(.flatten-tree) {
@@ -310,7 +313,7 @@ function onSelectWeapon(name: string) {
 }
 
 .wp-point-placeholder {
-  color: var(--color-placeholder);
+  color: var(--color-paper-placeholder);
 }
 
 .show-in-print {

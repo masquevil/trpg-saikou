@@ -4,8 +4,7 @@ export const data = {
       intro: {
         honesty: '30~70',
         propoint: '教育×4',
-        proskill:
-          '本职技能：会计，法律，图书馆，聆听，说服，侦查，任意其他两项个人或时代特长。',
+        proskill: '本职技能：会计，法律，图书馆，聆听，说服，侦查，任意其他两项个人或时代特长。',
       },
       job: '会计师',
       // 属性计算方式
@@ -28,8 +27,7 @@ export const data = {
       intro: {
         honesty: '9~20',
         propoint: '教育×2＋敏捷×2',
-        proskill:
-          '本职技能：攀爬，闪避，跳跃，投掷，侦查，游泳，任意两项其他个人或时代特长。',
+        proskill: '本职技能：攀爬，闪避，跳跃，投掷，侦查，游泳，任意两项其他个人或时代特长。',
       },
       job: '杂技演员',
       pro: [[{ name: 'edu', num: 2 }], [{ name: 'dex', num: 2 }]],
@@ -98,8 +96,7 @@ export const data = {
       intro: {
         honesty: '10~60',
         propoint: '教育×4',
-        proskill:
-          '本职技能：法律，聆听，医学，外语，精神分析，心理学，科学(生物学，化学)。',
+        proskill: '本职技能：法律，聆听，医学，外语，精神分析，心理学，科学(生物学，化学)。',
       },
       job: '精神病医生(古典)',
       pro: [[{ name: 'edu', num: 4 }]],
@@ -444,8 +441,7 @@ export const data = {
       intro: {
         honesty: '9~20',
         propoint: '教育×2＋力量或敏捷×2',
-        proskill:
-          '本职技能：闪避，格斗或射击，急救或自然学，跳跃，骑乘，生存(任一)，投掷，追踪。',
+        proskill: '本职技能：闪避，格斗或射击，急救或自然学，跳跃，骑乘，生存(任一)，投掷，追踪。',
       },
       job: '牛仔',
       pro: [
@@ -485,8 +481,7 @@ export const data = {
       intro: {
         honesty: '30~60',
         propoint: '教育×2＋力量或敏捷×2',
-        proskill:
-          '本职技能：乔装，电气维修，格斗，射击，锁匠，机械维修，潜行，心理学。',
+        proskill: '本职技能：乔装，电气维修，格斗，射击，锁匠，机械维修，潜行，心理学。',
       },
       job: '罪犯-刺客',
       pro: [
@@ -545,8 +540,7 @@ export const data = {
       intro: {
         honesty: '5~40',
         propoint: '教育*2+敏捷*2',
-        proskill:
-          '本职技能：估价，攀爬，电气维修或机械维修，聆听，锁匠，妙手，潜行，侦查。',
+        proskill: '本职技能：估价，攀爬，电气维修或机械维修，聆听，锁匠，妙手，潜行，侦查。',
       },
       job: '罪犯-窃贼',
       pro: [[{ name: 'edu', num: 2 }], [{ name: 'dex', num: 2 }]],
@@ -884,8 +878,7 @@ export const data = {
       intro: {
         honesty: '50~90',
         propoint: '教育*2+外貌*2',
-        proskill:
-          '本职技能：取悦，历史，恐吓，话术，聆听，母语，说服，心理学。',
+        proskill: '本职技能：取悦，历史，恐吓，话术，聆听，母语，说服，心理学。',
       },
       job: '政府官员',
       pro: [[{ name: 'edu', num: 2 }], [{ name: 'app', num: 2 }]],
@@ -932,8 +925,7 @@ export const data = {
       intro: {
         honesty: '55~80',
         propoint: '教育×2＋外貌或敏捷或力量×2',
-        proskill:
-          '本职技能：攀爬或游泳，射击，历史，跳跃，自然学，导航，外语，生存。',
+        proskill: '本职技能：攀爬或游泳，射击，历史，跳跃，自然学，导航，外语，生存。',
       },
       job: '探险家(古典)',
       pro: [
@@ -993,8 +985,7 @@ export const data = {
       intro: {
         honesty: '9~30',
         propoint: '教育×2＋力量或敏捷×2',
-        proskill:
-          '本职技能：攀爬，闪避，汽车驾驶，急救，跳跃，机械维修，操作重型机械，投掷。',
+        proskill: '本职技能：攀爬，闪避，汽车驾驶，急救，跳跃，机械维修，操作重型机械，投掷。',
       },
       job: '消防员',
       pro: [
@@ -1031,8 +1022,7 @@ export const data = {
       intro: {
         honesty: '40~60',
         propoint: '教育*4',
-        proskill:
-          '本职技能：外语，图书馆，医学，说服，科学(生物学，鉴证，制药)，侦查。',
+        proskill: '本职技能：外语，图书馆，医学，说服，科学(生物学，鉴证，制药)，侦查。',
       },
       job: '法医',
       pro: [[{ name: 'edu', num: 4 }]],
@@ -1193,8 +1183,7 @@ export const data = {
       intro: {
         honesty: '50~80',
         propoint: '教育*4',
-        proskill:
-          '本职技能：历史，恐吓，法律，图书馆，聆听，母语，说服，心理学。',
+        proskill: '本职技能：历史，恐吓，法律，图书馆，聆听，母语，说服，心理学。',
       },
       job: '法官',
       pro: [[{ name: 'edu', num: 4 }]],
@@ -1285,8 +1274,7 @@ export const data = {
       intro: {
         honesty: '9~35',
         propoint: '教育*4',
-        proskill:
-          '本职技能：会计，图书馆，外语，母语，任意四项其他个人特长或专业书籍主题。',
+        proskill: '本职技能：会计，图书馆，外语，母语，任意四项其他个人特长或专业书籍主题。',
       },
       job: '图书馆管理员(原作向)',
       pro: [[{ name: 'edu', num: 4 }]],
@@ -1355,8 +1343,7 @@ export const data = {
       intro: {
         honesty: '30~60',
         propoint: '教育×2＋力量或敏捷×2',
-        proskill:
-          '本职技能：攀爬，急救，跳跃，聆听，导航，外语，生存(阿尔卑斯或类似)，追踪。',
+        proskill: '本职技能：攀爬，急救，跳跃，聆听，导航，外语，生存(阿尔卑斯或类似)，追踪。',
       },
       job: '登山家',
       pro: [
@@ -1377,8 +1364,7 @@ export const data = {
       intro: {
         honesty: '10~30',
         propoint: '教育*4',
-        proskill:
-          '本职技能：会计，估价，考古，历史，图书馆，神秘学，外语，侦查。',
+        proskill: '本职技能：会计，估价，考古，历史，图书馆，神秘学，外语，侦查。',
       },
       job: '博物馆管理员',
       pro: [[{ name: 'edu', num: 4 }]],
@@ -1447,8 +1433,7 @@ export const data = {
       intro: {
         honesty: '5~20',
         propoint: '教育×2＋力量或敏捷×2',
-        proskill:
-          '本职技能：射击，急救，聆听，自然学，导航，侦查，生存(任一)，追踪。',
+        proskill: '本职技能：射击，急救，聆听，自然学，导航，侦查，生存(任一)，追踪。',
       },
       job: '旅行家',
       pro: [
@@ -1631,8 +1616,7 @@ export const data = {
       intro: {
         honesty: '20~70',
         propoint: '教育*4',
-        proskill:
-          '本职技能：图书馆，外语，母语，心理学，任意四项其他学术、时代或个人特长。',
+        proskill: '本职技能：图书馆，外语，母语，心理学，任意四项其他学术、时代或个人特长。',
       },
       job: '教授(原作向)',
       pro: [[{ name: 'edu', num: 4 }]],
@@ -1685,8 +1669,7 @@ export const data = {
       intro: {
         honesty: '30~80',
         propoint: '教育*4',
-        proskill:
-          '本职技能：外语，聆听，医学，说服，精神分析，心理学，科学(生物学，化学)。',
+        proskill: '本职技能：外语，聆听，医学，说服，精神分析，心理学，科学(生物学，化学)。',
       },
       job: '精神病学家',
       pro: [[{ name: 'edu', num: 4 }]],
@@ -1733,8 +1716,7 @@ export const data = {
       intro: {
         honesty: '9~30',
         propoint: '教育*4',
-        proskill:
-          '本职技能：电工或机械维修，格斗，射击，急救，导航，驾驶(船)，生存(海上)，游泳。',
+        proskill: '本职技能：电工或机械维修，格斗，射击，急救，导航，驾驶(船)，生存(海上)，游泳。',
       },
       job: '海员-军舰海员',
       pro: [[{ name: 'edu', num: 4 }]],
@@ -1841,8 +1823,7 @@ export const data = {
       intro: {
         honesty: '9~30',
         propoint: '教育×2＋力量或敏捷×2',
-        proskill:
-          '本职技能：攀爬或游泳，闪避，格斗，射击，潜行，生存，急救，机械维修或外语。',
+        proskill: '本职技能：攀爬或游泳，闪避，格斗，射击，潜行，生存，急救，机械维修或外语。',
       },
       job: '士兵/海军陆战队士兵',
       pro: [
@@ -1926,8 +1907,7 @@ export const data = {
       intro: {
         honesty: '0~15',
         propoint: '教育×2＋力量或敏捷×2',
-        proskill:
-          '本职技能：攀爬，格斗或投掷，聆听，自然学，神秘学，侦查，游泳，生存(任一)。',
+        proskill: '本职技能：攀爬，格斗或投掷，聆听，自然学，神秘学，侦查，游泳，生存(任一)。',
       },
       job: '部落成员',
       pro: [
@@ -2059,8 +2039,7 @@ export const data = {
       intro: {
         honesty: '9~40',
         propoint: '教育*4',
-        proskill:
-          '本职技能：驯兽，会计，闪避，急救，自然学，医学，科学(制药，动物学)。',
+        proskill: '本职技能：驯兽，会计，闪避，急救，自然学，医学，科学(制药，动物学)。',
       },
       job: '饲养员',
       pro: [[{ name: 'edu', num: 4 }]],

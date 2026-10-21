@@ -134,7 +134,10 @@ const level = computed(() => {
 </template>
 
 <style scoped lang="scss">
+@use '@/assets/themes/light/theme-part-paper' as paper;
+
 .computed-sections {
+  @include paper.tokens;
   display: flex;
   flex-wrap: wrap;
   gap: 0.8em;
@@ -154,14 +157,14 @@ const level = computed(() => {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  color: var(--color-black);
+  color: var(--color-paper-ink);
 
   & > .status-checkbox {
     flex: 1 1 fit-content;
-    background-color: hsl(0, 0%, 96%);
+    background-color: var(--color-paper-status-bg);
     &:nth-child(4n + 2),
     &:nth-child(4n + 3) {
-      background-color: hsl(0, 0%, 82%);
+      background-color: var(--color-paper-status-bg-alt);
     }
   }
 }

@@ -1,7 +1,9 @@
 import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router';
 import { routes, handleHotUpdate } from 'vue-router/auto-routes';
 import { useColorMode } from '@vueuse/core';
+import { nextTick } from 'vue';
 import { ElMessageBox } from 'element-plus';
+import 'element-plus/es/components/message-box/style/css';
 
 declare module 'vue-router' {
   interface RouteMeta {
@@ -43,10 +45,15 @@ router.beforeEach((to) => {
 });
 
 // dynamic set theme, default to dark
-router.afterEach((to) => {
-  const colorMode = useColorMode();
+const colorMode = useColorMode();
+router.afterEach(async (to) => {
   colorMode.value = to.meta.theme || 'dark';
   ElMessageBox.close();
+  await nextTick();
+  const background = getComputedStyle(document.documentElement)
+    .getPropertyValue('--color-bg')
+    .trim();
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', background);
 });
 
 export default router;

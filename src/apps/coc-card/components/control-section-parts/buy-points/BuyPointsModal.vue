@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { ElMessage } from 'element-plus';
+import 'element-plus/es/components/message/style/css';
 
 // components
 import ControlDialog from '../../ControlDialog.vue';
@@ -465,6 +466,7 @@ const hiddenList: RenderListItem[] = [{ key: 'luc', label: '幸运', hint: 'Luck
 
 /* 天命式相关 */
 .action-roll-result {
+  --color-buy-points-bg-hover: rgba(255, 255, 255, 0.1);
   margin-top: 0.6em;
   border: 1px solid var(--color-border);
   padding: 0.6em 0.8em;
@@ -477,7 +479,7 @@ const hiddenList: RenderListItem[] = [{ key: 'luc', label: '幸运', hint: 'Luck
   font-family: monospace;
   letter-spacing: -0.06em;
   &:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--color-buy-points-bg-hover);
   }
 }
 .action-roll-result-item {

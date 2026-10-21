@@ -1,0 +1,13 @@
+// app 局部主题，通过 mixin 显式注入容器。
+
+@mixin tokens {
+  --color-period-text: #eeeeee;
+  --color-period-bg: #666666;
+  --color-period-welcome-bg: #446688;
+  --color-period-short-bg: #448866;
+  --color-period-medium-bg: #887733;
+  --color-period-long-bg: #885555;
+  --color-period-battle-bg: #773333;
+
+  --color-record-card-glow: var(--color-white);
+}

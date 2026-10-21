@@ -1,0 +1,25 @@
+// app 局部主题，通过 mixin 显式注入容器。
+// 仅用于 editor 容器 / NPC 卡片 / 打印容器；不放全局 root。
+@mixin tokens {
+  // === NPC Card（editor 专用；保留原色）===
+  --color-npc-bg: var(--color-white);
+  --color-npc-border: #999999;
+  --color-npc-title: #333333;
+  --color-npc-text: #444444;
+  --color-npc-header-start: #667eea;
+  --color-npc-header-end: #764ba2;
+  --color-npc-header-text: var(--color-white);
+  --color-npc-avatar-bg: rgba(255, 255, 255, 0.1);
+
+  // === Markdown Print（editor 专用；固定浅色）===
+  --color-print-bg: var(--color-white);
+  --color-print-heading: #000000;
+  --color-print-text: #4b4e53;
+}
+
+// 模组卡片使用全局 surface；此 mixin 无额外 app 色板。
+@mixin surface-tokens {
+  --color-editor-card-bg: var(--color-surface);
+  --color-editor-card-border: var(--color-surface-border);
+  --color-editor-card-shadow: var(--color-surface-shadow);
+}

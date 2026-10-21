@@ -356,15 +356,13 @@ function getTotal(points: SkillPoint, init: number) {
 </template>
 
 <style scoped lang="scss">
-.skill-table {
-  flex: 1;
-  color: var(--color-black);
+@use '@/assets/themes/light/theme-part-paper' as paper;
 
-  --td-color-0: hsl(0, 0%, 100%);
-  --td-color-1: hsl(0, 0%, 93%);
-  --td-color-2: hsl(0, 0%, 86%);
-  --td-color-3: hsl(0, 0%, 79%);
-  --sep-color: #aaa;
+.skill-table {
+  @include paper.tokens;
+  flex: 1;
+  color: var(--color-paper-ink);
+
   --td-line-height: 1.66em;
   --th-line-height: calc(var(--td-line-height) + 0.1em);
 }
@@ -373,10 +371,10 @@ function getTotal(points: SkillPoint, init: number) {
   line-height: var(--th-line-height);
 }
 .th-deep {
-  background-color: var(--td-color-3);
+  background-color: var(--color-paper-table-3);
 }
 .th-light {
-  background-color: var(--td-color-2);
+  background-color: var(--color-paper-table-2);
 }
 .th-skill {
   line-height: 0;
@@ -397,7 +395,7 @@ function getTotal(points: SkillPoint, init: number) {
   grid-template-columns: auto auto;
   justify-content: center;
   align-items: center;
-  background-color: var(--color-white);
+  background-color: var(--color-paper-bg);
 }
 .th-skill-label-pro-text {
   display: inline-block;
@@ -412,13 +410,13 @@ function getTotal(points: SkillPoint, init: number) {
 }
 
 .td-color-0 {
-  --cur-td-color: var(--td-color-0);
+  --cur-td-color: var(--color-paper-table-0);
 }
 .td-color-1 {
-  --cur-td-color: var(--td-color-1);
+  --cur-td-color: var(--color-paper-table-1);
 }
 .td-color-2 {
-  --cur-td-color: var(--td-color-2);
+  --cur-td-color: var(--color-paper-table-2);
 }
 
 .skill-td {
@@ -435,7 +433,7 @@ function getTotal(points: SkillPoint, init: number) {
   line-height: 1.6em;
 }
 .td-group-name-visible {
-  border: 1pt solid var(--color-black);
+  border: 1pt solid var(--color-paper-ink);
   border-left: none;
   border-bottom: none;
 }
@@ -449,7 +447,7 @@ function getTotal(points: SkillPoint, init: number) {
 }
 
 .init-placeholder {
-  color: var(--color-placeholder);
+  color: var(--color-paper-placeholder);
   display: inline-flex;
   width: 0;
   justify-content: center;
@@ -469,7 +467,7 @@ function getTotal(points: SkillPoint, init: number) {
   flex: 1 1 0.2em;
 
   & + & {
-    border-left: 1pt solid var(--sep-color);
+    border-left: 1pt solid var(--color-paper-table-separator);
   }
 }
 </style>

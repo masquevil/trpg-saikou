@@ -1,0 +1,97 @@
+// 明暗主题共用的品牌与语义色阶；从当前 dark palette 原样提取。
+// 包括 light-6 低 chroma 扩展；调整色系时只维护此文件。
+@mixin tokens {
+  // === Brand / Primary (oklch) ===
+  --color-primary: oklch(66% 0.15 280);
+  --color-primary-light-1: oklch(72% 0.15 280);
+  --color-primary-light-2: oklch(78% 0.15 280);
+  --color-primary-light-3: oklch(84% 0.15 280);
+  --color-primary-light-4: oklch(90% 0.15 280);
+  --color-primary-light-5: oklch(96% 0.15 280);
+  --color-primary-light-6: oklch(96% 0.07 280);
+  --color-primary-dark-1: oklch(60% 0.15 280);
+  --color-primary-dark-2: oklch(54% 0.15 280);
+  --color-primary-dark-3: oklch(48% 0.15 280);
+  --color-primary-dark-4: oklch(42% 0.15 280);
+  --color-primary-dark-5: oklch(36% 0.15 280);
+  --color-primary-dark-plain-1: oklch(60% 0.15 280 / 0.4);
+  --color-primary-dark-plain-2: oklch(54% 0.15 280 / 0.4);
+  --color-primary-dark-plain-3: oklch(48% 0.15 280 / 0.4);
+  --color-primary-dark-plain-4: oklch(42% 0.15 280 / 0.4);
+  --color-primary-dark-plain-5: oklch(36% 0.15 280 / 0.4);
+
+  // === Semantic Colors (oklch) ===
+  // Success
+  --color-success: oklch(66% 0.12 150);
+  --color-success-light-1: oklch(72% 0.12 150);
+  --color-success-light-2: oklch(78% 0.12 150);
+  --color-success-light-3: oklch(84% 0.12 150);
+  --color-success-light-4: oklch(90% 0.12 150);
+  --color-success-light-5: oklch(96% 0.12 150);
+  --color-success-light-6: oklch(96% 0.06 150);
+  --color-success-dark-1: oklch(60% 0.12 150);
+  --color-success-dark-2: oklch(54% 0.12 150);
+  --color-success-dark-3: oklch(48% 0.12 150);
+  --color-success-dark-4: oklch(42% 0.12 150);
+  --color-success-dark-5: oklch(36% 0.12 150);
+
+  // Warning
+  --color-warning: oklch(66% 0.12 90);
+  --color-warning-light-1: oklch(72% 0.12 90);
+  --color-warning-light-2: oklch(78% 0.12 90);
+  --color-warning-light-3: oklch(84% 0.12 90);
+  --color-warning-light-4: oklch(90% 0.12 90);
+  --color-warning-light-5: oklch(96% 0.12 90);
+  --color-warning-light-6: oklch(96% 0.06 90);
+  --color-warning-dark-1: oklch(60% 0.12 90);
+  --color-warning-dark-2: oklch(54% 0.12 90);
+  --color-warning-dark-3: oklch(48% 0.12 90);
+  --color-warning-dark-4: oklch(42% 0.12 90);
+  --color-warning-dark-5: oklch(36% 0.12 90);
+
+  // Danger
+  --color-danger: oklch(66% 0.12 20);
+  --color-danger-light-1: oklch(72% 0.12 20);
+  --color-danger-light-2: oklch(78% 0.12 20);
+  --color-danger-light-3: oklch(84% 0.12 20);
+  --color-danger-light-4: oklch(90% 0.12 20);
+  --color-danger-light-5: oklch(96% 0.12 20);
+  --color-danger-light-6: oklch(96% 0.06 20);
+  --color-danger-dark-1: oklch(60% 0.12 20);
+  --color-danger-dark-2: oklch(54% 0.12 20);
+  --color-danger-dark-3: oklch(48% 0.12 20);
+  --color-danger-dark-4: oklch(42% 0.12 20);
+  --color-danger-dark-5: oklch(36% 0.12 20);
+
+  // Info
+  --color-info: oklch(66% 0.06 250);
+  --color-info-light-1: oklch(72% 0.06 250);
+  --color-info-light-2: oklch(78% 0.06 250);
+  --color-info-light-3: oklch(84% 0.06 250);
+  --color-info-light-4: oklch(90% 0.06 250);
+  --color-info-light-5: oklch(96% 0.06 250);
+  --color-info-light-6: oklch(96% 0.03 250);
+  --color-info-dark-1: oklch(60% 0.06 250);
+  --color-info-dark-2: oklch(54% 0.06 250);
+  --color-info-dark-3: oklch(48% 0.06 250);
+  --color-info-dark-4: oklch(42% 0.06 250);
+  --color-info-dark-5: oklch(36% 0.06 250);
+
+  // Muted
+  --color-muted: oklch(66% 0.005 320);
+  --color-muted-light-1: oklch(72% 0.005 320);
+  --color-muted-light-2: oklch(78% 0.005 320);
+  --color-muted-light-3: oklch(84% 0.005 320);
+  --color-muted-light-4: oklch(90% 0.005 320);
+  --color-muted-light-5: oklch(96% 0.005 320);
+  --color-muted-dark-1: oklch(60% 0.005 320);
+  --color-muted-dark-2: oklch(54% 0.005 320);
+  --color-muted-dark-3: oklch(48% 0.005 320);
+  --color-muted-dark-4: oklch(42% 0.005 320);
+  --color-muted-dark-5: oklch(36% 0.005 320);
+  --color-muted-dark-plain-1: oklch(60% 0.005 320 / 0.4);
+  --color-muted-dark-plain-2: oklch(54% 0.005 320 / 0.4);
+  --color-muted-dark-plain-3: oklch(48% 0.005 320 / 0.4);
+  --color-muted-dark-plain-4: oklch(42% 0.005 320 / 0.4);
+  --color-muted-dark-plain-5: oklch(36% 0.005 320 / 0.4);
+}

@@ -44,8 +44,7 @@ function formatStory(story: Story): FormattedStory {
   const [name, decadeString, areaString, playTime, options] = story;
 
   const max = playTime[1];
-  const period: Period =
-    max <= 6 ? 'short' : max <= 10 ? 'medium' : max <= 50 ? 'long' : 'battle';
+  const period: Period = max <= 6 ? 'short' : max <= 10 ? 'medium' : max <= 50 ? 'long' : 'battle';
   const periodText = periodTexts[period];
 
   return {

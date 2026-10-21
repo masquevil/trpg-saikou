@@ -1,0 +1,15 @@
+// app 局部主题，通过 mixin 显式注入容器。
+
+@mixin tokens {
+  // 面板、消息卡片和船员卡片统一 surface 体系，不再维护 voyage-bg/border 副本。
+  --color-voyage-panel-bg: var(--color-surface);
+  --color-voyage-panel-border: var(--color-surface-border);
+  --color-voyage-panel-border-hover: var(--color-surface-border-hover);
+  --color-voyage-action-bg: var(--color-surface-bg-hover);
+  --color-voyage-action-bg-hover: var(--color-surface-bg-active);
+  --color-voyage-note: var(--color-text-secondary);
+  --color-voyage-debug-border: var(--color-surface-border);
+  --color-voyage-drop-bg: var(--color-surface-bg-hover);
+  --color-voyage-message-meta: var(--color-text-secondary);
+  --color-voyage-avatar-caption-bg: rgba(0, 0, 0, 0.66);
+}

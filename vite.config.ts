@@ -38,13 +38,18 @@ export default defineConfig({
       brotliSize: true,
     }),
     AutoImport({
-      resolvers: [ElementPlusResolver()],
+      resolvers: [ElementPlusResolver({ importStyle: 'css' })],
     }),
     Components({
-      resolvers: [ElementPlusResolver()],
+      resolvers: [ElementPlusResolver({ importStyle: 'css' })],
     }),
   ],
   base: getBase(),
+  optimizeDeps: {
+    // 预先发现自动注入的深层样式入口，避免首次访问懒加载路由时反复预构建。
+    // 仅影响开发缓存，生产构建仍只打包实际引用的组件样式。
+    include: ['element-plus/es/components/*/style/css'],
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

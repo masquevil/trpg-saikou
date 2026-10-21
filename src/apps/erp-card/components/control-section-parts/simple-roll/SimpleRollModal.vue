@@ -28,7 +28,12 @@ function onCloseModal() {
       <RollTool hideDiy />
       <div>
         更丰富的骰子请访问：
-        <router-link :to="{ name: 'roll' }"> 骰子工具 </router-link>
+        <router-link
+          class="link"
+          :to="{ name: 'roll' }"
+        >
+          骰子工具
+        </router-link>
       </div>
     </div>
   </ControlDialog>

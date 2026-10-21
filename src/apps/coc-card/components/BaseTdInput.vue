@@ -30,7 +30,10 @@ function handleFocus(event: FocusEvent) {
 </template>
 
 <style scoped lang="scss">
+@use '@/assets/themes/light/theme-part-paper' as paper;
+
 .base-td-input {
+  @include paper.tokens;
   width: 100%;
   font-size: 1em;
   background-color: transparent;
@@ -38,8 +41,8 @@ function handleFocus(event: FocusEvent) {
 
   &:hover,
   &:focus {
-    /* box-shadow: 0 0 1px 1px #534565; */
-    border-bottom: 1px solid #8a8a8a;
+    /* box-shadow: 0 0 1px 1px var(--color-paper-focus-shadow); */
+    border-bottom: 1px solid var(--color-paper-input-border);
     margin-bottom: -1px;
   }
 }

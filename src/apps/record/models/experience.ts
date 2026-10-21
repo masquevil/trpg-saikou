@@ -3,9 +3,7 @@ import type StoryNames from '../types/name';
 import myExperiences from '@/local/experiences';
 
 /* experience handlers */
-function formatExperienceEntry(
-  experience: Experience,
-): [StoryNames, FormattedExperience] {
+function formatExperienceEntry(experience: Experience): [StoryNames, FormattedExperience] {
   const [name, experienceScore, storyScore, comments] = experience;
 
   return [

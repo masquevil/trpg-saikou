@@ -28,7 +28,10 @@ withDefaults(defineProps<Props>(), {});
 </template>
 
 <style scoped lang="scss">
+@use '../theme' as theme;
+
 .paper {
+  @include theme.paper-tokens;
   /* --base-size: 3.2mm; */
   font-size: var(--base-size, 15px); // 3.2mm * n
   width: 65.625em; // 210mm / 3.2mm
@@ -39,8 +42,8 @@ withDefaults(defineProps<Props>(), {});
   padding: 1.5em 1.8em;
   width: 100%;
   height: 100%;
-  color: var(--color-text);
-  background-color: var(--color-white);
+  color: var(--color-paper-text);
+  background-color: var(--color-paper-bg);
   display: flex;
   flex-direction: column;
   align-items: stretch;

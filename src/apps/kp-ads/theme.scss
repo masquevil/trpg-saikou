@@ -1,0 +1,20 @@
+// app 局部主题，通过 mixin 显式注入容器。
+// 当前 app 默认暗色；标签使用固定成对的暗底亮字。
+@mixin tokens {
+  // 通用卡片使用 surface；普通标签归 primary，时长归 success/warning/danger。
+  --color-story-bg: var(--color-surface);
+  --color-story-border: var(--color-surface-border);
+  --color-story-tag-text: var(--color-info-light-5);
+  --color-story-tag-bg: var(--color-info-dark-3);
+  --color-story-note: var(--color-text-secondary);
+  --color-dicecho-text: var(--color-primary-light-1);
+  --color-dicecho-link: var(--color-link);
+  --color-dicecho-link-hover: var(--color-link-hover);
+  --color-dicecho-link-active: var(--color-link-active);
+  --color-story-short-text: var(--color-success-light-4);
+  --color-story-short-bg: var(--color-success-dark-5);
+  --color-story-medium-text: var(--color-warning-light-4);
+  --color-story-medium-bg: var(--color-warning-dark-5);
+  --color-story-long-text: var(--color-danger-light-4);
+  --color-story-long-bg: var(--color-danger-dark-5);
+}

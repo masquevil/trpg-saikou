@@ -1,0 +1,15 @@
+@mixin tokens {
+  // === Backgrounds & Surfaces (hex) ===
+  --color-bg: var(--color-white);
+  --color-surface: #f8f8f8;
+  --color-surface-elevated: #f2f2f2;
+
+  // === Surface Details（通用卡片 / 面板 / 标题带）===
+  // 原 section-card 归 surface；不再保留 section-*、module-*、voyage-* 全局变量。
+  --color-surface-header-bg: var(--color-surface-elevated);
+  --color-surface-border: var(--color-border);
+  --color-surface-border-hover: var(--color-muted-light-1);
+  --color-surface-shadow: rgba(0, 0, 0, 0.12);
+  --color-surface-bg-hover: rgba(0, 0, 0, 0.04);
+  --color-surface-bg-active: rgba(0, 0, 0, 0.08);
+}

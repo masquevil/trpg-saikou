@@ -208,9 +208,9 @@ function onSelectJob(jobName: string, closeOptions?: () => void) {
   width: calc(65.625em - 2em); // 210mm - 2em
   left: -1.6em;
   margin-top: 1em;
-  border: 1px solid #777;
+  border: 1px solid var(--color-paper-weapon-border);
   padding: 1em;
-  background-color: #fff;
+  background-color: var(--color-paper-bg);
   z-index: 1;
 }
 

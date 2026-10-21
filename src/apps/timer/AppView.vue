@@ -238,7 +238,7 @@ function onStop() {
   flex-direction: column;
   gap: 8px;
   padding: 12px;
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-surface-border);
   border-radius: 4px;
 }
 .action-card-title {

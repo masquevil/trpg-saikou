@@ -76,9 +76,7 @@ export function getLuckAttributesSum(attributes: COCAttributes) {
   return getAttributesSum(attributes) + luc;
 }
 
-export function withDefaultAttributes(
-  attributes: Partial<COCAttributes>,
-): COCAttributes {
+export function withDefaultAttributes(attributes: Partial<COCAttributes>): COCAttributes {
   return {
     str: 0,
     dex: 0,

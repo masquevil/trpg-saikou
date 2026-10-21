@@ -30,12 +30,15 @@ const pageData = usePageData();
 </template>
 
 <style scoped lang="scss">
+@use '@/assets/themes/light/theme-part-paper' as paper;
+
 .hint-section {
+  @include paper.tokens;
   margin: -0.44em 0;
   height: 0.8em;
   line-height: 0.8em;
   flex: 0 0 auto;
-  color: var(--vt-c-text-light-2);
+  color: var(--color-paper-text-secondary);
   white-space: nowrap;
   display: flex;
 }
@@ -48,7 +51,7 @@ const pageData = usePageData();
   transform-origin: left center;
 }
 .multi-skill-text {
-  color: #9148db;
+  color: var(--color-paper-hint-accent);
 }
 
 /* when print */

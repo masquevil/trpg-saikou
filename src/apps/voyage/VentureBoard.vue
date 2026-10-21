@@ -117,7 +117,10 @@ function sendDice(pkey: string, result: number, text?: string) {
 </template>
 
 <style scoped lang="scss">
+@use './theme' as theme;
+
 .venture-board {
+  @include theme.tokens;
   width: 100%;
   height: 100vh;
   display: flex;
@@ -127,10 +130,6 @@ function sendDice(pkey: string, result: number, text?: string) {
   padding-top: env(safe-area-inset-top);
   padding-bottom: constant(safe-area-inset-bottom);
   padding-bottom: env(safe-area-inset-bottom);
-
-  --color-border: #3c3c3c;
-  --color-border-hover: #424242;
-  --color-bg: #1e1e1e;
 }
 .board-section {
   flex: 1 1 auto;
@@ -146,8 +145,8 @@ function sendDice(pkey: string, result: number, text?: string) {
 
 .message-board {
   flex: 1 1 auto;
-  background-color: var(--color-bg);
-  border: 1px solid var(--color-border);
+  background-color: var(--color-voyage-panel-bg);
+  border: 1px solid var(--color-voyage-panel-border);
   display: flex;
   flex-direction: column-reverse;
   gap: 12px;
@@ -161,8 +160,8 @@ function sendDice(pkey: string, result: number, text?: string) {
   gap: 4px;
   overflow: auto;
   padding: 4px;
-  background-color: var(--color-bg);
-  border: 1px solid var(--color-border);
+  background-color: var(--color-voyage-panel-bg);
+  border: 1px solid var(--color-voyage-panel-border);
   margin: 0 0 0 -1px;
   border-left-width: 0;
 }

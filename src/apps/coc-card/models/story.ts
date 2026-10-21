@@ -1,4 +1,4 @@
-import { 
+import {
   APPEARANCE_DESCRIPTIONS,
   BELIEFS,
   IMPORTANT_PERSON_TYPES,
@@ -6,7 +6,7 @@ import {
   MEANINGFUL_PLACES,
   PRECIOUS_ITEMS,
   TRAITS,
-  LIVING_STANDARDS
+  LIVING_STANDARDS,
 } from '../constants/story';
 import { getRandomArrayItem } from '../utils';
 
@@ -57,20 +57,19 @@ export function randTrait(): string {
   return getRandomArrayItem(TRAITS);
 }
 
-
 /**
  * 根据信用评级随机生成生活水平描述
  * @param creditRating 信用评级数值
  */
 export function randLivingStandard(creditRating: number): string {
   const standard = LIVING_STANDARDS.find(
-    item => creditRating >= item.min && creditRating <= item.max
+    (item) => creditRating >= item.min && creditRating <= item.max,
   );
-  
+
   if (!standard) {
     return '生活水平描述暂缺';
   }
-  
+
   return `${standard.name}：${standard.description} 住所：${standard.residence || '暂无'} 旅行：${standard.travel || '暂无'}`;
 }
 
@@ -91,6 +90,6 @@ export function randStoryBackground(): {
     IPerson: randImportantPerson(),
     IPlace: randMeaningfulPlace(),
     IItem: randPreciousItem(),
-    trait: randTrait()
+    trait: randTrait(),
   };
 }
