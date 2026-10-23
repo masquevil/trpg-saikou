@@ -1,25 +1,14 @@
-import type { Ref, UnwrapRef } from 'vue';
-import type { Tokens, RendererThis, TokenizerAndRendererExtension, HooksObject } from 'marked';
-import { NpcDataManager } from '../../../models/npcDataManager';
+import type { Tokens, TokenizerAndRendererExtension, MarkedExtension } from 'marked';
 import { getToken } from '../utils';
 import npcCardDatalizor from './npcCardDatalizor';
 import npcSummaryDatalizor from './npcSummaryDatalizor';
+import type { ExtensionOptions } from './types';
 
-export interface NpcBlockStore {
-  npcManager: Ref<UnwrapRef<NpcDataManager>>;
-}
-
-export interface NpcBlockRenderers {
-  npcCard: (data: Tokens.CodeCustomNpcCard) => string;
-  npcSummary: (data: Tokens.CodeCustomNpcSummary) => string;
-}
-
-export default function createNpcBlockExtensions(
-  store: NpcBlockStore,
-  renderers: NpcBlockRenderers,
-) {
-  const npcManager = store.npcManager.value;
-
+export default function createNpcBlockExtensions({
+  npcManager,
+  renderers,
+  resolveAvatar,
+}: ExtensionOptions): MarkedExtension {
   const npcBlockExtensions: TokenizerAndRendererExtension[] = [
     // 自定义 NPC Card 扩展
     {
@@ -33,20 +22,14 @@ export default function createNpcBlockExtensions(
           npcCardDatalizor,
         );
         if (!token) return;
+        if (token.avatar && resolveAvatar) {
+          token.avatar = resolveAvatar(token.avatar, { moduleName: npcManager.getModuleName() });
+        }
         const { name, role, avatar, summary, content } = token;
-        const data = npcManager.addCard({
-          name,
-          role,
-          avatar,
-          summary,
-          content,
-        });
-        return {
-          ...token,
-          avatar: data.avatar, // 确保使用处理后的头像URL
-        };
+        npcManager.addCard({ name, role, avatar, summary, content });
+        return token;
       },
-      renderer(this: RendererThis, token) {
+      renderer(token) {
         return renderers.npcCard(token as Tokens.CodeCustomNpcCard);
       },
     },
@@ -62,38 +45,22 @@ export default function createNpcBlockExtensions(
           npcSummaryDatalizor,
         );
       },
-      renderer(this: RendererThis, token) {
+      renderer(token) {
         return renderers.npcSummary(token as Tokens.CodeCustomNpcSummary);
       },
     },
   ];
 
-  const npcBlockHooks: HooksObject = {
-    processAllTokens(tokens) {
-      const newTokens = tokens.map((token) => {
-        // 处理 Npc Summary，将其关联的 Card 数据注入到 token 中，方便后续渲染组件时使用
-        if (token.type === 'code-custom-npc-summary') {
-          const localToken = token as Tokens.CodeCustomNpcSummary;
-          const card = npcManager.getCardByName(localToken.name);
-          if (card) {
-            return {
-              ...localToken,
-              data: {
-                role: card.role,
-                summary: card.summary,
-                avatar: card.avatar,
-              },
-            };
-          }
-        }
-        return token;
-      });
-      return newTokens;
-    },
-  };
-
   return {
     extensions: npcBlockExtensions,
-    hooks: npcBlockHooks,
+    // 完整分词后递归关联摘要，支持前向引用和嵌套块。
+    walkTokens(token) {
+      if (token.type !== 'code-custom-npc-summary') return;
+      const summary = token as Tokens.CodeCustomNpcSummary;
+      const card = npcManager.getCardByName(summary.name);
+      if (card) {
+        summary.data = { role: card.role, summary: card.summary, avatar: card.avatar };
+      }
+    },
   };
 }

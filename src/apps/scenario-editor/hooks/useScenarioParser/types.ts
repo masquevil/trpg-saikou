@@ -1,4 +1,6 @@
 import {} from 'marked';
+import * as NpcBlockTypes from './npc-block/types';
+export { NpcBlockTypes };
 
 // 说明：`marked` 的 `Tokens` 是以 namespace 声明的，扩展它只能使用 namespace 合并
 /* eslint-disable @typescript-eslint/no-namespace */
@@ -32,4 +34,10 @@ declare module 'marked' {
   }
 
   export type CodeCustomToken = Tokens.CodeCustomNpcCard | Tokens.CodeCustomNpcSummary;
+}
+
+// Markdown Parse Result
+export interface MarkdownParseResult {
+  html: string;
+  npcCards: NpcBlockTypes.NpcCardData[];
 }

@@ -1,14 +1,17 @@
-import { ref } from 'vue';
 import { Marked } from 'marked';
-import NpcDataManager from '../../models/npcDataManager';
-import createNpcBlockExtensions, { type NpcBlockRenderers } from './npc-block/extensions';
+import NpcDataManager from './npc-block/npcDataManager';
+import createNpcBlockExtensions from './npc-block/extensions';
+import type { MarkdownParseResult } from './types';
+import type { NpcBlockTypes } from './types';
 
-export type CustomRenderers = NpcBlockRenderers;
+export type CustomRenderers = NpcBlockTypes.ExtensionRenderers;
 
-const marked = new Marked({
-  breaks: true,
-  gfm: true,
-});
+interface ScenarioParserOptions {
+  resolveAvatar: NpcBlockTypes.ResolveAvatarFn;
+  renderers: CustomRenderers;
+}
+
+const marked = new Marked({ breaks: true, gfm: true, async: false });
 
 // common extensions
 marked.use({
@@ -25,20 +28,20 @@ marked.use({
 });
 
 let initialized = false;
+const npcManager = new NpcDataManager();
 
-export default function useScenarioParser(
-  moduleName: string,
-  content: string,
-  renderers: CustomRenderers,
-) {
-  const npcManager = ref(new NpcDataManager(moduleName));
+export default function useScenarioParser({ renderers, resolveAvatar }: ScenarioParserOptions) {
   if (!initialized) {
     initialized = true;
     // npc block extensions
-    marked.use(createNpcBlockExtensions({ npcManager }, renderers));
+    marked.use(createNpcBlockExtensions({ npcManager, renderers, resolveAvatar }));
   }
 
   return {
-    parse: async () => marked.parse(content),
+    parse(moduleName: string, content: string): MarkdownParseResult {
+      npcManager.reset(moduleName);
+      const html = marked.parse(content, { async: false });
+      return { html, npcCards: npcManager.getAllCards() };
+    },
   };
 }

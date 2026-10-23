@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { h, render, ref, watch } from 'vue';
 import NpcCard from './NpcCard.vue';
-import type { NpcCardData, NpcSummaryData } from '../types';
+import type { NpcBlockTypes } from '../hooks/useScenarioParser/types';
 import useScenarioParser from '../hooks/useScenarioParser';
+import { resolveScenarioAvatar } from '../utils/scenarioResources';
 
 interface Props {
   moduleName: string;
@@ -10,49 +11,58 @@ interface Props {
 }
 
 interface Emits {
-  (e: 'npcCardsExtracted', cards: NpcCardData[]): void;
+  (e: 'npcCardsExtracted', cards: NpcBlockTypes.NpcCardData[]): void;
 }
 
 const props = withDefaults(defineProps<Props>(), {});
-defineEmits<Emits>();
+const emit = defineEmits<Emits>();
 
-const { parse } = useScenarioParser(props.moduleName, props.content, {
-  npcCard: (token) => {
-    const { name, role, summary, avatar, content } = token;
-    const cardData: NpcCardData = {
-      name,
-      role,
-      summary,
-      avatar,
-      content,
-    };
-    const container = document.createElement('div');
-    container.classList.add('npc-card-wrapper');
-    render(h(NpcCard, { cardData }), container);
-    return container.outerHTML;
-  },
-  npcSummary: (token) => {
-    const { name, data } = token;
-    if (!data) return '';
-    const { role, summary, avatar } = data;
-    const summaryData: NpcSummaryData = {
-      name,
-      role,
-      summary,
-      avatar,
-    };
-    const container = document.createElement('div');
-    container.classList.add('npc-summary-wrapper');
-    render(h(NpcCard, { cardData: summaryData }), container);
-    return container.outerHTML;
+const { parse } = useScenarioParser({
+  resolveAvatar: resolveScenarioAvatar,
+  renderers: {
+    npcCard: (token) => {
+      const { name, role, summary, avatar, content } = token;
+      const cardData: NpcBlockTypes.NpcCardData = {
+        name,
+        role,
+        summary,
+        avatar,
+        content,
+      };
+      const container = document.createElement('div');
+      container.classList.add('npc-card-wrapper');
+      render(h(NpcCard, { cardData }), container);
+      const html = container.outerHTML;
+      render(null, container);
+      return html;
+    },
+    npcSummary: (token) => {
+      const { name, data } = token;
+      if (!data) return '';
+      const { role, summary, avatar } = data;
+      const summaryData: NpcBlockTypes.NpcSummaryData = {
+        name,
+        role,
+        summary,
+        avatar,
+      };
+      const container = document.createElement('div');
+      container.classList.add('npc-summary-wrapper');
+      render(h(NpcCard, { cardData: summaryData }), container);
+      const html = container.outerHTML;
+      render(null, container);
+      return html;
+    },
   },
 });
 
 const html = ref('');
 watch(
-  () => props.content,
-  async () => {
-    html.value = await parse();
+  () => [props.moduleName, props.content],
+  () => {
+    const result = parse(props.moduleName, props.content);
+    html.value = result.html;
+    emit('npcCardsExtracted', result.npcCards);
   },
   { immediate: true },
 );

@@ -21,7 +21,10 @@ export default function npcCardDatalizor(content: string): TokenData | undefined
     const line = lines[i].trim();
     const { isEntry, key, value } = findEntry(line);
     // 跳过空行或者意外插入的行
-    if (!isEntry) continue;
+    if (!isEntry) {
+      i++;
+      continue;
+    }
     if (['name', 'role'].indexOf(key) >= 0) {
       data[key as 'name' | 'role'] = value;
     } else if (key === 'avatar') {
@@ -29,11 +32,9 @@ export default function npcCardDatalizor(content: string): TokenData | undefined
     } else if (key === 'summary') {
       const summaryLines = [value];
       let j = i + 1;
-      let { isEntry } = findEntry(lines[j]);
-      while (j < lines.length && !isEntry) {
+      while (j < lines.length && !findEntry(lines[j]).isEntry) {
         summaryLines.push(lines[j]);
         j++;
-        isEntry = findEntry(lines[j]).isEntry;
       }
       data.summary = summaryLines.join('\n').trim();
       i = j - 1; // 调整索引到下一个标签开始位置
