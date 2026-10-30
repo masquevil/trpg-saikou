@@ -88,7 +88,7 @@ pnpm dev
 
 ## UI/UE 设计与贡献
 
-- [UI/UE 设计规范](contribution/ui-ux-guidelines.md)：主题、配色、按钮、交互反馈与纸张设计规则。
+- [UI/UE 设计规范](contribution/ui-ux-guidelines.md)：设计原则、主题变量用途与色阶、组件与交互规则。
 - [主题使用与贡献指南](contribution/theme-contributing.md)：主题结构、变量归属、组件接入与验证清单。
 
 ## 商业使用

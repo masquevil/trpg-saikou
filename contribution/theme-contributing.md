@@ -1,6 +1,6 @@
 # 主题使用与贡献指南
 
-界面与交互决策见 [UI/UE 设计规范](ui-ux-guidelines.md)。本文件解释主题实现、使用与改动流程；色值以源码为准。
+设计原则、主题变量用途与配色规则见 [UI/UE 设计规范](ui-ux-guidelines.md)。本文件解释本项目的主题实现、组件接入与改动流程；色值以源码为准。
 
 ## 1. 运行入口与结构
 
@@ -31,7 +31,7 @@ src/assets/themes/
 | `surface.scss` | 页面背景与卡片、面板、标题带、边框、阴影和表面交互 |
 | `button.scss` | 跨组件的通用按钮色系，不包含 ActionButton 私有颜色 |
 | `element-override.scss` | 项目变量到 `--el-*` 的桥接；浅色文件额外导出 `component-styles`，封装普通实底按钮和 Message / MessageBox 规则 |
-| `theme-part-paper.scss` | 纸张相关可选部分，按容器显式注入，不进入全局 token 集合 |
+| `theme-part-paper.scss` | 纸张相关可选部分，按容器显式注入，不进入全局主题变量集合 |
 
 固定浅色的纸张定义通过转发复用。仅供组件内部使用的变量应声明在组件根元素，而不是加入 paper 分组。
 
@@ -53,7 +53,7 @@ src/assets/themes/
 
 同值不必同变量，同名也不一定同作用域。新增变量前先确认语义、继承链、交互状态和使用范围。
 
-## 3. 使用通用 token
+## 3. 使用通用主题变量
 
 组件只消费运行入口已经提供的变量，无需再次导入整个主题：
 
@@ -72,7 +72,20 @@ src/assets/themes/
 <button class="button-default feature-button">执行操作</button>
 ```
 
-需要另一种主题时使用容器类。CSS 自定义属性会继承，但实际 `color` / `background` 并不会因为定义了 token 就自动应用到容器。
+需要另一种主题时使用容器类。CSS 自定义属性会继承，但实际 `color` / `background` 并不会因为定义了主题变量就自动应用到容器。
+
+```html
+<section class="theme-light themed-panel">浅色面板内容</section>
+```
+
+```css
+.themed-panel {
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+```
+
+继承沿 DOM 而不是 Vue 组件关系发生。别名在其定义元素处解析；仅在子容器改基础色阶，不会让祖先已解析的角色别名重新映射，应在该作用域重新声明相关别名或注入完整主题。
 
 ## 4. 使用 paper 与 app 局部部分
 
@@ -89,9 +102,9 @@ src/assets/themes/
 
 只有真实消费 paper 语义变量的容器或独立组件才注入 `paper.tokens`。组件私有变量在根元素声明，语义匹配时引用基础主题变量，否则保留局部值。
 
-按钮的通用外观由 `src/assets/button.scss` 提供 `.button-default`、`.button-primary`、`.button-success` 等类，统一处理颜色、边框及状态。组件添加对应类后只保留自身布局、尺寸等差异，不重复写颜色规则，也不为按钮注入整套 paper token。
+按钮的通用外观由 `src/assets/button.scss` 提供 `.button-default`、`.button-primary`、`.button-success` 等类，统一处理颜色、边框及状态。组件添加对应类后只保留自身布局、尺寸等差异，不重复写颜色规则，也不为按钮注入整套纸张变量。
 
-app 的 `theme.scss` 可以包装共享 mixin 或提供自己的 app token，但不在文件中输出 `:root`。在 app 容器或真实消费组件中显式 include。
+app 的 `theme.scss` 可以包装共享 mixin 或提供自己的应用专用变量，但不在文件中输出 `:root`。在 app 容器或真实消费组件中显式 include。
 
 ## 5. Teleport 与 Element
 

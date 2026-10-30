@@ -1,6 +1,6 @@
 # TRPG 赛高 UI/UE 设计规范
 
-本文件是项目界面与交互规范入口。主题实现、变量归属和贡献方式见 [主题使用与贡献指南](theme-contributing.md)。具体色值以运行主题代码为准，不在文档中重复维护整套色板。
+本文件说明本项目的界面设计原则、主题变量用途与使用规则。主题实现、组件接入和贡献方式见 [主题使用与贡献指南](theme-contributing.md)。具体色值以运行主题代码为准，不在文档中重复维护整套色板。
 
 ## 1. 设计原则
 
@@ -27,6 +27,22 @@
 
 ## 3. 色彩语义
 
+### 主题变量的分类与选用顺序
+
+这套主题通过 CSS 自定义属性（如 `--color-text`，下文称“主题变量”）提供颜色，用 SCSS mixin 组织和注入明暗配色。以下分类说明变量的职责，不是额外的技术或依赖。
+
+| 层 | 回答的问题 | 示例 |
+| - | - | - |
+| 基础色与色阶 | 有哪些颜色可选？ | `--color-white`、`--color-primary-dark-1` |
+| 语义角色 | 颜色在界面中承担什么用途？ | `--color-text`、`--color-link`、`--color-surface` |
+| 控件与专用用途 | 控件的哪个部位、状态？ | `--color-button-primary-hover`、`--color-paper-line` |
+
+组件优先使用对应界面用途或控件状态的变量，主题再将其映射到基础色阶；不要在组件里判断明暗后分别写 hex。用途独立的变量可以保留独立色值，不要求每一层都增加别名。
+
+命名使用 `--color-{name}`、`--color-{name}-light-N/dark-N`、`--color-{用途}-{部位或状态}`；按钮使用 `--color-button-{系列}-{部位或状态}`。同值不代表同用途，也不代表应合并变量。新增变量前先判断全站、共享可选部分、app 或组件作用域。
+
+### 按角色选择颜色
+
 | 分类 | 使用规则 |
 | - | - |
 | 基础色 | `--color-white`、`--color-black` 为基础常量；black 不代表纯黑，不用于等值替代所有黑色遮罩 |
@@ -40,6 +56,33 @@
 | 链接 | 使用 link / link-hover / link-active，由各主题引用适用的 primary 色阶 |
 
 Primary 与语义色共用 `src/assets/themes/shared/palette.scss`，不在 dark/light 中分别维护。基础色阶提供主色、5 级亮色阶和 5 级暗色阶；前五级保持色相和 chroma，仅改变明度。Primary、success、warning、danger、info 另有降低 chroma 的 `light-6` 扩展，以源码定义为准。亮暗后缀描述**色值明度**，不是“只用于浅色/暗色主题”。
+
+### 色阶规则与用途
+
+OKLCH 的 L 是感知明度，C 是彩度（不是 HSL 饱和度），H 是色相角。当前基准 L 为 66%；primary 的 C/H 为 0.15/280，success 为 0.12/150，warning 为 0.12/90，danger 为 0.12/20，info 为 0.06/250，muted 为 0.005/320。
+
+| 后缀 | 当前规则 | 使用边界 |
+| - | - | - |
+| light-1 → light-5 | L 为 72%、78%、84%、90%、96%，C/H 不变 | 更亮的颜色，不是浅色主题专用接口 |
+| dark-1 → dark-5 | L 为 60%、54%、48%、42%、36%，C/H 不变 | 更暗的颜色，不是暗色主题专用接口 |
+| light-6 | L 仍为 96%；primary 的 C 为 0.07，success/warning/danger 为 0.06，info 为 0.03 | 低彩度扩展，不比 light-5 更亮；muted 无此级 |
+| dark-plain-1 → dark-plain-5 | 对应 dark 色阶，alpha 为 0.4 | 仅 primary、muted 提供，当前用于 Element 按钮适配 |
+
+浅色消息当前使用同语义 light-6 背景、dark-3 文字和 light-2 边框。色阶编号只描述色板，不能推导任意前景/背景都可读，也不能套用其他设计系统的编号含义。
+
+### 表面与链接的映射
+
+| 主题变量 | 用途或映射 |
+| - | - |
+| `--color-surface-header-bg` | 标题带，当前引用 surface-elevated |
+| `--color-surface-border` / `-border-hover` | 表面默认 / 悬停边框 |
+| `--color-surface-bg-hover` / `-bg-active` | 表面交互背景，含透明度，需检查下层背景 |
+| `--color-surface-shadow` | 仅阴影颜色，不包含偏移或模糊尺寸 |
+| `--color-link` / `-hover` / `-active` | 暗色引用 primary-light-1/3/5，浅色引用 primary-dark-1/3/5 |
+
+当前 bg → surface → surface-elevated 在暗色中为 `#2e2e2e` → `#242424` → `#121212`，浅色为白色 → `#f8f8f8` → `#f2f2f2`，均逐渐变暗。elevated 不代表“越浮起越亮”；组件应按表面用途选择变量，而非依赖亮度顺序。
+
+链接复用 `.link` 类处理颜色状态；active 是按下，不是键盘焦点。正文内链接应再用下划线等方式与相邻正文区分，当前 `.link` 没有统一提供下划线。placeholder 不能代替持久标签，secondary/tertiary 也不能仅凭名称就视为满足正文对比度。
 
 ### 色值格式
 
@@ -58,6 +101,10 @@ Primary 与语义色共用 `src/assets/themes/shared/palette.scss`，不在 dark
 - **Default 固定纯白底**，边框、文字与交互态使用 muted。纸张上的随机姓名、“一发入魂”等使用该系列，不能把默认底换成浅灰。
 - 状态按钮使用对应语义系列，hover / active 按各自定义，不以整体透明度代替所有状态。
 - **ActionButton 不是通用色系**：其暗色三态归各个 `ActionButton.vue` 的局部样式；其它功能需要相同按钮时优先复用组件，不从父容器借用其私有变量。
+
+当前语义按钮默认背景为同名基准色，hover / active 为 dark-1 / dark-2，文字为白色；默认 / hover 边框为基准色 / dark-1。**白字是当前映射，不是对比度保证**，调整配色时须逐一验证，必要时调整前景或背景。
+
+Default 的 hover / active 背景为 muted-light-5 / light-4，默认 / hover 文字为 muted-dark-4 / dark-5；仅该系列有额外的 `-text-hover`。不要假定所有按钮系列都具有相同扩展接口。
 
 ### 标签与分类
 
@@ -83,6 +130,8 @@ Primary 与语义色共用 `src/assets/themes/shared/palette.scss`，不在 dark
 - 反馈应有可读文字，不能只显示颜色。错误和警告避免与普通业务分类混淆。
 - 透明背景、`currentColor`、继承和动画 opacity 有各自用途，不应机械改成实色。
 
+当前原生通用按钮以 `disabled` 禁用行为，同时设置 `cursor: not-allowed` 和 `opacity: 0.6`，排除 hover / active 规则；没有独立的禁用态颜色变量。选中态（selected / checked）也没有全站统一的颜色变量，须按控件明确设计，不能用短暂的 active 代替持久选择状态。
+
 ## 7. 可读性与验收
 
 - 普通文字以 4.5:1、大字号文字以 3:1 对比度为检查目标；必要的非文本边界、焦点提示以 3:1 为目标。禁用态按实际用途判断。
@@ -94,3 +143,14 @@ Primary 与语义色共用 `src/assets/themes/shared/palette.scss`，不在 dark
 ## 8. 尚未统一的规范
 
 当前未建立全站统一的字号、间距、圆角、断点和动效时长尺度；实现时遵循相邻组件已有约定，不在文档中虚构已生效的标准。后续统一这些内容时，应补充本规范并同步实际代码。
+
+## 9. 社区参考与取舍
+
+| 来源 | 借鉴方法 | 本项目的取舍 |
+| - | - | - |
+| [Atlassian：设计变量文档](https://atlassian.design/foundations/tokens) | 设计决策作为单一来源，分开概念与使用说明 | 本文解释颜色用途与设计规则，贡献指南解释实现与使用 |
+| [Carbon：Color usage](https://carbondesignsystem.com/elements/color/usage/) | 层级角色、上下文与局部明暗主题 | 明确表面和容器边界，不声称已有自动层级机制 |
+| [Radix：Understanding the scale](https://www.radix-ui.com/colors/docs/palette-composition/understanding-the-scale) | 分别说明背景、交互、边框和文字用途 | 借鉴用途组织，不套用其 12 级编号或继承其对比度结论 |
+| [WCAG：文字对比度](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html)与[非文本对比度](https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html) | 量化阈值、使用条件与例外 | 用于实际验收，不仅凭色板宣称达标 |
+
+以上借鉴的是规则的组织与说明方式，不照搬其它系统的变量名、色阶编号或对比度承诺。本项目的固定纸张、ActionButton 与业务分类属于具体界面约定，不作为通用配色规则。
